@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voucher ของฉัน — Hotel Addict</title>
+    <meta name="description" content="จัดการ Voucher โรงแรมของคุณ ดูรายละเอียดและเลือกวันเข้าพัก">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Voucher ของฉัน — Hotel Addict">
+    <meta property="og:description" content="จัดการ Voucher โรงแรมของคุณ ดูรายละเอียดและเลือกวันเข้าพัก">
+    <meta property="og:image" content="assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Voucher ของฉัน — Hotel Addict">
+    <meta name="twitter:description" content="จัดการ Voucher โรงแรมของคุณ ดูรายละเอียดและเลือกวันเข้าพัก">
+    <meta name="twitter:image" content="assets/og-image.jpg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <!-- Design Tokens & Global Styles -->
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* === PAGE HEADER === */
+        .page-header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            padding: calc(var(--nav-height) + var(--space-xl)) var(--space-lg) 0;
+        }
+
+        .page-header__inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .page-header__top {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+
+        .page-header h1 {
+            font-size: var(--text-h2);
+            line-height: var(--lh-h2);
+            color: var(--text-primary);
+        }
+
+        .page-header__sub {
+            font-size: var(--text-body-md);
+            color: var(--text-secondary);
+            margin-top: var(--space-xs);
+        }
+
+        /* === TAB FILTER === */
+        .tab-filter {
+            display: flex;
+            gap: var(--space-xs);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 0;
+        }
+
+        .tab-filter::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-filter__btn {
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-semibold);
+            color: var(--text-secondary);
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            transition: color var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        .tab-filter__btn:hover {
+            color: var(--color-gold-dark);
+        }
+
+        .tab-filter__btn--active {
+            color: var(--color-gold-dark);
+            border-bottom-color: var(--color-gold-dark);
+        }
+
+        .tab-filter__count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 6px;
+            border-radius: var(--radius-full);
+            background: var(--color-gold-subtle);
+            color: var(--color-gold-dark);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            margin-left: 6px;
+        }
+
+        /* === VOUCHER GRID === */
+        .voucher-page {
+            min-height: 100vh;
+            background: var(--bg-cream);
+        }
+
+        .voucher-grid {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-lg);
+        }
+
+        /* === VOUCHER CARD === */
+        .voucher-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .voucher-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--color-gold);
+        }
+
+        .voucher-card--used {
+            opacity: 0.6;
+        }
+
+        .voucher-card--used:hover {
+            transform: none;
+            box-shadow: var(--shadow-card);
+            border-color: var(--border);
+        }
+
+        .voucher-card__image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .voucher-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .voucher-card:hover .voucher-card__image img {
+            transform: scale(1.05);
+        }
+
+        .voucher-card--used .voucher-card__image img {
+            filter: grayscale(100%);
+        }
+
+        .voucher-card__image-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--overlay-gradient-card-35);
+        }
+
+        /* Status badge */
+        .voucher-card__status {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            letter-spacing: 0.02em;
+        }
+
+        .voucher-card__status--ready {
+            background: var(--color-success);
+            color: var(--bg-white);
+        }
+
+        .voucher-card__status--pending {
+            background: var(--color-pending);
+            color: var(--bg-white);
+        }
+
+        .voucher-card__status--used {
+            background: var(--text-muted);
+            color: var(--bg-white);
+        }
+
+        /* Card body */
+        .voucher-card__body {
+            padding: var(--space-lg);
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .voucher-card__name {
+            font-family: var(--font-heading);
+            font-size: var(--text-h4);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .voucher-card__location {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+        }
+
+        .voucher-card__location .material-symbols-outlined {
+            font-size: 16px;
+            color: var(--color-gold-dark);
+        }
+
+        /* Voucher code box */
+        .voucher-code {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-cream);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 12px var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .voucher-code__label {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 2px;
+        }
+
+        .voucher-code__value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: var(--text-body-lg);
+            font-weight: var(--fw-bold);
+            color: var(--color-gold-dark);
+            letter-spacing: 0.05em;
+        }
+
+        .voucher-code__qr {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            color: var(--color-gold-dark);
+            cursor: pointer;
+            transition: opacity var(--transition-fast);
+        }
+
+        .voucher-code__qr:hover {
+            opacity: 0.7;
+        }
+
+        .voucher-code__qr .material-symbols-outlined {
+            font-size: 28px;
+        }
+
+        .voucher-code__qr span:last-child {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+        }
+
+        /* Info grid */
+        .voucher-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .voucher-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+        }
+
+        .voucher-info-item .material-symbols-outlined {
+            font-size: 20px;
+            color: var(--color-gold-dark);
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+
+        .voucher-info-item__label {
+            font-size: var(--text-micro);
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .voucher-info-item__value {
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-semibold);
+            color: var(--text-primary);
+        }
+
+        .voucher-info-item__value--pending {
+            color: var(--color-pending);
+            font-weight: var(--fw-bold);
+        }
+
+        .voucher-info-item__value--muted {
+            color: var(--text-secondary);
+        }
+
+        /* Total price */
+        .voucher-card__price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: var(--space-md);
+        }
+
+        .voucher-card__price-label {
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+        }
+
+        .voucher-card__price-value {
+            font-family: var(--font-heading);
+            font-size: var(--text-price-sm);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+        }
+
+        /* Package tags */
+        .voucher-package {
+            margin-bottom: var(--space-lg);
+        }
+
+        .voucher-package__title {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-sm);
+        }
+
+        .voucher-package__tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .voucher-package__tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            background: var(--color-gold-subtle);
+            color: var(--color-gold-dark);
+            border: 1px solid var(--color-gold-light);
+            border-radius: var(--radius-md);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-medium);
+        }
+
+        .voucher-package__tag .material-symbols-outlined {
+            font-size: 14px;
+        }
+
+        /* Card actions */
+        .voucher-card__actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            margin-top: auto;
+        }
+
+        .btn-gold-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            width: 100%;
+            padding: 14px 24px;
+            background: var(--color-gold-dark);
+            color: var(--bg-white);
+            border: none;
+            border-radius: var(--radius-lg);
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            cursor: pointer;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+            text-decoration: none;
+        }
+
+        .btn-gold-card:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-gold-md);
+            color: var(--bg-white);
+        }
+
+        .btn-outline-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 14px 24px;
+            background: transparent;
+            color: var(--color-gold-dark);
+            border: 1.5px solid var(--color-gold);
+            border-radius: var(--radius-lg);
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            cursor: pointer;
+            transition: background var(--transition-fast);
+            text-decoration: none;
+        }
+
+        .btn-outline-card:hover {
+            background: var(--color-gold-subtle);
+            color: var(--color-gold-dark);
+        }
+
+        .btn-disabled {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            width: 100%;
+            padding: 14px 24px;
+            background: var(--bg-cream);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            cursor: not-allowed;
+        }
+
+        .btn-ghost-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 14px 24px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-semibold);
+            cursor: pointer;
+            transition: border-color var(--transition-fast), color var(--transition-fast);
+            text-decoration: none;
+        }
+
+        .btn-ghost-card:hover {
+            border-color: var(--color-gold);
+            color: var(--color-gold-dark);
+        }
+
+        /* Used overlay stamp */
+        .voucher-card__used-stamp {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            z-index: 3;
+            padding: 8px 24px;
+            border: 3px solid var(--border-white-60);
+            border-radius: var(--radius-md);
+            font-family: var(--font-heading);
+            font-size: var(--text-h4);
+            font-weight: var(--fw-bold);
+            color: var(--bg-white-60);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            backdrop-filter: blur(2px);
+        }
+
+        /* === RESPONSIVE === */
+        @media (min-width: 768px) {
+            .page-header__top {
+                flex-direction: row;
+                align-items: flex-end;
+                justify-content: space-between;
+            }
+
+            .voucher-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .voucher-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .page-header h1 {
+                font-size: var(--text-h3);
+                line-height: var(--lh-h3);
+            }
+
+            .voucher-card__name {
+                font-size: var(--text-body-lg);
+            }
+
+            .voucher-card__image {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="voucher-page">
+        <!-- Navbar -->
+        <nav class="navbar" aria-label="เมนูหลัก">
+            <div class="navbar__inner">
+                <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
+                <ul class="navbar__menu">
+                    <li><a href="index.html" class="navbar__link">หน้าแรก</a></li>
+                    <li><a href="voucher-list.html" class="navbar__link">ค้นหาวอชเชอร์</a></li>
+                    <li><a href="about.html" class="navbar__link">เกี่ยวกับเรา</a></li>
+                </ul>
+                <div class="navbar__actions">
+                    <button class="navbar__icon-btn" aria-label="การแจ้งเตือน">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <button class="navbar__profile" aria-label="โปรไฟล์">
+                        <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
+                        <span class="navbar__profile-name">คุณสมชาย</span>
+                        <div class="navbar__dropdown">
+                            <a href="my-voucher.html" class="navbar__dropdown-item">
+                                <span class="material-symbols-outlined">confirmation_number</span>
+                                วอชเชอร์ของฉัน
+                            </a>
+                            <a href="wishlist.html" class="navbar__dropdown-item">
+                                <span class="material-symbols-outlined">favorite</span>
+                                รายการโปรด
+                            </a>
+                            <div class="navbar__dropdown-divider"></div>
+                            <a href="#" class="navbar__dropdown-item">
+                                <span class="material-symbols-outlined">settings</span>
+                                ตั้งค่า
+                            </a>
+                            <a href="login.html" class="navbar__dropdown-item navbar__dropdown-item--danger">
+                                <span class="material-symbols-outlined">logout</span>
+                                ออกจากระบบ
+                            </a>
+                        </div>
+                    </button>
+                </div>
+                <button class="navbar__hamburger" aria-label="เปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.add('active')">
+                    <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+                </button>
+            </div>
+        </nav>
+
+        <div class="mobile-nav">
+            <div class="mobile-nav__header">
+                <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
+                <button class="mobile-nav__close" aria-label="ปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.remove('active')">
+                    <span class="material-symbols-outlined" aria-hidden="true">close</span>
+                </button>
+            </div>
+            <ul class="mobile-nav__list">
+                <li><a href="index.html" class="mobile-nav__link">หน้าแรก</a></li>
+                <li><a href="voucher-list.html" class="mobile-nav__link">ค้นหาวอชเชอร์</a></li>
+                <li><a href="about.html" class="mobile-nav__link">เกี่ยวกับเรา</a></li>
+            </ul>
+            <div class="mobile-nav__divider"></div>
+            <div class="mobile-nav__profile">
+                <div class="mobile-nav__profile-header">
+                    <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
+                    <span class="mobile-nav__profile-name">คุณสมชาย</span>
+                </div>
+                <ul class="mobile-nav__list">
+                    <li><a href="my-voucher.html" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>
+                    <li><a href="wishlist.html" class="mobile-nav__link"><span class="material-symbols-outlined">favorite</span>รายการโปรด</a></li>
+                    <li><a href="#" class="mobile-nav__link"><span class="material-symbols-outlined">settings</span>ตั้งค่า</a></li>
+                    <li><a href="login.html" class="mobile-nav__link mobile-nav__link--danger"><span class="material-symbols-outlined">logout</span>ออกจากระบบ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ==================== SKELETON + CONTENT ==================== -->
+
+        <section class="page-header">
+            <div class="page-header__inner">
+                <div class="page-header__top">
+                    <div>
+                        <h1>บัตรกำนัลของฉัน</h1>
+                        <p class="page-header__sub">ดีลโรงแรมหรูที่คุณซื้อไว้ พร้อมใช้เมื่อไหร่ก็ได้</p>
+                    </div>
+                </div>
+                <div class="tab-filter" role="tablist" aria-label="Filter vouchers">
+                    <button class="tab-filter__btn tab-filter__btn--active" role="tab" aria-selected="true" data-filter="all">
+                        ทั้งหมด<span class="tab-filter__count">3</span>
+                    </button>
+                    <button class="tab-filter__btn" role="tab" aria-selected="false" data-filter="ready">
+                        พร้อมใช้งาน<span class="tab-filter__count">1</span>
+                    </button>
+                    <button class="tab-filter__btn" role="tab" aria-selected="false" data-filter="pending">
+                        รอเลือกวัน<span class="tab-filter__count">1</span>
+                    </button>
+                    <button class="tab-filter__btn" role="tab" aria-selected="false" data-filter="used">
+                        ใช้งานแล้ว<span class="tab-filter__count">1</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Voucher Grid -->
+        <div class="skeleton-wrapper" id="skelMyVoucher">
+            <div class="skel-screen" aria-hidden="true">
+                <div class="skel-container" style="padding:var(--space-xl) var(--space-lg);">
+                    <div class="skel-grid-3">
+
+                        <!-- Skeleton card 1 -->
+                        <div class="skel-card" style="border-radius:var(--radius-xl);overflow:hidden;">
+                            <!-- Image with status badge overlay -->
+                            <div class="skel skel-image" style="height:180px;border-radius:0;position:relative;">
+                                <div class="skel" style="position:absolute;top:12px;right:12px;width:80px;height:24px;border-radius:var(--radius-full);"></div>
+                            </div>
+                            <!-- Card body -->
+                            <div class="skel-stack" style="padding:var(--space-lg);gap:var(--space-md);">
+                                <!-- Hotel name -->
+                                <div class="skel skel-text--heading" style="width:80%;"></div>
+                                <!-- Location -->
+                                <div class="skel skel-text--caption" style="width:55%;"></div>
+                                <!-- Voucher code row -->
+                                <div class="skel-row" style="gap:var(--space-md);align-items:center;">
+                                    <div class="skel skel-text" style="flex:1;"></div>
+                                    <div class="skel skel-icon" style="width:36px;height:36px;border-radius:var(--radius-md);flex-shrink:0;"></div>
+                                </div>
+                                <!-- Info grid 2x2 -->
+                                <div class="skel-grid-2" style="gap:var(--space-sm);">
+                                    <div class="skel skel-text--caption" style="height:36px;"></div>
+                                    <div class="skel skel-text--caption" style="height:36px;"></div>
+                                    <div class="skel skel-text--caption" style="height:36px;"></div>
+                                    <div class="skel skel-text--caption" style="height:36px;"></div>
+                                </div>
+                                <!-- Package perks -->
+                                <div class="skel-row" style="gap:var(--space-sm);flex-wrap:wrap;">
+                                    <div class="skel skel-chip" style="width:100px;"></div>
+                                    <div class="skel skel-chip" style="width:110px;"></div>
+                                    <div class="skel skel-chip" style="width:90px;"></div>
+                                </div>
+                                <!-- Action buttons -->
+                                <div class="skel skel-button skel-button--full"></div>
+                                <div class="skel skel-button skel-button--full" style="opacity:0.6;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skeleton card 2 -->
+                        <div class="skel-card" style="border-radius:var(--radius-xl);overflow:hidden;">
+                            <div class="skel skel-image" style="height:180px;border-radius:0;position:relative;">
+                                <div class="skel" style="position:absolute;top:12px;right:12px;width:100px;height:24px;border-radius:var(--radius-full);"></div>
+                            </div>
+                            <div class="skel-stack" style="padding:var(--space-lg);gap:var(--space-md);">
+                                <div class="skel skel-text--heading" style="width:75%;"></div>
+                                <div class="skel skel-text--caption" style="width:50%;"></div>
+                                <div class="skel-row" style="gap:var(--space-md);align-items:center;">
+                                    <div class="skel skel-text" style="flex:1;"></div>
+                                    <div class="skel skel-icon" style="width:36px;height:36px;border-radius:var(--radius-md);flex-shrink:0;"></div>
+                                </div>
+                                <div class="skel-grid-2" style="gap:var(--space-sm);">
+                                    <div class="skel skel-text--caption" style="height:36px;"></div>
+                                    <div class="skel skel-text--caption" style="height:36px;"></div>
+                                    <div class="skel skel-text--caption" style="height:36px;"></div>
+                                    <div class="skel skel-text--caption" style="height:36px;"></div>
+                                </div>
+                                <div class="skel-row" style="gap:var(--space-sm);flex-wrap:wrap;">
+                                    <div class="skel skel-chip" style="width:110px;"></div>
+                                    <div class="skel skel-chip" style="width:100px;"></div>
+                                </div>
+                                <div class="skel skel-button skel-button--full"></div>
+                                <div class="skel skel-button skel-button--full" style="opacity:0.6;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skeleton card 3 -->
+                        <div class="skel-card" style="border-radius:var(--radius-xl);overflow:hidden;">
+                            <div class="skel skel-image" style="height:180px;border-radius:0;position:relative;">
+                                <div class="skel" style="position:absolute;top:12px;right:12px;width:88px;height:24px;border-radius:var(--radius-full);"></div>
+                            </div>
+                            <div class="skel-stack" style="padding:var(--space-lg);gap:var(--space-md);">
+                                <div class="skel skel-text--heading" style="width:85%;"></div>
+                                <div class="skel skel-text--caption" style="width:60%;"></div>
+                                <div class="skel-row" style="gap:var(--space-md);align-items:center;">
+                                    <div class="skel skel-text" style="flex:1;"></div>
+                                    <div class="skel skel-icon" style="width:36px;height:36px;border-radius:var(--radius-md);flex-shrink:0;"></div>
+                                </div>
+                                <div class="skel-grid-2" style="gap:var(--space-sm);">
+                                    <div class="skel skel-text--caption" style="height:36px;"></div>
+                                    <div class="skel skel-text--caption" style="height:36px;"></div>
+                                    <div class="skel skel-text--caption" style="height:36px;"></div>
+                                    <div class="skel skel-text--caption" style="height:36px;"></div>
+                                </div>
+                                <div class="skel-row" style="gap:var(--space-sm);flex-wrap:wrap;">
+                                    <div class="skel skel-chip" style="width:95px;"></div>
+                                    <div class="skel skel-chip" style="width:105px;"></div>
+                                    <div class="skel skel-chip" style="width:85px;"></div>
+                                </div>
+                                <div class="skel skel-button skel-button--full"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="real-content">
+        <main class="voucher-grid" id="voucher-grid">
+
+            <!-- Card 1: Ready -->
+            <article class="voucher-card" data-status="ready">
+                <div class="voucher-card__image">
+                    <img
+                        src="assets/images/hotels/hotel-anantara-chiangmai.jpg"
+                        alt="Paradise Luxury Island Resort"
+                        loading="lazy"
+                    >
+                    <div class="voucher-card__image-overlay"></div>
+                    <span class="voucher-card__status voucher-card__status--ready">
+                        <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1">check_circle</span>
+                        พร้อมใช้งาน
+                    </span>
+                </div>
+                <div class="voucher-card__body">
+                    <div class="voucher-code">
+                        <div>
+                            <div class="voucher-code__label">รหัสบัตรกำนัล</div>
+                            <div class="voucher-code__value">HA-2948-XLP</div>
+                        </div>
+                        <div class="voucher-code__qr" role="button" aria-label="Show QR Code">
+                            <span class="material-symbols-outlined">qr_code_2</span>
+                            <span>แสดง QR</span>
+                        </div>
+                    </div>
+
+                    <h2 class="voucher-card__name">Paradise Luxury Island Resort</h2>
+                    <div class="voucher-card__location">
+                        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">location_on</span>
+                        เกาะสมุย, สุราษฎร์ธานี
+                    </div>
+
+                    <div class="voucher-info-grid">
+                        <div class="voucher-info-item">
+                            <span class="material-symbols-outlined">event_available</span>
+                            <div>
+                                <div class="voucher-info-item__label">วันที่ซื้อ</div>
+                                <div class="voucher-info-item__value">12 ก.ย. 2569</div>
+                            </div>
+                        </div>
+                        <div class="voucher-info-item">
+                            <span class="material-symbols-outlined">hourglass_bottom</span>
+                            <div>
+                                <div class="voucher-info-item__label">หมดอายุ</div>
+                                <div class="voucher-info-item__value">12 ก.ย. 2570</div>
+                            </div>
+                        </div>
+                        <div class="voucher-info-item">
+                            <span class="material-symbols-outlined">hotel</span>
+                            <div>
+                                <div class="voucher-info-item__label">วันที่เข้าพัก</div>
+                                <div class="voucher-info-item__value voucher-info-item__value--muted">รอเลือกวัน</div>
+                            </div>
+                        </div>
+                        <div class="voucher-info-item">
+                            <span class="material-symbols-outlined">sell</span>
+                            <div>
+                                <div class="voucher-info-item__label">ราคาที่ซื้อ</div>
+                                <div class="voucher-info-item__value">&#3647;12,500</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="voucher-package">
+                        <div class="voucher-package__title">สิ่งที่รวมในดีลนี้</div>
+                        <div class="voucher-package__tags">
+                            <span class="voucher-package__tag">
+                                <span class="material-symbols-outlined">villa</span>
+                                Pool Villa 2 คืน
+                            </span>
+                            <span class="voucher-package__tag">
+                                <span class="material-symbols-outlined">restaurant</span>
+                                อาหารเช้า 2 ท่าน
+                            </span>
+                            <span class="voucher-package__tag">
+                                <span class="material-symbols-outlined">spa</span>
+                                สปา 60 นาที
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="voucher-card__actions">
+                        <a href="check-stay.html" class="btn-gold-card">
+                            <span class="material-symbols-outlined" style="font-size:20px">calendar_month</span>
+                            เลือกวันเข้าพัก
+                        </a>
+                        <a href="#" class="btn-outline-card">ติดต่อโรงแรม</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 2: Pending -->
+            <article class="voucher-card" data-status="pending">
+                <div class="voucher-card__image">
+                    <img
+                        src="assets/images/hotels/hotel-mountain-resort.jpg"
+                        alt="Mountain Peak Hideaway"
+                        loading="lazy"
+                    >
+                    <div class="voucher-card__image-overlay"></div>
+                    <span class="voucher-card__status voucher-card__status--pending">
+                        <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1">schedule</span>
+                        รอการยืนยัน
+                    </span>
+                </div>
+                <div class="voucher-card__body">
+                    <div class="voucher-code">
+                        <div>
+                            <div class="voucher-code__label">รหัสบัตรกำนัล</div>
+                            <div class="voucher-code__value">HA-7721-MNT</div>
+                        </div>
+                        <div class="voucher-code__qr" role="button" aria-label="Show QR Code">
+                            <span class="material-symbols-outlined">qr_code_2</span>
+                            <span>แสดง QR</span>
+                        </div>
+                    </div>
+
+                    <h2 class="voucher-card__name">Mountain Peak Hideaway</h2>
+                    <div class="voucher-card__location">
+                        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">location_on</span>
+                        เขาใหญ่, นครราชสีมา
+                    </div>
+
+                    <div class="voucher-info-grid">
+                        <div class="voucher-info-item">
+                            <span class="material-symbols-outlined">event_available</span>
+                            <div>
+                                <div class="voucher-info-item__label">วันที่ซื้อ</div>
+                                <div class="voucher-info-item__value">5 ต.ค. 2569</div>
+                            </div>
+                        </div>
+                        <div class="voucher-info-item">
+                            <span class="material-symbols-outlined">hourglass_bottom</span>
+                            <div>
+                                <div class="voucher-info-item__label">หมดอายุ</div>
+                                <div class="voucher-info-item__value">5 ต.ค. 2570</div>
+                            </div>
+                        </div>
+                        <div class="voucher-info-item">
+                            <span class="material-symbols-outlined">hotel</span>
+                            <div>
+                                <div class="voucher-info-item__label">วันที่เข้าพัก</div>
+                                <div class="voucher-info-item__value voucher-info-item__value--pending">20-22 ธ.ค. 2569</div>
+                            </div>
+                        </div>
+                        <div class="voucher-info-item">
+                            <span class="material-symbols-outlined">sell</span>
+                            <div>
+                                <div class="voucher-info-item__label">ราคาที่ซื้อ</div>
+                                <div class="voucher-info-item__value">&#3647;8,900</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="voucher-package">
+                        <div class="voucher-package__title">สิ่งที่รวมในดีลนี้</div>
+                        <div class="voucher-package__tags">
+                            <span class="voucher-package__tag">
+                                <span class="material-symbols-outlined">cottage</span>
+                                Mountain Suite 2 คืน
+                            </span>
+                            <span class="voucher-package__tag">
+                                <span class="material-symbols-outlined">restaurant</span>
+                                อาหารเช้า 2 ท่าน
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="voucher-card__actions">
+                        <button class="btn-disabled" disabled>
+                            <span class="material-symbols-outlined" style="font-size:20px">hourglass_top</span>
+                            รอโรงแรมยืนยัน
+                        </button>
+                        <a href="#" class="btn-ghost-card">เปลี่ยนวันเข้าพัก</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 3: Used -->
+            <article class="voucher-card voucher-card--used" data-status="used">
+                <div class="voucher-card__image">
+                    <img
+                        src="assets/images/hotels/hotel-siam-heritage.jpg"
+                        alt="Paradise Luxury Island Resort"
+                        loading="lazy"
+                    >
+                    <div class="voucher-card__image-overlay"></div>
+                    <span class="voucher-card__status voucher-card__status--used">ใช้งานแล้ว</span>
+                    <div class="voucher-card__used-stamp">USED</div>
+                </div>
+                <div class="voucher-card__body">
+                    <div class="voucher-code">
+                        <div>
+                            <div class="voucher-code__label">รหัสบัตรกำนัล</div>
+                            <div class="voucher-code__value" style="color: var(--text-muted);">HA-1155-PLR</div>
+                        </div>
+                    </div>
+
+                    <h2 class="voucher-card__name">Paradise Luxury Island Resort</h2>
+                    <div class="voucher-card__location">
+                        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">location_on</span>
+                        เกาะสมุย, สุราษฎร์ธานี
+                    </div>
+
+                    <div class="voucher-info-grid">
+                        <div class="voucher-info-item">
+                            <span class="material-symbols-outlined" style="color: var(--text-muted);">event_available</span>
+                            <div>
+                                <div class="voucher-info-item__label">วันที่ซื้อ</div>
+                                <div class="voucher-info-item__value voucher-info-item__value--muted">15 มี.ค. 2569</div>
+                            </div>
+                        </div>
+                        <div class="voucher-info-item">
+                            <span class="material-symbols-outlined" style="color: var(--text-muted);">hotel</span>
+                            <div>
+                                <div class="voucher-info-item__label">วันที่เข้าพัก</div>
+                                <div class="voucher-info-item__value voucher-info-item__value--muted">10-12 พ.ค. 2569</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="voucher-card__actions">
+                        <button class="btn-disabled" disabled>
+                            <span class="material-symbols-outlined" style="font-size:20px">check</span>
+                            ใช้งานแล้ว
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+        </main>
+            </div><!-- /real-content -->
+        </div><!-- /skeleton-wrapper #skelMyVoucher -->
+
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__grid">
+                    <div class="footer__col">
+                        <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
+                        <p class="footer__desc">ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง</p>
+                        <div class="footer__social">
+                            <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
+                            <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
+                            <a href="#" class="footer__social-btn" aria-label="LINE"><span class="material-symbols-outlined" aria-hidden="true">chat</span></a>
+                        </div>
+                    </div>
+                    <div class="footer__col">
+                        <h4 class="footer__heading">บริการลูกค้า</h4>
+                        <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีจองวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
+                    </div>
+                    <div class="footer__col">
+                        <h4 class="footer__heading">เกี่ยวกับเรา</h4>
+                        <ul class="footer__list"><li><a href="#">เกี่ยวกับ Hotel Addict</a></li><li><a href="#">ร่วมงานกับเรา</a></li><li><a href="#">พาร์ทเนอร์โรงแรม</a></li><li><a href="#">บล็อก</a></li></ul>
+                    </div>
+                    <div class="footer__col">
+                        <h4 class="footer__heading">ค้นพบ</h4>
+                        <ul class="footer__list"><li><a href="index.html">ดีลโรงแรม</a></li><li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li><li><a href="wishlist.html">รายการโปรด</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
+                    </div>
+                </div>
+                <div class="footer__bottom">
+                    <p>&copy; 2026 Hotel Addict. สงวนลิขสิทธิ์ทุกประการ</p>
+                    <div class="footer__bottom-links">
+                        <a href="#">ข้อกำหนดการใช้งาน</a>
+                        <a href="#">นโยบายความเป็นส่วนตัว</a>
+                        <a href="#">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+    <!-- Tab Filter JavaScript -->
+    <script>
+        (function () {
+            const tabs = document.querySelectorAll('.tab-filter__btn');
+            const cards = document.querySelectorAll('.voucher-card');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Update active tab
+                    tabs.forEach(t => {
+                        t.classList.remove('tab-filter__btn--active');
+                        t.setAttribute('aria-selected', 'false');
+                    });
+                    tab.classList.add('tab-filter__btn--active');
+                    tab.setAttribute('aria-selected', 'true');
+
+                    const filter = tab.dataset.filter;
+
+                    // Filter cards
+                    cards.forEach(card => {
+                        const status = card.dataset.status;
+                        if (filter === 'all' || status === filter) {
+                            card.style.display = '';
+                            card.style.animation = 'fadeIn 0.3s ease';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        })();
+    </script>
+
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</body>
+</html>

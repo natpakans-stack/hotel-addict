@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เลือกวันเข้าพัก — Hotel Addict</title>
+    <meta name="description" content="เลือกวันเข้าพักและส่งคำขอตรวจสอบห้องว่างไปยังโรงแรม">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="เลือกวันเข้าพัก — Hotel Addict">
+    <meta property="og:description" content="เลือกวันเข้าพักและส่งคำขอตรวจสอบห้องว่างไปยังโรงแรม">
+    <meta property="og:image" content="assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="เลือกวันเข้าพัก — Hotel Addict">
+    <meta name="twitter:description" content="เลือกวันเข้าพักและส่งคำขอตรวจสอบห้องว่างไปยังโรงแรม">
+    <meta name="twitter:image" content="assets/og-image.jpg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <!-- Design Tokens & Global Styles -->
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* === CHECK-STAY PAGE === */
+
+        .page-body {
+            padding-top: var(--nav-height);
+        }
+
+        /* --- Main Layout --- */
+        .check-stay-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-xl);
+            padding: var(--space-2xl) 0;
+        }
+
+        /* --- Page Header --- */
+        .page-header {
+            margin-bottom: var(--space-sm);
+        }
+
+        .page-header h2 {
+            margin-bottom: var(--space-sm);
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: var(--text-body-md);
+            line-height: var(--lh-body-md);
+        }
+
+        /* --- Calendar Section --- */
+        .calendar-section {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-card);
+        }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .calendar-nav button {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border);
+            background: var(--bg-white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-body);
+            transition: all var(--transition-fast);
+        }
+
+        .calendar-nav button:hover {
+            border-color: var(--color-gold);
+            color: var(--color-gold-dark);
+            background: var(--color-gold-subtle);
+        }
+
+        .calendar-months {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-xl);
+        }
+
+        .calendar-month__title {
+            text-align: center;
+            font-family: var(--font-heading);
+            font-size: var(--text-body-lg);
+            font-weight: var(--fw-bold);
+            color: var(--color-teal);
+            margin-bottom: var(--space-md);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+        }
+
+        .calendar-grid__header {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: var(--space-sm) 0;
+        }
+
+        .calendar-day {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-body-sm);
+            color: var(--text-body);
+            position: relative;
+        }
+
+        .calendar-day--empty {
+            visibility: hidden;
+        }
+
+        .calendar-day--past {
+            color: var(--text-muted);
+            opacity: 0.4;
+        }
+
+        .calendar-day--range {
+            background: var(--color-teal-light);
+            color: var(--color-teal);
+            font-weight: var(--fw-semibold);
+        }
+
+        .calendar-day--start {
+            background: var(--color-teal);
+            color: var(--bg-white);
+            border-radius: var(--radius-full) 0 0 var(--radius-full);
+            font-weight: var(--fw-bold);
+        }
+
+        .calendar-day--start .day-num {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-teal);
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-teal);
+        }
+
+        .calendar-day--end {
+            background: var(--color-teal);
+            color: var(--bg-white);
+            border-radius: 0 var(--radius-full) var(--radius-full) 0;
+            font-weight: var(--fw-bold);
+        }
+
+        .calendar-day--end .day-num {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-teal);
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-teal);
+        }
+
+        /* --- Contact Form --- */
+        .contact-section {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-card);
+        }
+
+        .contact-section__header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .contact-section__header .material-symbols-outlined {
+            color: var(--color-teal);
+            font-size: 24px;
+        }
+
+        .contact-section__header h3 {
+            font-size: var(--text-h4);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-md);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        /* --- Info Box --- */
+        .info-box {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            border: 1px solid;
+        }
+
+        .info-box--teal {
+            background: var(--color-teal-light);
+            border-color: var(--border-teal-15);
+        }
+
+        .info-box--gold {
+            background: var(--color-gold-subtle);
+            border-color: var(--border-gold-25);
+        }
+
+        .info-box__icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .info-box--teal .info-box__icon {
+            background: var(--bg-teal-12);
+            color: var(--color-teal);
+        }
+
+        .info-box--gold .info-box__icon {
+            background: var(--bg-gold-20);
+            color: var(--color-gold-dark);
+        }
+
+        .info-box__title {
+            font-family: var(--font-heading);
+            font-size: var(--text-body-md);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .info-box__text {
+            font-size: var(--text-body-sm);
+            line-height: var(--lh-body-sm);
+            color: var(--text-secondary);
+        }
+
+        .info-box__text strong {
+            color: var(--color-teal);
+            font-weight: var(--fw-bold);
+        }
+
+        /* --- Sidebar Summary Card --- */
+        .summary-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            position: sticky;
+            top: calc(var(--nav-height) + 24px);
+        }
+
+        .summary-card__image {
+            position: relative;
+            aspect-ratio: 16/10;
+            overflow: hidden;
+        }
+
+        .summary-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .summary-card__badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--overlay-badge-dark);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            color: var(--bg-white);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .summary-card__body {
+            padding: var(--space-lg);
+        }
+
+        .summary-card__name {
+            font-family: var(--font-heading);
+            font-size: var(--text-h4);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .summary-card__location {
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+
+        .summary-card__details {
+            border-top: 1px solid var(--border);
+            padding-top: var(--space-md);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .detail-row__label {
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+        }
+
+        .detail-row__value {
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+        }
+
+        .detail-row__value--accent {
+            color: var(--color-teal);
+        }
+
+        .summary-card__actions {
+            margin-top: var(--space-lg);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .btn-gold {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--color-gold-dark) 0%, var(--color-gold) 100%);
+            color: var(--bg-white);
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-heading);
+            font-size: var(--text-body-md);
+            font-weight: var(--fw-bold);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            box-shadow: var(--shadow-gold-sm);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-gold-lg);
+        }
+
+        .btn-outline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            width: 100%;
+            padding: 14px 24px;
+            background: transparent;
+            color: var(--text-body);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: var(--text-body-md);
+            font-weight: var(--fw-semibold);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--color-gold);
+            color: var(--color-gold-dark);
+            background: var(--color-gold-subtle);
+        }
+
+        .btn-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: none;
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-semibold);
+            cursor: pointer;
+            transition: color var(--transition-fast);
+        }
+
+        .btn-text:hover {
+            color: var(--color-teal);
+        }
+
+        /* --- Premium Help --- */
+        .premium-help {
+            margin-top: var(--space-lg);
+            background: var(--color-gold-subtle);
+            border: 1px solid var(--border-gold-25);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+        }
+
+        .premium-help__header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xs);
+        }
+
+        .premium-help__header .material-symbols-outlined {
+            color: var(--color-gold-dark);
+            font-size: 20px;
+        }
+
+        .premium-help__header span:last-child {
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            color: var(--color-gold-dark);
+        }
+
+        .premium-help__text {
+            font-size: var(--text-micro);
+            line-height: var(--lh-micro);
+            color: var(--text-secondary);
+        }
+
+        .premium-help__text strong {
+            color: var(--color-gold-dark);
+        }
+
+        /* === RESPONSIVE === */
+        @media (min-width: 768px) {
+            .check-stay-layout {
+                grid-template-columns: 1fr 380px;
+                gap: var(--space-2xl);
+            }
+
+            .calendar-months {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .check-stay-layout {
+                grid-template-columns: 1fr 420px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" aria-label="เมนูหลัก">
+        <div class="navbar__inner">
+            <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
+            <ul class="navbar__menu">
+                <li><a href="index.html" class="navbar__link">หน้าแรก</a></li>
+                <li><a href="voucher-list.html" class="navbar__link">ค้นหาวอชเชอร์</a></li>
+                <li><a href="about.html" class="navbar__link">เกี่ยวกับเรา</a></li>
+            </ul>
+            <div class="navbar__actions">
+                <button class="navbar__icon-btn" aria-label="การแจ้งเตือน">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button class="navbar__profile" aria-label="โปรไฟล์">
+                    <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
+                    <span class="navbar__profile-name">คุณสมชาย</span>
+                    <div class="navbar__dropdown">
+                        <a href="my-voucher.html" class="navbar__dropdown-item">
+                            <span class="material-symbols-outlined">confirmation_number</span>
+                            วอชเชอร์ของฉัน
+                        </a>
+                        <a href="wishlist.html" class="navbar__dropdown-item">
+                            <span class="material-symbols-outlined">favorite</span>
+                            รายการโปรด
+                        </a>
+                        <div class="navbar__dropdown-divider"></div>
+                        <a href="#" class="navbar__dropdown-item">
+                            <span class="material-symbols-outlined">settings</span>
+                            ตั้งค่า
+                        </a>
+                        <a href="login.html" class="navbar__dropdown-item navbar__dropdown-item--danger">
+                            <span class="material-symbols-outlined">logout</span>
+                            ออกจากระบบ
+                        </a>
+                    </div>
+                </button>
+            </div>
+            <button class="navbar__hamburger" aria-label="เปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.add('active')">
+                <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-nav">
+        <div class="mobile-nav__header">
+            <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
+            <button class="mobile-nav__close" aria-label="ปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.remove('active')">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            </button>
+        </div>
+        <ul class="mobile-nav__list">
+            <li><a href="index.html" class="mobile-nav__link">หน้าแรก</a></li>
+            <li><a href="voucher-list.html" class="mobile-nav__link">ค้นหาวอชเชอร์</a></li>
+            <li><a href="about.html" class="mobile-nav__link">เกี่ยวกับเรา</a></li>
+        </ul>
+        <div class="mobile-nav__divider"></div>
+        <div class="mobile-nav__profile">
+            <div class="mobile-nav__profile-header">
+                <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
+                <span class="mobile-nav__profile-name">คุณสมชาย</span>
+            </div>
+            <ul class="mobile-nav__list">
+                <li><a href="my-voucher.html" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>
+                <li><a href="wishlist.html" class="mobile-nav__link"><span class="material-symbols-outlined">favorite</span>รายการโปรด</a></li>
+                <li><a href="#" class="mobile-nav__link"><span class="material-symbols-outlined">settings</span>ตั้งค่า</a></li>
+                <li><a href="login.html" class="mobile-nav__link mobile-nav__link--danger"><span class="material-symbols-outlined">logout</span>ออกจากระบบ</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ===== MAIN ===== -->
+
+    <main class="page-body">
+        <div class="container">
+            <div class="check-stay-layout">
+
+                <!-- === LEFT COLUMN === -->
+                <div>
+                    <!-- Page Header -->
+                    <div class="page-header">
+                        <h2>เลือกวันที่อยากไป</h2>
+                        <p>เลือกช่วงวันที่ต้องการ แล้วเราจะเช็คห้องว่างกับโรงแรมให้</p>
+                    </div>
+
+                    <!-- Calendar -->
+                    <section class="calendar-section">
+                        <div class="calendar-header">
+                            <div style="flex:1;"></div>
+                            <div class="calendar-nav">
+                                <button aria-label="เดือนก่อนหน้า">
+                                    <span class="material-symbols-outlined">chevron_left</span>
+                                </button>
+                                <button aria-label="เดือนถัดไป">
+                                    <span class="material-symbols-outlined">chevron_right</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="calendar-months">
+                            <!-- ตุลาคม 2566 -->
+                            <div>
+                                <div class="calendar-month__title">ตุลาคม 2566</div>
+                                <div class="calendar-grid">
+                                    <div class="calendar-grid__header">อา</div>
+                                    <div class="calendar-grid__header">จ</div>
+                                    <div class="calendar-grid__header">อ</div>
+                                    <div class="calendar-grid__header">พ</div>
+                                    <div class="calendar-grid__header">พฤ</div>
+                                    <div class="calendar-grid__header">ศ</div>
+                                    <div class="calendar-grid__header">ส</div>
+
+                                    <!-- Week 1: Oct starts on Sunday -->
+                                    <div class="calendar-day calendar-day--past">1</div>
+                                    <div class="calendar-day calendar-day--past">2</div>
+                                    <div class="calendar-day calendar-day--past">3</div>
+                                    <div class="calendar-day calendar-day--past">4</div>
+                                    <div class="calendar-day calendar-day--start"><span class="day-num">5</span></div>
+                                    <div class="calendar-day calendar-day--range">6</div>
+                                    <div class="calendar-day calendar-day--range">7</div>
+
+                                    <!-- Week 2 -->
+                                    <div class="calendar-day calendar-day--range">8</div>
+                                    <div class="calendar-day calendar-day--range">9</div>
+                                    <div class="calendar-day calendar-day--range">10</div>
+                                    <div class="calendar-day calendar-day--range">11</div>
+                                    <div class="calendar-day calendar-day--range">12</div>
+                                    <div class="calendar-day calendar-day--range">13</div>
+                                    <div class="calendar-day calendar-day--range">14</div>
+
+                                    <!-- Week 3 -->
+                                    <div class="calendar-day calendar-day--range">15</div>
+                                    <div class="calendar-day calendar-day--range">16</div>
+                                    <div class="calendar-day calendar-day--range">17</div>
+                                    <div class="calendar-day calendar-day--range">18</div>
+                                    <div class="calendar-day calendar-day--range">19</div>
+                                    <div class="calendar-day calendar-day--end"><span class="day-num">20</span></div>
+                                    <div class="calendar-day">21</div>
+
+                                    <!-- Week 4 -->
+                                    <div class="calendar-day">22</div>
+                                    <div class="calendar-day">23</div>
+                                    <div class="calendar-day">24</div>
+                                    <div class="calendar-day">25</div>
+                                    <div class="calendar-day">26</div>
+                                    <div class="calendar-day">27</div>
+                                    <div class="calendar-day">28</div>
+
+                                    <!-- Week 5 -->
+                                    <div class="calendar-day">29</div>
+                                    <div class="calendar-day">30</div>
+                                    <div class="calendar-day">31</div>
+                                    <div class="calendar-day calendar-day--empty">.</div>
+                                    <div class="calendar-day calendar-day--empty">.</div>
+                                    <div class="calendar-day calendar-day--empty">.</div>
+                                    <div class="calendar-day calendar-day--empty">.</div>
+                                </div>
+                            </div>
+
+                            <!-- พฤศจิกายน 2566 -->
+                            <div>
+                                <div class="calendar-month__title">พฤศจิกายน 2566</div>
+                                <div class="calendar-grid">
+                                    <div class="calendar-grid__header">อา</div>
+                                    <div class="calendar-grid__header">จ</div>
+                                    <div class="calendar-grid__header">อ</div>
+                                    <div class="calendar-grid__header">พ</div>
+                                    <div class="calendar-grid__header">พฤ</div>
+                                    <div class="calendar-grid__header">ศ</div>
+                                    <div class="calendar-grid__header">ส</div>
+
+                                    <!-- Week 1: Nov 2023 starts on Wednesday -->
+                                    <div class="calendar-day calendar-day--empty">.</div>
+                                    <div class="calendar-day calendar-day--empty">.</div>
+                                    <div class="calendar-day calendar-day--empty">.</div>
+                                    <div class="calendar-day">1</div>
+                                    <div class="calendar-day">2</div>
+                                    <div class="calendar-day">3</div>
+                                    <div class="calendar-day">4</div>
+
+                                    <!-- Week 2 -->
+                                    <div class="calendar-day">5</div>
+                                    <div class="calendar-day">6</div>
+                                    <div class="calendar-day">7</div>
+                                    <div class="calendar-day">8</div>
+                                    <div class="calendar-day">9</div>
+                                    <div class="calendar-day">10</div>
+                                    <div class="calendar-day">11</div>
+
+                                    <!-- Week 3 -->
+                                    <div class="calendar-day">12</div>
+                                    <div class="calendar-day">13</div>
+                                    <div class="calendar-day">14</div>
+                                    <div class="calendar-day">15</div>
+                                    <div class="calendar-day">16</div>
+                                    <div class="calendar-day">17</div>
+                                    <div class="calendar-day">18</div>
+
+                                    <!-- Week 4 -->
+                                    <div class="calendar-day">19</div>
+                                    <div class="calendar-day">20</div>
+                                    <div class="calendar-day">21</div>
+                                    <div class="calendar-day">22</div>
+                                    <div class="calendar-day">23</div>
+                                    <div class="calendar-day">24</div>
+                                    <div class="calendar-day">25</div>
+
+                                    <!-- Week 5 -->
+                                    <div class="calendar-day">26</div>
+                                    <div class="calendar-day">27</div>
+                                    <div class="calendar-day">28</div>
+                                    <div class="calendar-day">29</div>
+                                    <div class="calendar-day">30</div>
+                                    <div class="calendar-day calendar-day--empty">.</div>
+                                    <div class="calendar-day calendar-day--empty">.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Contact Form -->
+                    <section class="contact-section" style="margin-top: var(--space-xl);">
+                        <div class="contact-section__header">
+                            <span class="material-symbols-outlined">person</span>
+                            <h3>ข้อมูลผู้เข้าพัก</h3>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="input-label" for="contact-firstname">ชื่อ</label>
+                                <input type="text" class="input" id="contact-firstname" placeholder="ระบุชื่อจริง" value="สมชาย" autocomplete="given-name">
+                            </div>
+                            <div class="form-group">
+                                <label class="input-label" for="contact-lastname">นามสกุล</label>
+                                <input type="text" class="input" id="contact-lastname" placeholder="ระบุนามสกุล" value="รักการท่องเที่ยว" autocomplete="family-name">
+                            </div>
+                            <div class="form-group">
+                                <label class="input-label" for="contact-email">อีเมล</label>
+                                <input type="email" class="input" id="contact-email" placeholder="example@email.com" value="somchai@email.com" autocomplete="email">
+                            </div>
+                            <div class="form-group">
+                                <label class="input-label" for="contact-phone">เบอร์โทรศัพท์</label>
+                                <input type="tel" class="input" id="contact-phone" placeholder="08x-xxx-xxxx" value="089-123-4567" autocomplete="tel">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Info Box -->
+                    <div class="info-box info-box--teal" style="margin-top: var(--space-xl);">
+                        <div class="info-box__icon">
+                            <span class="material-symbols-outlined">info</span>
+                        </div>
+                        <div>
+                            <div class="info-box__title">ทำงานยังไง?</div>
+                            <p class="info-box__text">
+                                เลือกวันที่ต้องการ แล้วกด "ส่งคำขอ" เราจะเช็คห้องว่างกับโรงแรมให้ทันที
+                                โรงแรมจะยืนยันกลับมาทางอีเมล <strong>ภายใน 24 ชม.</strong> ไม่ต้องโทรเช็คเอง
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- === RIGHT COLUMN (SIDEBAR) === -->
+                <aside>
+                    <div class="skeleton-wrapper" id="skelCheckStaySummary">
+                        <div class="skel-screen" aria-hidden="true">
+                            <div class="skel-card" style="border-radius:var(--radius-xl);overflow:hidden;">
+                                <!-- Image (200px) with badge overlay -->
+                                <div class="skel skel-image" style="height:200px;border-radius:0;position:relative;">
+                                    <div class="skel" style="position:absolute;top:12px;left:12px;width:100px;height:24px;border-radius:var(--radius-full);"></div>
+                                </div>
+
+                                <div class="skel-stack" style="padding:var(--space-lg);gap:var(--space-md);">
+
+                                    <!-- Hotel name + location -->
+                                    <div class="skel skel-text--heading" style="width:80%;"></div>
+                                    <div class="skel skel-text--caption" style="width:65%;margin-top:calc(var(--space-xs) * -1);"></div>
+
+                                    <!-- Detail rows (room type, nights, date range) as label/value pairs -->
+                                    <div class="skel-stack" style="gap:var(--space-md);padding-top:var(--space-md);border-top:1px solid rgba(0,0,0,0.06);">
+                                        <div class="skel-row" style="justify-content:space-between;align-items:center;">
+                                            <div class="skel skel-text--caption" style="width:60px;"></div>
+                                            <div class="skel skel-text skel-text--short" style="width:130px;"></div>
+                                        </div>
+                                        <div class="skel-row" style="justify-content:space-between;align-items:center;">
+                                            <div class="skel skel-text--caption" style="width:75px;"></div>
+                                            <div class="skel skel-text skel-text--short" style="width:50px;"></div>
+                                        </div>
+                                        <div class="skel-row" style="justify-content:space-between;align-items:center;">
+                                            <div class="skel skel-text--caption" style="width:85px;"></div>
+                                            <div class="skel skel-text skel-text--short" style="width:110px;"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 3 action buttons: primary + outline + text link -->
+                                    <div class="skel-stack" style="gap:var(--space-sm);padding-top:var(--space-sm);">
+                                        <!-- Primary button (solid) -->
+                                        <div class="skel skel-button skel-button--full"></div>
+                                        <!-- Outline button -->
+                                        <div class="skel skel-button skel-button--full" style="opacity:0.7;"></div>
+                                        <!-- Text link button (slimmer) -->
+                                        <div class="skel skel-button--sm skel-button--full" style="height:36px;opacity:0.5;"></div>
+                                    </div>
+
+                                    <!-- Premium help section: icon + text block -->
+                                    <div class="skel-stack" style="gap:var(--space-sm);padding:var(--space-md);border-radius:var(--radius-lg);background:rgba(0,0,0,0.03);">
+                                        <div class="skel-row" style="gap:var(--space-sm);align-items:center;">
+                                            <div class="skel skel-icon" style="width:20px;height:20px;border-radius:var(--radius-sm);flex-shrink:0;"></div>
+                                            <div class="skel skel-text--caption" style="width:120px;"></div>
+                                        </div>
+                                        <div class="skel skel-text--caption" style="width:95%;"></div>
+                                        <div class="skel skel-text--caption" style="width:70%;"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="real-content">
+                    <div class="summary-card">
+                        <div class="summary-card__image">
+                            <img src="assets/images/hotels/hotel-pool-villa.jpg" alt="Paradise Pool Villa Resort">
+                            <div class="summary-card__badge">บัตรกำนัลของคุณ</div>
+                        </div>
+
+                        <div class="summary-card__body">
+                            <div class="summary-card__name">Paradise Pool Villa Resort</div>
+                            <div class="summary-card__location">พาราไดซ์ พูล วิลล่า รีสอร์ท - ภูเก็ต</div>
+
+                            <div class="summary-card__details">
+                                <div class="detail-row">
+                                    <span class="detail-row__label">ห้องพัก</span>
+                                    <span class="detail-row__value">One Bedroom Pool Villa</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-row__label">จำนวนคืน</span>
+                                    <span class="detail-row__value">2 คืน</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-row__label">ช่วงวันที่เลือก</span>
+                                    <span class="detail-row__value detail-row__value--accent">5 - 20 ต.ค. 2566</span>
+                                </div>
+                            </div>
+
+                            <div class="summary-card__actions">
+                                <a href="success-request.html" class="btn-gold">
+                                    <span class="material-symbols-outlined" style="font-size:20px;">send</span>
+                                    ส่งคำขอเช็คห้องว่าง
+                                </a>
+                                <button class="btn-outline">
+                                    <span class="material-symbols-outlined" style="font-size:20px;">support_agent</span>
+                                    แชทกับโรงแรม
+                                </button>
+                                <a href="my-voucher.html" class="btn-text">
+                                    <span class="material-symbols-outlined" style="font-size:18px;">account_balance_wallet</span>
+                                    กลับไปหน้าบัตรกำนัล
+                                </a>
+                            </div>
+
+                            <div class="premium-help">
+                                <div class="premium-help__header">
+                                    <span class="material-symbols-outlined">verified_user</span>
+                                    <span>ต้องการความช่วยเหลือ?</span>
+                                </div>
+                                <p class="premium-help__text">
+                                    ทีม Concierge พร้อมช่วยจัดทริปให้คุณ โทร <strong>02-xxx-xxxx</strong> ตลอด 24 ชม.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                        </div><!-- /real-content -->
+                    </div><!-- /skeleton-wrapper #skelCheckStaySummary -->
+                </aside>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
+                    <p class="footer__desc">ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง</p>
+                    <div class="footer__social">
+                        <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
+                        <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
+                        <a href="#" class="footer__social-btn" aria-label="LINE"><span class="material-symbols-outlined" aria-hidden="true">chat</span></a>
+                    </div>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__heading">บริการลูกค้า</h4>
+                    <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีจองวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__heading">เกี่ยวกับเรา</h4>
+                    <ul class="footer__list"><li><a href="#">เกี่ยวกับ Hotel Addict</a></li><li><a href="#">ร่วมงานกับเรา</a></li><li><a href="#">พาร์ทเนอร์โรงแรม</a></li><li><a href="#">บล็อก</a></li></ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__heading">ค้นพบ</h4>
+                    <ul class="footer__list"><li><a href="index.html">ดีลโรงแรม</a></li><li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li><li><a href="wishlist.html">รายการโปรด</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2026 Hotel Addict. สงวนลิขสิทธิ์ทุกประการ</p>
+                <div class="footer__bottom-links">
+                    <a href="#">ข้อกำหนดการใช้งาน</a>
+                    <a href="#">นโยบายความเป็นส่วนตัว</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="กลับไปด้านบน">
+        <span class="material-symbols-outlined">keyboard_arrow_up</span>
+    </button>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Back to top
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            backToTop.classList.toggle('visible', window.scrollY > 300);
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trinity Search — Hotel Addict</title>
+    <meta name="description" content="เปรียบเทียบราคาโรงแรมจาก 3 แหล่ง เพื่อหาดีลที่ดีที่สุดสำหรับคุณ">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Trinity Search — Hotel Addict">
+    <meta property="og:description" content="เปรียบเทียบราคาโรงแรมจาก 3 แหล่ง เพื่อหาดีลที่ดีที่สุดสำหรับคุณ">
+    <meta property="og:image" content="assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Trinity Search — Hotel Addict">
+    <meta name="twitter:description" content="เปรียบเทียบราคาโรงแรมจาก 3 แหล่ง เพื่อหาดีลที่ดีที่สุดสำหรับคุณ">
+    <meta name="twitter:image" content="assets/og-image.jpg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <!-- Design Tokens + Global Styles -->
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* === PAGE-SPECIFIC STYLES === */
+
+        /* Hero */
+        .hero {
+            position: relative;
+            width: 100%;
+            min-height: 480px;
+            overflow: hidden;
+        }
+
+        .hero__image {
+            width: 100%;
+            height: 100%;
+            min-height: 480px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero__overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--overlay-hero-trinity);
+        }
+
+        .hero__content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: var(--space-2xl) var(--space-lg);
+        }
+
+        .hero__stars {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .hero__stars .material-symbols-outlined {
+            color: var(--color-gold);
+            font-size: 24px;
+            font-variation-settings: 'FILL' 1;
+        }
+
+        .hero__title {
+            color: var(--bg-white);
+            font-size: 44px;
+            line-height: 56px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .hero__location {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            color: var(--bg-white-85);
+            font-size: var(--text-body-lg);
+        }
+
+        .hero__location .material-symbols-outlined {
+            color: var(--color-gold);
+            font-size: 22px;
+        }
+
+        /* Section header */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            padding: var(--space-2xl) 0 var(--space-lg);
+        }
+
+        .section-header h2 {
+            font-size: var(--text-h2);
+        }
+
+        .section-header .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--color-gold-subtle);
+            color: var(--color-gold-dark);
+            border: 1px solid var(--color-gold);
+            padding: 8px 20px;
+            border-radius: var(--radius-full);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Comparison grid */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-3xl);
+        }
+
+        /* Comparison card overrides */
+        .comparison-card__header {
+            margin-bottom: var(--space-lg);
+        }
+
+        .comparison-card__label {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--space-xs);
+        }
+
+        .pill-badge-best {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--color-gold-dark);
+            color: #FFFFFF;
+            padding: 8px 20px;
+            border-radius: 0 0 0 var(--radius-lg);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            z-index: 2;
+        }
+
+        .comparison-card--recommended .comparison-card__label {
+            color: var(--color-gold-dark);
+        }
+
+        .comparison-card--other .comparison-card__label {
+            color: var(--text-muted);
+        }
+
+        .comparison-card__title {
+            font-size: var(--text-h3);
+            font-weight: var(--fw-bold);
+        }
+
+        /* Perks list */
+        .perks-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .perks-list li {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: var(--text-body-md);
+            color: var(--text-body);
+        }
+
+        .perks-list li .material-symbols-outlined {
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .perks-list--positive .material-symbols-outlined {
+            color: var(--color-teal);
+        }
+
+        .perks-list--negative .material-symbols-outlined {
+            color: var(--text-muted);
+        }
+
+        .perks-list--negative li {
+            color: var(--text-muted);
+        }
+
+        /* Price block */
+        .price-block {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+
+        .price-block .price-value {
+            font-family: var(--font-heading);
+            font-size: var(--text-price);
+            font-weight: var(--fw-bold);
+            line-height: var(--lh-price);
+        }
+
+        .price-block .price-unit {
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+        }
+
+        .price-block--gold .price-value {
+            color: var(--color-gold-dark);
+        }
+
+        .save-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--color-success-bg);
+            color: var(--color-success);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-lg);
+        }
+
+        /* Comparison Table */
+        .comparison-table-wrapper {
+            margin-bottom: var(--space-3xl);
+        }
+
+        .comparison-table-wrapper h3 {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .comparison-table-wrapper h3 .material-symbols-outlined {
+            color: var(--color-gold-dark);
+            font-size: 28px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: var(--bg-white);
+        }
+
+        .comparison-table thead {
+            background: var(--bg-cream);
+        }
+
+        .comparison-table th {
+            padding: var(--space-md) var(--space-lg);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table th:not(:first-child) {
+            text-align: center;
+        }
+
+        .comparison-table th.col-highlight {
+            background: var(--color-gold-subtle);
+            color: var(--color-gold-dark);
+        }
+
+        .comparison-table td {
+            padding: var(--space-md) var(--space-lg);
+            font-size: var(--text-body-md);
+            color: var(--text-body);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table td:not(:first-child) {
+            text-align: center;
+        }
+
+        .comparison-table td.col-highlight {
+            background: var(--color-gold-subtle);
+            font-weight: var(--fw-semibold);
+            color: var(--color-gold-dark);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover td {
+            background-color: var(--bg-warm);
+        }
+
+        .comparison-table tr:hover td.col-highlight {
+            background-color: var(--color-gold-light);
+        }
+
+        .comparison-table .icon-check {
+            color: var(--color-success);
+            font-size: 24px;
+            font-variation-settings: 'FILL' 1;
+        }
+
+        .comparison-table .icon-cross {
+            color: var(--text-muted);
+            font-size: 24px;
+        }
+
+        .table-badge-save {
+            display: inline-flex;
+            align-items: center;
+            background: var(--color-success-bg);
+            color: var(--color-success);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+        }
+
+        .table-text-muted {
+            color: var(--text-muted);
+            font-size: var(--text-body-sm);
+        }
+
+        .table-text-success {
+            color: var(--color-success);
+            font-weight: var(--fw-bold);
+            font-size: var(--text-body-sm);
+        }
+
+        /* (footer CSS moved to style.css) */
+
+        /* (navbar/footer CSS moved to style.css) */
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero__title {
+                font-size: 32px;
+                line-height: 42px;
+            }
+
+            .hero {
+                min-height: 360px;
+            }
+
+            .hero__image {
+                min-height: 360px;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer__top {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+            }
+
+            .navbar__search {
+                display: none;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .comparison-table {
+                font-size: var(--text-body-sm);
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: var(--space-sm) var(--space-md);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- === NAVBAR === -->
+<nav class="navbar" aria-label="เมนูหลัก">
+    <div class="navbar__inner">
+        <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
+        <ul class="navbar__menu">
+                <li><a href="index.html" class="navbar__link">หน้าแรก</a></li>
+                <li><a href="voucher-list.html" class="navbar__link navbar__link--active">ค้นหาวอชเชอร์</a></li>
+                <li><a href="about.html" class="navbar__link">เกี่ยวกับเรา</a></li>
+            </ul>
+            <div class="navbar__actions">
+                <button class="navbar__icon-btn" aria-label="การแจ้งเตือน">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button class="navbar__profile" aria-label="โปรไฟล์">
+                    <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
+                    <span class="navbar__profile-name">คุณสมชาย</span>
+                    <div class="navbar__dropdown">
+                        <a href="my-voucher.html" class="navbar__dropdown-item">
+                            <span class="material-symbols-outlined">confirmation_number</span>
+                            วอชเชอร์ของฉัน
+                        </a>
+                        <a href="wishlist.html" class="navbar__dropdown-item">
+                            <span class="material-symbols-outlined">favorite</span>
+                            รายการโปรด
+                        </a>
+                        <div class="navbar__dropdown-divider"></div>
+                        <a href="#" class="navbar__dropdown-item">
+                            <span class="material-symbols-outlined">settings</span>
+                            ตั้งค่า
+                        </a>
+                        <a href="login.html" class="navbar__dropdown-item navbar__dropdown-item--danger">
+                            <span class="material-symbols-outlined">logout</span>
+                            ออกจากระบบ
+                        </a>
+                    </div>
+                </button>
+            </div>
+        <button class="navbar__hamburger" aria-label="เปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.add('active')">
+            <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+        </button>
+    </div>
+</nav>
+
+    <div class="mobile-nav">
+        <div class="mobile-nav__header">
+            <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
+            <button class="mobile-nav__close" aria-label="ปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.remove('active')">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            </button>
+        </div>
+        <ul class="mobile-nav__list">
+            <li><a href="index.html" class="mobile-nav__link">หน้าแรก</a></li>
+            <li><a href="voucher-list.html" class="mobile-nav__link">ค้นหาวอชเชอร์</a></li>
+            <li><a href="about.html" class="mobile-nav__link">เกี่ยวกับเรา</a></li>
+        </ul>
+        <div class="mobile-nav__divider"></div>
+        <div class="mobile-nav__profile">
+            <div class="mobile-nav__profile-header">
+                <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
+                <span class="mobile-nav__profile-name">คุณสมชาย</span>
+            </div>
+            <ul class="mobile-nav__list">
+                <li><a href="my-voucher.html" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>
+                <li><a href="wishlist.html" class="mobile-nav__link"><span class="material-symbols-outlined">favorite</span>รายการโปรด</a></li>
+                <li><a href="#" class="mobile-nav__link"><span class="material-symbols-outlined">settings</span>ตั้งค่า</a></li>
+                <li><a href="login.html" class="mobile-nav__link mobile-nav__link--danger"><span class="material-symbols-outlined">logout</span>ออกจากระบบ</a></li>
+            </ul>
+        </div>
+    </div>
+
+<!-- Spacer for fixed navbar -->
+<div style="height: var(--nav-height);"></div>
+
+<!-- ==================== SKELETON + CONTENT ==================== -->
+
+
+<!-- === HERO === -->
+<section class="hero" aria-label="รูปโรงแรม Paradise Pool Villa Resort">
+    <img class="hero__image"
+         src="assets/images/hotels/hotel-pool-villa.jpg"
+         alt="Paradise Pool Villa Resort สระว่ายน้ำส่วนตัวริมทะเล"
+         loading="eager">
+    <div class="hero__overlay"></div>
+    <div class="hero__content container">
+        <div class="hero__stars" aria-label="ระดับ 5 ดาว">
+            <span class="material-symbols-outlined">star</span>
+            <span class="material-symbols-outlined">star</span>
+            <span class="material-symbols-outlined">star</span>
+            <span class="material-symbols-outlined">star</span>
+            <span class="material-symbols-outlined">star</span>
+        </div>
+        <h1 class="hero__title">Paradise Pool Villa Resort</h1>
+        <div class="hero__location">
+            <span class="material-symbols-outlined">location_on</span>
+            <span>เกาะสมุย, สุราษฎร์ธานี</span>
+        </div>
+    </div>
+</section>
+
+<!-- === TRINITY COMPARISON === -->
+<div class="skeleton-wrapper" id="skelTrinityResults">
+    <div class="skel-screen" aria-hidden="true">
+        <div class="skel-container" style="padding:var(--space-2xl) 0;">
+
+            <!-- Section header: heading + tag chip -->
+            <div class="skel-row" style="justify-content:space-between;align-items:center;margin-bottom:var(--space-xl);">
+                <div class="skel skel-text--heading" style="width:300px;"></div>
+                <div class="skel skel-chip" style="width:130px;"></div>
+            </div>
+
+            <!-- Comparison cards: 2 col -->
+            <div class="skel-grid-2" style="gap:var(--space-lg);margin-bottom:var(--space-2xl);align-items:start;">
+
+                <!-- Card 1: Recommended (taller — has more perks + save badge) -->
+                <div class="skel-card" style="padding:var(--space-xl);">
+                    <div class="skel-stack" style="gap:var(--space-md);">
+                        <!-- Header: label + title -->
+                        <div class="skel skel-text--caption" style="width:130px;"></div>
+                        <div class="skel skel-text--heading" style="width:75%;"></div>
+
+                        <!-- Hotel image -->
+                        <div class="skel skel-image" style="height:180px;border-radius:var(--radius-lg);"></div>
+
+                        <!-- Perks list: 4 rows (icon dot + text) -->
+                        <div class="skel-stack" style="gap:var(--space-sm);margin-top:var(--space-xs);">
+                            <div class="skel-row" style="gap:var(--space-sm);">
+                                <div class="skel skel-image--square" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;"></div>
+                                <div class="skel skel-text" style="width:72%;"></div>
+                            </div>
+                            <div class="skel-row" style="gap:var(--space-sm);">
+                                <div class="skel skel-image--square" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;"></div>
+                                <div class="skel skel-text" style="width:60%;"></div>
+                            </div>
+                            <div class="skel-row" style="gap:var(--space-sm);">
+                                <div class="skel skel-image--square" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;"></div>
+                                <div class="skel skel-text" style="width:68%;"></div>
+                            </div>
+                            <div class="skel-row" style="gap:var(--space-sm);">
+                                <div class="skel skel-image--square" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;"></div>
+                                <div class="skel skel-text" style="width:55%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Price section: strike-through, main price, save badge -->
+                        <div style="padding-top:var(--space-md);border-top:1px solid var(--border,#EBECEF);">
+                            <div class="skel-stack" style="gap:var(--space-sm);">
+                                <div class="skel skel-text--caption" style="width:80px;"></div>
+                                <div class="skel skel-text--heading" style="width:50%;"></div>
+                                <div class="skel skel-chip" style="width:100px;"></div>
+                            </div>
+                        </div>
+
+                        <!-- CTA button -->
+                        <div class="skel skel-button--full" style="height:48px;border-radius:var(--radius-md);margin-top:var(--space-xs);"></div>
+                    </div>
+                </div>
+
+                <!-- Card 2: OTA / other -->
+                <div class="skel-card" style="padding:var(--space-xl);">
+                    <div class="skel-stack" style="gap:var(--space-md);">
+                        <!-- Header: label + title -->
+                        <div class="skel skel-text--caption" style="width:100px;"></div>
+                        <div class="skel skel-text--heading" style="width:65%;"></div>
+
+                        <!-- Hotel image -->
+                        <div class="skel skel-image" style="height:180px;border-radius:var(--radius-lg);"></div>
+
+                        <!-- Description line -->
+                        <div class="skel skel-text" style="width:90%;"></div>
+                        <div class="skel skel-text" style="width:75%;"></div>
+
+                        <!-- Perks list: 4 rows (greyed out — negative) -->
+                        <div class="skel-stack" style="gap:var(--space-sm);margin-top:var(--space-xs);">
+                            <div class="skel-row" style="gap:var(--space-sm);">
+                                <div class="skel skel-image--square" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;"></div>
+                                <div class="skel skel-text" style="width:65%;"></div>
+                            </div>
+                            <div class="skel-row" style="gap:var(--space-sm);">
+                                <div class="skel skel-image--square" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;"></div>
+                                <div class="skel skel-text" style="width:58%;"></div>
+                            </div>
+                            <div class="skel-row" style="gap:var(--space-sm);">
+                                <div class="skel skel-image--square" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;"></div>
+                                <div class="skel skel-text" style="width:62%;"></div>
+                            </div>
+                            <div class="skel-row" style="gap:var(--space-sm);">
+                                <div class="skel skel-image--square" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;"></div>
+                                <div class="skel skel-text" style="width:50%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Price section: label + main price -->
+                        <div style="padding-top:var(--space-md);border-top:1px solid var(--border,#EBECEF);">
+                            <div class="skel-stack" style="gap:var(--space-sm);">
+                                <div class="skel skel-text--caption" style="width:110px;"></div>
+                                <div class="skel skel-text--heading" style="width:45%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- CTA button -->
+                        <div class="skel skel-button--full" style="height:44px;border-radius:var(--radius-md);margin-top:var(--space-xs);"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Comparison table section: heading + table placeholder -->
+            <div class="skel skel-text--heading" style="width:280px;margin-bottom:var(--space-lg);"></div>
+            <div class="skel" style="height:250px;border-radius:var(--radius-lg);"></div>
+        </div>
+    </div>
+    <div class="real-content">
+<div class="container">
+    <div class="section-header">
+        <h2>เปรียบเทียบแล้วคุ้มกว่าจริง</h2>
+        <span class="tag">
+            <span class="material-symbols-outlined" style="font-size: 16px;">local_offer</span>
+            ดีลตรงจากโรงแรม
+        </span>
+    </div>
+
+    <div class="comparison-grid">
+        <!-- Hotel Addict Deal -->
+        <div class="comparison-card comparison-card--recommended" style="position: relative; overflow: hidden;">
+            <span class="pill-badge-best">คุ้มที่สุด</span>
+
+            <div class="comparison-card__header">
+                <p class="comparison-card__label">Hotel Addict Deal</p>
+                <h3 class="comparison-card__title">ดีลพิเศษเฉพาะเรา</h3>
+            </div>
+
+            <ul class="perks-list perks-list--positive">
+                <li>
+                    <span class="material-symbols-outlined">restaurant</span>
+                    อาหารเช้าฟรี 2 ท่านทุกวัน
+                </li>
+                <li>
+                    <span class="material-symbols-outlined">schedule</span>
+                    Late Check-out ไม่ต้องรีบออก
+                </li>
+                <li>
+                    <span class="material-symbols-outlined">spa</span>
+                    เครดิตสปา &#3647;1,000 ใช้ได้เลย
+                </li>
+                <li>
+                    <span class="material-symbols-outlined">wifi</span>
+                    Wi-Fi ความเร็วสูงทั่วรีสอร์ท
+                </li>
+            </ul>
+
+            <div>
+                <span class="price-original">฿10,000</span>
+                <div class="price-block price-block--gold">
+                    <span class="price-value">฿6,500</span>
+                    <span class="price-unit">/คืน</span>
+                </div>
+                <div class="save-badge">
+                    <span class="material-symbols-outlined" style="font-size: 16px;">savings</span>
+                    ถูกกว่า 35%
+                </div>
+            </div>
+
+            <a href="payment.html" class="btn btn-primary btn-lg" style="width: 100%; text-align: center; text-decoration: none;">
+                เลือกดีลนี้เลย
+            </a>
+        </div>
+
+        <!-- OTA Deal -->
+        <div class="comparison-card comparison-card--other">
+            <div class="comparison-card__header">
+                <p class="comparison-card__label">OTA Deal</p>
+                <h3 class="comparison-card__title">ราคาปกติ</h3>
+            </div>
+
+            <p style="color: var(--text-secondary); font-size: var(--text-body-sm); line-height: var(--lh-body-md); margin-bottom: var(--space-lg);">
+                ราคาจองผ่านเว็บท่องเที่ยวทั่วไป ได้แค่ห้องพักเปล่า ไม่มีสิทธิพิเศษใดๆ
+            </p>
+
+            <ul class="perks-list perks-list--negative">
+                <li>
+                    <span class="material-symbols-outlined">cancel</span>
+                    ไม่รวมอาหารเช้า
+                </li>
+                <li>
+                    <span class="material-symbols-outlined">cancel</span>
+                    Check-out ตามปกติ
+                </li>
+                <li>
+                    <span class="material-symbols-outlined">cancel</span>
+                    ไม่มีเครดิตสปา
+                </li>
+                <li>
+                    <span class="material-symbols-outlined">cancel</span>
+                    Wi-Fi ธรรมดา
+                </li>
+            </ul>
+
+            <div style="padding-top: var(--space-md); border-top: 1px solid var(--border); margin-top: auto;">
+                <p style="font-size: var(--text-body-sm); color: var(--text-muted); margin-bottom: var(--space-xs);">ราคาจากเว็บจองทั่วไป</p>
+                <div class="price-block">
+                    <span class="price-value" style="color: var(--text-primary);">฿8,500</span>
+                    <span class="price-unit">/คืน</span>
+                </div>
+            </div>
+
+            <a href="#" class="btn btn-secondary" style="width: 100%; text-align: center; text-decoration: none; margin-top: var(--space-md);">
+                เลือกรายการนี้
+            </a>
+        </div>
+    </div>
+
+    <!-- === COMPARISON TABLE === -->
+    <div class="comparison-table-wrapper">
+        <h3>
+            <span class="material-symbols-outlined">analytics</span>
+            เทียบชัดๆ ทุกรายละเอียด
+        </h3>
+
+        <div style="overflow-x: auto; border-radius: var(--radius-lg); box-shadow: var(--shadow-card);">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th style="width: 35%;">สิ่งที่คุณจะได้รับ</th>
+                        <th class="col-highlight" style="width: 32.5%;">Hotel Addict (แนะนำ)</th>
+                        <th style="width: 32.5%;">เว็บจองทั่วไป</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ราคาต่อคืน</td>
+                        <td class="col-highlight" style="font-size: var(--text-h4); font-weight: var(--fw-bold);">฿6,500</td>
+                        <td style="font-size: var(--text-h4); color: var(--text-secondary);">฿8,500</td>
+                    </tr>
+                    <tr>
+                        <td>ส่วนลดพิเศษ</td>
+                        <td class="col-highlight">
+                            <span class="table-badge-save">ถูกกว่า 35%</span>
+                        </td>
+                        <td class="table-text-muted">-</td>
+                    </tr>
+                    <tr>
+                        <td>อาหารเช้าฟรี</td>
+                        <td class="col-highlight">
+                            <span class="material-symbols-outlined icon-check">check_circle</span>
+                        </td>
+                        <td>
+                            <span class="material-symbols-outlined icon-cross">cancel</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>สิทธิพิเศษเพิ่มเติม</td>
+                        <td class="col-highlight">เครดิตสปา + Late Check-out</td>
+                        <td class="table-text-muted">ไม่มี</td>
+                    </tr>
+                    <tr>
+                        <td>นโยบายยกเลิก</td>
+                        <td class="col-highlight">
+                            <span class="table-text-success">ยกเลิกฟรีล่วงหน้า 24 ชม.</span>
+                        </td>
+                        <td class="table-text-muted">ไม่สามารถคืนเงินได้</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    </div><!-- /real-content -->
+</div><!-- /skeleton-wrapper #skelTrinityResults -->
+
+
+<!-- === FOOTER === -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer__grid">
+            <!-- Column 1: Brand -->
+            <div>
+                <a href="index.html" style="text-decoration:none;display:inline-block;margin-bottom:var(--space-lg);">
+                    <span style="font-family:var(--font-heading);font-size:var(--text-h4);font-weight:var(--fw-bold);color:#FFFFFF;">Hotel <span class="footer__gold">Addict</span></span>
+                </a>
+                <p style="color:var(--text-muted);font-size:var(--text-body-sm);line-height:var(--lh-body-sm);max-width:340px;margin-bottom:var(--space-lg);">
+                    ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง เพราะเราเจรจาราคาพิเศษที่ไม่มีที่ไหนได้
+                </p>
+                <div class="footer__social">
+                    <button class="footer__social-btn" aria-label="Facebook">
+                        <span class="material-symbols-outlined">public</span>
+                    </button>
+                    <button class="footer__social-btn" aria-label="YouTube">
+                        <span class="material-symbols-outlined">smart_display</span>
+                    </button>
+                    <button class="footer__social-btn" aria-label="LINE">
+                        <span class="material-symbols-outlined">chat</span>
+                    </button>
+                    <button class="footer__social-btn" aria-label="Instagram">
+                        <span class="material-symbols-outlined">photo_camera</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Column 2: เมนูหลัก -->
+            <div>
+                <div class="footer__heading">เมนูหลัก</div>
+                <ul class="footer__list">
+                    <li><a href="index.html">หน้าแรก</a></li>
+                    <li><a href="trinity-search.html">ค้นหาวอชเชอร์</a></li>
+                    <li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li>
+                    <li><a href="wishlist.html">รายการโปรด</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: ช่วยเหลือ -->
+            <div>
+                <div class="footer__heading">ช่วยเหลือ</div>
+                <ul class="footer__list">
+                    <li><a href="#">ศูนย์ช่วยเหลือ</a></li>
+                    <li><a href="#">วิธีจองวอชเชอร์</a></li>
+                    <li><a href="#">นโยบายการยกเลิก</a></li>
+                    <li><a href="#">ข้อกำหนดการใช้งาน</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: ติดต่อเรา -->
+            <div>
+                <div class="footer__heading">ติดต่อเรา</div>
+                <ul class="footer__list">
+                    <li>
+                        <div class="footer__contact-item">
+                            <span class="material-symbols-outlined">mail</span>
+                            contact@hoteladdict.com
+                        </div>
+                    </li>
+                    <li>
+                        <div class="footer__contact-item">
+                            <span class="material-symbols-outlined">phone</span>
+                            02-123-4567
+                        </div>
+                    </li>
+                    <li>
+                        <div class="footer__contact-item">
+                            <span class="material-symbols-outlined">chat</span>
+                            @HotelAddict
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer__bottom">
+            <p>&copy; 2026 Hotel Addict. All rights reserved.</p>
+            <div class="footer__bottom-links">
+                <a href="#">ข้อกำหนดการใช้งาน</a>
+                <a href="#">นโยบายความเป็นส่วนตัว</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to Top -->
+<button class="back-to-top" aria-label="กลับขึ้นด้านบน">
+    <span class="material-symbols-outlined">arrow_upward</span>
+</button>
+
+<!-- JS -->
+<script src="js/main.js"></script>
+</body>
+</html>

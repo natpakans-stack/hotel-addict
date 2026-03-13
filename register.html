@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สร้างบัญชีใหม่ — Hotel Addict</title>
+    <meta name="description" content="สมัครสมาชิก Hotel Addict เพื่อรับข้อเสนอโรงแรมสุดพิเศษ">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="สร้างบัญชีใหม่ — Hotel Addict">
+    <meta property="og:description" content="สมัครสมาชิก Hotel Addict เพื่อรับข้อเสนอโรงแรมสุดพิเศษ">
+    <meta property="og:image" content="assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="สร้างบัญชีใหม่ — Hotel Addict">
+    <meta name="twitter:description" content="สมัครสมาชิก Hotel Addict เพื่อรับข้อเสนอโรงแรมสุดพิเศษ">
+    <meta name="twitter:image" content="assets/og-image.jpg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <!-- Design Tokens & Global Styles -->
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* === REGISTER PAGE LAYOUT === */
+        .register-page {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+            background: var(--bg-white);
+        }
+
+        /* --- Left Panel: Hero Image --- */
+        .register-hero {
+            display: none;
+            position: relative;
+            width: 50%;
+            overflow: hidden;
+        }
+
+        .register-hero__image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 12s ease;
+        }
+
+        .register-hero:hover .register-hero__image {
+            transform: scale(1.05);
+        }
+
+        .register-hero__overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--overlay-hero-register);
+        }
+
+        .register-hero__content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 100%;
+            padding: var(--space-2xl);
+        }
+
+        .register-hero__logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .register-hero__logo-icon {
+            color: var(--color-gold);
+            font-size: 36px;
+        }
+
+        .register-hero__logo-text {
+            font-family: var(--font-heading);
+            font-size: var(--text-h4);
+            font-weight: var(--fw-bold);
+            color: var(--bg-white);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .register-hero__heading {
+            font-family: var(--font-heading);
+            font-size: 40px;
+            line-height: 52px;
+            font-weight: var(--fw-bold);
+            color: var(--bg-white);
+            margin-bottom: var(--space-md);
+        }
+
+        .register-hero__heading .gold {
+            color: var(--color-gold);
+        }
+
+        .register-hero__subtitle {
+            font-family: var(--font-body);
+            font-size: var(--text-body-lg);
+            line-height: var(--lh-body-lg);
+            color: var(--bg-white-60);
+            max-width: 420px;
+        }
+
+        /* --- Right Panel: Form --- */
+        .register-form-panel {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-lg);
+            overflow-y: auto;
+            background: var(--bg-white);
+        }
+
+        .register-form-wrapper {
+            width: 100%;
+            max-width: 460px;
+        }
+
+        /* Mobile Logo */
+        .register-mobile-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .register-mobile-logo__icon {
+            color: var(--color-gold);
+            font-size: 32px;
+        }
+
+        .register-mobile-logo__text {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Form Card */
+        .register-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-card);
+        }
+
+        .register-card__header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .register-card__title {
+            font-family: var(--font-heading);
+            font-size: var(--text-h3);
+            line-height: var(--lh-h3);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .register-card__subtitle {
+            font-family: var(--font-body);
+            font-size: var(--text-body-md);
+            line-height: var(--lh-body-md);
+            color: var(--text-secondary);
+        }
+
+        /* Form Fields */
+        .register-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        .form-group__label {
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-semibold);
+            color: var(--text-primary);
+        }
+
+        .form-group__input-wrapper {
+            position: relative;
+        }
+
+        .form-group__icon {
+            position: absolute;
+            left: var(--space-md);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 20px;
+            pointer-events: none;
+        }
+
+        .form-group__input {
+            width: 100%;
+            height: 52px;
+            padding: 0 var(--space-md) 0 48px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: var(--text-body-md);
+            color: var(--text-body);
+            background: var(--bg-white);
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+            outline: none;
+        }
+
+        .form-group__input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-group__input:focus {
+            border-color: var(--color-gold);
+            box-shadow: var(--shadow-gold-focus);
+        }
+
+        .form-group__toggle {
+            position: absolute;
+            right: var(--space-md);
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color var(--transition-fast);
+        }
+
+        .form-group__toggle:hover {
+            color: var(--text-body);
+        }
+
+        .form-group__toggle .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        /* Password with toggle needs right padding */
+        .form-group__input--password {
+            padding-right: 48px;
+        }
+
+        /* Submit Button */
+        .register-submit {
+            width: 100%;
+            height: 52px;
+            margin-top: var(--space-sm);
+            background: var(--color-gold-dark);
+            color: var(--bg-white);
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: var(--text-body-md);
+            font-weight: var(--fw-bold);
+            cursor: pointer;
+            transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .register-submit:hover {
+            background: var(--color-gold);
+            box-shadow: var(--shadow-gold-md);
+            transform: translateY(-1px);
+        }
+
+        .register-submit:active {
+            transform: scale(0.98);
+        }
+
+        /* Divider */
+        .register-divider {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin: var(--space-lg) 0;
+        }
+
+        .register-divider__line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .register-divider__text {
+            font-family: var(--font-body);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-semibold);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+        }
+
+        /* Social Buttons */
+        .register-social {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+        }
+
+        .register-social__btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            height: 48px;
+            background: var(--bg-white);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-semibold);
+            color: var(--text-body);
+            cursor: pointer;
+            transition: border-color var(--transition-fast), background var(--transition-fast);
+        }
+
+        .register-social__btn:hover {
+            border-color: var(--color-gold);
+            background: var(--color-gold-subtle);
+        }
+
+        .register-social__btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Login Link */
+        .register-login-link {
+            text-align: center;
+            margin-top: var(--space-lg);
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+        }
+
+        .register-login-link a {
+            color: var(--color-gold-dark);
+            font-weight: var(--fw-bold);
+            text-decoration: none;
+            margin-left: 4px;
+            transition: color var(--transition-fast);
+        }
+
+        .register-login-link a:hover {
+            color: var(--color-gold);
+            text-decoration: underline;
+        }
+
+        /* Footer Links */
+        .register-footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+
+        .register-footer-links a {
+            font-family: var(--font-body);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-semibold);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .register-footer-links a:hover {
+            color: var(--color-gold-dark);
+        }
+
+        /* === RESPONSIVE === */
+        @media (min-width: 1024px) {
+            .register-hero {
+                display: flex;
+            }
+
+            .register-form-panel {
+                width: 50%;
+                padding: var(--space-2xl);
+            }
+
+            .register-mobile-logo {
+                display: none;
+            }
+
+            .register-card__header {
+                text-align: left;
+            }
+
+            .register-card {
+                padding: 40px;
+                box-shadow: none;
+                border: none;
+                background: transparent;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .register-card {
+                padding: var(--space-lg);
+            }
+
+            .register-hero__heading {
+                font-size: 32px;
+                line-height: 42px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-page">
+
+        <!-- ============================
+             LEFT PANEL: Hero Image
+             ============================ -->
+        <div class="register-hero">
+            <img
+                class="register-hero__image"
+                src="assets/images/hotels/hero-hotel-pool.jpg"
+                alt="โรงแรมหรูพร้อมสระว่ายน้ำริมทะเล"
+            >
+            <div class="register-hero__overlay"></div>
+            <div class="register-hero__content">
+                <a href="index.html" class="register-hero__logo" style="text-decoration:none;">
+                    <span class="material-symbols-outlined register-hero__logo-icon">hotel_class</span>
+                    <span class="register-hero__logo-text">Hotel Addict</span>
+                </a>
+                <h1 class="register-hero__heading">
+                    สมัครวันนี้<br>รับ<span class="gold">ดีลโรงแรมหรู</span>ก่อนใคร
+                </h1>
+                <p class="register-hero__subtitle">
+                    เข้าถึงราคาพิเศษเฉพาะสมาชิก ดีลตรงจากโรงแรมที่ถูกกว่า OTA ทุกแพลตฟอร์ม พร้อมสิทธิ์จอง Flash Deal ก่อนเปิดขายทั่วไป
+                </p>
+            </div>
+        </div>
+
+        <!-- ============================
+             RIGHT PANEL: Register Form
+             ============================ -->
+        <div class="register-form-panel">
+            <div class="register-form-wrapper">
+
+                <!-- Mobile Logo -->
+                <a href="index.html" class="register-mobile-logo" style="text-decoration:none;">
+                    <span class="material-symbols-outlined register-mobile-logo__icon">hotel_class</span>
+                    <span class="register-mobile-logo__text">Hotel Addict</span>
+                </a>
+
+                <!-- Form Card -->
+                <div class="register-card">
+                    <div class="register-card__header">
+                        <h2 class="register-card__title">เริ่มต้นกับ Hotel Addict</h2>
+                        <p class="register-card__subtitle">สมัครฟรี ไม่มีค่าธรรมเนียม เปิดประตูสู่ดีลโรงแรมที่ดีที่สุดในไทย</p>
+                    </div>
+
+                    <form class="register-form" action="#" method="POST" novalidate>
+
+                        <!-- Full Name -->
+                        <div class="form-group">
+                            <label class="form-group__label" for="fullname">ชื่อ-นามสกุล</label>
+                            <div class="form-group__input-wrapper">
+                                <span class="material-symbols-outlined form-group__icon">person</span>
+                                <input
+                                    class="form-group__input"
+                                    type="text"
+                                    id="fullname"
+                                    name="fullname"
+                                    placeholder="สมชาย เข็มกลัด"
+                                    autocomplete="name"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label class="form-group__label" for="email">อีเมล</label>
+                            <div class="form-group__input-wrapper">
+                                <span class="material-symbols-outlined form-group__icon">mail</span>
+                                <input
+                                    class="form-group__input"
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="example@mail.com"
+                                    autocomplete="email"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="form-group">
+                            <label class="form-group__label" for="phone">เบอร์โทรศัพท์</label>
+                            <div class="form-group__input-wrapper">
+                                <span class="material-symbols-outlined form-group__icon">phone</span>
+                                <input
+                                    class="form-group__input"
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="081-234-5678"
+                                    autocomplete="tel"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group">
+                            <label class="form-group__label" for="password">รหัสผ่าน</label>
+                            <div class="form-group__input-wrapper">
+                                <span class="material-symbols-outlined form-group__icon">lock</span>
+                                <input
+                                    class="form-group__input form-group__input--password"
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    placeholder="อย่างน้อย 8 ตัวอักษร"
+                                    autocomplete="new-password"
+                                    minlength="8"
+                                    required
+                                >
+                                <button
+                                    type="button"
+                                    class="form-group__toggle"
+                                    aria-label="แสดง/ซ่อนรหัสผ่าน"
+                                    onclick="togglePassword(this)"
+                                >
+                                    <span class="material-symbols-outlined">visibility</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Submit -->
+                        <button type="submit" class="register-submit">สมัครสมาชิก</button>
+
+                    </form>
+
+                    <!-- Divider -->
+                    <div class="register-divider">
+                        <div class="register-divider__line"></div>
+                        <span class="register-divider__text">หรือสมัครด้วย</span>
+                        <div class="register-divider__line"></div>
+                    </div>
+
+                    <!-- Social Login -->
+                    <div class="register-social">
+                        <button type="button" class="register-social__btn">
+                            <img src="assets/images/icons/icon-google.svg" alt="Google">
+                            <span>Google</span>
+                        </button>
+                        <button type="button" class="register-social__btn">
+                            <img src="assets/images/icons/icon-facebook.svg" alt="Facebook">
+                            <span>Facebook</span>
+                        </button>
+                    </div>
+
+                    <!-- Login Link -->
+                    <p class="register-login-link">
+                        มีบัญชีอยู่แล้ว?<a href="login.html">เข้าสู่ระบบ</a>
+                    </p>
+                </div>
+
+                <!-- Footer Links -->
+                <div class="register-footer-links">
+                    <a href="#">ข้อกำหนดการใช้งาน</a>
+                    <a href="#">นโยบายความเป็นส่วนตัว</a>
+                    <a href="#">ติดต่อเรา</a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
+
+    <!-- Password Toggle -->
+    <script>
+        function togglePassword(btn) {
+            const input = btn.previousElementSibling;
+            const icon = btn.querySelector('.material-symbols-outlined');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                icon.textContent = 'visibility';
+            }
+        }
+    </script>
+</body>
+</html>

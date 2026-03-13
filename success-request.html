@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ส่งคำขอสำเร็จ — Hotel Addict</title>
+    <meta name="description" content="คำขอของคุณถูกส่งเรียบร้อยแล้ว รอการยืนยันจากโรงแรม">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ส่งคำขอสำเร็จ — Hotel Addict">
+    <meta property="og:description" content="คำขอของคุณถูกส่งเรียบร้อยแล้ว รอการยืนยันจากโรงแรม">
+    <meta property="og:image" content="assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ส่งคำขอสำเร็จ — Hotel Addict">
+    <meta name="twitter:description" content="คำขอของคุณถูกส่งเรียบร้อยแล้ว รอการยืนยันจากโรงแรม">
+    <meta name="twitter:image" content="assets/og-image.jpg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <!-- Design Tokens & Global Styles -->
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* === PAGE LAYOUT === */
+        .success-page {
+            min-height: 100vh;
+            background: var(--bg-cream);
+        }
+
+        .success-content {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-lg) var(--space-3xl);
+        }
+
+        /* === SUCCESS HERO === */
+        .success-hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .success-icon {
+            width: 96px;
+            height: 96px;
+            border-radius: var(--radius-full);
+            background: var(--color-success-bg);
+            border: 2px solid var(--color-success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-lg);
+            animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .success-icon .material-symbols-outlined {
+            font-size: 56px;
+            color: var(--color-success);
+            font-variation-settings: 'FILL' 1;
+        }
+
+        .success-hero h1 {
+            font-size: var(--text-h2);
+            line-height: var(--lh-h2);
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .success-hero p {
+            font-size: var(--text-body-lg);
+            line-height: var(--lh-body-lg);
+            color: var(--text-secondary);
+            max-width: 460px;
+        }
+
+        /* === ORDER CARD === */
+        .order-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            box-shadow: var(--shadow-card);
+        }
+
+        .order-card__title {
+            font-family: var(--font-heading);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            color: var(--color-gold-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: var(--space-md);
+        }
+
+        .order-card__row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .order-card__row:last-child {
+            border-bottom: none;
+        }
+
+        .order-card__label {
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+        }
+
+        .order-card__value {
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-semibold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        /* === HOTEL CARD === */
+        .hotel-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-md);
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--shadow-card);
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .hotel-card__image {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius-lg);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .hotel-card__info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .hotel-card__name {
+            font-family: var(--font-heading);
+            font-size: var(--text-body-lg);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .hotel-card__detail {
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .hotel-card__badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            background: var(--color-gold-subtle);
+            color: var(--color-gold-dark);
+            border: 1px solid var(--color-gold-light);
+            border-radius: var(--radius-md);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+        }
+
+        /* === PENDING NOTICE === */
+        .pending-notice {
+            background: var(--color-warning-bg);
+            border: 1px solid var(--border-warning-30);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            margin-bottom: var(--space-xl);
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .pending-notice .material-symbols-outlined {
+            color: var(--color-warning);
+            font-size: 24px;
+            flex-shrink: 0;
+            font-variation-settings: 'FILL' 1;
+            margin-top: 2px;
+        }
+
+        .pending-notice__text {
+            font-size: var(--text-body-sm);
+            line-height: var(--lh-body-sm);
+            color: var(--text-body);
+        }
+
+        .pending-notice__text strong {
+            font-weight: var(--fw-semibold);
+            color: var(--text-primary);
+        }
+
+        /* === NEXT STEPS === */
+        .next-steps {
+            margin-bottom: var(--space-xl);
+        }
+
+        .next-steps__title {
+            font-family: var(--font-heading);
+            font-size: var(--text-body-lg);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+        }
+
+        .next-steps__list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .next-steps__item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+        }
+
+        .next-steps__number {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: var(--color-gold-dark);
+            color: var(--bg-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-family: var(--font-heading);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+        }
+
+        .next-steps__text {
+            font-size: var(--text-body-md);
+            line-height: var(--lh-body-md);
+            color: var(--text-body);
+            padding-top: 4px;
+        }
+
+        .next-steps__text .highlight {
+            color: var(--color-gold-dark);
+            font-weight: var(--fw-semibold);
+        }
+
+        /* === ACTION BUTTONS === */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: var(--space-2xl);
+        }
+
+        .btn-gold {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            width: 100%;
+            padding: 16px 24px;
+            background: var(--color-gold-dark);
+            color: var(--bg-white);
+            border: none;
+            border-radius: var(--radius-lg);
+            font-family: var(--font-body);
+            font-size: var(--text-body-md);
+            font-weight: var(--fw-bold);
+            cursor: pointer;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+            text-decoration: none;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-gold-md);
+            color: var(--bg-white);
+        }
+
+        .btn-outline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 16px 24px;
+            background: transparent;
+            color: var(--color-gold-dark);
+            border: 1.5px solid var(--color-gold);
+            border-radius: var(--radius-lg);
+            font-family: var(--font-body);
+            font-size: var(--text-body-md);
+            font-weight: var(--fw-bold);
+            cursor: pointer;
+            transition: background var(--transition-fast);
+            text-decoration: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--color-gold-subtle);
+            color: var(--color-gold-dark);
+        }
+
+        /* === FOOTER CONTACT === */
+        .footer-contact {
+            text-align: center;
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-contact__text {
+            font-size: var(--text-body-sm);
+            color: var(--text-muted);
+            margin-bottom: var(--space-md);
+        }
+
+        .footer-contact__icons {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+        }
+
+        .footer-contact__icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            background: var(--color-gold-subtle);
+            color: var(--color-gold-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition-fast), transform var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .footer-contact__icon:hover {
+            background: var(--color-gold-light);
+            transform: translateY(-2px);
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .success-content {
+                padding: var(--space-lg) var(--space-md) var(--space-2xl);
+            }
+
+            .success-hero h1 {
+                font-size: var(--text-h3);
+                line-height: var(--lh-h3);
+            }
+
+            .success-hero p {
+                font-size: var(--text-body-md);
+            }
+
+            .hotel-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hotel-card__image {
+                width: 100%;
+                height: 180px;
+                border-radius: var(--radius-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-page">
+        <!-- Navbar -->
+        <nav class="navbar" aria-label="เมนูหลัก">
+            <div class="navbar__inner">
+                <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
+                <ul class="navbar__menu">
+                    <li><a href="index.html" class="navbar__link">หน้าแรก</a></li>
+                    <li><a href="voucher-list.html" class="navbar__link">ค้นหาวอชเชอร์</a></li>
+                    <li><a href="about.html" class="navbar__link">เกี่ยวกับเรา</a></li>
+                </ul>
+                <div class="navbar__actions">
+                    <button class="navbar__icon-btn" aria-label="การแจ้งเตือน">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <button class="navbar__profile" aria-label="โปรไฟล์">
+                        <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
+                        <span class="navbar__profile-name">คุณสมชาย</span>
+                        <div class="navbar__dropdown">
+                            <a href="my-voucher.html" class="navbar__dropdown-item">
+                                <span class="material-symbols-outlined">confirmation_number</span>
+                                วอชเชอร์ของฉัน
+                            </a>
+                            <a href="wishlist.html" class="navbar__dropdown-item">
+                                <span class="material-symbols-outlined">favorite</span>
+                                รายการโปรด
+                            </a>
+                            <div class="navbar__dropdown-divider"></div>
+                            <a href="#" class="navbar__dropdown-item">
+                                <span class="material-symbols-outlined">settings</span>
+                                ตั้งค่า
+                            </a>
+                            <a href="login.html" class="navbar__dropdown-item navbar__dropdown-item--danger">
+                                <span class="material-symbols-outlined">logout</span>
+                                ออกจากระบบ
+                            </a>
+                        </div>
+                    </button>
+                </div>
+                <button class="navbar__hamburger" aria-label="เปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.add('active')">
+                    <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+                </button>
+            </div>
+        </nav>
+
+        <div class="mobile-nav">
+            <div class="mobile-nav__header">
+                <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
+                <button class="mobile-nav__close" aria-label="ปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.remove('active')">
+                    <span class="material-symbols-outlined" aria-hidden="true">close</span>
+                </button>
+            </div>
+            <ul class="mobile-nav__list">
+                <li><a href="index.html" class="mobile-nav__link">หน้าแรก</a></li>
+                <li><a href="voucher-list.html" class="mobile-nav__link">ค้นหาวอชเชอร์</a></li>
+                <li><a href="about.html" class="mobile-nav__link">เกี่ยวกับเรา</a></li>
+            </ul>
+            <div class="mobile-nav__divider"></div>
+            <div class="mobile-nav__profile">
+                <div class="mobile-nav__profile-header">
+                    <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
+                    <span class="mobile-nav__profile-name">คุณสมชาย</span>
+                </div>
+                <ul class="mobile-nav__list">
+                    <li><a href="my-voucher.html" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>
+                    <li><a href="wishlist.html" class="mobile-nav__link"><span class="material-symbols-outlined">favorite</span>รายการโปรด</a></li>
+                    <li><a href="#" class="mobile-nav__link"><span class="material-symbols-outlined">settings</span>ตั้งค่า</a></li>
+                    <li><a href="login.html" class="mobile-nav__link mobile-nav__link--danger"><span class="material-symbols-outlined">logout</span>ออกจากระบบ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="success-content">
+            <!-- Success Hero -->
+            <section class="success-hero">
+                <div class="success-icon">
+                    <span class="material-symbols-outlined">check_circle</span>
+                </div>
+                <h1>ส่งคำขอเรียบร้อยแล้ว!</h1>
+                <p>เราส่งคำขอไปยังโรงแรมให้คุณแล้ว โรงแรมจะยืนยันภายใน 24 ชม.</p>
+            </section>
+
+            <!-- Order Summary -->
+            <div class="order-card">
+                <h2 class="order-card__title">สรุปคำขอ</h2>
+                <div class="order-card__row">
+                    <span class="order-card__label">เลขที่คำขอ</span>
+                    <span class="order-card__value">#HA-2026-9988</span>
+                </div>
+                <div class="order-card__row">
+                    <span class="order-card__label">วันที่ส่ง</span>
+                    <span class="order-card__value">24 ตุลาคม 2026</span>
+                </div>
+                <div class="order-card__row">
+                    <span class="order-card__label">สถานะ</span>
+                    <span class="order-card__value">
+                        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--color-warning);"></span>
+                        รอการยืนยัน
+                    </span>
+                </div>
+            </div>
+
+            <!-- Pending Notice -->
+            <div class="pending-notice">
+                <span class="material-symbols-outlined">schedule</span>
+                <div class="pending-notice__text">
+                    <strong>โรงแรมจะตอบกลับภายใน 24 ชม.</strong><br>
+                    เราจะส่งอีเมลแจ้งทันทีเมื่อโรงแรมยืนยัน ไม่ต้องรอนั่งเช็ค
+                </div>
+            </div>
+
+            <!-- Hotel Info -->
+            <div class="hotel-card">
+                <img
+                    src="assets/images/hotels/hotel-pool-villa.jpg"
+                    alt="Paradise Pool Villa Resort"
+                    class="hotel-card__image"
+                    loading="lazy"
+                >
+                <div class="hotel-card__info">
+                    <h3 class="hotel-card__name">Paradise Pool Villa Resort</h3>
+                    <p class="hotel-card__detail">Luxury Pool Villa | 2 คืน</p>
+                    <span class="hotel-card__badge">E-Voucher 1 ใบ</span>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <section class="next-steps">
+                <h3 class="next-steps__title">ระหว่างรอ ทำอะไรได้บ้าง?</h3>
+                <div class="next-steps__list">
+                    <div class="next-steps__item">
+                        <div class="next-steps__number">1</div>
+                        <p class="next-steps__text">นั่งชิลรอ โรงแรมจะตอบกลับภายใน <span class="highlight">24 ชม.</span></p>
+                    </div>
+                    <div class="next-steps__item">
+                        <div class="next-steps__number">2</div>
+                        <p class="next-steps__text">เช็คสถานะได้ตลอดที่ <span class="highlight">"บัตรกำนัลของฉัน"</span></p>
+                    </div>
+                    <div class="next-steps__item">
+                        <div class="next-steps__number">3</div>
+                        <p class="next-steps__text">พอโรงแรมยืนยัน คุณจะได้รับ E-Voucher พร้อมใช้ทันที</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="my-voucher.html" class="btn-gold">
+                    <span class="material-symbols-outlined">confirmation_number</span>
+                    ดูบัตรกำนัลของฉัน
+                </a>
+                <a href="index.html" class="btn-outline">ดูดีลอื่นเพิ่มเติม</a>
+            </div>
+
+            <!-- Footer Contact -->
+            <div class="footer-contact">
+                <p class="footer-contact__text">มีคำถาม? ทีมของเราพร้อมช่วยตลอด 24 ชม.</p>
+                <div class="footer-contact__icons">
+                    <a href="#" class="footer-contact__icon" aria-label="Live chat">
+                        <span class="material-symbols-outlined">support_agent</span>
+                    </a>
+                    <a href="#" class="footer-contact__icon" aria-label="Email">
+                        <span class="material-symbols-outlined">mail</span>
+                    </a>
+                    <a href="#" class="footer-contact__icon" aria-label="Phone">
+                        <span class="material-symbols-outlined">call</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__grid">
+                    <div class="footer__col">
+                        <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
+                        <p class="footer__desc">ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง</p>
+                        <div class="footer__social">
+                            <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
+                            <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
+                            <a href="#" class="footer__social-btn" aria-label="LINE"><span class="material-symbols-outlined" aria-hidden="true">chat</span></a>
+                        </div>
+                    </div>
+                    <div class="footer__col">
+                        <h4 class="footer__heading">บริการลูกค้า</h4>
+                        <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีจองวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
+                    </div>
+                    <div class="footer__col">
+                        <h4 class="footer__heading">เกี่ยวกับเรา</h4>
+                        <ul class="footer__list"><li><a href="#">เกี่ยวกับ Hotel Addict</a></li><li><a href="#">ร่วมงานกับเรา</a></li><li><a href="#">พาร์ทเนอร์โรงแรม</a></li><li><a href="#">บล็อก</a></li></ul>
+                    </div>
+                    <div class="footer__col">
+                        <h4 class="footer__heading">ค้นพบ</h4>
+                        <ul class="footer__list"><li><a href="index.html">ดีลโรงแรม</a></li><li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li><li><a href="wishlist.html">รายการโปรด</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
+                    </div>
+                </div>
+                <div class="footer__bottom">
+                    <p>&copy; 2026 Hotel Addict. สงวนลิขสิทธิ์ทุกประการ</p>
+                    <div class="footer__bottom-links">
+                        <a href="#">ข้อกำหนดการใช้งาน</a>
+                        <a href="#">นโยบายความเป็นส่วนตัว</a>
+                        <a href="#">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

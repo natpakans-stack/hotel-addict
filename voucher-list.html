@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ค้นหาวอชเชอร์ — Hotel Addict</title>
+    <meta name="description" content="ค้นหาวอชเชอร์โรงแรมหรูทั่วไทย เปรียบเทียบราคาดีกว่า OTA กรองตามจุดหมาย ราคา ระดับดาว พร้อมสิทธิพิเศษมากมาย">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ค้นหาวอชเชอร์ — Hotel Addict">
+    <meta property="og:description" content="ค้นหาวอชเชอร์โรงแรมหรูทั่วไทย เปรียบเทียบราคาดีกว่า OTA กรองตามจุดหมาย ราคา ระดับดาว พร้อมสิทธิพิเศษมากมาย">
+    <meta property="og:image" content="assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ค้นหาวอชเชอร์ — Hotel Addict">
+    <meta name="twitter:description" content="ค้นหาวอชเชอร์โรงแรมหรูทั่วไทย เปรียบเทียบราคาดีกว่า OTA กรองตามจุดหมาย ราคา ระดับดาว พร้อมสิทธิพิเศษมากมาย">
+    <meta name="twitter:image" content="assets/og-image.jpg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* === PAGE-SPECIFIC STYLES === */
+
+        .page-top {
+            padding-top: var(--nav-height);
+        }
+
+        /* Search bar */
+        .search-section {
+            background: var(--bg-cream);
+            padding: var(--space-xl) 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .search-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .search-input-wrap {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--bg-white);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 12px 16px;
+            transition: border-color var(--transition-fast);
+        }
+
+        .search-input-wrap:focus-within {
+            border-color: var(--color-gold);
+        }
+
+        .search-input-wrap .material-symbols-outlined {
+            color: var(--color-gold-dark);
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .search-input-wrap input {
+            flex: 1;
+            border: none;
+            background: none;
+            font-family: var(--font-body);
+            font-size: var(--text-body-md);
+            color: var(--text-body);
+            outline: none;
+        }
+
+        .search-input-wrap input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-btn {
+            flex-shrink: 0;
+            height: 48px;
+            padding: 0 24px;
+            border-radius: var(--radius-lg);
+            background: var(--color-gold-dark);
+            color: var(--bg-white);
+            font-family: var(--font-heading);
+            font-size: var(--text-body-md);
+            font-weight: var(--fw-bold);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            transition: background var(--transition-fast);
+        }
+
+        .search-btn:hover {
+            background: var(--color-gold);
+        }
+
+        /* Toolbar: result count + sort */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            padding: var(--space-lg) 0;
+        }
+
+        .toolbar__count {
+            font-size: var(--text-body-md);
+            color: var(--text-secondary);
+        }
+
+        .toolbar__count strong {
+            color: var(--text-primary);
+            font-weight: var(--fw-bold);
+        }
+
+        .toolbar__actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .toolbar__sort {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .toolbar__sort:hover {
+            border-color: var(--color-gold);
+        }
+
+        .toolbar__sort select {
+            border: none;
+            background: none;
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            color: var(--text-body);
+            cursor: pointer;
+            outline: none;
+        }
+
+        /* Filter chips */
+        .filter-chips {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+            padding-bottom: var(--space-md);
+        }
+
+        .filter-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-medium);
+            border: 1.5px solid var(--border);
+            background: var(--bg-white);
+            color: var(--text-body);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .filter-chip:hover {
+            border-color: var(--color-gold);
+            color: var(--color-gold-dark);
+        }
+
+        .filter-chip--active {
+            background: var(--color-gold-subtle);
+            border-color: var(--color-gold);
+            color: var(--color-gold-dark);
+            font-weight: var(--fw-semibold);
+        }
+
+        .filter-chip .material-symbols-outlined {
+            font-size: 16px;
+        }
+
+        /* Content layout: sidebar + grid */
+        .content-layout {
+            display: flex;
+            gap: var(--space-xl);
+            padding-bottom: var(--space-3xl);
+        }
+
+        /* Sidebar filters — animated open/close */
+        .filters {
+            width: 280px;
+            flex-shrink: 0;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            height: fit-content;
+            position: sticky;
+            top: calc(var(--nav-height) + var(--space-md));
+            /* Animation: slide + fade */
+            max-width: 0;
+            padding: 0;
+            margin-right: 0;
+            opacity: 0;
+            overflow: hidden;
+            border-color: transparent;
+            transform: translateX(-12px);
+            transition:
+                max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                margin-right 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease,
+                transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s ease;
+        }
+
+        .filters.is-open {
+            max-width: 320px;
+            padding: var(--space-lg);
+            opacity: 1;
+            border-color: var(--border);
+            transform: translateX(0);
+        }
+
+        .filters__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .filters__title {
+            font-family: var(--font-heading);
+            font-size: var(--text-body-md);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+        }
+
+        .filters__close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            padding: 4px;
+            border-radius: var(--radius-sm);
+            transition: background var(--transition-fast);
+        }
+
+        .filters__close:hover {
+            background: var(--bg-cream);
+            color: var(--text-primary);
+        }
+
+        .filters__close .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .filters__reset {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: var(--space-lg);
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--bg-white);
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+            cursor: pointer;
+            width: 100%;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+
+        .filters__reset:hover {
+            border-color: var(--color-error);
+            color: var(--color-error);
+        }
+
+        /* Filter toggle button */
+        .toolbar__filter-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--bg-white);
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-medium);
+            color: var(--text-body);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .toolbar__filter-btn:hover {
+            border-color: var(--color-gold);
+            color: var(--color-gold-dark);
+        }
+
+        .toolbar__filter-btn.is-active {
+            background: var(--color-gold-subtle);
+            border-color: var(--color-gold);
+            color: var(--color-gold-dark);
+        }
+
+        .toolbar__filter-btn .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        /* View toggle buttons */
+        .toolbar__view-toggle {
+            display: flex;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .toolbar__view-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: var(--bg-white);
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all var(--transition-fast);
+        }
+
+        .toolbar__view-btn:not(:last-child) {
+            border-right: 1px solid var(--border);
+        }
+
+        .toolbar__view-btn:hover {
+            color: var(--text-body);
+            background: var(--bg-cream);
+        }
+
+        .toolbar__view-btn.is-active {
+            background: var(--color-gold-subtle);
+            color: var(--color-gold-dark);
+        }
+
+        .toolbar__view-btn .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        /* Grid toolbar (count + view toggle) */
+        .grid-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+        }
+
+        /* Filter button idle/active states */
+        .toolbar__filter-icon-active,
+        .toolbar__filter-label-active {
+            display: none;
+        }
+
+        .toolbar__filter-btn.is-active .toolbar__filter-icon-idle,
+        .toolbar__filter-btn.is-active .toolbar__filter-label-idle {
+            display: none;
+        }
+
+        .toolbar__filter-btn.is-active .toolbar__filter-icon-active,
+        .toolbar__filter-btn.is-active .toolbar__filter-label-active {
+            display: inline;
+        }
+
+        /* Grid content area */
+        .content-layout__main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* List view */
+        .voucher-grid--list {
+            grid-template-columns: 1fr !important;
+        }
+
+        .voucher-grid--list .voucher-card {
+            flex-direction: row;
+        }
+
+        .voucher-grid--list .voucher-card__image {
+            width: 280px;
+            flex-shrink: 0;
+            aspect-ratio: auto;
+            height: 100%;
+        }
+
+        .voucher-grid--list .voucher-card__image img {
+            height: 100%;
+            min-height: 200px;
+        }
+
+        .voucher-grid--list .voucher-card__body {
+            padding: var(--space-lg);
+        }
+
+        /* === Smart Animate: view switch fade === */
+        .voucher-card.view-switching {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+
+        /* === Smart Animate: filter chip press === */
+        .filter-chip:active {
+            transform: scale(0.95);
+        }
+        .filter-chip {
+            transition:
+                background var(--transition-fast),
+                border-color var(--transition-fast),
+                color var(--transition-fast),
+                transform 0.15s ease;
+        }
+
+        /* === Smart Animate: checkbox ripple === */
+        .filter-option {
+            transition: background 0.2s ease;
+            border-radius: var(--radius-sm);
+            padding: 4px 0;
+        }
+        .filter-option:active {
+            background: var(--bg-cream);
+        }
+
+        /* === Smart Animate: toolbar button press === */
+        .toolbar__view-btn:active,
+        .toolbar__filter-btn:active {
+            transform: scale(0.92);
+        }
+        .toolbar__view-btn,
+        .toolbar__filter-btn {
+            transition:
+                all var(--transition-fast),
+                transform 0.12s ease;
+        }
+
+        /* === Smart Animate: search button === */
+        .search-btn:active {
+            transform: scale(0.96);
+        }
+        .search-btn {
+            transition:
+                background var(--transition-fast),
+                transform 0.12s ease;
+        }
+
+        /* === Smart Animate: sort dropdown === */
+        .toolbar__sort:active {
+            transform: scale(0.97);
+        }
+
+        .filter-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .filter-group__title {
+            font-family: var(--font-heading);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: 6px 0;
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            color: var(--text-body);
+            cursor: pointer;
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--color-gold-dark);
+            cursor: pointer;
+        }
+
+        .filter-option__count {
+            margin-left: auto;
+            font-size: var(--text-micro);
+            color: var(--text-muted);
+        }
+
+        /* Price range */
+        .price-range {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .price-range__input {
+            flex: 1;
+            min-width: 0;
+            padding: 8px 8px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            color: var(--text-body);
+            outline: none;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .price-range__input:focus {
+            border-color: var(--color-gold);
+        }
+
+        .price-range__sep {
+            color: var(--text-muted);
+            font-size: var(--text-body-sm);
+        }
+
+        /* Voucher grid */
+        .voucher-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-lg);
+            transition: grid-template-columns 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Voucher card */
+        .voucher-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition:
+                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.35s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .voucher-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .voucher-card__image {
+            position: relative;
+            aspect-ratio: 16/10;
+            overflow: hidden;
+        }
+
+        .voucher-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .voucher-card:hover .voucher-card__image img {
+            transform: scale(1.05);
+        }
+
+        .voucher-card__badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--color-gold-dark);
+            color: var(--bg-white);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            letter-spacing: 0.05em;
+        }
+
+        .voucher-card__wishlist {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.85);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition-fast);
+        }
+
+        .voucher-card__wishlist:hover {
+            background: var(--bg-white);
+        }
+
+        .voucher-card__wishlist .material-symbols-outlined {
+            font-size: 20px;
+            color: var(--text-secondary);
+        }
+
+        .voucher-card__body {
+            padding: var(--space-md);
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .voucher-card__meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xs);
+        }
+
+        .voucher-card__category {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-semibold);
+            color: var(--color-gold-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .voucher-card__stars {
+            display: flex;
+            gap: 1px;
+        }
+
+        .voucher-card__stars .material-symbols-outlined {
+            font-size: 14px;
+            color: var(--color-warning);
+            font-variation-settings: 'FILL' 1;
+        }
+
+        .voucher-card__name {
+            font-family: var(--font-heading);
+            font-size: var(--text-body-md);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .voucher-card__location {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+        }
+
+        .voucher-card__location .material-symbols-outlined {
+            font-size: 16px;
+        }
+
+        .voucher-card__perks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: var(--space-md);
+        }
+
+        .voucher-card__perk {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: var(--text-micro);
+            color: var(--color-gold-dark);
+            background: var(--color-gold-subtle);
+            padding: 3px 8px;
+            border-radius: var(--radius-sm);
+        }
+
+        .voucher-card__perk .material-symbols-outlined {
+            font-size: 14px;
+        }
+
+        .voucher-card__footer {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border);
+        }
+
+        .voucher-card__price-original {
+            font-size: var(--text-body-sm);
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .voucher-card__price {
+            font-family: var(--font-heading);
+            font-size: var(--text-body-lg);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+        }
+
+        .voucher-card__price-unit {
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-regular);
+            color: var(--text-secondary);
+        }
+
+        .voucher-card__discount {
+            background: var(--color-error-bg);
+            color: var(--color-error);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+        }
+
+        /* Load more */
+        .load-more {
+            text-align: center;
+            padding: var(--space-xl) 0;
+        }
+
+        .load-more__btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: 12px 32px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-full);
+            background: var(--bg-white);
+            font-family: var(--font-heading);
+            font-size: var(--text-body-md);
+            font-weight: var(--fw-semibold);
+            color: var(--text-body);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .load-more__btn:hover {
+            border-color: var(--color-gold);
+            color: var(--color-gold-dark);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .voucher-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filters {
+                width: 260px;
+            }
+
+            .voucher-grid--list .voucher-card__image {
+                width: 220px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-layout {
+                flex-direction: column;
+            }
+
+            .filters {
+                width: 100%;
+                position: static;
+            }
+
+            .voucher-grid--list .voucher-card {
+                flex-direction: column;
+            }
+
+            .voucher-grid--list .voucher-card__image {
+                width: 100%;
+                aspect-ratio: 16/10;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .voucher-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-row {
+                flex-direction: column;
+            }
+
+            .search-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .toolbar__view-toggle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar" aria-label="เมนูหลัก">
+        <div class="navbar__inner">
+            <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
+            <ul class="navbar__menu">
+                <li><a href="index.html" class="navbar__link">หน้าแรก</a></li>
+                <li><a href="voucher-list.html" class="navbar__link navbar__link--active">ค้นหาวอชเชอร์</a></li>
+                <li><a href="about.html" class="navbar__link">เกี่ยวกับเรา</a></li>
+            </ul>
+            <div class="navbar__actions">
+                <button class="navbar__icon-btn" aria-label="การแจ้งเตือน">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button class="navbar__profile" aria-label="โปรไฟล์">
+                    <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
+                    <span class="navbar__profile-name">คุณสมชาย</span>
+                    <div class="navbar__dropdown">
+                        <a href="my-voucher.html" class="navbar__dropdown-item">
+                            <span class="material-symbols-outlined">confirmation_number</span>
+                            วอชเชอร์ของฉัน
+                        </a>
+                        <a href="wishlist.html" class="navbar__dropdown-item">
+                            <span class="material-symbols-outlined">favorite</span>
+                            รายการโปรด
+                        </a>
+                        <div class="navbar__dropdown-divider"></div>
+                        <a href="#" class="navbar__dropdown-item">
+                            <span class="material-symbols-outlined">settings</span>
+                            ตั้งค่า
+                        </a>
+                        <a href="login.html" class="navbar__dropdown-item navbar__dropdown-item--danger">
+                            <span class="material-symbols-outlined">logout</span>
+                            ออกจากระบบ
+                        </a>
+                    </div>
+                </button>
+            </div>
+            <button class="navbar__hamburger" aria-label="เปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.add('active')">
+                <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav">
+        <div class="mobile-nav__header">
+            <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
+            <button class="mobile-nav__close" aria-label="ปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.remove('active')">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            </button>
+        </div>
+        <ul class="mobile-nav__list">
+            <li><a href="index.html" class="mobile-nav__link">หน้าแรก</a></li>
+            <li><a href="voucher-list.html" class="mobile-nav__link">ค้นหาวอชเชอร์</a></li>
+            <li><a href="about.html" class="mobile-nav__link">เกี่ยวกับเรา</a></li>
+        </ul>
+        <div class="mobile-nav__divider"></div>
+        <div class="mobile-nav__profile">
+            <div class="mobile-nav__profile-header">
+                <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
+                <span class="mobile-nav__profile-name">คุณสมชาย</span>
+            </div>
+            <ul class="mobile-nav__list">
+                <li><a href="my-voucher.html" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>
+                <li><a href="wishlist.html" class="mobile-nav__link"><span class="material-symbols-outlined">favorite</span>รายการโปรด</a></li>
+                <li><a href="#" class="mobile-nav__link"><span class="material-symbols-outlined">settings</span>ตั้งค่า</a></li>
+                <li><a href="login.html" class="mobile-nav__link mobile-nav__link--danger"><span class="material-symbols-outlined">logout</span>ออกจากระบบ</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== SKELETON + CONTENT ==================== -->
+
+    <div class="page-top">
+        <section class="search-section">
+            <div class="container">
+                <div class="search-row">
+                    <div class="search-input-wrap">
+                        <span class="material-symbols-outlined">search</span>
+                        <input type="text" placeholder="ค้นหาโรงแรม จุดหมาย หรือชื่อวอชเชอร์..." aria-label="ค้นหาวอชเชอร์">
+                    </div>
+                    <button class="search-btn">
+                        <span class="material-symbols-outlined">search</span>
+                        ค้นหา
+                    </button>
+                </div>
+
+                <!-- Filter chips -->
+                <div class="filter-chips" style="margin-top:var(--space-md);">
+                    <button class="filter-chip filter-chip--active">
+                        <span class="material-symbols-outlined">local_fire_department</span>
+                        ทั้งหมด
+                    </button>
+                    <button class="filter-chip">
+                        <span class="material-symbols-outlined">beach_access</span>
+                        ทะเล
+                    </button>
+                    <button class="filter-chip">
+                        <span class="material-symbols-outlined">landscape</span>
+                        ภูเขา
+                    </button>
+                    <button class="filter-chip">
+                        <span class="material-symbols-outlined">location_city</span>
+                        ในเมือง
+                    </button>
+                    <button class="filter-chip">
+                        <span class="material-symbols-outlined">spa</span>
+                        สปา & เวลเนส
+                    </button>
+                    <button class="filter-chip">
+                        <span class="material-symbols-outlined">family_restroom</span>
+                        ครอบครัว
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main class="container">
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <button class="toolbar__filter-btn is-active" id="filterToggleBtn" onclick="toggleFilter()">
+                <span class="material-symbols-outlined toolbar__filter-icon-idle">tune</span>
+                <span class="material-symbols-outlined toolbar__filter-icon-active">close</span>
+                <span class="toolbar__filter-label-idle">ตัวกรอง</span>
+                <span class="toolbar__filter-label-active">ปิดตัวกรอง</span>
+            </button>
+            <div class="toolbar__actions">
+                <div class="toolbar__sort">
+                    <span class="material-symbols-outlined" style="font-size:18px;">sort</span>
+                    <select aria-label="เรียงลำดับ">
+                        <option>แนะนำ</option>
+                        <option>ราคาต่ำ → สูง</option>
+                        <option>ราคาสูง → ต่ำ</option>
+                        <option>ส่วนลดมากสุด</option>
+                        <option>รีวิวดีสุด</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content: sidebar + grid -->
+        <div class="content-layout">
+
+            <!-- Sidebar filters -->
+            <aside class="filters is-open" id="filterSidebar">
+                <div class="filters__header">
+                    <span class="filters__title">ตัวกรอง</span>
+                    <button class="filters__close" onclick="toggleFilter()" aria-label="ปิดตัวกรอง">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <!-- Price range -->
+                <div class="filter-group">
+                    <h3 class="filter-group__title">ช่วงราคา</h3>
+                    <div class="price-range">
+                        <input type="text" class="price-range__input" placeholder="฿0" aria-label="ราคาต่ำสุด">
+                        <span class="price-range__sep">—</span>
+                        <input type="text" class="price-range__input" placeholder="฿50,000" aria-label="ราคาสูงสุด">
+                    </div>
+                </div>
+
+                <!-- Star rating -->
+                <div class="filter-group">
+                    <h3 class="filter-group__title">ระดับดาว</h3>
+                    <label class="filter-option">
+                        <input type="checkbox" checked>
+                        5 ดาว
+                        <span class="filter-option__count">28</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" checked>
+                        4 ดาว
+                        <span class="filter-option__count">15</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        3 ดาว
+                        <span class="filter-option__count">5</span>
+                    </label>
+                </div>
+
+                <!-- Location -->
+                <div class="filter-group">
+                    <h3 class="filter-group__title">จุดหมาย</h3>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        กรุงเทพมหานคร
+                        <span class="filter-option__count">12</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        ภูเก็ต
+                        <span class="filter-option__count">10</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        หัวหิน
+                        <span class="filter-option__count">8</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        เขาใหญ่
+                        <span class="filter-option__count">6</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        เกาะสมุย
+                        <span class="filter-option__count">5</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        เชียงใหม่
+                        <span class="filter-option__count">4</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        กระบี่
+                        <span class="filter-option__count">3</span>
+                    </label>
+                </div>
+
+                <!-- Perks -->
+                <div class="filter-group">
+                    <h3 class="filter-group__title">สิทธิพิเศษ</h3>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        อาหารเช้าฟรี
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        สปาเครดิต
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        Late Check-out
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        รถรับ-ส่งสนามบิน
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox">
+                        ยกเลิกฟรี
+                    </label>
+                </div>
+                <button class="filters__reset" onclick="resetFilters()">
+                    <span class="material-symbols-outlined" style="font-size:16px;">restart_alt</span>
+                    ล้างตัวกรองทั้งหมด
+                </button>
+            </aside>
+
+            <!-- Voucher grid -->
+            <div class="content-layout__main">
+                <div class="grid-toolbar">
+                    <div class="toolbar__count">พบ <strong>48</strong> วอชเชอร์</div>
+                    <div class="toolbar__view-toggle">
+                        <button class="toolbar__view-btn is-active" id="viewGrid" onclick="setView('grid')" aria-label="แสดงแบบ Grid">
+                            <span class="material-symbols-outlined">grid_view</span>
+                        </button>
+                        <button class="toolbar__view-btn" id="viewList" onclick="setView('list')" aria-label="แสดงแบบ List">
+                            <span class="material-symbols-outlined">view_list</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="skeleton-wrapper" id="skelVoucherList">
+                    <div class="skel-screen" aria-hidden="true">
+                        <div class="skel-grid-3">
+
+                            <!-- Skeleton Card (×6) -->
+                            <div class="skel-card">
+                                <div class="skel skel-image"></div>
+                                <div class="skel-card__body">
+                                    <div class="skel-row" style="justify-content:space-between;align-items:center;">
+                                        <div class="skel skel-chip"></div>
+                                        <div class="skel skel-chip" style="width:90px;"></div>
+                                    </div>
+                                    <div class="skel skel-text skel-text--heading"></div>
+                                    <div class="skel skel-text skel-text--caption" style="width:55%;"></div>
+                                    <div class="skel-row" style="gap:8px;margin-top:4px;">
+                                        <div class="skel skel-chip" style="width:72px;height:28px;"></div>
+                                        <div class="skel skel-chip" style="width:60px;height:28px;"></div>
+                                        <div class="skel skel-chip" style="width:76px;height:28px;"></div>
+                                    </div>
+                                    <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
+                                        <div class="skel-stack" style="gap:6px;">
+                                            <div class="skel skel-text skel-text--caption" style="width:80px;"></div>
+                                            <div class="skel skel-text" style="width:120px;height:22px;"></div>
+                                        </div>
+                                        <div class="skel skel-chip" style="width:52px;height:28px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="skel-card">
+                                <div class="skel skel-image"></div>
+                                <div class="skel-card__body">
+                                    <div class="skel-row" style="justify-content:space-between;align-items:center;">
+                                        <div class="skel skel-chip"></div>
+                                        <div class="skel skel-chip" style="width:90px;"></div>
+                                    </div>
+                                    <div class="skel skel-text skel-text--heading"></div>
+                                    <div class="skel skel-text skel-text--caption" style="width:55%;"></div>
+                                    <div class="skel-row" style="gap:8px;margin-top:4px;">
+                                        <div class="skel skel-chip" style="width:72px;height:28px;"></div>
+                                        <div class="skel skel-chip" style="width:60px;height:28px;"></div>
+                                        <div class="skel skel-chip" style="width:76px;height:28px;"></div>
+                                    </div>
+                                    <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
+                                        <div class="skel-stack" style="gap:6px;">
+                                            <div class="skel skel-text skel-text--caption" style="width:80px;"></div>
+                                            <div class="skel skel-text" style="width:120px;height:22px;"></div>
+                                        </div>
+                                        <div class="skel skel-chip" style="width:52px;height:28px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="skel-card">
+                                <div class="skel skel-image"></div>
+                                <div class="skel-card__body">
+                                    <div class="skel-row" style="justify-content:space-between;align-items:center;">
+                                        <div class="skel skel-chip"></div>
+                                        <div class="skel skel-chip" style="width:90px;"></div>
+                                    </div>
+                                    <div class="skel skel-text skel-text--heading"></div>
+                                    <div class="skel skel-text skel-text--caption" style="width:55%;"></div>
+                                    <div class="skel-row" style="gap:8px;margin-top:4px;">
+                                        <div class="skel skel-chip" style="width:72px;height:28px;"></div>
+                                        <div class="skel skel-chip" style="width:60px;height:28px;"></div>
+                                        <div class="skel skel-chip" style="width:76px;height:28px;"></div>
+                                    </div>
+                                    <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
+                                        <div class="skel-stack" style="gap:6px;">
+                                            <div class="skel skel-text skel-text--caption" style="width:80px;"></div>
+                                            <div class="skel skel-text" style="width:120px;height:22px;"></div>
+                                        </div>
+                                        <div class="skel skel-chip" style="width:52px;height:28px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="skel-card">
+                                <div class="skel skel-image"></div>
+                                <div class="skel-card__body">
+                                    <div class="skel-row" style="justify-content:space-between;align-items:center;">
+                                        <div class="skel skel-chip"></div>
+                                        <div class="skel skel-chip" style="width:90px;"></div>
+                                    </div>
+                                    <div class="skel skel-text skel-text--heading"></div>
+                                    <div class="skel skel-text skel-text--caption" style="width:55%;"></div>
+                                    <div class="skel-row" style="gap:8px;margin-top:4px;">
+                                        <div class="skel skel-chip" style="width:72px;height:28px;"></div>
+                                        <div class="skel skel-chip" style="width:60px;height:28px;"></div>
+                                        <div class="skel skel-chip" style="width:76px;height:28px;"></div>
+                                    </div>
+                                    <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
+                                        <div class="skel-stack" style="gap:6px;">
+                                            <div class="skel skel-text skel-text--caption" style="width:80px;"></div>
+                                            <div class="skel skel-text" style="width:120px;height:22px;"></div>
+                                        </div>
+                                        <div class="skel skel-chip" style="width:52px;height:28px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="skel-card">
+                                <div class="skel skel-image"></div>
+                                <div class="skel-card__body">
+                                    <div class="skel-row" style="justify-content:space-between;align-items:center;">
+                                        <div class="skel skel-chip"></div>
+                                        <div class="skel skel-chip" style="width:90px;"></div>
+                                    </div>
+                                    <div class="skel skel-text skel-text--heading"></div>
+                                    <div class="skel skel-text skel-text--caption" style="width:55%;"></div>
+                                    <div class="skel-row" style="gap:8px;margin-top:4px;">
+                                        <div class="skel skel-chip" style="width:72px;height:28px;"></div>
+                                        <div class="skel skel-chip" style="width:60px;height:28px;"></div>
+                                        <div class="skel skel-chip" style="width:76px;height:28px;"></div>
+                                    </div>
+                                    <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
+                                        <div class="skel-stack" style="gap:6px;">
+                                            <div class="skel skel-text skel-text--caption" style="width:80px;"></div>
+                                            <div class="skel skel-text" style="width:120px;height:22px;"></div>
+                                        </div>
+                                        <div class="skel skel-chip" style="width:52px;height:28px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="skel-card">
+                                <div class="skel skel-image"></div>
+                                <div class="skel-card__body">
+                                    <div class="skel-row" style="justify-content:space-between;align-items:center;">
+                                        <div class="skel skel-chip"></div>
+                                        <div class="skel skel-chip" style="width:90px;"></div>
+                                    </div>
+                                    <div class="skel skel-text skel-text--heading"></div>
+                                    <div class="skel skel-text skel-text--caption" style="width:55%;"></div>
+                                    <div class="skel-row" style="gap:8px;margin-top:4px;">
+                                        <div class="skel skel-chip" style="width:72px;height:28px;"></div>
+                                        <div class="skel skel-chip" style="width:60px;height:28px;"></div>
+                                        <div class="skel skel-chip" style="width:76px;height:28px;"></div>
+                                    </div>
+                                    <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
+                                        <div class="skel-stack" style="gap:6px;">
+                                            <div class="skel skel-text skel-text--caption" style="width:80px;"></div>
+                                            <div class="skel skel-text" style="width:120px;height:22px;"></div>
+                                        </div>
+                                        <div class="skel skel-chip" style="width:52px;height:28px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="real-content">
+                <div class="voucher-grid" id="voucherGrid">
+
+                    <!-- Card 1 -->
+                    <a href="voucher-detail.html" class="voucher-card">
+                        <div class="voucher-card__image">
+                            <img src="assets/images/hotels/hotel-bedroom-luxury.jpg" alt="The Ritz-Carlton Bangkok" loading="lazy">
+                            <span class="voucher-card__badge">HOT</span>
+                            <button class="voucher-card__wishlist" aria-label="เพิ่มในรายการโปรด">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                        </div>
+                        <div class="voucher-card__body">
+                            <div class="voucher-card__meta">
+                                <span class="voucher-card__category">Luxury Collection</span>
+                                <div class="voucher-card__stars">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                            </div>
+                            <div class="voucher-card__name">The Ritz-Carlton Bangkok</div>
+                            <div class="voucher-card__location">
+                                <span class="material-symbols-outlined">location_on</span>
+                                กรุงเทพมหานคร
+                            </div>
+                            <div class="voucher-card__perks">
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">restaurant</span>อาหารเช้า</span>
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">spa</span>สปา</span>
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">schedule</span>Late C/O</span>
+                            </div>
+                            <div class="voucher-card__footer">
+                                <div>
+                                    <div class="voucher-card__price-original">฿18,500</div>
+                                    <div class="voucher-card__price">฿12,500 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                </div>
+                                <span class="voucher-card__discount">-32%</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Card 2 -->
+                    <a href="voucher-detail.html" class="voucher-card">
+                        <div class="voucher-card__image">
+                            <img src="assets/images/hotels/hotel-siam-heritage.jpg" alt="Amanpuri Phuket" loading="lazy">
+                            <span class="voucher-card__badge">HOT</span>
+                            <button class="voucher-card__wishlist" aria-label="เพิ่มในรายการโปรด">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                        </div>
+                        <div class="voucher-card__body">
+                            <div class="voucher-card__meta">
+                                <span class="voucher-card__category">Beachfront Resort</span>
+                                <div class="voucher-card__stars">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                            </div>
+                            <div class="voucher-card__name">Amanpuri Phuket</div>
+                            <div class="voucher-card__location">
+                                <span class="material-symbols-outlined">location_on</span>
+                                ภูเก็ต
+                            </div>
+                            <div class="voucher-card__perks">
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">restaurant</span>อาหารเช้า</span>
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">airport_shuttle</span>รถรับ-ส่ง</span>
+                            </div>
+                            <div class="voucher-card__footer">
+                                <div>
+                                    <div class="voucher-card__price-original">฿55,000</div>
+                                    <div class="voucher-card__price">฿39,900 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                </div>
+                                <span class="voucher-card__discount">-27%</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Card 3 -->
+                    <a href="voucher-detail.html" class="voucher-card">
+                        <div class="voucher-card__image">
+                            <img src="assets/images/hotels/hotel-intercontinental-khaoyai.jpg" alt="InterContinental Khao Yai" loading="lazy">
+                            <button class="voucher-card__wishlist" aria-label="เพิ่มในรายการโปรด">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                        </div>
+                        <div class="voucher-card__body">
+                            <div class="voucher-card__meta">
+                                <span class="voucher-card__category">Mountain Retreat</span>
+                                <div class="voucher-card__stars">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                            </div>
+                            <div class="voucher-card__name">InterContinental Khao Yai</div>
+                            <div class="voucher-card__location">
+                                <span class="material-symbols-outlined">location_on</span>
+                                เขาใหญ่
+                            </div>
+                            <div class="voucher-card__perks">
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">restaurant</span>อาหารเช้า</span>
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">schedule</span>Late C/O</span>
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">spa</span>สปา</span>
+                            </div>
+                            <div class="voucher-card__footer">
+                                <div>
+                                    <div class="voucher-card__price-original">฿16,800</div>
+                                    <div class="voucher-card__price">฿11,500 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                </div>
+                                <span class="voucher-card__discount">-32%</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Card 4 -->
+                    <a href="voucher-detail.html" class="voucher-card">
+                        <div class="voucher-card__image">
+                            <img src="assets/images/hotels/hotel-waldorf-astoria.jpg" alt="Waldorf Astoria Bangkok" loading="lazy">
+                            <span class="voucher-card__badge">HOT</span>
+                            <button class="voucher-card__wishlist" aria-label="เพิ่มในรายการโปรด">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                        </div>
+                        <div class="voucher-card__body">
+                            <div class="voucher-card__meta">
+                                <span class="voucher-card__category">Premium Stay</span>
+                                <div class="voucher-card__stars">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                            </div>
+                            <div class="voucher-card__name">Waldorf Astoria Bangkok</div>
+                            <div class="voucher-card__location">
+                                <span class="material-symbols-outlined">location_on</span>
+                                กรุงเทพมหานคร
+                            </div>
+                            <div class="voucher-card__perks">
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">restaurant</span>อาหารเช้า</span>
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">spa</span>สปา</span>
+                            </div>
+                            <div class="voucher-card__footer">
+                                <div>
+                                    <div class="voucher-card__price-original">฿21,000</div>
+                                    <div class="voucher-card__price">฿15,000 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                </div>
+                                <span class="voucher-card__discount">-29%</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Card 5 -->
+                    <a href="voucher-detail.html" class="voucher-card">
+                        <div class="voucher-card__image">
+                            <img src="assets/images/hotels/hotel-rayavadee-krabi.jpg" alt="Six Senses Samui" loading="lazy">
+                            <button class="voucher-card__wishlist" aria-label="เพิ่มในรายการโปรด">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                        </div>
+                        <div class="voucher-card__body">
+                            <div class="voucher-card__meta">
+                                <span class="voucher-card__category">Island Paradise</span>
+                                <div class="voucher-card__stars">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                            </div>
+                            <div class="voucher-card__name">Six Senses Samui</div>
+                            <div class="voucher-card__location">
+                                <span class="material-symbols-outlined">location_on</span>
+                                เกาะสมุย
+                            </div>
+                            <div class="voucher-card__perks">
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">restaurant</span>อาหารเช้า</span>
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">pool</span>Pool Villa</span>
+                            </div>
+                            <div class="voucher-card__footer">
+                                <div>
+                                    <div class="voucher-card__price-original">฿28,000</div>
+                                    <div class="voucher-card__price">฿19,500 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                </div>
+                                <span class="voucher-card__discount">-30%</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Card 6 -->
+                    <a href="voucher-detail.html" class="voucher-card">
+                        <div class="voucher-card__image">
+                            <img src="assets/images/hotels/hotel-sala-khaoyai.jpg" alt="Sala Khaoyai" loading="lazy">
+                            <button class="voucher-card__wishlist" aria-label="เพิ่มในรายการโปรด">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                        </div>
+                        <div class="voucher-card__body">
+                            <div class="voucher-card__meta">
+                                <span class="voucher-card__category">Nature Escape</span>
+                                <div class="voucher-card__stars">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                            </div>
+                            <div class="voucher-card__name">Sala Khaoyai</div>
+                            <div class="voucher-card__location">
+                                <span class="material-symbols-outlined">location_on</span>
+                                เขาใหญ่
+                            </div>
+                            <div class="voucher-card__perks">
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">restaurant</span>อาหารเช้า</span>
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">schedule</span>Late C/O</span>
+                            </div>
+                            <div class="voucher-card__footer">
+                                <div>
+                                    <div class="voucher-card__price-original">฿9,800</div>
+                                    <div class="voucher-card__price">฿6,500 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                </div>
+                                <span class="voucher-card__discount">-34%</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Card 7 -->
+                    <a href="voucher-detail.html" class="voucher-card">
+                        <div class="voucher-card__image">
+                            <img src="assets/images/hotels/hotel-celestial-sands.jpg" alt="Centara Grand Hua Hin" loading="lazy">
+                            <button class="voucher-card__wishlist" aria-label="เพิ่มในรายการโปรด">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                        </div>
+                        <div class="voucher-card__body">
+                            <div class="voucher-card__meta">
+                                <span class="voucher-card__category">Beach Resort</span>
+                                <div class="voucher-card__stars">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                            </div>
+                            <div class="voucher-card__name">Centara Grand Hua Hin</div>
+                            <div class="voucher-card__location">
+                                <span class="material-symbols-outlined">location_on</span>
+                                หัวหิน
+                            </div>
+                            <div class="voucher-card__perks">
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">restaurant</span>อาหารเช้า</span>
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">pool</span>สระว่ายน้ำ</span>
+                            </div>
+                            <div class="voucher-card__footer">
+                                <div>
+                                    <div class="voucher-card__price-original">฿12,500</div>
+                                    <div class="voucher-card__price">฿8,900 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                </div>
+                                <span class="voucher-card__discount">-29%</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Card 8 -->
+                    <a href="voucher-detail.html" class="voucher-card">
+                        <div class="voucher-card__image">
+                            <img src="assets/images/hotels/hotel-rosewood-bangkok.jpg" alt="Rosewood Bangkok" loading="lazy">
+                            <button class="voucher-card__wishlist" aria-label="เพิ่มในรายการโปรด">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                        </div>
+                        <div class="voucher-card__body">
+                            <div class="voucher-card__meta">
+                                <span class="voucher-card__category">Modern Elegant</span>
+                                <div class="voucher-card__stars">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                            </div>
+                            <div class="voucher-card__name">Rosewood Bangkok</div>
+                            <div class="voucher-card__location">
+                                <span class="material-symbols-outlined">location_on</span>
+                                เพลินจิต
+                            </div>
+                            <div class="voucher-card__perks">
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">restaurant</span>อาหารเช้า</span>
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">spa</span>สปา</span>
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">schedule</span>Late C/O</span>
+                            </div>
+                            <div class="voucher-card__footer">
+                                <div>
+                                    <div class="voucher-card__price-original">฿19,200</div>
+                                    <div class="voucher-card__price">฿14,200 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                </div>
+                                <span class="voucher-card__discount">-26%</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Card 9 -->
+                    <a href="voucher-detail.html" class="voucher-card">
+                        <div class="voucher-card__image">
+                            <img src="assets/images/hotels/hotel-anantara-chiangmai.jpg" alt="Anantara Chiang Mai" loading="lazy">
+                            <button class="voucher-card__wishlist" aria-label="เพิ่มในรายการโปรด">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                        </div>
+                        <div class="voucher-card__body">
+                            <div class="voucher-card__meta">
+                                <span class="voucher-card__category">Heritage Resort</span>
+                                <div class="voucher-card__stars">
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                    <span class="material-symbols-outlined">star</span>
+                                </div>
+                            </div>
+                            <div class="voucher-card__name">Anantara Chiang Mai Resort</div>
+                            <div class="voucher-card__location">
+                                <span class="material-symbols-outlined">location_on</span>
+                                เชียงใหม่
+                            </div>
+                            <div class="voucher-card__perks">
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">restaurant</span>อาหารเช้า</span>
+                                <span class="voucher-card__perk"><span class="material-symbols-outlined">spa</span>สปา</span>
+                            </div>
+                            <div class="voucher-card__footer">
+                                <div>
+                                    <div class="voucher-card__price-original">฿14,500</div>
+                                    <div class="voucher-card__price">฿9,800 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                </div>
+                                <span class="voucher-card__discount">-32%</span>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+
+                <!-- Load more -->
+                <div class="load-more">
+                    <button class="load-more__btn">
+                        <span class="material-symbols-outlined">expand_more</span>
+                        โหลดเพิ่มเติม
+                    </button>
+                </div>
+                    </div><!-- /real-content -->
+                </div><!-- /skeleton-wrapper #skelVoucherList -->
+            </div> <!-- /content-layout__main -->
+
+        </div> <!-- /content-layout -->
+    </main>
+
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
+                    <p class="footer__desc">ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง</p>
+                    <div class="footer__social">
+                        <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
+                        <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
+                        <a href="#" class="footer__social-btn" aria-label="LINE"><span class="material-symbols-outlined" aria-hidden="true">chat</span></a>
+                    </div>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__heading">บริการลูกค้า</h4>
+                    <ul class="footer__list">
+                        <li><a href="#">ศูนย์ช่วยเหลือ</a></li>
+                        <li><a href="#">วิธีจองวอชเชอร์</a></li>
+                        <li><a href="#">นโยบายการยกเลิก</a></li>
+                        <li><a href="#">ติดต่อเรา</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__heading">เกี่ยวกับเรา</h4>
+                    <ul class="footer__list">
+                        <li><a href="about.html">เกี่ยวกับ Hotel Addict</a></li>
+                        <li><a href="#">ร่วมงานกับเรา</a></li>
+                        <li><a href="#">พาร์ทเนอร์โรงแรม</a></li>
+                        <li><a href="#">บล็อก</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__heading">ค้นพบ</h4>
+                    <ul class="footer__list">
+                        <li><a href="index.html">ดีลโรงแรม</a></li>
+                        <li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li>
+                        <li><a href="wishlist.html">รายการโปรด</a></li>
+                        <li><a href="voucher-list.html">ค้นหาวอชเชอร์</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2026 Hotel Addict. สงวนลิขสิทธิ์ทุกประการ</p>
+                <div class="footer__bottom-links">
+                    <a href="#">ข้อกำหนดการใช้งาน</a>
+                    <a href="#">นโยบายความเป็นส่วนตัว</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" aria-label="กลับด้านบน">
+        <span class="material-symbols-outlined">keyboard_arrow_up</span>
+    </button>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Toggle filter sidebar
+        function toggleFilter() {
+            const sidebar = document.getElementById('filterSidebar');
+            const btn = document.getElementById('filterToggleBtn');
+            sidebar.classList.toggle('is-open');
+            btn.classList.toggle('is-active');
+        }
+
+        // Reset all filter checkboxes
+        function resetFilters() {
+            const checkboxes = document.querySelectorAll('.filters input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = false);
+            const priceInputs = document.querySelectorAll('.price-range__input');
+            priceInputs.forEach(input => input.value = '');
+        }
+
+        // Switch grid/list view with smart animate
+        function setView(mode) {
+            var grid = document.getElementById('voucherGrid');
+            var gridBtn = document.getElementById('viewGrid');
+            var listBtn = document.getElementById('viewList');
+            var cards = grid.querySelectorAll('.voucher-card');
+
+            // 1) Fade out cards with stagger
+            cards.forEach(function(card, i) {
+                card.style.transitionDelay = (i * 20) + 'ms';
+                card.classList.add('view-switching');
+            });
+
+            // 2) After fade-out, switch layout + fade back in
+            setTimeout(function() {
+                if (mode === 'list') {
+                    grid.classList.add('voucher-grid--list');
+                    listBtn.classList.add('is-active');
+                    gridBtn.classList.remove('is-active');
+                } else {
+                    grid.classList.remove('voucher-grid--list');
+                    gridBtn.classList.add('is-active');
+                    listBtn.classList.remove('is-active');
+                }
+
+                // Force reflow
+                void grid.offsetHeight;
+
+                // Fade in with stagger
+                cards.forEach(function(card, i) {
+                    card.style.transitionDelay = (i * 30) + 'ms';
+                    card.classList.remove('view-switching');
+                });
+
+                // Clean up delays
+                setTimeout(function() {
+                    cards.forEach(function(card) {
+                        card.style.transitionDelay = '';
+                    });
+                }, 400);
+            }, 250);
+        }
+    </script>
+</body>
+</html>

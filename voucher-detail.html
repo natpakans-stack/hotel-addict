@@ -1,0 +1,2094 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Celestial Sands Resort & Spa — Pool Villa | Hotel Addict</title>
+    <meta name="description" content="บัตรกำนัลพูลวิลล่าส่วนตัว The Celestial Sands Resort & Spa ภูเก็ต ราคาพิเศษ ฿14,700 จากปกติ ฿24,500 รวมอาหารเช้าลอยน้ำ สปา รถรับ-ส่งสนามบิน">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="The Celestial Sands Resort & Spa — Pool Villa | Hotel Addict">
+    <meta property="og:description" content="บัตรกำนัลพูลวิลล่าส่วนตัว The Celestial Sands Resort & Spa ภูเก็ต ราคาพิเศษ ฿14,700 จากปกติ ฿24,500 รวมอาหารเช้าลอยน้ำ สปา รถรับ-ส่งสนามบิน">
+    <meta property="og:image" content="assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Celestial Sands Resort & Spa — Pool Villa | Hotel Addict">
+    <meta name="twitter:description" content="บัตรกำนัลพูลวิลล่าส่วนตัว The Celestial Sands Resort & Spa ภูเก็ต ราคาพิเศษ ฿14,700 จากปกติ ฿24,500 รวมอาหารเช้าลอยน้ำ สปา รถรับ-ส่งสนามบิน">
+    <meta name="twitter:image" content="assets/og-image.jpg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <!-- Design Tokens + Global Styles -->
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* === PAGE-SPECIFIC STYLES === */
+
+        /* Filled icon utility */
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+
+        /* --- Breadcrumb --- */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: var(--text-body-sm);
+            color: var(--text-muted);
+            padding: var(--space-md) 0;
+        }
+        .breadcrumb a {
+            color: var(--text-secondary);
+            font-weight: var(--fw-medium);
+        }
+        .breadcrumb a:hover {
+            color: var(--color-gold-dark);
+        }
+        .breadcrumb__sep {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .breadcrumb__current {
+            color: var(--color-gold-dark);
+            font-weight: var(--fw-semibold);
+        }
+
+        /* --- Section Divider & Breathing Room --- */
+        .section-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 40px 0;
+        }
+        .section-block {
+            padding: 40px 0;
+        }
+        .section-block--cream {
+            background: var(--bg-cream);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            margin-top: 40px;
+        }
+        .section-block--white {
+            margin-top: 40px;
+        }
+        @media (max-width: 767px) {
+            .section-divider {
+                margin: 32px 0;
+            }
+            .section-block {
+                padding: 32px 0;
+            }
+            .section-block--cream {
+                padding: 24px;
+                margin-top: 32px;
+            }
+            .section-block--white {
+                margin-top: 32px;
+            }
+        }
+
+        /* --- Two-Column Layout --- */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-xl);
+            padding: var(--space-lg) 0 var(--space-3xl);
+        }
+        @media (min-width: 1024px) {
+            .detail-grid {
+                grid-template-columns: 1fr 400px;
+                gap: 48px;
+            }
+        }
+
+        /* --- Hero Gallery --- */
+        .hero-gallery {
+            position: relative;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            aspect-ratio: 16/9;
+        }
+        .hero-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+        .hero-gallery:hover img {
+            transform: scale(1.03);
+        }
+        .hero-gallery__overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--overlay-gradient-card-45);
+        }
+        .hero-gallery__btn {
+            position: absolute;
+            bottom: var(--space-md);
+            right: var(--space-md);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            background: var(--bg-white-15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: var(--footer-text);
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-semibold);
+            border: 1px solid var(--border-white-25);
+            cursor: pointer;
+            transition: background var(--transition-fast);
+        }
+        .hero-gallery__btn:hover {
+            background: var(--bg-white-25);
+            color: var(--footer-text);
+        }
+
+        /* --- Thumbnail Row --- */
+        .thumb-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-sm);
+            margin-top: var(--space-sm);
+        }
+        .thumb-item {
+            aspect-ratio: 1;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+        .thumb-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity var(--transition-fast);
+        }
+        .thumb-item:hover img {
+            opacity: 0.8;
+        }
+        .thumb-item__more {
+            position: absolute;
+            inset: 0;
+            background: var(--overlay-dark-45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--footer-text);
+            font-size: var(--text-body-lg);
+            font-weight: var(--fw-bold);
+        }
+
+        /* --- Location & Social --- */
+        .location-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+            margin-top: var(--space-lg);
+        }
+        .location-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--color-teal);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .social-links {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--color-gold-dark);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .social-link:hover {
+            color: var(--color-gold);
+        }
+        .social-sep {
+            width: 1px;
+            height: 14px;
+            background: var(--border);
+        }
+
+        /* --- Hotel Header --- */
+        .hotel-name {
+            font-size: 40px;
+            line-height: 52px;
+            font-weight: var(--fw-bold);
+            margin-top: var(--space-lg);
+            letter-spacing: -0.02em;
+        }
+        @media (max-width: 767px) {
+            .hotel-name {
+                font-size: 28px;
+                line-height: 36px;
+            }
+        }
+        .rating-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-top: var(--space-md);
+            flex-wrap: wrap;
+        }
+        .rating-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--color-gold-subtle);
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+        }
+        .rating-badge .material-symbols-outlined {
+            color: var(--color-gold);
+            font-size: 18px;
+        }
+        .rating-badge__score {
+            color: var(--color-gold-dark);
+            font-weight: var(--fw-bold);
+            font-size: var(--text-body-sm);
+        }
+        .rating-badge__count {
+            color: var(--color-gold-dark);
+            font-size: var(--text-body-sm);
+            opacity: 0.7;
+        }
+        .star-level {
+            color: var(--text-secondary);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-medium);
+        }
+
+        /* --- Room Info Card --- */
+        .room-info {
+            background: var(--bg-cream);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            margin-top: 0;
+        }
+        @media (max-width: 767px) {
+            .room-info {
+                padding: var(--space-lg);
+            }
+        }
+        .room-info__title {
+            font-size: var(--text-h4);
+            font-weight: var(--fw-bold);
+            margin-bottom: var(--space-sm);
+        }
+        .room-info__desc {
+            color: var(--text-secondary);
+            line-height: var(--lh-body-md);
+            margin-bottom: var(--space-lg);
+        }
+        .package-title {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-weight: var(--fw-bold);
+            font-size: var(--text-body-md);
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+        }
+        .package-title .material-symbols-outlined {
+            color: var(--color-teal);
+        }
+        .package-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-md);
+        }
+        @media (min-width: 640px) {
+            .package-list {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        .package-list li {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            color: var(--text-body);
+            font-size: var(--text-body-sm);
+        }
+        .package-list .material-symbols-outlined {
+            color: var(--color-success);
+            font-size: 18px;
+        }
+
+        /* --- Amenities --- */
+        .amenities-section {
+            margin-top: 0;
+        }
+        .amenities-section h3 {
+            margin-bottom: var(--space-lg);
+        }
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+        }
+        @media (min-width: 640px) {
+            .amenities-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        .amenity-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-lg) var(--space-md);
+            border-radius: var(--radius-lg);
+            background: var(--bg-cream);
+            border: 1px solid var(--border);
+            transition: border-color var(--transition-fast);
+        }
+        .amenity-item:hover {
+            border-color: var(--color-gold);
+        }
+        .amenity-item .material-symbols-outlined {
+            font-size: 28px;
+            color: var(--color-teal);
+        }
+        .amenity-item span:last-child {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-semibold);
+            color: var(--text-body);
+        }
+
+        /* --- Trinity Comparison --- */
+        .comparison-section {
+            margin-top: 0;
+        }
+        .comparison-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+        }
+        .comparison-header h3 {
+            margin-bottom: 0;
+        }
+        .comparison-label {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            color: var(--color-gold-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-md);
+        }
+        @media (min-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Hotel Addict Deal Card */
+        .deal-card {
+            position: relative;
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        @media (max-width: 767px) {
+            .deal-card {
+                padding: var(--space-lg);
+            }
+        }
+        .deal-card--best {
+            border: 2px solid var(--color-gold);
+            background: var(--bg-white);
+            box-shadow: var(--shadow-gold-subtle);
+        }
+        .deal-card--other {
+            border: 1px solid var(--border);
+            background: var(--bg-cream);
+            opacity: 0.75;
+        }
+        .deal-card__ribbon {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--color-gold-dark);
+            color: #FFFFFF;
+            padding: 8px 20px;
+            border-radius: 0 0 0 var(--radius-lg);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            z-index: 2;
+        }
+        .deal-card__label {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 4px;
+        }
+        .deal-card--best .deal-card__label {
+            color: var(--color-gold-dark);
+        }
+        .deal-card--other .deal-card__label {
+            color: var(--text-muted);
+        }
+        .deal-card__name {
+            font-size: var(--text-h4);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-lg);
+        }
+        .deal-card__price-label {
+            font-size: var(--text-micro);
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .deal-card__price {
+            font-family: var(--font-heading);
+            font-size: 32px;
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: var(--space-md);
+        }
+        .deal-card--best .deal-card__price {
+            color: var(--color-gold-dark);
+        }
+        .deal-card__inclusions-label {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: var(--space-sm);
+        }
+        .deal-card__list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            flex-grow: 1;
+        }
+        .deal-card__list li {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: var(--text-body-sm);
+            color: var(--text-body);
+        }
+        .deal-card--best .deal-card__list .material-symbols-outlined {
+            color: var(--color-gold-dark);
+        }
+        .deal-card--other .deal-card__list .material-symbols-outlined {
+            color: var(--text-muted);
+        }
+        .deal-card__policy {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-semibold);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border);
+            margin-top: var(--space-md);
+        }
+        .deal-card--best .deal-card__policy {
+            color: var(--color-success);
+        }
+        .deal-card--other .deal-card__policy {
+            color: var(--color-error);
+        }
+        .deal-card__cta {
+            margin-top: var(--space-lg);
+        }
+        .deal-card__cta .btn {
+            width: 100%;
+        }
+
+        /* --- Side Modal (Price Comparison Drawer) --- */
+        .side-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(16, 17, 20, 0.6);
+            z-index: 9998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .side-modal-overlay.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .side-modal {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 520px;
+            max-width: 100%;
+            background: var(--bg-white);
+            z-index: 9999;
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+        }
+        .side-modal-overlay.is-open .side-modal {
+            transform: translateX(0);
+        }
+        .side-modal__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-lg);
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+        .side-modal__header h3 {
+            font-size: var(--text-h4);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        .side-modal__close {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border);
+            background: var(--bg-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: background var(--transition-fast), color var(--transition-fast);
+        }
+        .side-modal__close:hover {
+            background: var(--bg-cream);
+            color: var(--text-primary);
+        }
+        .side-modal__body {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--space-lg);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Drawer: Savings Summary */
+        .drawer-savings {
+            background: var(--color-gold-subtle);
+            border: 1px solid var(--color-gold-light);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            text-align: center;
+        }
+        .drawer-savings__amount {
+            font-family: var(--font-heading);
+            font-size: 36px;
+            font-weight: var(--fw-bold);
+            color: var(--color-gold-dark);
+            line-height: 1.2;
+        }
+        .drawer-savings__label {
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        .drawer-savings__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--color-success-bg);
+            color: var(--color-success);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            margin-top: var(--space-sm);
+        }
+
+        /* Drawer: OTA Table */
+        .drawer-table-label {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: var(--space-md);
+        }
+        .ota-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .ota-table thead {
+            background: var(--bg-cream);
+        }
+        .ota-table th {
+            padding: var(--space-md) var(--space-md);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-semibold);
+            color: var(--text-secondary);
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .ota-table th:last-child {
+            text-align: right;
+        }
+        .ota-table td {
+            padding: var(--space-md) var(--space-md);
+            font-size: var(--text-body-md);
+            border-bottom: 1px solid var(--border);
+        }
+        .ota-table tr:last-child td {
+            border-bottom: none;
+        }
+        .ota-table td:last-child {
+            text-align: right;
+            font-weight: var(--fw-semibold);
+        }
+
+        /* Best row (Hotel Addict) */
+        .ota-row--best {
+            background: var(--color-gold-subtle);
+        }
+        .ota-row--best td {
+            color: var(--color-gold-dark);
+            font-weight: var(--fw-bold);
+        }
+        .ota-row--best td:first-child {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        .ota-badge-best {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            background: var(--color-gold-dark);
+            color: #FFFFFF;
+            font-size: 10px;
+            font-weight: var(--fw-bold);
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            white-space: nowrap;
+        }
+        .ota-saving {
+            display: inline-block;
+            font-size: var(--text-body-sm);
+            color: var(--color-success);
+            font-weight: var(--fw-semibold);
+        }
+
+        /* Drawer: Feature Table */
+        .feature-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-top: var(--space-lg);
+        }
+        .feature-table thead {
+            background: var(--bg-cream);
+        }
+        .feature-table th {
+            padding: var(--space-sm) var(--space-md);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-semibold);
+            color: var(--text-secondary);
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .feature-table th:first-child {
+            text-align: left;
+        }
+        .feature-table th.ft-highlight {
+            background: var(--color-gold-subtle);
+            color: var(--color-gold-dark);
+        }
+        .feature-table td {
+            padding: var(--space-sm) var(--space-md);
+            font-size: var(--text-body-sm);
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-body);
+        }
+        .feature-table td:first-child {
+            text-align: left;
+            font-weight: var(--fw-medium);
+        }
+        .feature-table td.ft-highlight {
+            background: var(--color-gold-subtle);
+            font-weight: var(--fw-semibold);
+            color: var(--color-gold-dark);
+        }
+        .feature-table tr:last-child td {
+            border-bottom: none;
+        }
+        .ft-icon-check {
+            color: var(--color-success);
+            font-size: 20px;
+        }
+        .ft-icon-cross {
+            color: var(--text-muted);
+            font-size: 20px;
+        }
+
+        /* Drawer Footer CTA */
+        .side-modal__footer {
+            padding: var(--space-lg);
+            border-top: 1px solid var(--border);
+            flex-shrink: 0;
+            background: var(--bg-white);
+        }
+        .side-modal__footer .btn {
+            width: 100%;
+        }
+
+        /* Body scroll lock */
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        @media (max-width: 600px) {
+            .side-modal {
+                width: 100%;
+            }
+            .drawer-savings__amount {
+                font-size: 28px;
+            }
+            .ota-table th,
+            .ota-table td {
+                padding: var(--space-sm) var(--space-sm);
+                font-size: var(--text-body-sm);
+            }
+            .feature-table th,
+            .feature-table td {
+                padding: var(--space-xs) var(--space-sm);
+                font-size: var(--text-micro);
+            }
+        }
+
+        /* --- Terms --- */
+        .terms-section {
+            margin-top: 0;
+        }
+        .terms-section h3 {
+            margin-bottom: var(--space-md);
+        }
+        .terms-list {
+            list-style: disc;
+            padding-left: 20px;
+            color: var(--text-secondary);
+            font-size: var(--text-body-sm);
+            line-height: var(--lh-body-lg);
+        }
+        .terms-list li {
+            margin-bottom: var(--space-md);
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            position: relative;
+        }
+        @media (min-width: 1024px) {
+            .sidebar__sticky {
+                position: sticky;
+                top: calc(var(--nav-height) + var(--space-lg));
+            }
+        }
+
+        /* Price Card */
+        .price-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-elevated);
+        }
+        .price-card__flash {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            background: var(--color-error);
+            color: var(--footer-text);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: var(--space-sm);
+        }
+        .price-card__original {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        .price-card__original .strikethrough {
+            font-size: var(--text-body-lg);
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+        .price-card__original .save {
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            color: var(--color-error);
+        }
+        .price-card__amount {
+            font-family: var(--font-heading);
+            font-size: 44px;
+            font-weight: var(--fw-bold);
+            color: var(--color-gold-dark);
+            line-height: 1.2;
+        }
+        .price-card__per {
+            font-size: var(--text-body-sm);
+            color: var(--text-muted);
+            font-weight: var(--fw-medium);
+            margin-bottom: var(--space-lg);
+        }
+
+        /* Stock Bar */
+        .stock-info {
+            margin-bottom: var(--space-lg);
+        }
+        .stock-info__header {
+            display: flex;
+            justify-content: space-between;
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            margin-bottom: var(--space-sm);
+        }
+        .stock-info__remain {
+            color: var(--color-error);
+        }
+        .stock-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-cream);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin-bottom: var(--space-sm);
+        }
+        .stock-bar__fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-gold), var(--color-gold-dark));
+            border-radius: var(--radius-full);
+            transition: width var(--transition-slow);
+        }
+        .stock-info__sold {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .stock-info__sold .material-symbols-outlined {
+            font-size: 14px;
+        }
+
+        /* Countdown */
+        .countdown {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+            margin-bottom: var(--space-lg);
+        }
+        .countdown__block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--bg-cream);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: var(--space-sm) var(--space-md);
+            min-width: 56px;
+        }
+        .countdown__num {
+            font-family: var(--font-heading);
+            font-size: var(--text-h4);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        .countdown__label {
+            font-size: var(--text-micro);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: var(--fw-semibold);
+        }
+        .countdown__sep {
+            display: flex;
+            align-items: center;
+            font-size: var(--text-h4);
+            font-weight: var(--fw-bold);
+            color: var(--text-muted);
+            padding-bottom: 14px;
+        }
+
+        /* CTA buttons in sidebar */
+        .sidebar-cta {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--color-gold-dark), var(--color-gold));
+            color: var(--footer-text);
+            font-weight: var(--fw-bold);
+            padding: 16px 24px;
+            border-radius: var(--radius-md);
+            font-size: var(--text-body-md);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            box-shadow: var(--shadow-gold-md);
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-gold-xl);
+            color: var(--footer-text);
+        }
+        .btn-wishlist {
+            background: transparent;
+            border: 1.5px solid var(--border);
+            color: var(--text-body);
+            font-family: var(--font-body);
+            font-weight: var(--fw-semibold);
+            padding: 14px 24px;
+            border-radius: var(--radius-md);
+            font-size: var(--text-body-md);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            transition: border-color var(--transition-fast), color var(--transition-fast);
+        }
+        .btn-wishlist:hover {
+            border-color: var(--color-gold);
+            color: var(--color-gold-dark);
+        }
+
+        /* Trust Signals */
+        .trust-signals {
+            margin-top: var(--space-lg);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        .trust-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+        }
+        .trust-item .material-symbols-outlined {
+            color: var(--color-teal);
+            font-size: 22px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .trust-item__title {
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+        }
+        .trust-item__desc {
+            font-size: var(--text-micro);
+            color: var(--text-muted);
+        }
+
+        /* Delivery Card */
+        .delivery-card {
+            background: var(--bg-cream);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            margin-top: var(--space-md);
+        }
+        .delivery-card__title {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        .delivery-card__title .material-symbols-outlined {
+            color: var(--color-teal);
+            font-size: 20px;
+        }
+        .delivery-card__desc {
+            font-size: var(--text-micro);
+            color: var(--text-secondary);
+            padding-left: 28px;
+        }
+
+        /* Map Card */
+        .map-card {
+            background: var(--bg-cream);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            margin-top: var(--space-md);
+        }
+        .map-card__title {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+        .map-card__title .material-symbols-outlined {
+            color: var(--color-teal);
+            font-size: 20px;
+        }
+        .map-card__placeholder {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            height: 140px;
+            background: var(--bg-warm);
+        }
+        .map-card__placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(0.4);
+            opacity: 0.6;
+        }
+        .map-card__pin {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .map-card__pin-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            background: var(--color-teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--footer-text);
+            box-shadow: var(--shadow-teal-pulse-start);
+            animation: pulse-pin 2s infinite;
+        }
+        @keyframes pulse-pin {
+            0%, 100% { box-shadow: var(--shadow-teal-pulse-start); }
+            50% { box-shadow: var(--shadow-teal-pulse-end); }
+        }
+        .map-card__pin-dot .material-symbols-outlined {
+            font-size: 18px;
+        }
+        .map-card__address {
+            font-size: var(--text-micro);
+            color: var(--text-secondary);
+            margin-top: var(--space-sm);
+            line-height: var(--lh-body-sm);
+        }
+
+        /* --- Mobile Sticky CTA --- */
+        .mobile-cta {
+            display: none;
+        }
+        @media (max-width: 1023px) {
+            .mobile-cta {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 999;
+                background: var(--bg-white);
+                border-top: 1px solid var(--border);
+                padding: var(--space-md) var(--space-lg);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: var(--space-md);
+                box-shadow: var(--shadow-bottom-bar);
+            }
+        }
+        .mobile-cta__price {
+            display: flex;
+            flex-direction: column;
+        }
+        .mobile-cta__amount {
+            font-family: var(--font-heading);
+            font-size: var(--text-h4);
+            font-weight: var(--fw-bold);
+            color: var(--color-gold-dark);
+        }
+        .mobile-cta__label {
+            font-size: var(--text-micro);
+            color: var(--text-muted);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" aria-label="เมนูหลัก">
+        <div class="navbar__inner">
+            <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
+            <ul class="navbar__menu">
+                <li><a href="index.html" class="navbar__link">หน้าแรก</a></li>
+                <li><a href="voucher-list.html" class="navbar__link navbar__link--active">ค้นหาวอชเชอร์</a></li>
+                <li><a href="about.html" class="navbar__link">เกี่ยวกับเรา</a></li>
+            </ul>
+            <div class="navbar__actions">
+                <button class="navbar__icon-btn" aria-label="การแจ้งเตือน">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button class="navbar__profile" aria-label="โปรไฟล์">
+                    <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
+                    <span class="navbar__profile-name">คุณสมชาย</span>
+                    <div class="navbar__dropdown">
+                        <a href="my-voucher.html" class="navbar__dropdown-item">
+                            <span class="material-symbols-outlined">confirmation_number</span>
+                            วอชเชอร์ของฉัน
+                        </a>
+                        <a href="wishlist.html" class="navbar__dropdown-item">
+                            <span class="material-symbols-outlined">favorite</span>
+                            รายการโปรด
+                        </a>
+                        <div class="navbar__dropdown-divider"></div>
+                        <a href="#" class="navbar__dropdown-item">
+                            <span class="material-symbols-outlined">settings</span>
+                            ตั้งค่า
+                        </a>
+                        <a href="login.html" class="navbar__dropdown-item navbar__dropdown-item--danger">
+                            <span class="material-symbols-outlined">logout</span>
+                            ออกจากระบบ
+                        </a>
+                    </div>
+                </button>
+            </div>
+            <button class="navbar__hamburger" aria-label="เปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.add('active')">
+                <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-nav">
+        <div class="mobile-nav__header">
+            <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
+            <button class="mobile-nav__close" aria-label="ปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.remove('active')">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            </button>
+        </div>
+        <ul class="mobile-nav__list">
+            <li><a href="index.html" class="mobile-nav__link">หน้าแรก</a></li>
+            <li><a href="voucher-list.html" class="mobile-nav__link">ค้นหาวอชเชอร์</a></li>
+            <li><a href="about.html" class="mobile-nav__link">เกี่ยวกับเรา</a></li>
+        </ul>
+        <div class="mobile-nav__divider"></div>
+        <div class="mobile-nav__profile">
+            <div class="mobile-nav__profile-header">
+                <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
+                <span class="mobile-nav__profile-name">คุณสมชาย</span>
+            </div>
+            <ul class="mobile-nav__list">
+                <li><a href="my-voucher.html" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>
+                <li><a href="wishlist.html" class="mobile-nav__link"><span class="material-symbols-outlined">favorite</span>รายการโปรด</a></li>
+                <li><a href="#" class="mobile-nav__link"><span class="material-symbols-outlined">settings</span>ตั้งค่า</a></li>
+                <li><a href="login.html" class="mobile-nav__link mobile-nav__link--danger"><span class="material-symbols-outlined">logout</span>ออกจากระบบ</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ==================== SKELETON + CONTENT ==================== -->
+
+    <main style="padding-top: var(--nav-height);">
+        <div class="container">
+
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">หน้าแรก</a>
+                <span class="breadcrumb__sep material-symbols-outlined" style="font-size:14px;">chevron_right</span>
+                <a href="voucher-list.html">ค้นหาวอชเชอร์</a>
+                <span class="breadcrumb__sep material-symbols-outlined" style="font-size:14px;">chevron_right</span>
+                <span class="breadcrumb__current">รายละเอียดวอชเชอร์</span>
+            </nav>
+
+            <!-- 2-Column Grid -->
+            <div class="skeleton-wrapper" id="skelVoucherDetail">
+                <div class="skel-screen" aria-hidden="true">
+                    <div class="skel-grid-2" style="grid-template-columns:3fr 2fr;gap:var(--space-xl);align-items:start;">
+
+                        <!-- LEFT COLUMN -->
+                        <div class="skel-stack" style="gap:var(--space-lg);">
+                            <!-- Hero image -->
+                            <div class="skel skel-image" style="height:400px;border-radius:var(--radius-xl);"></div>
+
+                            <!-- Thumbnail row: 4 small squares -->
+                            <div class="skel-row" style="gap:var(--space-sm);">
+                                <div class="skel skel-image--square" style="width:80px;height:64px;border-radius:var(--radius-md);flex-shrink:0;"></div>
+                                <div class="skel skel-image--square" style="width:80px;height:64px;border-radius:var(--radius-md);flex-shrink:0;"></div>
+                                <div class="skel skel-image--square" style="width:80px;height:64px;border-radius:var(--radius-md);flex-shrink:0;"></div>
+                                <div class="skel skel-image--square" style="width:80px;height:64px;border-radius:var(--radius-md);flex-shrink:0;"></div>
+                            </div>
+
+                            <!-- Location row -->
+                            <div class="skel-row" style="gap:var(--space-md);">
+                                <div class="skel skel-chip" style="width:140px;"></div>
+                                <div class="skel skel-chip" style="width:90px;"></div>
+                                <div class="skel skel-chip" style="width:110px;"></div>
+                            </div>
+
+                            <!-- Hotel name -->
+                            <div class="skel skel-text--heading" style="width:75%;"></div>
+
+                            <!-- Star rating row -->
+                            <div class="skel-row" style="gap:var(--space-sm);">
+                                <div class="skel skel-chip" style="width:100px;"></div>
+                                <div class="skel skel-text--caption" style="width:160px;"></div>
+                            </div>
+
+                            <!-- Room name -->
+                            <div class="skel skel-text" style="width:55%;"></div>
+                            <!-- Description lines -->
+                            <div class="skel skel-text" style="width:100%;"></div>
+                            <div class="skel skel-text" style="width:88%;"></div>
+
+                            <!-- Package label -->
+                            <div class="skel skel-text--caption" style="width:160px;margin-top:var(--space-xs);"></div>
+
+                            <!-- Package list: 4 rows with icon placeholder + text -->
+                            <div class="skel-stack" style="gap:var(--space-sm);">
+                                <div class="skel-row" style="gap:var(--space-sm);">
+                                    <div class="skel skel-image--square" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;"></div>
+                                    <div class="skel skel-text" style="width:70%;"></div>
+                                </div>
+                                <div class="skel-row" style="gap:var(--space-sm);">
+                                    <div class="skel skel-image--square" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;"></div>
+                                    <div class="skel skel-text" style="width:55%;"></div>
+                                </div>
+                                <div class="skel-row" style="gap:var(--space-sm);">
+                                    <div class="skel skel-image--square" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;"></div>
+                                    <div class="skel skel-text" style="width:65%;"></div>
+                                </div>
+                                <div class="skel-row" style="gap:var(--space-sm);">
+                                    <div class="skel skel-image--square" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;"></div>
+                                    <div class="skel skel-text" style="width:60%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Amenities label -->
+                            <div class="skel skel-text--caption" style="width:140px;margin-top:var(--space-xs);"></div>
+
+                            <!-- Amenities chip grid: 2 rows of 4 -->
+                            <div class="skel-row" style="gap:var(--space-sm);flex-wrap:wrap;">
+                                <div class="skel skel-chip" style="width:80px;"></div>
+                                <div class="skel skel-chip" style="width:96px;"></div>
+                                <div class="skel skel-chip" style="width:72px;"></div>
+                                <div class="skel skel-chip" style="width:88px;"></div>
+                                <div class="skel skel-chip" style="width:76px;"></div>
+                                <div class="skel skel-chip" style="width:100px;"></div>
+                                <div class="skel skel-chip" style="width:84px;"></div>
+                                <div class="skel skel-chip" style="width:78px;"></div>
+                            </div>
+
+                            <!-- Map placeholder -->
+                            <div class="skel skel-image" style="height:180px;border-radius:var(--radius-lg);margin-top:var(--space-sm);"></div>
+                            <div class="skel skel-text--caption" style="width:70%;"></div>
+                        </div>
+
+                        <!-- RIGHT COLUMN (price card sidebar) -->
+                        <div class="skel-stack" style="gap:var(--space-md);">
+                            <!-- Price card -->
+                            <div class="skel-card" style="padding:var(--space-lg);">
+                                <div class="skel-stack" style="gap:var(--space-md);">
+                                    <!-- Flash badge -->
+                                    <div class="skel skel-chip" style="width:110px;"></div>
+
+                                    <!-- Strike-through + save badge row -->
+                                    <div class="skel-row" style="gap:var(--space-sm);">
+                                        <div class="skel skel-text--caption" style="width:80px;"></div>
+                                        <div class="skel skel-chip" style="width:72px;"></div>
+                                    </div>
+
+                                    <!-- Main price -->
+                                    <div class="skel skel-text--heading" style="width:55%;"></div>
+                                    <div class="skel skel-text--caption" style="width:40%;"></div>
+
+                                    <!-- Stock bar -->
+                                    <div class="skel skel-text--caption" style="width:80%;"></div>
+                                    <div class="skel" style="height:8px;border-radius:var(--radius-full);width:100%;"></div>
+                                    <div class="skel skel-text--caption" style="width:65%;"></div>
+
+                                    <!-- Countdown blocks row -->
+                                    <div class="skel-row" style="gap:var(--space-sm);justify-content:center;">
+                                        <div class="skel skel-image--square" style="width:56px;height:56px;border-radius:var(--radius-md);flex-shrink:0;"></div>
+                                        <div class="skel skel-image--square" style="width:56px;height:56px;border-radius:var(--radius-md);flex-shrink:0;"></div>
+                                        <div class="skel skel-image--square" style="width:56px;height:56px;border-radius:var(--radius-md);flex-shrink:0;"></div>
+                                        <div class="skel skel-image--square" style="width:56px;height:56px;border-radius:var(--radius-md);flex-shrink:0;"></div>
+                                    </div>
+
+                                    <!-- Primary CTA -->
+                                    <div class="skel skel-button--full" style="height:52px;border-radius:var(--radius-md);"></div>
+                                    <!-- Secondary CTA -->
+                                    <div class="skel skel-button--full" style="height:44px;border-radius:var(--radius-md);"></div>
+
+                                    <!-- Trust signals: 3 rows (icon + 2 text lines) -->
+                                    <div style="border-top:1px solid var(--border,#EBECEF);padding-top:var(--space-md);">
+                                        <div class="skel-stack" style="gap:var(--space-md);">
+                                            <div class="skel-row" style="gap:var(--space-sm);align-items:flex-start;">
+                                                <div class="skel skel-image--square" style="width:24px;height:24px;border-radius:50%;flex-shrink:0;"></div>
+                                                <div class="skel-stack" style="gap:4px;flex:1;">
+                                                    <div class="skel skel-text" style="width:90%;"></div>
+                                                    <div class="skel skel-text--caption" style="width:75%;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="skel-row" style="gap:var(--space-sm);align-items:flex-start;">
+                                                <div class="skel skel-image--square" style="width:24px;height:24px;border-radius:50%;flex-shrink:0;"></div>
+                                                <div class="skel-stack" style="gap:4px;flex:1;">
+                                                    <div class="skel skel-text" style="width:85%;"></div>
+                                                    <div class="skel skel-text--caption" style="width:70%;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="skel-row" style="gap:var(--space-sm);align-items:flex-start;">
+                                                <div class="skel skel-image--square" style="width:24px;height:24px;border-radius:50%;flex-shrink:0;"></div>
+                                                <div class="skel-stack" style="gap:4px;flex:1;">
+                                                    <div class="skel skel-text" style="width:88%;"></div>
+                                                    <div class="skel skel-text--caption" style="width:65%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Delivery card -->
+                            <div class="skel-card" style="padding:var(--space-md);">
+                                <div class="skel-stack" style="gap:var(--space-sm);">
+                                    <div class="skel-row" style="gap:var(--space-sm);">
+                                        <div class="skel skel-image--square" style="width:20px;height:20px;border-radius:50%;flex-shrink:0;"></div>
+                                        <div class="skel skel-text" style="width:55%;"></div>
+                                    </div>
+                                    <div class="skel skel-text--caption" style="width:90%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="real-content">
+            <div class="detail-grid">
+
+                <!-- ===== LEFT COLUMN ===== -->
+                <div>
+                    <!-- Hero Image -->
+                    <section class="hero-gallery">
+                        <img src="assets/images/hotels/hotel-celestial-sands.jpg" alt="Pool Villa with ocean view at The Celestial Sands Resort & Spa" loading="eager">
+                        <div class="hero-gallery__overlay"></div>
+                        <button class="hero-gallery__btn">
+                            <span class="material-symbols-outlined" style="font-size:18px;">grid_view</span>
+                            ดูรูปภาพทั้งหมด
+                        </button>
+                    </section>
+
+                    <!-- Thumbnail Row -->
+                    <div class="thumb-row">
+                        <div class="thumb-item">
+                            <img src="assets/images/hotels/hotel-bedroom-luxury.jpg" alt="ห้องนอนสไตล์ลักชัวรี" loading="lazy">
+                        </div>
+                        <div class="thumb-item">
+                            <img src="assets/images/hotels/hotel-siam-heritage.jpg" alt="สระว่ายน้ำส่วนตัว" loading="lazy">
+                        </div>
+                        <div class="thumb-item">
+                            <img src="assets/images/hotels/hotel-bathroom-spa.jpg" alt="ห้องน้ำและสปา" loading="lazy">
+                        </div>
+                        <div class="thumb-item">
+                            <img src="assets/images/hotels/hotel-anantara-chiangmai.jpg" alt="วิวทะเลจากรีสอร์ท" loading="lazy">
+                            <div class="thumb-item__more">+12</div>
+                        </div>
+                    </div>
+
+                    <!-- Location + Social -->
+                    <div class="location-row">
+                        <div class="location-tag">
+                            <span class="material-symbols-outlined fill-icon" style="font-size:18px;">location_on</span>
+                            Phuket, Thailand
+                        </div>
+                        <div class="social-links">
+                            <a href="#" class="social-link">
+                                <span class="material-symbols-outlined" style="font-size:18px;">facebook</span>
+                                <span>Facebook</span>
+                            </a>
+                            <span class="social-sep"></span>
+                            <a href="#" class="social-link">
+                                <span class="material-symbols-outlined" style="font-size:18px;">photo_camera</span>
+                                <span>Instagram</span>
+                            </a>
+                            <span class="social-sep"></span>
+                            <a href="#" class="social-link">
+                                <span class="material-symbols-outlined" style="font-size:18px;">language</span>
+                                <span>Official Website</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Hotel Name & Rating -->
+                    <h2 class="hotel-name">The Celestial Sands Resort & Spa</h2>
+                    <div class="rating-row">
+                        <div class="rating-badge">
+                            <span class="material-symbols-outlined fill-icon">star</span>
+                            <span class="rating-badge__score">4.9</span>
+                            <span class="rating-badge__count">(1,240 รีวิว)</span>
+                        </div>
+                        <span style="color:var(--text-muted);">&#x2022;</span>
+                        <span class="star-level">โรงแรม 5 ดาว ระดับเวิลด์คลาส</span>
+                    </div>
+
+                    <hr class="section-divider">
+
+                    <!-- Room Info -->
+                    <div class="room-info">
+                        <p style="font-size:var(--text-micro);font-weight:var(--fw-bold);text-transform:uppercase;letter-spacing:0.1em;color:var(--color-teal);margin-bottom:var(--space-xs);">Room Type</p>
+                        <h3 class="room-info__title">Pool Villa - Private Pool</h3>
+                        <p class="room-info__desc">ตื่นมาเปิดม่านเจอทะเลอันดามัน พูลวิลล่าส่วนตัวขนาด 120 ตร.ม. พร้อมสระว่ายน้ำริมชายหาด วิวพาโนรามาที่ทำให้ลืมกลับบ้าน บริการผู้ช่วยส่วนตัว 24 ชม.</p>
+
+                        <div class="package-title">
+                            <span class="material-symbols-outlined fill-icon">task_alt</span>
+                            รวมอยู่ในดีลนี้แล้ว
+                        </div>
+                        <ul class="package-list">
+                            <li>
+                                <span class="material-symbols-outlined fill-icon">check_circle</span>
+                                อาหารเช้าแบบลอยน้ำ (Floating Breakfast) สำหรับ 2 ท่าน
+                            </li>
+                            <li>
+                                <span class="material-symbols-outlined fill-icon">check_circle</span>
+                                ชุด Afternoon Tea ริมสระว่ายน้ำ 1 ชุด
+                            </li>
+                            <li>
+                                <span class="material-symbols-outlined fill-icon">check_circle</span>
+                                สปาทรีตเมนต์ 60 นาที สำหรับ 2 ท่าน
+                            </li>
+                            <li>
+                                <span class="material-symbols-outlined fill-icon">check_circle</span>
+                                บริการรถรับ-ส่งสนามบินแบบส่วนตัว
+                            </li>
+                        </ul>
+                    </div>
+
+                    <hr class="section-divider">
+
+                    <!-- Amenities -->
+                    <section class="amenities-section">
+                        <p style="font-size:var(--text-micro);font-weight:var(--fw-bold);text-transform:uppercase;letter-spacing:0.1em;color:var(--color-gold-dark);margin-bottom:var(--space-xs);">Facilities</p>
+                        <h3 style="font-size:var(--text-h3);line-height:1.3;">สิ่งอำนวยความสะดวก</h3>
+                        <div class="amenities-grid">
+                            <div class="amenity-item">
+                                <span class="material-symbols-outlined">music_note</span>
+                                <span>คาราโอเกะ</span>
+                            </div>
+                            <div class="amenity-item">
+                                <span class="material-symbols-outlined">wifi</span>
+                                <span>Free Wi-Fi</span>
+                            </div>
+                            <div class="amenity-item">
+                                <span class="material-symbols-outlined">fitness_center</span>
+                                <span>ฟิตเนส</span>
+                            </div>
+                            <div class="amenity-item">
+                                <span class="material-symbols-outlined">pool</span>
+                                <span>สระว่ายน้ำ</span>
+                            </div>
+                            <div class="amenity-item">
+                                <span class="material-symbols-outlined">restaurant</span>
+                                <span>ห้องอาหาร</span>
+                            </div>
+                            <div class="amenity-item">
+                                <span class="material-symbols-outlined">spa</span>
+                                <span>สปา</span>
+                            </div>
+                            <div class="amenity-item">
+                                <span class="material-symbols-outlined">local_parking</span>
+                                <span>ที่จอดรถ</span>
+                            </div>
+                            <div class="amenity-item">
+                                <span class="material-symbols-outlined">room_service</span>
+                                <span>Room Service</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <hr class="section-divider">
+
+                    <!-- Trinity Comparison -->
+                    <section class="comparison-section">
+                        <div class="comparison-header" style="flex-direction:column;align-items:flex-start;gap:var(--space-xs);">
+                            <span class="comparison-label">Trinity Comparison</span>
+                            <h3 style="font-size:var(--text-h3);line-height:1.3;">ทำไมจองผ่าน Hotel Addict ถึงคุ้มกว่า?</h3>
+                        </div>
+                        <div class="comparison-grid">
+                            <!-- Hotel Addict Deal -->
+                            <div class="deal-card deal-card--best">
+                                <div class="deal-card__ribbon">คุ้มที่สุด</div>
+                                <p class="deal-card__label">แนะนำ</p>
+                                <h4 class="deal-card__name">Hotel Addict Deal</h4>
+                                <p class="deal-card__price-label">ราคาต่อคืน</p>
+                                <p class="deal-card__price">&#3647;6,500</p>
+                                <p class="deal-card__inclusions-label">สิทธิพิเศษที่ได้รับ</p>
+                                <ul class="deal-card__list">
+                                    <li>
+                                        <span class="material-symbols-outlined fill-icon">check_circle</span>
+                                        อาหารเช้าสำหรับ 2 ท่านทุกวัน
+                                    </li>
+                                    <li>
+                                        <span class="material-symbols-outlined fill-icon">check_circle</span>
+                                        Late Check-out ถึง 14:00 น.
+                                    </li>
+                                    <li>
+                                        <span class="material-symbols-outlined fill-icon">check_circle</span>
+                                        เครดิตสปามูลค่า &#3647;1,000
+                                    </li>
+                                    <li>
+                                        <span class="material-symbols-outlined fill-icon">check_circle</span>
+                                        Wi-Fi ความเร็วสูงฟรี
+                                    </li>
+                                </ul>
+                                <div class="deal-card__policy">
+                                    <span class="material-symbols-outlined">event_available</span>
+                                    ยกเลิกฟรีล่วงหน้า 24 ชม.
+                                </div>
+                                <div class="deal-card__cta">
+                                    <a href="payment.html" class="btn btn-primary btn-lg" style="width:100%;">เลือกดีลนี้</a>
+                                </div>
+                            </div>
+
+                            <!-- OTA Deal -->
+                            <div class="deal-card deal-card--other">
+                                <p class="deal-card__label">เว็บไซต์ท่องเที่ยวทั่วไป</p>
+                                <h4 class="deal-card__name">OTA Deal</h4>
+                                <p class="deal-card__price-label">ราคาต่อคืน</p>
+                                <p class="deal-card__price">&#3647;8,500</p>
+                                <p class="deal-card__inclusions-label">สิทธิพิเศษที่ได้รับ</p>
+                                <ul class="deal-card__list">
+                                    <li>
+                                        <span class="material-symbols-outlined">radio_button_unchecked</span>
+                                        ได้แค่ห้องพักเปล่า
+                                    </li>
+                                    <li>
+                                        <span class="material-symbols-outlined">cancel</span>
+                                        ไม่รวมอาหารเช้า
+                                    </li>
+                                    <li>
+                                        <span class="material-symbols-outlined">schedule</span>
+                                        Check-out ตามปกติ 12:00 น.
+                                    </li>
+                                    <li>
+                                        <span class="material-symbols-outlined">block</span>
+                                        ไม่มีสิทธิพิเศษใดๆ
+                                    </li>
+                                </ul>
+                                <div class="deal-card__policy">
+                                    <span class="material-symbols-outlined">lock</span>
+                                    ไม่สามารถคืนเงินได้
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align:center;margin-top:var(--space-lg);">
+                            <button type="button" id="openPriceDrawer" class="btn btn-outline btn-md" style="display:inline-flex;align-items:center;gap:var(--space-sm);">
+                                เปรียบเทียบราคาจากทุก OTA
+                                <span class="material-symbols-outlined" style="font-size:18px;">compare_arrows</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <hr class="section-divider">
+
+                    <!-- Terms & Conditions -->
+                    <section class="terms-section">
+                        <p style="font-size:var(--text-micro);font-weight:var(--fw-bold);text-transform:uppercase;letter-spacing:0.1em;color:var(--color-gold-dark);margin-bottom:var(--space-xs);">Terms</p>
+                        <h3 style="font-size:var(--text-h3);line-height:1.3;">เงื่อนไขการใช้งาน</h3>
+                        <ul class="terms-list">
+                            <li>ใช้ได้ถึง 31 ธ.ค. 2569 — มีเวลาวางแผนเต็มที่</li>
+                            <li>จองล่วงหน้าอย่างน้อย 14 วัน เพื่อการันตีห้องว่าง</li>
+                            <li>ช่วงวันหยุดนักขัตฤกษ์มีค่าธรรมเนียมเพิ่ม 1,500 บาท/คืน</li>
+                            <li>ไม่สามารถยกเลิกหรือขอคืนเงินหลังชำระแล้ว</li>
+                            <li>ราคายังไม่รวมค่าบริการและ VAT 7%</li>
+                            <li>โอนสิทธิ์ให้คนอื่นได้ แจ้งล่วงหน้า 7 วัน</li>
+                        </ul>
+                    </section>
+                </div>
+
+                <!-- ===== RIGHT COLUMN (SIDEBAR) ===== -->
+                <div class="sidebar">
+                    <div class="sidebar__sticky">
+
+                        <!-- Price Card -->
+                        <div class="price-card">
+                            <span class="price-card__flash">
+                                <span class="material-symbols-outlined" style="font-size:14px;margin-right:4px;">bolt</span>
+                                ดีลจำกัดเวลา
+                            </span>
+                            <div class="price-card__original">
+                                <span class="strikethrough">&#3647;24,500</span>
+                                <span class="save">ถูกกว่า 40%</span>
+                            </div>
+                            <div class="price-card__amount">&#3647;14,700</div>
+                            <div class="price-card__per">/ 2 คืน</div>
+
+                            <!-- Stock -->
+                            <div class="stock-info">
+                                <div class="stock-info__header">
+                                    <span>กำลังจะหมด!</span>
+                                    <span class="stock-info__remain">เหลืออีก 4 สิทธิ์</span>
+                                </div>
+                                <div class="stock-bar">
+                                    <div class="stock-bar__fill" style="width:80%;"></div>
+                                </div>
+                                <div class="stock-info__sold">
+                                    <span class="material-symbols-outlined">trending_up</span>
+                                    มีคนซื้อไปแล้ว 16 สิทธิ์ใน 24 ชม.
+                                </div>
+                            </div>
+
+                            <!-- Countdown -->
+                            <div class="countdown" id="countdown">
+                                <div class="countdown__block">
+                                    <span class="countdown__num" id="cd-days">02</span>
+                                    <span class="countdown__label">วัน</span>
+                                </div>
+                                <span class="countdown__sep">:</span>
+                                <div class="countdown__block">
+                                    <span class="countdown__num" id="cd-hours">18</span>
+                                    <span class="countdown__label">ชม.</span>
+                                </div>
+                                <span class="countdown__sep">:</span>
+                                <div class="countdown__block">
+                                    <span class="countdown__num" id="cd-mins">45</span>
+                                    <span class="countdown__label">นาที</span>
+                                </div>
+                                <span class="countdown__sep">:</span>
+                                <div class="countdown__block">
+                                    <span class="countdown__num" id="cd-secs">30</span>
+                                    <span class="countdown__label">วินาที</span>
+                                </div>
+                            </div>
+
+                            <!-- CTA Buttons -->
+                            <div class="sidebar-cta">
+                                <a href="payment.html" class="btn-gold">
+                                    รับดีลนี้เลย
+                                    <span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span>
+                                </a>
+                                <button class="btn-wishlist" id="wishlistBtn">
+                                    <span class="material-symbols-outlined" style="font-size:20px;">favorite_border</span>
+                                    บันทึกไว้ดูทีหลัง
+                                </button>
+                            </div>
+
+                            <!-- Trust Signals -->
+                            <div class="trust-signals">
+                                <div class="trust-item">
+                                    <span class="material-symbols-outlined fill-icon">verified_user</span>
+                                    <div>
+                                        <div class="trust-item__title">การันตีราคาต่ำสุด</div>
+                                        <div class="trust-item__desc">เจอที่ไหนถูกกว่า คืนส่วนต่างทันที</div>
+                                    </div>
+                                </div>
+                                <div class="trust-item">
+                                    <span class="material-symbols-outlined fill-icon">confirmation_number</span>
+                                    <div>
+                                        <div class="trust-item__title">ได้รับ E-Voucher ทันที</div>
+                                        <div class="trust-item__desc">จ่ายเสร็จ ได้รับบัตรกำนัลผ่านอีเมลเลย</div>
+                                    </div>
+                                </div>
+                                <div class="trust-item">
+                                    <span class="material-symbols-outlined fill-icon">support_agent</span>
+                                    <div>
+                                        <div class="trust-item__title">ทีมดูแลพร้อมช่วย 24 ชม.</div>
+                                        <div class="trust-item__desc">แชทหาเราได้ทุกเวลา ไม่ต้องรอ</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Delivery -->
+                        <div class="delivery-card">
+                            <div class="delivery-card__title">
+                                <span class="material-symbols-outlined fill-icon">mail</span>
+                                วิธีรับบัตรกำนัล
+                            </div>
+                            <div class="delivery-card__desc">ชำระเงินเสร็จ รับ E-Voucher ทางอีเมลทันที ไม่ต้องรอส่ง</div>
+                        </div>
+
+                        <!-- Map -->
+                        <div class="map-card">
+                            <div class="map-card__title">
+                                <span class="material-symbols-outlined fill-icon">map</span>
+                                ที่ตั้งโรงแรม
+                            </div>
+                            <div class="map-card__placeholder">
+                                <img src="assets/images/hotels/hotel-map-location.jpg" alt="แผนที่ตำแหน่ง The Celestial Sands Resort ภูเก็ต" loading="lazy">
+                                <div class="map-card__pin">
+                                    <div class="map-card__pin-dot">
+                                        <span class="material-symbols-outlined fill-icon">location_on</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="map-card__address">123 หมู่ 4, หาดกะรน, อำเภอเมือง, ภูเก็ต 83100</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- .detail-grid -->
+                </div><!-- /real-content -->
+            </div><!-- /skeleton-wrapper #skelVoucherDetail -->
+        </div><!-- .container -->
+    </main>
+
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__col">
+                    <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
+                    <p class="footer__desc">ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง</p>
+                    <div class="footer__social">
+                        <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
+                        <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
+                        <a href="#" class="footer__social-btn" aria-label="LINE"><span class="material-symbols-outlined" aria-hidden="true">chat</span></a>
+                    </div>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__heading">บริการลูกค้า</h4>
+                    <ul class="footer__list">
+                        <li><a href="#">ศูนย์ช่วยเหลือ</a></li>
+                        <li><a href="#">วิธีจองวอชเชอร์</a></li>
+                        <li><a href="#">นโยบายการยกเลิก</a></li>
+                        <li><a href="#">ติดต่อเรา</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__heading">เกี่ยวกับเรา</h4>
+                    <ul class="footer__list">
+                        <li><a href="#">เกี่ยวกับ Hotel Addict</a></li>
+                        <li><a href="#">ร่วมงานกับเรา</a></li>
+                        <li><a href="#">พาร์ทเนอร์โรงแรม</a></li>
+                        <li><a href="#">บล็อก</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h4 class="footer__heading">ค้นพบ</h4>
+                    <ul class="footer__list">
+                        <li><a href="index.html">ดีลโรงแรม</a></li>
+                        <li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li>
+                        <li><a href="wishlist.html">รายการโปรด</a></li>
+                        <li><a href="voucher-list.html">เปรียบเทียบราคา</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>&copy; 2026 Hotel Addict. สงวนลิขสิทธิ์ทุกประการ</p>
+                <div class="footer__bottom-links">
+                    <a href="#">ข้อกำหนดการใช้งาน</a>
+                    <a href="#">นโยบายความเป็นส่วนตัว</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== MOBILE STICKY CTA ===== -->
+    <div class="mobile-cta">
+        <div class="mobile-cta__price">
+            <span class="mobile-cta__amount">&#3647;14,700</span>
+            <span class="mobile-cta__label">/ 2 คืน</span>
+        </div>
+        <a href="payment.html" class="btn-gold" style="flex:1;max-width:220px;">
+            รับดีลนี้เลย
+            <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+        </a>
+    </div>
+
+    <!-- ===== PRICE COMPARISON SIDE MODAL ===== -->
+    <div class="side-modal-overlay" id="priceDrawer" role="dialog" aria-modal="true" aria-label="เปรียบเทียบราคาจาก OTA">
+        <div class="side-modal" role="document">
+            <div class="side-modal__header">
+                <h3>
+                    <span class="material-symbols-outlined" style="color:var(--color-gold-dark);">analytics</span>
+                    เปรียบเทียบราคา
+                </h3>
+                <button type="button" class="side-modal__close" id="closePriceDrawer" aria-label="ปิด">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <div class="side-modal__body">
+                <!-- Savings Summary -->
+                <div class="drawer-savings">
+                    <div class="drawer-savings__amount">ประหยัด &#3647;2,000</div>
+                    <div class="drawer-savings__label">เทียบกับราคาเฉลี่ย OTA ต่อคืน</div>
+                    <div class="drawer-savings__badge">
+                        <span class="material-symbols-outlined" style="font-size:14px;">trending_down</span>
+                        ถูกกว่า 23%
+                    </div>
+                </div>
+
+                <!-- OTA Price Table -->
+                <p class="drawer-table-label">ราคาต่อคืน เปรียบเทียบ (ค่าประมาณ)</p>
+                <table class="ota-table">
+                    <thead>
+                        <tr>
+                            <th>แพลตฟอร์ม</th>
+                            <th>ราคา/คืน</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="ota-row--best">
+                            <td>
+                                Hotel Addict
+                                <span class="ota-badge-best">ถูกที่สุด</span>
+                            </td>
+                            <td>&#3647;6,500</td>
+                        </tr>
+                        <tr>
+                            <td>OTA เว็บจองทั่วไป</td>
+                            <td>
+                                &#3647;8,500
+                                <br><span class="ota-saving">ประหยัด &#3647;2,000</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Feature Comparison -->
+                <p class="drawer-table-label" style="margin-top:var(--space-xl);">สิทธิพิเศษที่ได้รับ</p>
+                <table class="feature-table">
+                    <thead>
+                        <tr>
+                            <th style="width:40%;">สิ่งที่ได้รับ</th>
+                            <th class="ft-highlight" style="width:30%;">Hotel Addict</th>
+                            <th style="width:30%;">OTA ทั่วไป</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>อาหารเช้าฟรี</td>
+                            <td class="ft-highlight"><span class="material-symbols-outlined ft-icon-check fill-icon">check_circle</span></td>
+                            <td><span class="material-symbols-outlined ft-icon-cross">cancel</span></td>
+                        </tr>
+                        <tr>
+                            <td>Late Check-out</td>
+                            <td class="ft-highlight"><span class="material-symbols-outlined ft-icon-check fill-icon">check_circle</span></td>
+                            <td><span class="material-symbols-outlined ft-icon-cross">cancel</span></td>
+                        </tr>
+                        <tr>
+                            <td>เครดิตสปา</td>
+                            <td class="ft-highlight">&#3647;1,000</td>
+                            <td style="color:var(--text-muted);">ไม่มี</td>
+                        </tr>
+                        <tr>
+                            <td>Wi-Fi ฟรี</td>
+                            <td class="ft-highlight"><span class="material-symbols-outlined ft-icon-check fill-icon">check_circle</span></td>
+                            <td><span class="material-symbols-outlined ft-icon-check fill-icon">check_circle</span></td>
+                        </tr>
+                        <tr>
+                            <td>ยกเลิกฟรี</td>
+                            <td class="ft-highlight" style="color:var(--color-success);font-size:var(--text-micro);">ล่วงหน้า 24 ชม.</td>
+                            <td style="color:var(--color-error);font-size:var(--text-micro);">ไม่คืนเงิน</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="side-modal__footer" style="display:flex;flex-direction:row;gap:var(--space-sm);">
+                <button type="button" class="btn btn-outline btn-lg" style="flex:1;display:flex;align-items:center;justify-content:center;gap:var(--space-xs);" onclick="document.getElementById('priceDrawer').classList.remove('is-open');document.body.classList.remove('modal-open');">
+                    <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span>
+                    กลับ
+                </button>
+                <a href="payment.html" class="btn btn-primary btn-lg" style="flex:1;display:flex;align-items:center;justify-content:center;gap:var(--space-sm);">
+                    เลือกดีล Hotel Addict
+                    <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== BACK TO TOP ===== -->
+    <button class="back-to-top" aria-label="กลับไปด้านบน">
+        <span class="material-symbols-outlined">keyboard_arrow_up</span>
+    </button>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="js/main.js"></script>
+    <script>
+        /* === COUNTDOWN TIMER === */
+        (function() {
+            const endDate = new Date();
+            endDate.setDate(endDate.getDate() + 2);
+            endDate.setHours(23, 59, 59, 0);
+
+            function updateCountdown() {
+                const now = new Date();
+                const diff = endDate - now;
+
+                if (diff <= 0) {
+                    document.getElementById('cd-days').textContent = '00';
+                    document.getElementById('cd-hours').textContent = '00';
+                    document.getElementById('cd-mins').textContent = '00';
+                    document.getElementById('cd-secs').textContent = '00';
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+                document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+                document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        })();
+
+        /* === WISHLIST TOGGLE === */
+        (function() {
+            const btn = document.getElementById('wishlistBtn');
+            if (!btn) return;
+            let added = false;
+            btn.addEventListener('click', function() {
+                added = !added;
+                const icon = btn.querySelector('.material-symbols-outlined');
+                if (added) {
+                    icon.textContent = 'favorite';
+                    icon.classList.add('fill-icon');
+                    icon.style.color = 'var(--color-error)';
+                    btn.querySelector('span:last-child') || (function(){})();
+                    // Update text
+                    btn.childNodes.forEach(function(node) {
+                        if (node.nodeType === 3 && node.textContent.trim()) {
+                            node.textContent = ' บันทึกแล้ว ';
+                        }
+                    });
+                } else {
+                    icon.textContent = 'favorite_border';
+                    icon.classList.remove('fill-icon');
+                    icon.style.color = '';
+                    btn.childNodes.forEach(function(node) {
+                        if (node.nodeType === 3 && node.textContent.trim()) {
+                            node.textContent = ' บันทึกไว้ดูทีหลัง ';
+                        }
+                    });
+                }
+            });
+        })();
+
+        /* === PRICE COMPARISON DRAWER === */
+        (function() {
+            const overlay = document.getElementById('priceDrawer');
+            const openBtn = document.getElementById('openPriceDrawer');
+            const closeBtn = document.getElementById('closePriceDrawer');
+            if (!overlay || !openBtn) return;
+
+            function openDrawer() {
+                overlay.classList.add('is-open');
+                document.body.classList.add('modal-open');
+                closeBtn.focus();
+            }
+            function closeDrawer() {
+                overlay.classList.remove('is-open');
+                document.body.classList.remove('modal-open');
+                openBtn.focus();
+            }
+
+            openBtn.addEventListener('click', openDrawer);
+            closeBtn.addEventListener('click', closeDrawer);
+
+            // Close on overlay click (outside modal)
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) closeDrawer();
+            });
+
+            // Close on Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+                    closeDrawer();
+                }
+            });
+        })();
+
+        /* === TRACK RECENTLY VIEWED === */
+        if (window.HotelAddict) {
+            window.HotelAddict.addRecentlyViewed({
+                id: 'celestial-sands-pool-villa',
+                name: 'The Celestial Sands Resort & Spa',
+                price: 14700,
+                image: 'assets/images/hotels/hotel-celestial-sands.jpg',
+                location: 'Phuket, Thailand'
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ยืนยันการชำระเงิน | Hotel Addict</title>
+    <meta name="description" content="ยืนยันการชำระเงินสำหรับวอชเชอร์โรงแรมของคุณบน Hotel Addict">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ยืนยันการชำระเงิน | Hotel Addict">
+    <meta property="og:description" content="ยืนยันการชำระเงินสำหรับวอชเชอร์โรงแรมของคุณบน Hotel Addict">
+    <meta property="og:image" content="assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ยืนยันการชำระเงิน | Hotel Addict">
+    <meta name="twitter:description" content="ยืนยันการชำระเงินสำหรับวอชเชอร์โรงแรมของคุณบน Hotel Addict">
+    <meta name="twitter:image" content="assets/og-image.jpg">
+
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <style>
+        /* === PAGE-SPECIFIC STYLES === */
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: var(--text-body-sm);
+            color: var(--text-muted);
+            margin-bottom: var(--space-xl);
+        }
+
+        .breadcrumb a {
+            color: var(--text-muted);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--color-gold-dark);
+        }
+
+        .breadcrumb__current {
+            color: var(--text-primary);
+            font-weight: var(--fw-semibold);
+        }
+
+        .breadcrumb .material-symbols-outlined {
+            font-size: 14px;
+        }
+
+        /* Two-column layout */
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-xl);
+        }
+
+        @media (min-width: 1024px) {
+            .checkout-grid {
+                grid-template-columns: 3fr 2fr;
+                gap: 48px;
+            }
+        }
+
+        /* Section heading */
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-heading__bar {
+            width: 3px;
+            height: 28px;
+            background: var(--color-gold);
+            border-radius: var(--radius-full);
+        }
+
+        .section-heading h2 {
+            font-size: var(--text-h3);
+            line-height: var(--lh-h3);
+        }
+
+        /* Form grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-md);
+        }
+
+        @media (min-width: 640px) {
+            .form-grid--2col {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
+        }
+
+        /* Payment methods */
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .payment-option {
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            cursor: pointer;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .payment-option:hover {
+            border-color: var(--color-gold);
+        }
+
+        .payment-option--active {
+            border-color: var(--color-gold);
+            background: var(--color-gold-subtle);
+            box-shadow: var(--shadow-gold-active);
+        }
+
+        .payment-option__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .payment-option__left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        /* Custom radio */
+        .radio-circle {
+            width: 22px;
+            height: 22px;
+            min-width: 22px;
+            border-radius: var(--radius-full);
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color var(--transition-fast);
+        }
+
+        .radio-circle__dot {
+            width: 10px;
+            height: 10px;
+            border-radius: var(--radius-full);
+            background: transparent;
+            transition: background var(--transition-fast);
+        }
+
+        .payment-option--active .radio-circle {
+            border-color: var(--color-gold-dark);
+        }
+
+        .payment-option--active .radio-circle__dot {
+            background: var(--color-gold-dark);
+        }
+
+        .payment-option__label {
+            font-size: var(--text-body-md);
+            font-weight: var(--fw-semibold);
+            color: var(--text-primary);
+        }
+
+        .payment-option__icons {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .payment-option__icons .material-symbols-outlined {
+            font-size: 28px;
+            color: var(--text-muted);
+        }
+
+        /* Card brand icons */
+        .card-brand {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 28px;
+            background: var(--bg-cream);
+            border-radius: var(--radius-sm);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+        }
+
+        /* Card form */
+        .card-form {
+            margin-top: var(--space-lg);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+
+        .card-form .form-grid--2col {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .card-number-wrapper {
+            position: relative;
+        }
+
+        .card-number-wrapper .card-brands {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: relative;
+        }
+
+        @media (min-width: 1024px) {
+            .sidebar__sticky {
+                position: sticky;
+                top: calc(var(--nav-height) + var(--space-lg));
+            }
+        }
+
+        /* Summary card */
+        .summary-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+        }
+
+        .summary-card__image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .summary-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .summary-card__image-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--overlay-gradient-strong);
+        }
+
+        .summary-card__image-info {
+            position: absolute;
+            bottom: var(--space-md);
+            left: var(--space-md);
+            right: var(--space-md);
+        }
+
+        .summary-card__hotel-name {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: var(--fw-bold);
+            color: var(--bg-white);
+            margin-bottom: 2px;
+        }
+
+        .summary-card__location {
+            font-size: var(--text-body-sm);
+            color: var(--bg-white-80);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .summary-card__location .material-symbols-outlined {
+            font-size: 14px;
+            color: var(--color-gold);
+        }
+
+        .summary-card__body {
+            padding: var(--space-lg);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        /* Room info row */
+        .room-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .room-info__type-label {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-teal);
+            margin-bottom: 4px;
+        }
+
+        .room-info__type-name {
+            font-weight: var(--fw-bold);
+            font-size: var(--text-body-lg);
+            color: var(--text-primary);
+        }
+
+        .room-info__detail {
+            font-size: var(--text-body-sm);
+            color: var(--text-muted);
+        }
+
+        /* Night counter */
+        .night-counter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .night-counter__label {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .night-counter__controls {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            background: var(--bg-cream);
+            border-radius: var(--radius-full);
+            padding: 4px 12px;
+        }
+
+        .night-counter__btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: color var(--transition-fast);
+            min-width: 44px;
+            min-height: 44px;
+        }
+
+        .night-counter__btn:hover {
+            color: var(--color-gold-dark);
+        }
+
+        .night-counter__btn .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        .night-counter__value {
+            font-weight: var(--fw-bold);
+            font-size: var(--text-body-sm);
+            min-width: 16px;
+            text-align: center;
+        }
+
+        /* Date row */
+        .date-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+            padding: var(--space-md) 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .date-row__item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .date-row__item:last-child {
+            text-align: right;
+        }
+
+        .date-row__label {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+
+        .date-row__value {
+            font-weight: var(--fw-bold);
+            font-size: var(--text-body-sm);
+            color: var(--text-primary);
+        }
+
+        /* Price breakdown */
+        .price-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: var(--text-body-sm);
+        }
+
+        .price-row__label {
+            color: var(--text-secondary);
+        }
+
+        .price-row__value {
+            font-weight: var(--fw-medium);
+            color: var(--text-primary);
+        }
+
+        .price-row--discount .price-row__label,
+        .price-row--discount .price-row__value {
+            color: var(--color-gold-dark);
+            font-weight: var(--fw-semibold);
+        }
+
+        /* Total */
+        .price-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border);
+        }
+
+        .price-total__label {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: var(--text-muted);
+        }
+
+        .price-total__amount {
+            font-family: var(--font-heading);
+            font-size: var(--text-price);
+            font-weight: var(--fw-bold);
+            line-height: var(--lh-price);
+            color: var(--color-gold-dark);
+        }
+
+        .price-total__vat {
+            font-size: var(--text-micro);
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        /* CTA Button */
+        .btn-cta {
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            padding: 16px 24px;
+            border: none;
+            border-radius: var(--radius-md);
+            background: var(--color-gold-dark);
+            color: var(--bg-white);
+            font-family: var(--font-heading);
+            font-size: var(--text-body-lg);
+            font-weight: var(--fw-bold);
+            cursor: pointer;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+            box-shadow: var(--shadow-gold-sm);
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-gold-lg);
+        }
+
+        .btn-cta .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        /* Terms */
+        .terms-text {
+            font-size: var(--text-micro);
+            color: var(--text-muted);
+            text-align: center;
+            line-height: var(--lh-micro);
+            padding: 0 var(--space-md);
+        }
+
+        .terms-text a {
+            color: var(--color-teal);
+            text-decoration: underline;
+        }
+
+        /* Trust badges */
+        .trust-badges {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-lg);
+            padding: var(--space-md) 0;
+        }
+
+        .trust-badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .trust-badge .material-symbols-outlined {
+            font-size: 28px;
+            color: var(--text-muted);
+        }
+
+        .trust-badge__label {
+            font-size: var(--text-micro);
+            color: var(--text-muted);
+            font-weight: var(--fw-medium);
+        }
+
+        /* Sections spacing */
+        .checkout-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        /* Main content push for fixed nav */
+        .main-content {
+            padding-top: calc(var(--nav-height) + var(--space-xl));
+            padding-bottom: var(--space-3xl);
+        }
+    </style>
+</head>
+<body>
+
+<!-- === NAVBAR === -->
+<nav class="navbar" aria-label="เมนูหลัก">
+    <div class="navbar__inner">
+        <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
+        <ul class="navbar__menu">
+                <li><a href="index.html" class="navbar__link">หน้าแรก</a></li>
+                <li><a href="voucher-list.html" class="navbar__link">ค้นหาวอชเชอร์</a></li>
+                <li><a href="about.html" class="navbar__link">เกี่ยวกับเรา</a></li>
+            </ul>
+            <div class="navbar__actions">
+                <button class="navbar__icon-btn" aria-label="การแจ้งเตือน">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <button class="navbar__profile" aria-label="โปรไฟล์">
+                    <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
+                    <span class="navbar__profile-name">คุณสมชาย</span>
+                    <div class="navbar__dropdown">
+                        <a href="my-voucher.html" class="navbar__dropdown-item">
+                            <span class="material-symbols-outlined">confirmation_number</span>
+                            วอชเชอร์ของฉัน
+                        </a>
+                        <a href="wishlist.html" class="navbar__dropdown-item">
+                            <span class="material-symbols-outlined">favorite</span>
+                            รายการโปรด
+                        </a>
+                        <div class="navbar__dropdown-divider"></div>
+                        <a href="#" class="navbar__dropdown-item">
+                            <span class="material-symbols-outlined">settings</span>
+                            ตั้งค่า
+                        </a>
+                        <a href="login.html" class="navbar__dropdown-item navbar__dropdown-item--danger">
+                            <span class="material-symbols-outlined">logout</span>
+                            ออกจากระบบ
+                        </a>
+                    </div>
+                </button>
+            </div>
+        <button class="navbar__hamburger" aria-label="เปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.add('active')">
+            <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+        </button>
+    </div>
+</nav>
+
+    <div class="mobile-nav">
+        <div class="mobile-nav__header">
+            <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
+            <button class="mobile-nav__close" aria-label="ปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.remove('active')">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            </button>
+        </div>
+        <ul class="mobile-nav__list">
+            <li><a href="index.html" class="mobile-nav__link">หน้าแรก</a></li>
+            <li><a href="voucher-list.html" class="mobile-nav__link">ค้นหาวอชเชอร์</a></li>
+            <li><a href="about.html" class="mobile-nav__link">เกี่ยวกับเรา</a></li>
+        </ul>
+        <div class="mobile-nav__divider"></div>
+        <div class="mobile-nav__profile">
+            <div class="mobile-nav__profile-header">
+                <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
+                <span class="mobile-nav__profile-name">คุณสมชาย</span>
+            </div>
+            <ul class="mobile-nav__list">
+                <li><a href="my-voucher.html" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>
+                <li><a href="wishlist.html" class="mobile-nav__link"><span class="material-symbols-outlined">favorite</span>รายการโปรด</a></li>
+                <li><a href="#" class="mobile-nav__link"><span class="material-symbols-outlined">settings</span>ตั้งค่า</a></li>
+                <li><a href="login.html" class="mobile-nav__link mobile-nav__link--danger"><span class="material-symbols-outlined">logout</span>ออกจากระบบ</a></li>
+            </ul>
+        </div>
+    </div>
+
+<!-- ==================== SKELETON + CONTENT ==================== -->
+
+<main class="main-content">
+    <div class="container">
+
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" aria-label="breadcrumb">
+            <a href="index.html">หน้าแรก</a>
+            <span class="material-symbols-outlined">chevron_right</span>
+            <a href="#">ดีลโรงแรม</a>
+            <span class="material-symbols-outlined">chevron_right</span>
+            <span class="breadcrumb__current">ชำระเงิน</span>
+        </nav>
+
+        <!-- Two-column grid -->
+        <div class="checkout-grid">
+
+            <!-- ===== LEFT COLUMN ===== -->
+            <div>
+                <!-- ข้อมูลผู้ติดต่อ -->
+                <section class="checkout-section">
+                    <div class="section-heading">
+                        <span class="section-heading__bar"></span>
+                        <h2>ข้อมูลผู้จอง</h2>
+                    </div>
+                    <div class="form-grid form-grid--2col">
+                        <div class="form-group">
+                            <label class="input-label" for="firstname">ชื่อจริง</label>
+                            <input class="input" type="text" id="firstname" placeholder="ชื่อจริง (ภาษาไทยหรืออังกฤษ)" autocomplete="given-name">
+                        </div>
+                        <div class="form-group">
+                            <label class="input-label" for="lastname">นามสกุล</label>
+                            <input class="input" type="text" id="lastname" placeholder="นามสกุล" autocomplete="family-name">
+                        </div>
+                        <div class="form-group">
+                            <label class="input-label" for="email">อีเมล</label>
+                            <input class="input" type="email" id="email" placeholder="อีเมลสำหรับรับ E-Voucher" autocomplete="email">
+                        </div>
+                        <div class="form-group">
+                            <label class="input-label" for="phone">เบอร์โทรศัพท์</label>
+                            <input class="input" type="tel" id="phone" placeholder="08X-XXX-XXXX" autocomplete="tel">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ช่องทางการชำระเงิน -->
+                <section class="checkout-section">
+                    <div class="section-heading">
+                        <span class="section-heading__bar"></span>
+                        <h2>เลือกวิธีชำระเงิน</h2>
+                    </div>
+
+                    <div class="payment-methods" role="radiogroup" aria-label="เลือกวิธีชำระเงิน">
+
+                        <!-- บัตรเครดิต/เดบิต (active) -->
+                        <div class="payment-option payment-option--active" id="payment-card" role="radio" tabindex="0" aria-checked="true" onclick="selectPayment('card')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPayment('card');}">
+                            <div class="payment-option__header">
+                                <div class="payment-option__left">
+                                    <div class="radio-circle">
+                                        <div class="radio-circle__dot"></div>
+                                    </div>
+                                    <span class="payment-option__label">บัตรเครดิต / บัตรเดบิต</span>
+                                </div>
+                                <div class="payment-option__icons">
+                                    <span class="card-brand">VISA</span>
+                                    <span class="card-brand">MC</span>
+                                </div>
+                            </div>
+
+                            <!-- Card form (visible when active) -->
+                            <div class="card-form" id="card-form">
+                                <div class="form-group">
+                                    <label class="input-label" for="card-number">หมายเลขบัตร</label>
+                                    <div class="card-number-wrapper">
+                                        <input class="input" type="text" id="card-number" placeholder="0000 0000 0000 0000" autocomplete="cc-number" inputmode="numeric" style="letter-spacing:0.15em; padding-right:110px;">
+                                        <div class="card-brands">
+                                            <span class="card-brand">VISA</span>
+                                            <span class="card-brand">MC</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-grid form-grid--2col">
+                                    <div class="form-group">
+                                        <label class="input-label" for="card-expiry">วันหมดอายุ</label>
+                                        <input class="input" type="text" id="card-expiry" placeholder="MM / YY" autocomplete="cc-exp" inputmode="numeric">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="input-label" for="card-cvc">CVC / CVV</label>
+                                        <input class="input" type="text" id="card-cvc" placeholder="123" autocomplete="cc-csc" inputmode="numeric" maxlength="4">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="input-label" for="card-name">ชื่อบนบัตร</label>
+                                    <input class="input" type="text" id="card-name" placeholder="NAME SURNAME" autocomplete="cc-name" style="text-transform:uppercase;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PromptPay -->
+                        <div class="payment-option" id="payment-promptpay" role="radio" tabindex="0" aria-checked="false" onclick="selectPayment('promptpay')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPayment('promptpay');}">
+                            <div class="payment-option__header">
+                                <div class="payment-option__left">
+                                    <div class="radio-circle">
+                                        <div class="radio-circle__dot"></div>
+                                    </div>
+                                    <span class="payment-option__label">PromptPay (พร้อมเพย์)</span>
+                                </div>
+                                <div class="payment-option__icons">
+                                    <span class="material-symbols-outlined">qr_code_2</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- โอนเงินผ่านบัญชีธนาคาร -->
+                        <div class="payment-option" id="payment-bank" role="radio" tabindex="0" aria-checked="false" onclick="selectPayment('bank')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPayment('bank');}">
+                            <div class="payment-option__header">
+                                <div class="payment-option__left">
+                                    <div class="radio-circle">
+                                        <div class="radio-circle__dot"></div>
+                                    </div>
+                                    <span class="payment-option__label">โอนเงินผ่านบัญชีธนาคาร</span>
+                                </div>
+                                <div class="payment-option__icons">
+                                    <span class="material-symbols-outlined">account_balance</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+
+            <!-- ===== RIGHT COLUMN (SIDEBAR) ===== -->
+            <div class="sidebar">
+                <div class="sidebar__sticky">
+
+                    <div class="skeleton-wrapper" id="skelPaymentSummary">
+                        <div class="skel-screen" aria-hidden="true">
+                            <div class="skel-card" style="border-radius:var(--radius-xl);overflow:hidden;">
+                                <!-- Image (200px) with hotel name overlay -->
+                                <div class="skel skel-image" style="height:200px;border-radius:0;"></div>
+
+                                <div class="skel-stack" style="padding:var(--space-lg);gap:var(--space-lg);">
+
+                                    <!-- Room info row: room type (left) + night counter (right) -->
+                                    <div class="skel-row" style="justify-content:space-between;align-items:flex-start;">
+                                        <div class="skel-stack" style="gap:var(--space-xs);flex:1;">
+                                            <div class="skel skel-text--caption" style="width:70px;"></div>
+                                            <div class="skel skel-text--heading" style="width:140px;"></div>
+                                            <div class="skel skel-text--caption" style="width:110px;"></div>
+                                        </div>
+                                        <div class="skel" style="width:80px;height:44px;border-radius:var(--radius-full);flex-shrink:0;"></div>
+                                    </div>
+
+                                    <!-- Date row: check-in / check-out side by side -->
+                                    <div class="skel-grid-2" style="gap:var(--space-md);padding:var(--space-md) 0;border-top:1px solid rgba(0,0,0,0.06);border-bottom:1px solid rgba(0,0,0,0.06);">
+                                        <div class="skel-stack" style="gap:var(--space-xs);">
+                                            <div class="skel skel-text--caption" style="width:50px;"></div>
+                                            <div class="skel skel-text skel-text--short" style="width:90px;"></div>
+                                        </div>
+                                        <div class="skel-stack" style="gap:var(--space-xs);">
+                                            <div class="skel skel-text--caption" style="width:60px;"></div>
+                                            <div class="skel skel-text skel-text--short" style="width:90px;"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Price breakdown: 3 rows of label + value -->
+                                    <div class="skel-stack" style="gap:var(--space-sm);">
+                                        <div class="skel-row" style="justify-content:space-between;">
+                                            <div class="skel skel-text--caption" style="width:110px;"></div>
+                                            <div class="skel skel-text--caption" style="width:70px;"></div>
+                                        </div>
+                                        <div class="skel-row" style="justify-content:space-between;">
+                                            <div class="skel skel-text--caption" style="width:130px;"></div>
+                                            <div class="skel skel-text--caption" style="width:60px;"></div>
+                                        </div>
+                                        <div class="skel-row" style="justify-content:space-between;">
+                                            <div class="skel skel-text--caption" style="width:150px;"></div>
+                                            <div class="skel skel-text--caption" style="width:70px;"></div>
+                                        </div>
+                                        <!-- Total row (larger) -->
+                                        <div class="skel-row" style="justify-content:space-between;padding-top:var(--space-md);border-top:1px solid rgba(0,0,0,0.06);align-items:flex-end;">
+                                            <div class="skel-stack" style="gap:var(--space-xs);">
+                                                <div class="skel skel-text--caption" style="width:80px;"></div>
+                                                <div class="skel" style="width:110px;height:28px;border-radius:var(--radius-sm);"></div>
+                                            </div>
+                                            <div class="skel skel-text--caption" style="width:80px;"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- CTA button -->
+                                    <div class="skel skel-button skel-button--full"></div>
+
+                                    <!-- Terms text -->
+                                    <div class="skel-stack" style="gap:4px;align-items:center;">
+                                        <div class="skel skel-text--caption" style="width:85%;"></div>
+                                        <div class="skel skel-text--caption" style="width:60%;"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="real-content">
+                    <!-- Booking Summary Card -->
+                    <div class="summary-card">
+
+                        <!-- Hotel image -->
+                        <div class="summary-card__image">
+                            <img src="assets/images/hotels/hotel-royal-grand-azure.jpg" alt="The Royal Grand Azure - สระน้ำวิวพระอาทิตย์ตก">
+                            <div class="summary-card__image-overlay"></div>
+                            <div class="summary-card__image-info">
+                                <h3 class="summary-card__hotel-name">The Royal Grand Azure</h3>
+                                <p class="summary-card__location">
+                                    <span class="material-symbols-outlined">location_on</span>
+                                    เกาะสมุย, สุราษฎร์ธานี
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="summary-card__body">
+
+                            <!-- Room type + night counter -->
+                            <div class="room-info">
+                                <div>
+                                    <p class="room-info__type-label">ห้องพักที่เลือก</p>
+                                    <h4 class="room-info__type-name">Deluxe Ocean Suite</h4>
+                                    <p class="room-info__detail">รวมอาหารเช้า 2 ท่าน + สปาเครดิต</p>
+                                </div>
+                                <div class="night-counter">
+                                    <span class="night-counter__label">จำนวนคืน</span>
+                                    <div class="night-counter__controls">
+                                        <button class="night-counter__btn" aria-label="ลดจำนวนคืน">
+                                            <span class="material-symbols-outlined">remove</span>
+                                        </button>
+                                        <span class="night-counter__value">2</span>
+                                        <button class="night-counter__btn" aria-label="เพิ่มจำนวนคืน">
+                                            <span class="material-symbols-outlined">add</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Check-in / Check-out dates -->
+                            <div class="date-row">
+                                <div class="date-row__item">
+                                    <span class="date-row__label">เช็คอิน</span>
+                                    <span class="date-row__value">24 พ.ย. 2024</span>
+                                </div>
+                                <div class="date-row__item">
+                                    <span class="date-row__label">เช็คเอาท์</span>
+                                    <span class="date-row__value">26 พ.ย. 2024</span>
+                                </div>
+                            </div>
+
+                            <!-- Price breakdown -->
+                            <div class="price-breakdown">
+                                <div class="price-row">
+                                    <span class="price-row__label">ราคาเต็ม (2 คืน)</span>
+                                    <span class="price-row__value">฿18,500.00</span>
+                                </div>
+                                <div class="price-row">
+                                    <span class="price-row__label">ภาษีและค่าบริการ</span>
+                                    <span class="price-row__value">฿1,850.00</span>
+                                </div>
+                                <div class="price-row price-row--discount">
+                                    <span class="price-row__label">ส่วนลดสมาชิก Addict Gold</span>
+                                    <span class="price-row__value">-฿2,350.00</span>
+                                </div>
+
+                                <!-- Total -->
+                                <div class="price-total">
+                                    <div>
+                                        <p class="price-total__label">ยอดที่ต้องชำระ</p>
+                                        <p class="price-total__amount">฿18,000.00</p>
+                                    </div>
+                                    <span class="price-total__vat">รวม VAT 7% แล้ว</span>
+                                </div>
+                            </div>
+
+                            <!-- CTA -->
+                            <a href="success-payment.html" class="btn-cta" style="text-decoration:none;">
+                                <span class="material-symbols-outlined">lock</span>
+                                ยืนยันและชำระเงิน
+                            </a>
+
+                            <!-- Terms -->
+                            <p class="terms-text">
+                                เมื่อกดชำระเงิน แสดงว่าคุณยอมรับ<a href="#">เงื่อนไขการใช้งาน</a>และ<a href="#">นโยบายความเป็นส่วนตัว</a>ของ Hotel Addict
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <!-- Trust Badges -->
+                    <div class="trust-badges">
+                        <div class="trust-badge">
+                            <span class="material-symbols-outlined">verified_user</span>
+                            <span class="trust-badge__label">ตรวจสอบแล้ว</span>
+                        </div>
+                        <div class="trust-badge">
+                            <span class="material-symbols-outlined">security</span>
+                            <span class="trust-badge__label">ปลอดภัย 100%</span>
+                        </div>
+                        <div class="trust-badge">
+                            <span class="material-symbols-outlined">shield</span>
+                            <span class="trust-badge__label">เข้ารหัส SSL</span>
+                        </div>
+                    </div>
+                        </div><!-- /real-content -->
+                    </div><!-- /skeleton-wrapper #skelPaymentSummary -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+
+<!-- === FOOTER === -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer__grid">
+            <div class="footer__col">
+                <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
+                <p class="footer__desc">ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง</p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
+                    <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
+                    <a href="#" class="footer__social-btn" aria-label="LINE"><span class="material-symbols-outlined" aria-hidden="true">chat</span></a>
+                </div>
+            </div>
+            <div class="footer__col">
+                <h4 class="footer__heading">บริการลูกค้า</h4>
+                <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีจองวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
+            </div>
+            <div class="footer__col">
+                <h4 class="footer__heading">เกี่ยวกับเรา</h4>
+                <ul class="footer__list"><li><a href="#">เกี่ยวกับ Hotel Addict</a></li><li><a href="#">ร่วมงานกับเรา</a></li><li><a href="#">พาร์ทเนอร์โรงแรม</a></li><li><a href="#">บล็อก</a></li></ul>
+            </div>
+            <div class="footer__col">
+                <h4 class="footer__heading">ค้นพบ</h4>
+                <ul class="footer__list"><li><a href="index.html">ดีลโรงแรม</a></li><li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li><li><a href="wishlist.html">รายการโปรด</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            <p>&copy; 2026 Hotel Addict. สงวนลิขสิทธิ์ทุกประการ</p>
+            <div class="footer__bottom-links">
+                <a href="#">ข้อกำหนดการใช้งาน</a>
+                <a href="#">นโยบายความเป็นส่วนตัว</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- === BACK TO TOP === -->
+<button class="back-to-top" id="backToTop" aria-label="กลับขึ้นด้านบน">
+    <span class="material-symbols-outlined">keyboard_arrow_up</span>
+</button>
+
+<script src="js/main.js"></script>
+<script>
+    // Payment method selection
+    function selectPayment(method) {
+        // Remove active from all and update aria-checked
+        document.querySelectorAll('.payment-option').forEach(el => {
+            el.classList.remove('payment-option--active');
+            el.setAttribute('aria-checked', 'false');
+        });
+        // Add active to selected
+        const selected = document.getElementById('payment-' + method);
+        selected.classList.add('payment-option--active');
+        selected.setAttribute('aria-checked', 'true');
+        // Toggle card form visibility
+        const cardForm = document.getElementById('card-form');
+        cardForm.style.display = method === 'card' ? 'flex' : 'none';
+    }
+
+    // Back to top
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    });
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+
+</body>
+</html>
