@@ -31,6 +31,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /* === LOGIN OVERLAY — close on click outside card === */
+    const loginOverlay = document.getElementById('loginOverlay');
+    if (loginOverlay) {
+        loginOverlay.addEventListener('click', (e) => {
+            if (e.target === loginOverlay) {
+                loginOverlay.classList.remove('active');
+            }
+        });
+    }
+
     /* === BACK TO TOP === */
     const backToTop = document.querySelector('.back-to-top');
     if (backToTop) {
