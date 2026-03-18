@@ -36,6 +36,11 @@
     <style>
         /* === PAGE-SPECIFIC STYLES === */
 
+        /* Space for mobile sticky CTA bar */
+        @media (max-width: 1023px) {
+            body { padding-bottom: 100px; }
+        }
+
         /* Filled icon utility */
         .fill-icon {
             font-variation-settings: 'FILL' 1;
@@ -64,6 +69,26 @@
         .breadcrumb__current {
             color: var(--color-gold-dark);
             font-weight: var(--fw-semibold);
+        }
+        /* Mobile: breadcrumb overflow handling */
+        @media (max-width: 767px) {
+            .breadcrumb {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                white-space: nowrap;
+                scrollbar-width: none;   /* Firefox */
+                -ms-overflow-style: none; /* IE/Edge */
+            }
+            .breadcrumb::-webkit-scrollbar {
+                display: none;           /* Chrome/Safari */
+            }
+            .breadcrumb a,
+            .breadcrumb__current {
+                flex-shrink: 0;
+            }
+            .breadcrumb__sep {
+                flex-shrink: 0;
+            }
         }
 
         /* --- Section Divider & Breathing Room --- */
@@ -107,6 +132,9 @@
             gap: var(--space-xl);
             padding: var(--space-lg) 0 var(--space-3xl);
         }
+        .detail-grid > * {
+            min-width: 0;
+        }
         @media (min-width: 1024px) {
             .detail-grid {
                 grid-template-columns: 1fr 400px;
@@ -114,85 +142,197 @@
             }
         }
 
-        /* --- Hero Gallery --- */
-        .hero-gallery {
-            position: relative;
+        /* --- Gallery Grid (Airbnb-style) --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 8px;
             border-radius: var(--radius-xl);
             overflow: hidden;
-            aspect-ratio: 16/9;
-        }
-        .hero-gallery img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform var(--transition-slow);
-        }
-        .hero-gallery:hover img {
-            transform: scale(1.03);
-        }
-        .hero-gallery__overlay {
-            position: absolute;
-            inset: 0;
-            background: var(--overlay-gradient-card-45);
-        }
-        .hero-gallery__btn {
-            position: absolute;
-            bottom: var(--space-md);
-            right: var(--space-md);
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-sm);
-            background: var(--bg-white-15);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            color: var(--footer-text);
-            padding: 10px 20px;
-            border-radius: var(--radius-md);
-            font-family: var(--font-body);
-            font-size: var(--text-body-sm);
-            font-weight: var(--fw-semibold);
-            border: 1px solid var(--border-white-25);
-            cursor: pointer;
-            transition: background var(--transition-fast);
-        }
-        .hero-gallery__btn:hover {
-            background: var(--bg-white-25);
-            color: var(--footer-text);
-        }
-
-        /* --- Thumbnail Row --- */
-        .thumb-row {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--space-sm);
-            margin-top: var(--space-sm);
-        }
-        .thumb-item {
-            aspect-ratio: 1;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            cursor: pointer;
+            height: 420px;
             position: relative;
         }
-        .thumb-item img {
+        .gallery-grid__item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .gallery-grid__item:first-child {
+            grid-row: 1 / 3;
+        }
+        .gallery-grid__item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity var(--transition-fast);
+            transition: transform 0.4s ease, filter 0.3s ease;
         }
-        .thumb-item:hover img {
-            opacity: 0.8;
-        }
-        .thumb-item__more {
+        .gallery-grid__item::after {
+            content: '';
             position: absolute;
             inset: 0;
-            background: var(--overlay-dark-45);
+            background: rgba(0,0,0,0);
+            transition: background 0.3s ease;
+            pointer-events: none;
+        }
+        .gallery-grid__item:hover img {
+            transform: scale(1.05);
+        }
+        .gallery-grid__item:hover::after {
+            background: rgba(0,0,0,0.12);
+        }
+        /* Zoom icon on hover */
+        .gallery-grid__item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 44px;
+            height: 44px;
+            transform: translate(-50%, -50%) scale(0);
+            background: rgba(255,255,255,0.9);
+            border-radius: var(--radius-full);
+            z-index: 2;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%231B1D22' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3Cline x1='11' y1='8' x2='11' y2='14'/%3E%3Cline x1='8' y1='11' x2='14' y2='11'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .gallery-grid__item:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        /* "ดูรูปภาพทั้งหมด" button */
+        /* "ดูรูปภาพทั้งหมด" — hidden, redundant with +12 overlay */
+        .gallery-grid__btn {
+            display: none !important;
+        }
+        /* "+12" overlay on last thumbnail */
+        .gallery-grid__more {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--footer-text);
+            color: #FFFFFF;
             font-size: var(--text-body-lg);
             font-weight: var(--fw-bold);
+        }
+
+        @media (max-width: 767px) {
+            /* Compact full-bleed grid (Airbnb style) */
+            .gallery-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto;
+                gap: 2px;
+                border-radius: 0;
+                height: auto;
+                margin: 0 calc(var(--space-md) * -1);
+                width: calc(100% + var(--space-md) * 2);
+            }
+            .gallery-grid__item:first-child {
+                grid-column: 1 / 3;
+                aspect-ratio: 16/9;
+            }
+            .gallery-grid__item:not(:first-child) {
+                aspect-ratio: 4/3;
+            }
+            .gallery-grid__item img {
+                border-radius: 0;
+            }
+            /* Hide zoom icon on mobile */
+            .gallery-grid__item::before {
+                display: none;
+            }
+            /* Compact breadcrumb on mobile */
+            .breadcrumb {
+                font-size: var(--text-body-sm);
+                padding: 8px 0 4px;
+                margin-bottom: 0;
+            }
+        }
+
+        /* --- Lightbox --- */
+        /* Hide bottom nav when lightbox is open */
+        .lightbox-overlay.is-open ~ .mobile-cta,
+        .lightbox-overlay.is-open ~ * .mobile-cta {
+            display: none !important;
+        }
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: rgba(0,0,0,0.92);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+        .lightbox-overlay.is-open {
+            display: flex;
+        }
+        .lightbox-overlay img {
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: var(--radius-lg);
+            animation: lightboxIn 0.3s ease;
+        }
+        @keyframes lightboxIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .lightbox-close {
+            position: absolute;
+            top: var(--space-lg);
+            right: var(--space-lg);
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: #FFFFFF;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .lightbox-close:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-full);
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: #FFFFFF;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .lightbox-nav:hover { background: rgba(255,255,255,0.3); }
+        .lightbox-nav--prev { left: var(--space-lg); }
+        .lightbox-nav--next { right: var(--space-lg); }
+        .lightbox-counter {
+            position: absolute;
+            bottom: var(--space-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-semibold);
         }
 
         /* --- Location & Social --- */
@@ -207,7 +347,7 @@
         .location-tag {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             color: var(--color-teal);
             font-size: var(--text-body-sm);
             font-weight: var(--fw-bold);
@@ -222,7 +362,7 @@
         .social-link {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             color: var(--color-gold-dark);
             font-size: var(--text-micro);
             font-weight: var(--fw-bold);
@@ -236,6 +376,31 @@
             width: 1px;
             height: 14px;
             background: var(--border);
+        }
+        /* Mobile: pill social chips */
+        @media (max-width: 767px) {
+            .social-links {
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+            .social-link {
+                min-height: 40px;
+                padding: 8px 16px;
+                border-radius: var(--radius-full);
+                background: var(--bg-cream);
+                font-size: var(--text-body-sm);
+                font-weight: var(--fw-medium);
+                text-transform: none;
+                letter-spacing: 0;
+                color: var(--text-body);
+            }
+            .social-link img, .social-link svg {
+                width: 18px;
+                height: 18px;
+            }
+            .social-sep {
+                display: none;
+            }
         }
 
         /* --- Hotel Header --- */
@@ -354,8 +519,11 @@
         }
         .amenities-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-lg);
+            grid-template-columns: repeat(3, 1fr);
+            background: var(--bg-cream);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
         }
         @media (min-width: 640px) {
             .amenities-grid {
@@ -364,31 +532,42 @@
         }
         .amenity-item {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: var(--space-sm);
-            padding: var(--space-lg) var(--space-md);
-            border-radius: var(--radius-lg);
-            background: var(--bg-cream);
-            border: 1px solid var(--border);
-            transition: border-color var(--transition-fast);
+            gap: 8px;
+            padding: 12px;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: transparent;
         }
-        .amenity-item:hover {
-            border-color: var(--color-gold);
+        /* Remove right border on last column */
+        .amenity-item:nth-child(3n) {
+            border-right: none;
+        }
+        @media (min-width: 640px) {
+            .amenity-item:nth-child(3n) { border-right: 1px solid var(--border); }
+            .amenity-item:nth-child(4n) { border-right: none; }
+        }
+        /* Remove bottom border on last row */
+        .amenity-item:nth-last-child(-n+3) {
+            border-bottom: none;
         }
         .amenity-item .material-symbols-outlined {
-            font-size: 28px;
+            font-size: 20px;
             color: var(--color-teal);
+            flex-shrink: 0;
         }
         .amenity-item span:last-child {
             font-size: var(--text-micro);
-            font-weight: var(--fw-semibold);
+            font-weight: var(--fw-medium);
             color: var(--text-body);
+            line-height: 1.3;
         }
 
         /* --- Trinity Comparison --- */
         .comparison-section {
             margin-top: 0;
+            max-width: 100%;
+            overflow: hidden;
         }
         .comparison-header {
             display: flex;
@@ -406,55 +585,101 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }
+        /* --- Comparison Carousel --- */
         .comparison-grid {
-            display: grid;
-            grid-template-columns: 1fr;
+            display: flex;
             gap: var(--space-md);
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            padding: var(--space-md) 0 var(--space-sm);
+            align-items: stretch;
         }
-        @media (min-width: 768px) {
-            .comparison-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+        .comparison-grid > * {
+            align-self: stretch;
         }
+        /* scrollbar hidden via global style.css */
 
-        /* Hotel Addict Deal Card */
+        /* --- Deal Card Base --- */
         .deal-card {
             position: relative;
             border-radius: var(--radius-xl);
             padding: var(--space-xl);
             display: flex;
             flex-direction: column;
-            height: 100%;
+            width: 300px;
+            min-width: 300px;
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
         }
         @media (max-width: 767px) {
-            .deal-card {
-                padding: var(--space-lg);
-            }
+            .deal-card { padding: var(--space-lg); width: 260px; min-width: 260px; }
         }
+
+        /* --- Best Deal (Hotel Addict) — Elevated & Highlighted --- */
         .deal-card--best {
-            border: 2px solid var(--color-gold);
-            background: var(--bg-white);
-            box-shadow: var(--shadow-gold-subtle);
+            border: 2.5px solid var(--color-gold);
+            background: linear-gradient(180deg, #FFFDF7 0%, var(--bg-white) 100%);
+            box-shadow: 0 8px 32px rgba(26, 107, 74, 0.18);
+            width: 300px;
+            min-width: 300px;
+            z-index: 1;
         }
+        .deal-card--best:hover {
+            box-shadow: 0 12px 40px rgba(26, 107, 74, 0.25);
+        }
+
+        /* --- OTA Cards — Muted & Smaller --- */
         .deal-card--other {
             border: 1px solid var(--border);
-            background: var(--bg-cream);
-            opacity: 0.75;
+            background: var(--bg-white);
+            min-width: 240px;
         }
+        .deal-card--other:hover {
+            border-color: var(--color-gold-light);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+        /* Muted OTA content */
+        .deal-card--other .deal-card__name,
+        .deal-card--other .deal-card__price {
+            color: var(--text-secondary);
+        }
+
+        /* --- Ribbon Badge (corner tab style) --- */
         .deal-card__ribbon {
             position: absolute;
             top: 0;
             right: 0;
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
             background: var(--color-gold-dark);
             color: #FFFFFF;
             padding: 8px 20px;
-            border-radius: 0 0 0 var(--radius-lg);
+            border-radius: 0 calc(var(--radius-xl) - 2px) 0 var(--radius-lg);
             font-size: var(--text-micro);
             font-weight: var(--fw-bold);
-            text-transform: uppercase;
             letter-spacing: 0.06em;
-            z-index: 2;
         }
+
+        /* --- Savings Badge (new) --- */
+        .deal-card__savings {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--color-success-bg);
+            color: var(--color-success);
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            margin-left: var(--space-sm);
+        }
+
+        /* --- Card Inner Elements --- */
         .deal-card__label {
             font-size: var(--text-micro);
             font-weight: var(--fw-bold);
@@ -462,18 +687,17 @@
             letter-spacing: 0.08em;
             margin-bottom: 4px;
         }
-        .deal-card--best .deal-card__label {
-            color: var(--color-gold-dark);
-        }
-        .deal-card--other .deal-card__label {
-            color: var(--text-muted);
-        }
+        .deal-card--best .deal-card__label { color: var(--color-gold-dark); }
+        .deal-card--other .deal-card__label { color: var(--text-muted); }
+
         .deal-card__name {
             font-size: var(--text-h4);
             font-weight: var(--fw-bold);
             color: var(--text-primary);
-            margin-bottom: var(--space-lg);
+            margin-bottom: var(--space-md);
         }
+
+        /* Price block */
         .deal-card__price-label {
             font-size: var(--text-micro);
             color: var(--text-muted);
@@ -481,16 +705,26 @@
         }
         .deal-card__price {
             font-family: var(--font-heading);
-            font-size: 32px;
+            font-size: 36px;
             font-weight: var(--fw-bold);
             color: var(--text-primary);
             padding-bottom: var(--space-md);
             border-bottom: 1px solid var(--border);
             margin-bottom: var(--space-md);
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
         }
         .deal-card--best .deal-card__price {
             color: var(--color-gold-dark);
+            font-size: 40px;
         }
+        .deal-card--other .deal-card__price {
+            font-size: 28px;
+        }
+
+        /* Inclusions */
         .deal-card__inclusions-label {
             font-size: var(--text-micro);
             font-weight: var(--fw-bold);
@@ -503,7 +737,7 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: var(--space-sm);
+            gap: 10px;
             flex-grow: 1;
         }
         .deal-card__list li {
@@ -511,14 +745,25 @@
             align-items: center;
             gap: var(--space-sm);
             font-size: var(--text-body-sm);
-            color: var(--text-body);
+            line-height: 1.4;
+        }
+        .deal-card--best .deal-card__list li {
+            color: var(--text-primary);
+            font-weight: var(--fw-medium);
         }
         .deal-card--best .deal-card__list .material-symbols-outlined {
-            color: var(--color-gold-dark);
+            color: var(--color-success);
+            font-variation-settings: 'FILL' 1;
+        }
+        .deal-card--other .deal-card__list li {
+            color: var(--text-muted);
         }
         .deal-card--other .deal-card__list .material-symbols-outlined {
             color: var(--text-muted);
+            opacity: 0.5;
         }
+
+        /* Policy footer */
         .deal-card__policy {
             display: flex;
             align-items: center;
@@ -527,19 +772,56 @@
             font-weight: var(--fw-semibold);
             padding-top: var(--space-md);
             border-top: 1px solid var(--border);
-            margin-top: var(--space-md);
+            margin-top: auto;
         }
-        .deal-card--best .deal-card__policy {
-            color: var(--color-success);
-        }
-        .deal-card--other .deal-card__policy {
-            color: var(--color-error);
-        }
-        .deal-card__cta {
-            margin-top: var(--space-lg);
-        }
-        .deal-card__cta .btn {
-            width: 100%;
+        .deal-card--best .deal-card__policy { color: var(--color-success); }
+        .deal-card--other .deal-card__policy { color: var(--color-error); opacity: 0.7; }
+
+        /* CTA */
+        .deal-card__cta { margin-top: var(--space-lg); }
+        .deal-card__cta .btn { width: 100%; }
+
+        /* Mobile: compact deal cards */
+        @media (max-width: 767px) {
+            .deal-card { padding: var(--space-md); }
+            .deal-card__name {
+                font-size: var(--text-body-md);
+                margin-bottom: var(--space-sm);
+            }
+            .deal-card--best .deal-card__price {
+                font-size: 24px;
+            }
+            .deal-card--other .deal-card__price {
+                font-size: 20px;
+            }
+            .deal-card__price {
+                font-size: 22px;
+                padding-bottom: var(--space-sm);
+                margin-bottom: var(--space-sm);
+            }
+            .deal-card__list li {
+                font-size: var(--text-micro);
+                gap: 6px;
+            }
+            .deal-card__list .material-symbols-outlined {
+                font-size: 18px !important;
+            }
+            .deal-card__list {
+                gap: 6px;
+            }
+            .deal-card__policy {
+                font-size: var(--text-micro);
+                padding-top: var(--space-sm);
+            }
+            .deal-card__cta { margin-top: var(--space-sm); }
+            .deal-card__cta .btn {
+                padding: 10px 16px;
+                font-size: var(--text-body-sm);
+            }
+            .deal-card__savings {
+                font-size: var(--text-micro);
+                padding: 4px 10px;
+            }
         }
 
         /* --- Side Modal (Price Comparison Drawer) --- */
@@ -561,8 +843,8 @@
             top: 0;
             right: 0;
             bottom: 0;
-            width: 520px;
-            max-width: 100%;
+            width: 100%;
+            max-width: 560px;
             background: var(--bg-white);
             z-index: 9999;
             transform: translateX(100%);
@@ -711,7 +993,7 @@
             gap: 2px;
             background: var(--color-gold-dark);
             color: #FFFFFF;
-            font-size: 10px;
+            font-size: 12px;
             font-weight: var(--fw-bold);
             padding: 2px 8px;
             border-radius: var(--radius-full);
@@ -739,12 +1021,20 @@
             background: var(--bg-cream);
         }
         .feature-table th {
-            padding: var(--space-sm) var(--space-md);
+            padding: var(--space-md);
             font-size: var(--text-body-sm);
             font-weight: var(--fw-semibold);
             color: var(--text-secondary);
             text-align: center;
             border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        .feature-table th img {
+            display: block;
+            margin: 0 auto 4px;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
         }
         .feature-table th:first-child {
             text-align: left;
@@ -797,12 +1087,49 @@
             overflow: hidden;
         }
 
-        @media (max-width: 600px) {
+        /* Mobile: convert side modal to bottom sheet */
+        @media (max-width: 767px) {
             .side-modal {
-                width: 100%;
+                position: fixed;
+                top: auto !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                max-width: 100vw !important;
+                max-height: 85vh;
+                border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+                transform: translateY(100%);
+                box-shadow: 0 -8px 32px rgba(0,0,0,0.15);
+                overflow-x: hidden;
+                overflow-y: auto;
+            }
+            .side-modal-overlay.is-open .side-modal {
+                transform: translateY(0);
+            }
+            .side-modal__header {
+                padding: var(--space-md);
+            }
+            .side-modal__header h3 {
+                font-size: var(--text-body-lg);
+            }
+            .side-modal__body {
+                padding: var(--space-md);
+                overflow-x: hidden;
+            }
+            .drawer-savings {
+                overflow: hidden;
             }
             .drawer-savings__amount {
-                font-size: 28px;
+                font-size: 24px;
+            }
+            /* Compact footer CTA in drawer */
+            .side-modal__footer {
+                padding: var(--space-sm) var(--space-md);
+            }
+            .side-modal__footer .btn {
+                padding: 10px 16px;
+                font-size: var(--text-body-sm);
             }
             .ota-table th,
             .ota-table td {
@@ -854,16 +1181,21 @@
             box-shadow: var(--shadow-elevated);
         }
         .price-card__flash {
+            position: absolute;
+            top: 0;
+            right: 0;
             display: inline-flex;
             align-items: center;
-            padding: 4px 12px;
-            border-radius: var(--radius-full);
+            padding: 8px 20px;
+            border-radius: 0 calc(var(--radius-xl) - 1px) 0 var(--radius-lg);
             background: var(--color-error);
-            color: var(--footer-text);
+            color: #FFFFFF;
             font-size: var(--text-micro);
             font-weight: var(--fw-bold);
             text-transform: uppercase;
             letter-spacing: 0.06em;
+            z-index: 2;
+            animation: flashPulse 2s ease-in-out infinite;
             margin-bottom: var(--space-sm);
         }
         .price-card__original {
@@ -896,6 +1228,24 @@
         }
 
         /* Stock Bar */
+        /* FOMO Animations */
+        @keyframes flashPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; transform: scale(1.02); }
+        }
+        @keyframes stockBarFill {
+            from { width: 0%; }
+            to { width: 80%; }
+        }
+        @keyframes remainBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        @keyframes soldSlideIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
         .stock-info {
             margin-bottom: var(--space-lg);
         }
@@ -908,6 +1258,7 @@
         }
         .stock-info__remain {
             color: var(--color-error);
+            animation: remainBlink 1.5s ease-in-out infinite;
         }
         .stock-bar {
             width: 100%;
@@ -919,19 +1270,40 @@
         }
         .stock-bar__fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--color-gold), var(--color-gold-dark));
+            background: linear-gradient(90deg, var(--color-error), var(--color-error));
             border-radius: var(--radius-full);
-            transition: width var(--transition-slow);
+            position: relative;
+            overflow: hidden;
+            animation: stockBarFill 1.5s ease-out forwards;
+        }
+        .stock-bar__fill::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255,255,255,0.3) 50%,
+                transparent 100%
+            );
+            animation: shimmer 2s ease-in-out 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
         .stock-info__sold {
             display: flex;
             align-items: center;
             gap: 4px;
             font-size: 12px;
-            color: var(--text-muted);
+            color: var(--text-body);
+            font-weight: var(--fw-medium);
+            animation: soldSlideIn 0.8s ease-out 0.5s both;
         }
         .stock-info__sold .material-symbols-outlined {
             font-size: 14px;
+            color: var(--color-success);
         }
 
         /* Countdown */
@@ -972,6 +1344,7 @@
             font-weight: var(--fw-bold);
             color: var(--text-muted);
             padding-bottom: 14px;
+            animation: remainBlink 1s ease-in-out infinite;
         }
 
         /* CTA buttons in sidebar */
@@ -1140,6 +1513,30 @@
         .map-card__pin-dot .material-symbols-outlined {
             font-size: 18px;
         }
+        .map-card__view-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--bg-white);
+            color: var(--text-primary);
+            border: none;
+            border-radius: var(--radius-full);
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            cursor: pointer;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .map-card__view-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        }
+        .map-card__view-btn .material-symbols-outlined {
+            color: var(--color-error);
+            font-variation-settings: 'FILL' 1;
+        }
         .map-card__address {
             font-size: var(--text-micro);
             color: var(--text-secondary);
@@ -1147,40 +1544,138 @@
             line-height: var(--lh-body-sm);
         }
 
-        /* --- Mobile Sticky CTA --- */
+        /* --- Mobile Sticky CTA --- compact single row */
         .mobile-cta {
-            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 9999;
+            background: #FFFFFF;
+            border-top: 1px solid #EEEEEE;
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+        }
+        @media (min-width: 1024px) {
+            .mobile-cta {
+                display: none !important;
+            }
         }
         @media (max-width: 1023px) {
-            .mobile-cta {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                z-index: 999;
-                background: var(--bg-white);
-                border-top: 1px solid var(--border);
-                padding: var(--space-md) var(--space-lg);
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: var(--space-md);
-                box-shadow: var(--shadow-bottom-bar);
+            .price-card {
+                display: none !important;
             }
+        }
+        /* Hide urgency row — info moved inline */
+        .mobile-cta__urgency {
+            display: none;
+        }
+        /* Price section — left side */
+        .mobile-cta__actions {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
+            gap: 8px;
         }
         .mobile-cta__price {
             display: flex;
-            flex-direction: column;
+            align-items: baseline;
+            gap: 4px;
+            flex-wrap: wrap;
         }
         .mobile-cta__amount {
             font-family: var(--font-heading);
-            font-size: var(--text-h4);
+            font-size: 18px;
             font-weight: var(--fw-bold);
             color: var(--color-gold-dark);
+            line-height: 1;
+            white-space: nowrap;
+        }
+        .mobile-cta__original {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-decoration: line-through;
         }
         .mobile-cta__label {
-            font-size: var(--text-micro);
+            font-size: 11px;
             color: var(--text-muted);
+        }
+
+        /* Skeleton: desktop 3fr/2fr, mobile stacks to 1fr via style.css */
+        @media (min-width: 1024px) {
+            #skelVoucherDetail .skel-grid-2 {
+                grid-template-columns: 3fr 2fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* --- Mobile Price Summary (hidden on desktop) --- */
+        .price-summary-mobile { display: none !important; }
+        @media (max-width: 767px) {
+            .price-summary-mobile {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0;
+                border-radius: var(--radius-lg);
+                overflow: hidden;
+                margin-bottom: var(--space-lg);
+            }
+            .price-summary-mobile__col {
+                padding: var(--space-md) var(--space-sm);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+            }
+            .price-summary-mobile__col--ota {
+                background: #F5F5F5;
+            }
+            .price-summary-mobile__col--ha {
+                background: var(--color-gold-subtle, #EDF6F1);
+            }
+            .price-summary-mobile__label {
+                font-size: var(--text-micro, 11px);
+                font-weight: var(--fw-bold, 700);
+                color: var(--text-muted, #6A6E83);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            .price-summary-mobile__col--ha .price-summary-mobile__label {
+                color: var(--color-gold-dark, #1A6B4A);
+            }
+            .price-summary-mobile__price {
+                font-size: var(--text-lg, 18px);
+                line-height: 1.3;
+            }
+            .price-summary-mobile__price--ota {
+                color: var(--text-muted, #6A6E83);
+                text-decoration: line-through;
+            }
+            .price-summary-mobile__price--ha {
+                color: var(--color-gold-dark, #1A6B4A);
+                font-weight: var(--fw-bold, 700);
+            }
+            .price-summary-mobile__unit {
+                font-size: var(--text-xs, 12px);
+                color: var(--text-muted, #6A6E83);
+            }
+            .price-summary-mobile__col--ha .price-summary-mobile__unit {
+                color: var(--color-gold-dark, #1A6B4A);
+                opacity: 0.7;
+            }
         }
 
     </style>
@@ -1274,7 +1769,7 @@
             <!-- 2-Column Grid -->
             <div class="skeleton-wrapper" id="skelVoucherDetail">
                 <div class="skel-screen" aria-hidden="true">
-                    <div class="skel-grid-2" style="grid-template-columns:3fr 2fr;gap:var(--space-xl);align-items:start;">
+                    <div class="skel-grid-2" style="gap:var(--space-xl);align-items:start;">
 
                         <!-- LEFT COLUMN -->
                         <div class="skel-stack" style="gap:var(--space-lg);">
@@ -1438,31 +1933,43 @@
 
                 <!-- ===== LEFT COLUMN ===== -->
                 <div>
-                    <!-- Hero Image -->
-                    <section class="hero-gallery">
-                        <img src="assets/images/hotels/hotel-celestial-sands.jpg" alt="Pool Villa with ocean view at The Celestial Sands Resort & Spa" loading="eager">
-                        <div class="hero-gallery__overlay"></div>
-                        <button class="hero-gallery__btn">
+                    <!-- Image Gallery Grid -->
+                    <section class="gallery-grid" id="galleryGrid">
+                        <div class="gallery-grid__item" data-index="0">
+                            <img src="assets/images/hotels/hotel-celestial-sands.jpg" alt="Pool Villa with ocean view" loading="eager">
+                        </div>
+                        <div class="gallery-grid__item" data-index="1">
+                            <img src="assets/images/hotels/hotel-bedroom-luxury.jpg" alt="ห้องนอนสไตล์ลักชัวรี" loading="lazy">
+                        </div>
+                        <div class="gallery-grid__item" data-index="2">
+                            <img src="assets/images/hotels/hotel-siam-heritage.jpg" alt="สระว่ายน้ำส่วนตัว" loading="lazy">
+                        </div>
+                        <div class="gallery-grid__item" data-index="3">
+                            <img src="assets/images/hotels/hotel-bathroom-spa.jpg" alt="ห้องน้ำและสปา" loading="lazy">
+                        </div>
+                        <div class="gallery-grid__item" data-index="4">
+                            <img src="assets/images/hotels/hotel-anantara-chiangmai.jpg" alt="วิวทะเลจากรีสอร์ท" loading="lazy">
+                            <div class="gallery-grid__more">+12</div>
+                        </div>
+                        <button class="gallery-grid__btn" onclick="openLightbox(0)">
                             <span class="material-symbols-outlined" style="font-size:18px;">grid_view</span>
                             ดูรูปภาพทั้งหมด
                         </button>
                     </section>
 
-                    <!-- Thumbnail Row -->
-                    <div class="thumb-row">
-                        <div class="thumb-item">
-                            <img src="assets/images/hotels/hotel-bedroom-luxury.jpg" alt="ห้องนอนสไตล์ลักชัวรี" loading="lazy">
-                        </div>
-                        <div class="thumb-item">
-                            <img src="assets/images/hotels/hotel-siam-heritage.jpg" alt="สระว่ายน้ำส่วนตัว" loading="lazy">
-                        </div>
-                        <div class="thumb-item">
-                            <img src="assets/images/hotels/hotel-bathroom-spa.jpg" alt="ห้องน้ำและสปา" loading="lazy">
-                        </div>
-                        <div class="thumb-item">
-                            <img src="assets/images/hotels/hotel-anantara-chiangmai.jpg" alt="วิวทะเลจากรีสอร์ท" loading="lazy">
-                            <div class="thumb-item__more">+12</div>
-                        </div>
+                    <!-- Lightbox -->
+                    <div class="lightbox-overlay" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+                        <button class="lightbox-close" onclick="closeLightbox()">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                        <button class="lightbox-nav lightbox-nav--prev" onclick="navLightbox(-1)">
+                            <span class="material-symbols-outlined">chevron_left</span>
+                        </button>
+                        <img id="lightboxImg" src="" alt="">
+                        <button class="lightbox-nav lightbox-nav--next" onclick="navLightbox(1)">
+                            <span class="material-symbols-outlined">chevron_right</span>
+                        </button>
+                        <div class="lightbox-counter" id="lightboxCounter"></div>
                     </div>
 
                     <!-- Location + Social -->
@@ -1473,12 +1980,12 @@
                         </div>
                         <div class="social-links">
                             <a href="#" class="social-link">
-                                <span class="material-symbols-outlined" style="font-size:18px;">facebook</span>
+                                <img src="https://www.google.com/s2/favicons?domain=facebook.com&sz=32" alt="" width="18" height="18" style="border-radius:4px;">
                                 <span>Facebook</span>
                             </a>
                             <span class="social-sep"></span>
                             <a href="#" class="social-link">
-                                <span class="material-symbols-outlined" style="font-size:18px;">photo_camera</span>
+                                <img src="https://www.google.com/s2/favicons?domain=instagram.com&sz=32" alt="" width="18" height="18" style="border-radius:4px;">
                                 <span>Instagram</span>
                             </a>
                             <span class="social-sep"></span>
@@ -1581,8 +2088,22 @@
                     <section class="comparison-section">
                         <div class="comparison-header" style="flex-direction:column;align-items:flex-start;gap:var(--space-xs);">
                             <span class="comparison-label">Trinity Comparison</span>
-                            <h3 style="font-size:var(--text-h3);line-height:1.3;">ทำไมจองผ่าน Hotel Addict ถึงคุ้มกว่า?</h3>
+                            <h3 style="font-size:var(--text-h3);line-height:1.3;">ทำไมซื้อวอชเชอร์ผ่าน Hotel Addict ถึงคุ้มกว่า?</h3>
                         </div>
+                        <!-- Mobile-only compact price summary -->
+                        <div class="price-summary-mobile">
+                            <div class="price-summary-mobile__col price-summary-mobile__col--ota">
+                                <span class="price-summary-mobile__label">ราคา OTA เฉลี่ย</span>
+                                <span class="price-summary-mobile__price price-summary-mobile__price--ota">&#3647;8,825</span>
+                                <span class="price-summary-mobile__unit">/ คืน</span>
+                            </div>
+                            <div class="price-summary-mobile__col price-summary-mobile__col--ha">
+                                <span class="price-summary-mobile__label">Hotel Addict</span>
+                                <span class="price-summary-mobile__price price-summary-mobile__price--ha">&#3647;6,500</span>
+                                <span class="price-summary-mobile__unit">/ คืน</span>
+                            </div>
+                        </div>
+
                         <div class="comparison-grid">
                             <!-- Hotel Addict Deal -->
                             <div class="deal-card deal-card--best">
@@ -1590,7 +2111,7 @@
                                 <p class="deal-card__label">แนะนำ</p>
                                 <h4 class="deal-card__name">Hotel Addict Deal</h4>
                                 <p class="deal-card__price-label">ราคาต่อคืน</p>
-                                <p class="deal-card__price">&#3647;6,500</p>
+                                <p class="deal-card__price">&#3647;6,500 <span class="deal-card__savings"><span class="material-symbols-outlined" style="font-size:14px;">trending_down</span>ประหยัด &#3647;2,000</span></p>
                                 <p class="deal-card__inclusions-label">สิทธิพิเศษที่ได้รับ</p>
                                 <ul class="deal-card__list">
                                     <li>
@@ -1615,14 +2136,14 @@
                                     ยกเลิกฟรีล่วงหน้า 24 ชม.
                                 </div>
                                 <div class="deal-card__cta">
-                                    <a href="payment.html" class="btn btn-primary btn-lg" style="width:100%;">เลือกดีลนี้</a>
+                                    <a href="payment.html" class="btn btn-primary btn-lg" style="width:100%;">ซื้อวอชเชอร์นี้</a>
                                 </div>
                             </div>
 
                             <!-- OTA Deal -->
                             <div class="deal-card deal-card--other">
-                                <p class="deal-card__label">เว็บไซต์ท่องเที่ยวทั่วไป</p>
-                                <h4 class="deal-card__name">OTA Deal</h4>
+                                <p class="deal-card__label" style="display:flex;align-items:center;gap:8px;"><img src="https://www.google.com/s2/favicons?domain=agoda.com&sz=32" alt="Agoda" width="16" height="16" style="border-radius:3px;">Agoda</p>
+                                <h4 class="deal-card__name">ราคา Agoda</h4>
                                 <p class="deal-card__price-label">ราคาต่อคืน</p>
                                 <p class="deal-card__price">&#3647;8,500</p>
                                 <p class="deal-card__inclusions-label">สิทธิพิเศษที่ได้รับ</p>
@@ -1649,11 +2170,68 @@
                                     ไม่สามารถคืนเงินได้
                                 </div>
                             </div>
+
+                            <!-- Booking.com -->
+                            <div class="deal-card deal-card--other">
+                                <p class="deal-card__label" style="display:flex;align-items:center;gap:8px;"><img src="https://www.google.com/s2/favicons?domain=booking.com&sz=32" alt="Booking.com" width="16" height="16" style="border-radius:3px;">Booking.com</p>
+                                <h4 class="deal-card__name">ราคา Booking.com</h4>
+                                <p class="deal-card__price-label">ราคาต่อคืน</p>
+                                <p class="deal-card__price">&#3647;8,900</p>
+                                <p class="deal-card__inclusions-label">สิทธิพิเศษที่ได้รับ</p>
+                                <ul class="deal-card__list">
+                                    <li><span class="material-symbols-outlined">radio_button_unchecked</span>ได้แค่ห้องพักเปล่า</li>
+                                    <li><span class="material-symbols-outlined">cancel</span>ไม่รวมอาหารเช้า</li>
+                                    <li><span class="material-symbols-outlined">schedule</span>Check-out ตามปกติ 12:00 น.</li>
+                                    <li><span class="material-symbols-outlined">block</span>ไม่มีสิทธิพิเศษใดๆ</li>
+                                </ul>
+                                <div class="deal-card__policy">
+                                    <span class="material-symbols-outlined">lock</span>
+                                    ไม่สามารถคืนเงินได้
+                                </div>
+                            </div>
+
+                            <!-- Expedia -->
+                            <div class="deal-card deal-card--other">
+                                <p class="deal-card__label" style="display:flex;align-items:center;gap:8px;"><img src="https://www.google.com/s2/favicons?domain=expedia.com&sz=32" alt="Expedia" width="16" height="16" style="border-radius:3px;">Expedia</p>
+                                <h4 class="deal-card__name">ราคา Expedia</h4>
+                                <p class="deal-card__price-label">ราคาต่อคืน</p>
+                                <p class="deal-card__price">&#3647;9,200</p>
+                                <p class="deal-card__inclusions-label">สิทธิพิเศษที่ได้รับ</p>
+                                <ul class="deal-card__list">
+                                    <li><span class="material-symbols-outlined">radio_button_unchecked</span>ได้แค่ห้องพักเปล่า</li>
+                                    <li><span class="material-symbols-outlined">cancel</span>ไม่รวมอาหารเช้า</li>
+                                    <li><span class="material-symbols-outlined">schedule</span>Check-out ตามปกติ 12:00 น.</li>
+                                    <li><span class="material-symbols-outlined">block</span>ไม่มีสิทธิพิเศษใดๆ</li>
+                                </ul>
+                                <div class="deal-card__policy">
+                                    <span class="material-symbols-outlined">lock</span>
+                                    ไม่สามารถคืนเงินได้
+                                </div>
+                            </div>
+
+                            <!-- Traveloka -->
+                            <div class="deal-card deal-card--other">
+                                <p class="deal-card__label" style="display:flex;align-items:center;gap:8px;"><img src="https://www.google.com/s2/favicons?domain=traveloka.com&sz=32" alt="Traveloka" width="16" height="16" style="border-radius:3px;">Traveloka</p>
+                                <h4 class="deal-card__name">ราคา Traveloka</h4>
+                                <p class="deal-card__price-label">ราคาต่อคืน</p>
+                                <p class="deal-card__price">&#3647;8,700</p>
+                                <p class="deal-card__inclusions-label">สิทธิพิเศษที่ได้รับ</p>
+                                <ul class="deal-card__list">
+                                    <li><span class="material-symbols-outlined">radio_button_unchecked</span>ได้แค่ห้องพักเปล่า</li>
+                                    <li><span class="material-symbols-outlined">cancel</span>ไม่รวมอาหารเช้า</li>
+                                    <li><span class="material-symbols-outlined">schedule</span>Check-out ตามปกติ 12:00 น.</li>
+                                    <li><span class="material-symbols-outlined">block</span>ไม่มีสิทธิพิเศษใดๆ</li>
+                                </ul>
+                                <div class="deal-card__policy">
+                                    <span class="material-symbols-outlined">lock</span>
+                                    ไม่สามารถคืนเงินได้
+                                </div>
+                            </div>
                         </div>
                         <div style="text-align:center;margin-top:var(--space-lg);">
                             <button type="button" id="openPriceDrawer" class="btn btn-outline btn-md" style="display:inline-flex;align-items:center;gap:var(--space-sm);">
-                                เปรียบเทียบราคาจากทุก OTA
-                                <span class="material-symbols-outlined" style="font-size:18px;">compare_arrows</span>
+                                <span class="material-symbols-outlined" style="font-size:18px;">analytics</span>
+                                ดูราคาเปรียบเทียบ
                             </button>
                         </div>
                     </section>
@@ -1666,7 +2244,7 @@
                         <h3 style="font-size:var(--text-h3);line-height:1.3;">เงื่อนไขการใช้งาน</h3>
                         <ul class="terms-list">
                             <li>ใช้ได้ถึง 31 ธ.ค. 2569 — มีเวลาวางแผนเต็มที่</li>
-                            <li>จองล่วงหน้าอย่างน้อย 14 วัน เพื่อการันตีห้องว่าง</li>
+                            <li>ใช้วอชเชอร์ล่วงหน้าอย่างน้อย 14 วัน เพื่อการันตีห้องว่าง</li>
                             <li>ช่วงวันหยุดนักขัตฤกษ์มีค่าธรรมเนียมเพิ่ม 1,500 บาท/คืน</li>
                             <li>ไม่สามารถยกเลิกหรือขอคืนเงินหลังชำระแล้ว</li>
                             <li>ราคายังไม่รวมค่าบริการและ VAT 7%</li>
@@ -1733,7 +2311,7 @@
                             <!-- CTA Buttons -->
                             <div class="sidebar-cta">
                                 <a href="payment.html" class="btn-gold">
-                                    รับดีลนี้เลย
+                                    ซื้อวอชเชอร์เลย
                                     <span class="material-symbols-outlined" style="font-size:20px;">arrow_forward</span>
                                 </a>
                                 <button class="btn-wishlist" id="wishlistBtn">
@@ -1783,12 +2361,39 @@
                                 <span class="material-symbols-outlined fill-icon">map</span>
                                 ที่ตั้งโรงแรม
                             </div>
-                            <div class="map-card__placeholder">
-                                <img src="assets/images/hotels/hotel-map-location.jpg" alt="แผนที่ตำแหน่ง The Celestial Sands Resort ภูเก็ต" loading="lazy">
+                            <div class="map-card__placeholder" style="cursor:pointer;" onclick="document.getElementById('mapModal').classList.add('is-open');document.body.classList.add('modal-open');">
+                                <svg viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+                                    <rect fill="#f0f0f0" width="600" height="200"/>
+                                    <!-- Roads -->
+                                    <line x1="0" y1="80" x2="600" y2="80" stroke="#f5d76e" stroke-width="8" opacity="0.7"/>
+                                    <line x1="0" y1="140" x2="600" y2="140" stroke="#f5d76e" stroke-width="6" opacity="0.5"/>
+                                    <line x1="150" y1="0" x2="150" y2="200" stroke="#f5d76e" stroke-width="6" opacity="0.5"/>
+                                    <line x1="400" y1="0" x2="400" y2="200" stroke="#f5d76e" stroke-width="8" opacity="0.7"/>
+                                    <line x1="0" y1="30" x2="250" y2="30" stroke="#f5d76e" stroke-width="4" opacity="0.4"/>
+                                    <line x1="500" y1="170" x2="600" y2="170" stroke="#f5d76e" stroke-width="4" opacity="0.4"/>
+                                    <!-- Diagonal roads -->
+                                    <line x1="0" y1="200" x2="200" y2="0" stroke="#f5d76e" stroke-width="6" opacity="0.45"/>
+                                    <line x1="350" y1="200" x2="600" y2="0" stroke="#f5d76e" stroke-width="5" opacity="0.4"/>
+                                    <!-- Green areas -->
+                                    <rect x="430" y="50" width="50" height="35" rx="4" fill="#c8e6c9" opacity="0.6"/>
+                                    <rect x="80" y="150" width="40" height="30" rx="4" fill="#c8e6c9" opacity="0.5"/>
+                                    <!-- Buildings -->
+                                    <rect x="170" y="90" width="30" height="20" rx="2" fill="#e0e0e0" opacity="0.5"/>
+                                    <rect x="220" y="85" width="25" height="25" rx="2" fill="#e0e0e0" opacity="0.4"/>
+                                    <rect x="410" y="95" width="35" height="18" rx="2" fill="#e0e0e0" opacity="0.5"/>
+                                    <!-- Pin shadow -->
+                                    <ellipse cx="300" cy="108" rx="8" ry="3" fill="rgba(0,0,0,0.15)"/>
+                                    <!-- Pin -->
+                                    <g transform="translate(300,80)">
+                                        <path d="M0-24C-8.8-24-16-17.2-16-8.5C-16 2 0 20 0 20S16 2 16-8.5C16-17.2 8.8-24 0-24Z" fill="#EA4335"/>
+                                        <circle cx="0" cy="-9" r="5.5" fill="white"/>
+                                    </g>
+                                </svg>
                                 <div class="map-card__pin">
-                                    <div class="map-card__pin-dot">
-                                        <span class="material-symbols-outlined fill-icon">location_on</span>
-                                    </div>
+                                    <button class="map-card__view-btn">
+                                        <span class="material-symbols-outlined" style="font-size:18px;">location_on</span>
+                                        ดูที่พักบนแผนที่
+                                    </button>
                                 </div>
                             </div>
                             <p class="map-card__address">123 หมู่ 4, หาดกะรน, อำเภอเมือง, ภูเก็ต 83100</p>
@@ -1809,7 +2414,7 @@
             <div class="footer__grid">
                 <div class="footer__col">
                     <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
-                    <p class="footer__desc">ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง</p>
+                    <p class="footer__desc">วอชเชอร์โรงแรมหรู ซื้อก่อน เลือกวันทีหลัง</p>
                     <div class="footer__social">
                         <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
                         <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
@@ -1820,7 +2425,7 @@
                     <h4 class="footer__heading">บริการลูกค้า</h4>
                     <ul class="footer__list">
                         <li><a href="#">ศูนย์ช่วยเหลือ</a></li>
-                        <li><a href="#">วิธีจองวอชเชอร์</a></li>
+                        <li><a href="#">วิธีซื้อวอชเชอร์</a></li>
                         <li><a href="#">นโยบายการยกเลิก</a></li>
                         <li><a href="#">ติดต่อเรา</a></li>
                     </ul>
@@ -1837,7 +2442,7 @@
                 <div class="footer__col">
                     <h4 class="footer__heading">ค้นพบ</h4>
                     <ul class="footer__list">
-                        <li><a href="index.html">ดีลโรงแรม</a></li>
+                        <li><a href="index.html">วอชเชอร์โรงแรม</a></li>
                         <li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li>
                         <li><a href="wishlist.html">รายการโปรด</a></li>
                         <li><a href="voucher-list.html">เปรียบเทียบราคา</a></li>
@@ -1855,20 +2460,30 @@
         </div>
     </footer>
 
-    <!-- ===== MOBILE STICKY CTA ===== -->
-    <div class="mobile-cta">
-        <div class="mobile-cta__price">
-            <span class="mobile-cta__amount">&#3647;14,700</span>
-            <span class="mobile-cta__label">/ 2 คืน</span>
+    <!-- ===== MOBILE STICKY CTA — compact single row ===== -->
+    <div class="mobile-cta" id="mobileCta" style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#fff;border-top:1px solid #eee;padding:12px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 -2px 12px rgba(0,0,0,0.08);">
+        <div style="flex:1;min-width:0;">
+            <div style="font-family:var(--font-heading);font-size:18px;font-weight:700;color:#1A6B4A;line-height:1;">&#3647;14,700 <span style="font-size:11px;color:#767676;font-weight:400;">/ 2 คืน</span></div>
+            <div style="font-size:11px;color:#767676;text-decoration:line-through;">&#3647;24,500</div>
         </div>
-        <a href="payment.html" class="btn-gold" style="flex:1;max-width:220px;">
+        <a href="payment.html" class="btn-gold" style="padding:10px 20px;font-size:13px;white-space:nowrap;flex-shrink:0;">
             รับดีลนี้เลย
-            <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+            <span class="material-symbols-outlined" style="font-size:15px;">arrow_forward</span>
         </a>
     </div>
+    <script>
+        // Hide bottom nav on desktop
+        if (window.innerWidth >= 1024) {
+            document.getElementById('mobileCta').style.display = 'none';
+        }
+        window.addEventListener('resize', function() {
+            var cta = document.getElementById('mobileCta');
+            if (cta) cta.style.display = window.innerWidth >= 1024 ? 'none' : 'flex';
+        });
+    </script>
 
     <!-- ===== PRICE COMPARISON SIDE MODAL ===== -->
-    <div class="side-modal-overlay" id="priceDrawer" role="dialog" aria-modal="true" aria-label="เปรียบเทียบราคาจาก OTA">
+    <div class="side-modal-overlay" id="priceDrawer" role="dialog" aria-modal="true" aria-label="เปรียบเทียบราคาจาก Agoda, Booking, Expedia, Traveloka">
         <div class="side-modal" role="document">
             <div class="side-modal__header">
                 <h3>
@@ -1884,7 +2499,7 @@
                 <!-- Savings Summary -->
                 <div class="drawer-savings">
                     <div class="drawer-savings__amount">ประหยัด &#3647;2,000</div>
-                    <div class="drawer-savings__label">เทียบกับราคาเฉลี่ย OTA ต่อคืน</div>
+                    <div class="drawer-savings__label">เทียบกับราคาเฉลี่ยจาก Agoda, Booking ต่อคืน</div>
                     <div class="drawer-savings__badge">
                         <span class="material-symbols-outlined" style="font-size:14px;">trending_down</span>
                         ถูกกว่า 23%
@@ -1909,10 +2524,43 @@
                             <td>&#3647;6,500</td>
                         </tr>
                         <tr>
-                            <td>OTA เว็บจองทั่วไป</td>
+                            <td style="display:flex;align-items:center;gap:8px;">
+                                <img src="https://www.google.com/s2/favicons?domain=agoda.com&sz=32" alt="Agoda" width="20" height="20" style="border-radius:4px;">
+                                Agoda
+                            </td>
                             <td>
                                 &#3647;8,500
                                 <br><span class="ota-saving">ประหยัด &#3647;2,000</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="display:flex;align-items:center;gap:8px;">
+                                <img src="https://www.google.com/s2/favicons?domain=booking.com&sz=32" alt="Booking.com" width="20" height="20" style="border-radius:4px;">
+                                Booking.com
+                            </td>
+                            <td>
+                                &#3647;8,900
+                                <br><span class="ota-saving">ประหยัด &#3647;2,400</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="display:flex;align-items:center;gap:8px;">
+                                <img src="https://www.google.com/s2/favicons?domain=expedia.com&sz=32" alt="Expedia" width="20" height="20" style="border-radius:4px;">
+                                Expedia
+                            </td>
+                            <td>
+                                &#3647;9,200
+                                <br><span class="ota-saving">ประหยัด &#3647;2,700</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="display:flex;align-items:center;gap:8px;">
+                                <img src="https://www.google.com/s2/favicons?domain=traveloka.com&sz=32" alt="Traveloka" width="20" height="20" style="border-radius:4px;">
+                                Traveloka
+                            </td>
+                            <td>
+                                &#3647;8,700
+                                <br><span class="ota-saving">ประหยัด &#3647;2,200</span>
                             </td>
                         </tr>
                     </tbody>
@@ -1920,12 +2568,16 @@
 
                 <!-- Feature Comparison -->
                 <p class="drawer-table-label" style="margin-top:var(--space-xl);">สิทธิพิเศษที่ได้รับ</p>
+                <div style="overflow-x:auto;">
                 <table class="feature-table">
                     <thead>
                         <tr>
-                            <th style="width:40%;">สิ่งที่ได้รับ</th>
-                            <th class="ft-highlight" style="width:30%;">Hotel Addict</th>
-                            <th style="width:30%;">OTA ทั่วไป</th>
+                            <th style="min-width:120px;">สิ่งที่ได้รับ</th>
+                            <th class="ft-highlight" style="min-width:100px;">Hotel Addict</th>
+                            <th style="min-width:90px;"><img src="https://www.google.com/s2/favicons?domain=agoda.com&sz=64" alt="">Agoda</th>
+                            <th style="min-width:90px;"><img src="https://www.google.com/s2/favicons?domain=booking.com&sz=64" alt="">Booking</th>
+                            <th style="min-width:90px;"><img src="https://www.google.com/s2/favicons?domain=expedia.com&sz=64" alt="">Expedia</th>
+                            <th style="min-width:90px;"><img src="https://www.google.com/s2/favicons?domain=traveloka.com&sz=64" alt="">Traveloka</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1933,29 +2585,45 @@
                             <td>อาหารเช้าฟรี</td>
                             <td class="ft-highlight"><span class="material-symbols-outlined ft-icon-check fill-icon">check_circle</span></td>
                             <td><span class="material-symbols-outlined ft-icon-cross">cancel</span></td>
+                            <td><span class="material-symbols-outlined ft-icon-cross">cancel</span></td>
+                            <td><span class="material-symbols-outlined ft-icon-cross">cancel</span></td>
+                            <td><span class="material-symbols-outlined ft-icon-cross">cancel</span></td>
                         </tr>
                         <tr>
                             <td>Late Check-out</td>
                             <td class="ft-highlight"><span class="material-symbols-outlined ft-icon-check fill-icon">check_circle</span></td>
+                            <td><span class="material-symbols-outlined ft-icon-cross">cancel</span></td>
+                            <td><span class="material-symbols-outlined ft-icon-cross">cancel</span></td>
+                            <td><span class="material-symbols-outlined ft-icon-cross">cancel</span></td>
                             <td><span class="material-symbols-outlined ft-icon-cross">cancel</span></td>
                         </tr>
                         <tr>
                             <td>เครดิตสปา</td>
                             <td class="ft-highlight">&#3647;1,000</td>
                             <td style="color:var(--text-muted);">ไม่มี</td>
+                            <td style="color:var(--text-muted);">ไม่มี</td>
+                            <td style="color:var(--text-muted);">ไม่มี</td>
+                            <td style="color:var(--text-muted);">ไม่มี</td>
                         </tr>
                         <tr>
                             <td>Wi-Fi ฟรี</td>
                             <td class="ft-highlight"><span class="material-symbols-outlined ft-icon-check fill-icon">check_circle</span></td>
+                            <td><span class="material-symbols-outlined ft-icon-check fill-icon">check_circle</span></td>
+                            <td><span class="material-symbols-outlined ft-icon-check fill-icon">check_circle</span></td>
+                            <td><span class="material-symbols-outlined ft-icon-check fill-icon">check_circle</span></td>
                             <td><span class="material-symbols-outlined ft-icon-check fill-icon">check_circle</span></td>
                         </tr>
                         <tr>
                             <td>ยกเลิกฟรี</td>
                             <td class="ft-highlight" style="color:var(--color-success);font-size:var(--text-micro);">ล่วงหน้า 24 ชม.</td>
                             <td style="color:var(--color-error);font-size:var(--text-micro);">ไม่คืนเงิน</td>
+                            <td style="color:var(--color-error);font-size:var(--text-micro);">ไม่คืนเงิน</td>
+                            <td style="color:var(--color-error);font-size:var(--text-micro);">ไม่คืนเงิน</td>
+                            <td style="color:var(--color-error);font-size:var(--text-micro);">ไม่คืนเงิน</td>
                         </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
 
             <div class="side-modal__footer" style="display:flex;flex-direction:row;gap:var(--space-sm);">
@@ -1964,9 +2632,57 @@
                     กลับ
                 </button>
                 <a href="payment.html" class="btn btn-primary btn-lg" style="flex:1;display:flex;align-items:center;justify-content:center;gap:var(--space-sm);">
-                    เลือกดีล Hotel Addict
+                    ซื้อเลย
                     <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
                 </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAP SIDE MODAL ===== -->
+    <div class="side-modal-overlay" id="mapModal" role="dialog" aria-modal="true" aria-label="แผนที่โรงแรม">
+        <div class="side-modal" role="document" style="width:100%;max-width:600px;">
+            <div class="side-modal__header">
+                <h3>
+                    <span class="material-symbols-outlined" style="font-size:20px;vertical-align:middle;margin-right:6px;color:var(--color-error);font-variation-settings:'FILL' 1;">location_on</span>
+                    ที่ตั้งโรงแรม
+                </h3>
+                <button onclick="document.getElementById('mapModal').classList.remove('is-open');document.body.classList.remove('modal-open');" style="background:none;border:none;cursor:pointer;padding:8px;">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="side-modal__body" style="padding:0;flex:1;display:flex;flex-direction:column;">
+                <div style="flex:1;min-height:400px;background:#e8eaed;position:relative;">
+                    <iframe
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=98.28%2C7.81%2C98.32%2C7.85&layer=mapnik&marker=7.8304%2C98.3009"
+                        style="width:100%;height:100%;border:none;"
+                        loading="lazy"
+                    ></iframe>
+                </div>
+                <div style="padding:var(--space-lg);">
+                    <h4 style="font-size:var(--text-body-lg);font-weight:var(--fw-bold);margin-bottom:var(--space-xs);">The Celestial Sands Resort & Spa</h4>
+                    <p style="color:var(--text-secondary);font-size:var(--text-body-sm);margin-bottom:var(--space-md);">123 หมู่ 4, หาดกะรน, อำเภอเมือง, ภูเก็ต 83100</p>
+
+                    <div style="font-size:var(--text-body-sm);font-weight:var(--fw-bold);margin-bottom:var(--space-sm);">สถานที่ใกล้เคียง</div>
+                    <div style="display:flex;flex-direction:column;gap:var(--space-sm);">
+                        <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-sm) 0;border-bottom:1px solid var(--border);">
+                            <span style="font-size:var(--text-body-sm);color:var(--text-body);">หาดกะรน</span>
+                            <span style="font-size:var(--text-micro);color:var(--text-muted);">200 ม.</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-sm) 0;border-bottom:1px solid var(--border);">
+                            <span style="font-size:var(--text-body-sm);color:var(--text-body);">Central Festival Phuket</span>
+                            <span style="font-size:var(--text-micro);color:var(--text-muted);">8.5 กม.</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-sm) 0;border-bottom:1px solid var(--border);">
+                            <span style="font-size:var(--text-body-sm);color:var(--text-body);">สนามบินภูเก็ต</span>
+                            <span style="font-size:var(--text-micro);color:var(--text-muted);">35 กม.</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-sm) 0;">
+                            <span style="font-size:var(--text-body-sm);color:var(--text-body);">วัดฉลอง</span>
+                            <span style="font-size:var(--text-micro);color:var(--text-muted);">12 กม.</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -2055,11 +2771,15 @@
                 overlay.classList.add('is-open');
                 document.body.classList.add('modal-open');
                 closeBtn.focus();
+                var cta = document.querySelector('.mobile-cta');
+                if (cta) cta.style.display = 'none';
             }
             function closeDrawer() {
                 overlay.classList.remove('is-open');
                 document.body.classList.remove('modal-open');
                 openBtn.focus();
+                var cta = document.querySelector('.mobile-cta');
+                if (cta && window.innerWidth < 1024) cta.style.display = 'flex';
             }
 
             openBtn.addEventListener('click', openDrawer);
@@ -2090,5 +2810,59 @@
         }
     </script>
 
+    <!-- Lightbox JS -->
+    <script>
+    (function() {
+        var images = [
+            'assets/images/hotels/hotel-celestial-sands.jpg',
+            'assets/images/hotels/hotel-bedroom-luxury.jpg',
+            'assets/images/hotels/hotel-siam-heritage.jpg',
+            'assets/images/hotels/hotel-bathroom-spa.jpg',
+            'assets/images/hotels/hotel-anantara-chiangmai.jpg'
+        ];
+        var currentIdx = 0;
+        var overlay = document.getElementById('lightbox');
+        var img = document.getElementById('lightboxImg');
+        var counter = document.getElementById('lightboxCounter');
+
+        window.openLightbox = function(idx) {
+            currentIdx = idx;
+            img.src = images[currentIdx];
+            counter.textContent = (currentIdx + 1) + ' / ' + images.length;
+            overlay.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+            // Hide bottom nav behind lightbox
+            var cta = document.querySelector('.mobile-cta');
+            if (cta) cta.style.display = 'none';
+        };
+        window.closeLightbox = function() {
+            overlay.classList.remove('is-open');
+            document.body.style.overflow = '';
+            // Show bottom nav again (only on mobile)
+            var cta = document.querySelector('.mobile-cta');
+            if (cta && window.innerWidth < 1024) cta.style.display = 'flex';
+        };
+        window.navLightbox = function(dir) {
+            currentIdx = (currentIdx + dir + images.length) % images.length;
+            img.src = images[currentIdx];
+            counter.textContent = (currentIdx + 1) + ' / ' + images.length;
+        };
+
+        // Click gallery items to open lightbox
+        document.querySelectorAll('.gallery-grid__item').forEach(function(el) {
+            el.addEventListener('click', function() {
+                openLightbox(parseInt(this.dataset.index) || 0);
+            });
+        });
+
+        // Keyboard nav
+        document.addEventListener('keydown', function(e) {
+            if (!overlay.classList.contains('is-open')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navLightbox(-1);
+            if (e.key === 'ArrowRight') navLightbox(1);
+        });
+    })();
+    </script>
 </body>
 </html>

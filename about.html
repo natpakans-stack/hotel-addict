@@ -34,6 +34,11 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
+        /* === ABOUT PAGE TOKENS === */
+        :root {
+            --bg-dark-elevated: #2E3038;
+        }
+
         /* ============================================
            ABOUT PAGE — Thyme-inspired Editorial Layout
            Asymmetric grids, cinematic scroll animations
@@ -702,7 +707,7 @@
             align-items: center;
             gap: var(--space-sm);
             padding: 18px 40px;
-            background: #1B1D22;
+            background: var(--text-primary);
             color: #FFFFFF;
             border-radius: var(--radius-md);
             font-family: var(--font-body);
@@ -714,7 +719,7 @@
             align-self: flex-start;
         }
         .contact-cta__btn:hover {
-            background: #2E3038;
+            background: var(--bg-dark-elevated);
             transform: translateY(-1px);
             color: #FFFFFF;
         }
@@ -793,8 +798,8 @@
 
             .hero-about__heading {
                 font-size: 32px;
-                line-height: 1.2;
-                margin-bottom: -1.1em;
+                line-height: 1.3;
+                margin-bottom: -0.8em;
             }
 
             .hero-about__image-wrap img {
@@ -875,11 +880,12 @@
         /* Mobile: ≤480px */
         @media (max-width: 480px) {
             .hero-about__top {
-                padding: 48px var(--space-md) 24px;
+                padding: 48px var(--space-md) 16px;
             }
             .hero-about__heading {
-                font-size: 28px;
-                margin-bottom: -1em;
+                font-size: 24px;
+                line-height: 1.4;
+                margin-bottom: -0.3em;
             }
             .hero-about__image-wrap img {
                 height: 260px;
@@ -1049,7 +1055,7 @@
             <img src="assets/images/hotels/hotel-pool-villa-4k.jpg" alt="Pool Villa สุดหรูระดับ 5 ดาว" fetchpriority="high">
             <div class="hero-about__overlay-content">
                 <p class="hero-about__subtitle anim-fade">
-                    รวมดีลโรงแรมหรูตรงจากโรงแรมชั้นนำทั่วไทย ไม่ผ่านคนกลาง<br>การันตีราคาดีกว่าทุก OTA — จองง่าย ใช้จริง คุ้มกว่าที่คิด
+                    รวมวอชเชอร์โรงแรมหรูตรงจากโรงแรมชั้นนำทั่วไทย ไม่ผ่านคนกลาง<br>การันตีราคาดีกว่าทุก OTA — จองง่าย ใช้จริง คุ้มกว่าที่คิด
                 </p>
                 <div class="hero-about__ctas anim-fade" style="transition-delay: 200ms">
                     <a href="voucher-list.html" class="btn btn-white">ค้นหาวอชเชอร์</a>
@@ -1060,6 +1066,7 @@
     </section>
 
 
+    <main>
     <!-- ==================== SECTION 2 — OUR STORY (3-col asymmetric) ==================== -->
     <section class="about-story" id="aboutStory">
         <div class="about-story__grid stagger">
@@ -1159,7 +1166,7 @@
                         ตัวเลขที่พิสูจน์<br>ความไว้วางใจ
                     </h2>
                     <p class="stats-band__text anim-fade" style="transition-delay: 200ms">
-                        กว่า 3 ปีที่เราสร้างความเชื่อมั่นให้กับนักเดินทางชาวไทย ด้วยดีลโรงแรมหรูที่คุ้มค่าที่สุด
+                        กว่า 3 ปีที่เราสร้างความเชื่อมั่นให้กับนักเดินทางชาวไทย ด้วยวอชเชอร์โรงแรมหรูที่คุ้มค่าที่สุด
                     </p>
                     <div class="stats-band__numbers stagger" id="statsGrid">
                         <div class="stat-item anim-fade">
@@ -1206,7 +1213,7 @@
                         <span class="material-symbols-outlined" aria-hidden="true">add</span>
                     </button>
                     <div class="accordion-item__body">
-                        <p class="accordion-item__content">เลื่อนดูดีลโรงแรมหรูจากทั่วไทย เปรียบเทียบราคาและสิทธิพิเศษ เลือกวอชเชอร์ที่ตรงใจ ไม่ต้องสมัครสมาชิกก่อนดูดีล</p>
+                        <p class="accordion-item__content">เลื่อนดูวอชเชอร์โรงแรมหรูจากทั่วไทย เปรียบเทียบราคาและสิทธิพิเศษ เลือกวอชเชอร์ที่ตรงใจ ไม่ต้องสมัครสมาชิกก่อนดูดีล</p>
                     </div>
                 </div>
                 <div class="accordion-item">
@@ -1278,6 +1285,7 @@
             </div>
         </div>
     </section>
+    </main>
 
 
     <!-- ==================== FOOTER ==================== -->
@@ -1286,7 +1294,7 @@
             <div class="footer__grid">
                 <div class="footer__col">
                     <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
-                    <p class="footer__desc">ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง</p>
+                    <p class="footer__desc">วอชเชอร์โรงแรมหรู ซื้อก่อน เลือกวันทีหลัง</p>
                     <div class="footer__social">
                         <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
                         <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
@@ -1297,7 +1305,7 @@
                     <h4 class="footer__heading">บริการลูกค้า</h4>
                     <ul class="footer__list">
                         <li><a href="#">ศูนย์ช่วยเหลือ</a></li>
-                        <li><a href="#">วิธีจองวอชเชอร์</a></li>
+                        <li><a href="#">วิธีซื้อวอชเชอร์</a></li>
                         <li><a href="#">นโยบายการยกเลิก</a></li>
                         <li><a href="#">ติดต่อเรา</a></li>
                     </ul>
@@ -1314,7 +1322,7 @@
                 <div class="footer__col">
                     <h4 class="footer__heading">ค้นพบ</h4>
                     <ul class="footer__list">
-                        <li><a href="index.html">ดีลโรงแรม</a></li>
+                        <li><a href="index.html">วอชเชอร์โรงแรม</a></li>
                         <li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li>
                         <li><a href="wishlist.html">รายการโปรด</a></li>
                         <li><a href="voucher-list.html">ค้นหาวอชเชอร์</a></li>

@@ -633,7 +633,7 @@
                 <div class="page-header__top">
                     <div>
                         <h1>บัตรกำนัลของฉัน</h1>
-                        <p class="page-header__sub">ดีลโรงแรมหรูที่คุณซื้อไว้ พร้อมใช้เมื่อไหร่ก็ได้</p>
+                        <p class="page-header__sub">วอชเชอร์โรงแรมหรูที่คุณซื้อไว้ พร้อมใช้เมื่อไหร่ก็ได้</p>
                     </div>
                 </div>
                 <div class="tab-filter" role="tablist" aria-label="Filter vouchers">
@@ -996,7 +996,7 @@
                 <div class="footer__grid">
                     <div class="footer__col">
                         <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
-                        <p class="footer__desc">ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง</p>
+                        <p class="footer__desc">วอชเชอร์โรงแรมหรู ซื้อก่อน เลือกวันทีหลัง</p>
                         <div class="footer__social">
                             <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
                             <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
@@ -1005,7 +1005,7 @@
                     </div>
                     <div class="footer__col">
                         <h4 class="footer__heading">บริการลูกค้า</h4>
-                        <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีจองวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
+                        <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีซื้อวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
                     </div>
                     <div class="footer__col">
                         <h4 class="footer__heading">เกี่ยวกับเรา</h4>
@@ -1013,7 +1013,7 @@
                     </div>
                     <div class="footer__col">
                         <h4 class="footer__heading">ค้นพบ</h4>
-                        <ul class="footer__list"><li><a href="index.html">ดีลโรงแรม</a></li><li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li><li><a href="wishlist.html">รายการโปรด</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
+                        <ul class="footer__list"><li><a href="index.html">วอชเชอร์โรงแรม</a></li><li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li><li><a href="wishlist.html">รายการโปรด</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
                     </div>
                 </div>
                 <div class="footer__bottom">
@@ -1066,6 +1066,15 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
         }
     </style>
 </body>

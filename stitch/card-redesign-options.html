@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voucher Card Redesign — 3 Options</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+
+    <style>
+        /* === TOKENS (from tokens.css) === */
+        :root {
+            --color-gold-dark: #1A6B4A;
+            --color-gold: #2D8B65;
+            --color-gold-light: #C2E5D5;
+            --color-gold-subtle: #EDF6F1;
+            --color-teal: #1A6B4A;
+            --bg-white: #FFFFFF;
+            --bg-cream: #F0F7F3;
+            --bg-warm: #F5FAF7;
+            --text-primary: #1A1A1A;
+            --text-body: #333333;
+            --text-secondary: #6B6B6B;
+            --text-muted: #767676;
+            --border: #EEEEEE;
+            --border-gold: #2D8B65;
+            --color-success: #2BA325;
+            --color-success-bg: #E7FAEF;
+            --color-error: #DD2F41;
+            --color-error-bg: #FCEAEC;
+            --color-warning: #F2C500;
+            --font-heading: 'IBM Plex Sans Thai', sans-serif;
+            --font-body: 'IBM Plex Sans Thai', sans-serif;
+            --text-h1: 48px;
+            --text-h2: 36px;
+            --text-h3: 28px;
+            --text-h4: 24px;
+            --text-body-lg: 18px;
+            --text-body-md: 16px;
+            --text-body-sm: 14px;
+            --text-label: 14px;
+            --text-micro: 12px;
+            --lh-body-md: 26px;
+            --lh-body-sm: 22px;
+            --fw-regular: 400;
+            --fw-medium: 500;
+            --fw-semibold: 600;
+            --fw-bold: 700;
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-full: 9999px;
+            --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition-fast: 0.2s ease;
+            --transition-base: 0.3s ease;
+        }
+
+        /* === RESET === */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: var(--font-body);
+            font-size: var(--text-body-md);
+            line-height: var(--lh-body-md);
+            color: var(--text-body);
+            background: #F5F5F5;
+        }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* === PAGE LAYOUT === */
+        .page-header {
+            background: var(--text-primary);
+            color: var(--bg-white);
+            padding: var(--space-xl) var(--space-lg);
+            text-align: center;
+        }
+        .page-header h1 {
+            font-family: var(--font-heading);
+            font-size: var(--text-h3);
+            font-weight: var(--fw-bold);
+            margin-bottom: var(--space-xs);
+        }
+        .page-header p {
+            color: rgba(255,255,255,0.6);
+            font-size: var(--text-body-sm);
+        }
+
+        .section {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md);
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+        .section-label__badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: var(--color-gold);
+            color: var(--bg-white);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            flex-shrink: 0;
+        }
+        .section-label__text h2 {
+            font-family: var(--font-heading);
+            font-size: var(--text-body-lg);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+        }
+        .section-label__text p {
+            font-size: var(--text-micro);
+            color: var(--text-secondary);
+        }
+        .section-label__rec {
+            margin-left: auto;
+            background: var(--color-gold-subtle);
+            color: var(--color-gold-dark);
+            font-size: 11px;
+            font-weight: var(--fw-bold);
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            letter-spacing: 0.03em;
+            flex-shrink: 0;
+        }
+
+        .section-divider {
+            border: none;
+            border-top: 1px dashed #D0D0D0;
+            margin: 0;
+        }
+
+        /* === CURRENT CARD (Original) === */
+        .intro-section {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: var(--space-lg) var(--space-md) 0;
+        }
+        .intro-tag {
+            display: inline-block;
+            background: var(--border);
+            color: var(--text-secondary);
+            font-size: 11px;
+            font-weight: var(--fw-bold);
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-sm);
+            letter-spacing: 0.05em;
+        }
+        .intro-title {
+            font-family: var(--font-heading);
+            font-size: var(--text-body-md);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+        }
+        .intro-desc {
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           SHARED CARD BASE
+           ============================================ */
+        .voucher-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1);
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+        .voucher-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+        .voucher-card__image {
+            position: relative;
+            aspect-ratio: 16/10;
+            overflow: hidden;
+        }
+        .voucher-card__image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .voucher-card:hover .voucher-card__image img {
+            transform: scale(1.05);
+        }
+        .voucher-card__badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--color-gold-dark);
+            color: var(--bg-white);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            letter-spacing: 0.05em;
+        }
+        .voucher-card__wishlist {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            background: rgba(255,255,255,0.85);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition-fast);
+        }
+        .voucher-card__wishlist:hover { background: var(--bg-white); }
+        .voucher-card__wishlist .material-symbols-outlined {
+            font-size: 20px;
+            color: var(--text-secondary);
+        }
+        .voucher-card__body {
+            padding: var(--space-md);
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .voucher-card__meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xs);
+        }
+        .voucher-card__category {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-semibold);
+            color: var(--color-gold-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .voucher-card__stars { display: flex; gap: 1px; }
+        .voucher-card__stars .material-symbols-outlined {
+            font-size: 14px;
+            color: var(--color-warning);
+            font-variation-settings: 'FILL' 1;
+        }
+        .voucher-card__name {
+            font-family: var(--font-heading);
+            font-size: var(--text-body-md);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .voucher-card__location {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+        }
+        .voucher-card__location .material-symbols-outlined { font-size: 16px; }
+        .voucher-card__perks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: var(--space-md);
+        }
+        .voucher-card__perk {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: var(--text-micro);
+            color: var(--color-gold-dark);
+            background: var(--color-gold-subtle);
+            padding: 3px 8px;
+            border-radius: var(--radius-sm);
+        }
+        .voucher-card__perk .material-symbols-outlined { font-size: 14px; }
+
+        /* Original footer */
+        .voucher-card__footer {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--border);
+        }
+        .voucher-card__price-original {
+            font-size: var(--text-body-sm);
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+        .voucher-card__price {
+            font-family: var(--font-heading);
+            font-size: var(--text-body-lg);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+        }
+        .voucher-card__price-unit {
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-regular);
+            color: var(--text-secondary);
+        }
+        .voucher-card__discount {
+            background: var(--color-error-bg);
+            color: var(--color-error);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+        }
+
+        /* ============================================
+           OPTION A — OTA Price Label
+           ============================================ */
+        .card-a .voucher-card__footer {
+            flex-direction: column;
+            align-items: stretch;
+            gap: var(--space-sm);
+        }
+        .card-a .footer-a__ota-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .card-a .footer-a__ota-label {
+            font-size: var(--text-micro);
+            color: var(--text-muted);
+        }
+        .card-a .footer-a__ota-price {
+            font-size: var(--text-body-sm);
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+        .card-a .footer-a__deal-row {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+        .card-a .footer-a__deal-label {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-semibold);
+            color: var(--color-gold-dark);
+            margin-bottom: 2px;
+        }
+        .card-a .footer-a__savings {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            color: var(--color-gold-dark);
+            background: var(--color-gold-subtle);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+        }
+        .card-a .footer-a__savings .material-symbols-outlined {
+            font-size: 14px;
+        }
+
+        /* ============================================
+           OPTION B — Value Spotlight (Recommended)
+           ============================================ */
+        .card-b .voucher-card__savings-strip {
+            background: var(--color-gold-subtle);
+            border: 1px solid var(--color-gold-light);
+            border-radius: var(--radius-md);
+            padding: 10px 12px;
+            margin-bottom: var(--space-md);
+        }
+        .card-b .savings-strip__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .card-b .savings-strip__label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            color: var(--color-gold-dark);
+        }
+        .card-b .savings-strip__label .material-symbols-outlined {
+            font-size: 16px;
+        }
+        .card-b .savings-strip__amount {
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            color: var(--color-gold-dark);
+        }
+        .card-b .savings-strip__bar {
+            height: 6px;
+            background: var(--color-gold-light);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+        .card-b .savings-strip__bar-fill {
+            height: 100%;
+            background: var(--color-gold);
+            border-radius: var(--radius-full);
+            transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+        }
+        .card-b .savings-strip__detail {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+        .card-b .savings-strip__ota {
+            text-decoration: line-through;
+        }
+
+        /* Footer for Option B */
+        .card-b .voucher-card__footer {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 4px;
+        }
+        .card-b .footer-b__price-row {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+        .card-b .footer-b__perk-value {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: var(--color-gold-dark);
+            font-weight: var(--fw-medium);
+        }
+        .card-b .footer-b__perk-value .material-symbols-outlined {
+            font-size: 14px;
+        }
+
+        /* ============================================
+           OPTION C — Side-by-Side Price Duel
+           ============================================ */
+        .card-c .voucher-card__footer {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0;
+        }
+        .card-c .footer-c__duel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .card-c .footer-c__side {
+            padding: 10px 12px;
+            text-align: center;
+        }
+        .card-c .footer-c__side--ota {
+            background: #F8F8F8;
+        }
+        .card-c .footer-c__side--ha {
+            background: var(--color-gold-subtle);
+        }
+        .card-c .footer-c__side-label {
+            font-size: 11px;
+            font-weight: var(--fw-semibold);
+            margin-bottom: 4px;
+            letter-spacing: 0.02em;
+        }
+        .card-c .footer-c__side--ota .footer-c__side-label {
+            color: var(--text-muted);
+        }
+        .card-c .footer-c__side--ha .footer-c__side-label {
+            color: var(--color-gold-dark);
+        }
+        .card-c .footer-c__side-price {
+            font-family: var(--font-heading);
+            font-weight: var(--fw-bold);
+        }
+        .card-c .footer-c__side--ota .footer-c__side-price {
+            font-size: var(--text-body-md);
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+        .card-c .footer-c__side--ha .footer-c__side-price {
+            font-size: var(--text-body-lg);
+            color: var(--text-primary);
+        }
+        .card-c .footer-c__side-unit {
+            font-size: 11px;
+            font-weight: var(--fw-regular);
+            color: var(--text-secondary);
+        }
+        .card-c .footer-c__bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .card-c .footer-c__savings-text {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-semibold);
+            color: var(--color-gold-dark);
+        }
+        .card-c .footer-c__badge {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ============================================
+           ANNOTATION CALLOUTS
+           ============================================ */
+        .annotation {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--color-gold);
+            border-radius: var(--radius-md);
+            padding: 12px 14px;
+            margin-top: var(--space-md);
+            font-size: var(--text-body-sm);
+            line-height: var(--lh-body-sm);
+        }
+        .annotation__title {
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            font-size: var(--text-body-sm);
+        }
+        .annotation__list {
+            list-style: none;
+            padding: 0;
+        }
+        .annotation__list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            margin-bottom: 4px;
+            font-size: var(--text-micro);
+            color: var(--text-secondary);
+        }
+        .annotation__list li::before {
+            content: "•";
+            color: var(--color-gold);
+            font-weight: var(--fw-bold);
+            flex-shrink: 0;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-sm);
+            margin-top: var(--space-sm);
+        }
+        .pros-cons__col { font-size: var(--text-micro); color: var(--text-secondary); }
+        .pros-cons__label {
+            font-size: 11px;
+            font-weight: var(--fw-bold);
+            margin-bottom: 2px;
+        }
+        .pros-cons__label--pro { color: var(--color-success); }
+        .pros-cons__label--con { color: var(--color-error); }
+
+        /* ============================================
+           RECOMMENDATION BANNER
+           ============================================ */
+        .rec-banner {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 var(--space-md) var(--space-xl);
+        }
+        .rec-banner__card {
+            background: linear-gradient(135deg, var(--color-gold-dark) 0%, var(--color-gold) 100%);
+            color: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+        .rec-banner__title {
+            font-family: var(--font-heading);
+            font-size: var(--text-body-lg);
+            font-weight: var(--fw-bold);
+            margin-bottom: var(--space-sm);
+        }
+        .rec-banner__text {
+            font-size: var(--text-body-sm);
+            line-height: var(--lh-body-sm);
+            opacity: 0.9;
+        }
+        .rec-banner__reasons {
+            list-style: none;
+            padding: 0;
+            margin-top: var(--space-md);
+        }
+        .rec-banner__reasons li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: var(--text-body-sm);
+        }
+        .rec-banner__reasons .material-symbols-outlined {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Reduce motion */
+        @media (prefers-reduced-motion: reduce) {
+            .voucher-card,
+            .voucher-card__image img,
+            .savings-strip__bar-fill {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== PAGE HEADER ===== -->
+<header class="page-header">
+    <h1>Voucher Card Redesign</h1>
+    <p>3 Options for OTA Price Comparison on Listing Card</p>
+</header>
+
+<!-- ===== CURRENT CARD (Baseline) ===== -->
+<div class="intro-section">
+    <span class="intro-tag">CURRENT DESIGN</span>
+    <div class="intro-title">Card ปัจจุบัน — ไม่มี OTA comparison</div>
+    <p class="intro-desc">ผู้ใช้เห็นราคาเดิมกับราคา deal แต่ไม่รู้ว่าราคาเดิมคือราคาอะไร และไม่เห็นว่าประหยัดเงินจริงเท่าไหร่</p>
+</div>
+
+<section class="section">
+    <a href="#" class="voucher-card" onclick="return false">
+        <div class="voucher-card__image">
+            <img src="../assets/images/hotels/hotel-bedroom-luxury.jpg" alt="The Ritz-Carlton Bangkok">
+            <span class="voucher-card__badge">HOT</span>
+            <button class="voucher-card__wishlist" aria-label="เพิ่มในรายการโปรด" onclick="event.preventDefault()">
+                <span class="material-symbols-outlined">favorite</span>
+            </button>
+        </div>
+        <div class="voucher-card__body">
+            <div class="voucher-card__meta">
+                <span class="voucher-card__category">Luxury Collection</span>
+                <div class="voucher-card__stars">
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                </div>
+            </div>
+            <div class="voucher-card__name">The Ritz-Carlton Bangkok</div>
+            <div class="voucher-card__location">
+                <span class="material-symbols-outlined">location_on</span>
+                กรุงเทพมหานคร
+            </div>
+            <div class="voucher-card__perks">
+                <span class="voucher-card__perk"><span class="material-symbols-outlined">restaurant</span>อาหารเช้า</span>
+                <span class="voucher-card__perk"><span class="material-symbols-outlined">spa</span>สปา</span>
+                <span class="voucher-card__perk"><span class="material-symbols-outlined">schedule</span>Late C/O</span>
+            </div>
+            <div class="voucher-card__footer">
+                <div>
+                    <div class="voucher-card__price-original">฿18,500</div>
+                    <div class="voucher-card__price">฿12,500 <span class="voucher-card__price-unit">/ คืน</span></div>
+                </div>
+                <span class="voucher-card__discount">-32%</span>
+            </div>
+        </div>
+    </a>
+
+    <div class="annotation">
+        <div class="annotation__title">ปัญหาของ Card ปัจจุบัน</div>
+        <ul class="annotation__list">
+            <li>"฿18,500" คือราคาอะไร? — ผู้ใช้ไม่รู้ว่าเทียบกับ OTA ไหน</li>
+            <li>ไม่มีจำนวนเงินที่ประหยัดจริง (฿ amount)</li>
+            <li>ไม่มี visual ช่วยเปรียบเทียบ — เห็นแค่ตัวเลข</li>
+            <li>Perks ไม่มีมูลค่ารวม — "ฟรีสปา" มีค่าเท่าไหร่?</li>
+        </ul>
+    </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ===== OPTION A — OTA Price Label ===== -->
+<section class="section">
+    <div class="section-label">
+        <span class="section-label__badge">A</span>
+        <div class="section-label__text">
+            <h2>OTA Price Label</h2>
+            <p>เปลี่ยนน้อยที่สุด — เพิ่ม label ให้ราคาชัดเจน</p>
+        </div>
+    </div>
+
+    <a href="#" class="voucher-card card-a" onclick="return false">
+        <div class="voucher-card__image">
+            <img src="../assets/images/hotels/hotel-bedroom-luxury.jpg" alt="The Ritz-Carlton Bangkok">
+            <span class="voucher-card__badge">HOT</span>
+            <button class="voucher-card__wishlist" aria-label="เพิ่มในรายการโปรด" onclick="event.preventDefault()">
+                <span class="material-symbols-outlined">favorite</span>
+            </button>
+        </div>
+        <div class="voucher-card__body">
+            <div class="voucher-card__meta">
+                <span class="voucher-card__category">Luxury Collection</span>
+                <div class="voucher-card__stars">
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                </div>
+            </div>
+            <div class="voucher-card__name">The Ritz-Carlton Bangkok</div>
+            <div class="voucher-card__location">
+                <span class="material-symbols-outlined">location_on</span>
+                กรุงเทพมหานคร
+            </div>
+            <div class="voucher-card__perks">
+                <span class="voucher-card__perk"><span class="material-symbols-outlined">restaurant</span>อาหารเช้า</span>
+                <span class="voucher-card__perk"><span class="material-symbols-outlined">spa</span>สปา</span>
+                <span class="voucher-card__perk"><span class="material-symbols-outlined">schedule</span>Late C/O</span>
+            </div>
+            <div class="voucher-card__footer">
+                <!-- OTA comparison row -->
+                <div class="footer-a__ota-row">
+                    <span class="footer-a__ota-label">ราคา OTA เฉลี่ย</span>
+                    <span class="footer-a__ota-price">฿18,500</span>
+                </div>
+                <!-- Deal price row -->
+                <div class="footer-a__deal-row">
+                    <div>
+                        <div class="footer-a__deal-label">Hotel Addict</div>
+                        <div class="voucher-card__price">฿12,500 <span class="voucher-card__price-unit">/ คืน</span></div>
+                    </div>
+                    <span class="footer-a__savings">
+                        <span class="material-symbols-outlined">savings</span>
+                        ประหยัด ฿6,000
+                    </span>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <div class="annotation">
+        <div class="annotation__title">แนวทาง A — สิ่งที่เปลี่ยน</div>
+        <ul class="annotation__list">
+            <li>เพิ่ม label "ราคา OTA เฉลี่ย" ให้ราคาเดิมมีบริบท</li>
+            <li>เพิ่ม label "Hotel Addict" ให้ราคา deal</li>
+            <li>เพิ่ม savings badge แสดงจำนวนเงินที่ประหยัด</li>
+        </ul>
+        <div class="pros-cons">
+            <div class="pros-cons__col">
+                <div class="pros-cons__label pros-cons__label--pro">ข้อดี</div>
+                <div>เปลี่ยนน้อย, implement ง่าย, card ไม่สูงขึ้น</div>
+            </div>
+            <div class="pros-cons__col">
+                <div class="pros-cons__label pros-cons__label--con">ข้อเสีย</div>
+                <div>ยังเป็นแค่ตัวเลข ไม่มี visual impact, ไม่โดดเด่นเมื่อ scroll เร็ว</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ===== OPTION B — Value Spotlight (Recommended) ===== -->
+<section class="section">
+    <div class="section-label">
+        <span class="section-label__badge">B</span>
+        <div class="section-label__text">
+            <h2>Value Spotlight</h2>
+            <p>เพิ่ม Savings Strip + mini bar เห็น value ได้ทันที</p>
+        </div>
+        <span class="section-label__rec">RECOMMENDED</span>
+    </div>
+
+    <a href="#" class="voucher-card card-b" onclick="return false">
+        <div class="voucher-card__image">
+            <img src="../assets/images/hotels/hotel-bedroom-luxury.jpg" alt="The Ritz-Carlton Bangkok">
+            <span class="voucher-card__badge">HOT</span>
+            <button class="voucher-card__wishlist" aria-label="เพิ่มในรายการโปรด" onclick="event.preventDefault()">
+                <span class="material-symbols-outlined">favorite</span>
+            </button>
+        </div>
+        <div class="voucher-card__body">
+            <div class="voucher-card__meta">
+                <span class="voucher-card__category">Luxury Collection</span>
+                <div class="voucher-card__stars">
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                </div>
+            </div>
+            <div class="voucher-card__name">The Ritz-Carlton Bangkok</div>
+            <div class="voucher-card__location">
+                <span class="material-symbols-outlined">location_on</span>
+                กรุงเทพมหานคร
+            </div>
+            <div class="voucher-card__perks">
+                <span class="voucher-card__perk"><span class="material-symbols-outlined">restaurant</span>อาหารเช้า</span>
+                <span class="voucher-card__perk"><span class="material-symbols-outlined">spa</span>สปา</span>
+                <span class="voucher-card__perk"><span class="material-symbols-outlined">schedule</span>Late C/O</span>
+            </div>
+
+            <!-- NEW: Savings Strip -->
+            <div class="voucher-card__savings-strip">
+                <div class="savings-strip__header">
+                    <span class="savings-strip__label">
+                        <span class="material-symbols-outlined">trending_down</span>
+                        คุ้มกว่า OTA
+                    </span>
+                    <span class="savings-strip__amount">ประหยัด ฿6,000</span>
+                </div>
+                <div class="savings-strip__bar">
+                    <div class="savings-strip__bar-fill" style="width: 68%"></div>
+                </div>
+                <div class="savings-strip__detail">
+                    <span>Hotel Addict ฿12,500</span>
+                    <span class="savings-strip__ota">OTA เฉลี่ย ฿18,500</span>
+                </div>
+            </div>
+
+            <div class="voucher-card__footer">
+                <div class="footer-b__price-row">
+                    <div>
+                        <div class="voucher-card__price">฿12,500 <span class="voucher-card__price-unit">/ คืน</span></div>
+                    </div>
+                    <span class="voucher-card__discount">-32%</span>
+                </div>
+                <div class="footer-b__perk-value">
+                    <span class="material-symbols-outlined">redeem</span>
+                    รวมสิทธิพิเศษมูลค่า ฿3,500
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <div class="annotation">
+        <div class="annotation__title">แนวทาง B — สิ่งที่เปลี่ยน</div>
+        <ul class="annotation__list">
+            <li>เพิ่ม Savings Strip สีเขียวอ่อน — เห็นได้ทันทีเมื่อ scroll</li>
+            <li>Mini progress bar แสดงสัดส่วนราคา Hotel Addict vs OTA</li>
+            <li>แสดงทั้ง ฿ amount + % ในที่เดียว</li>
+            <li>เพิ่ม "รวมสิทธิพิเศษมูลค่า ฿3,500" ใน footer</li>
+            <li>Bar fill 68% = สัดส่วนราคา HA/OTA (12,500/18,500)</li>
+        </ul>
+        <div class="pros-cons">
+            <div class="pros-cons__col">
+                <div class="pros-cons__label pros-cons__label--pro">ข้อดี</div>
+                <div>Visual impact สูง, scan ได้เร็ว, mobile-friendly (แนวตั้ง), แสดง value ครบ</div>
+            </div>
+            <div class="pros-cons__col">
+                <div class="pros-cons__label pros-cons__label--con">ข้อเสีย</div>
+                <div>Card สูงขึ้นเล็กน้อย (~48px)</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ===== OPTION C — Side-by-Side Price Duel ===== -->
+<section class="section">
+    <div class="section-label">
+        <span class="section-label__badge">C</span>
+        <div class="section-label__text">
+            <h2>Side-by-Side Price Duel</h2>
+            <p>แบ่ง 2 column เปรียบเทียบ OTA vs Hotel Addict ตรงๆ</p>
+        </div>
+    </div>
+
+    <a href="#" class="voucher-card card-c" onclick="return false">
+        <div class="voucher-card__image">
+            <img src="../assets/images/hotels/hotel-bedroom-luxury.jpg" alt="The Ritz-Carlton Bangkok">
+            <span class="voucher-card__badge">HOT</span>
+            <button class="voucher-card__wishlist" aria-label="เพิ่มในรายการโปรด" onclick="event.preventDefault()">
+                <span class="material-symbols-outlined">favorite</span>
+            </button>
+        </div>
+        <div class="voucher-card__body">
+            <div class="voucher-card__meta">
+                <span class="voucher-card__category">Luxury Collection</span>
+                <div class="voucher-card__stars">
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                    <span class="material-symbols-outlined">star</span>
+                </div>
+            </div>
+            <div class="voucher-card__name">The Ritz-Carlton Bangkok</div>
+            <div class="voucher-card__location">
+                <span class="material-symbols-outlined">location_on</span>
+                กรุงเทพมหานคร
+            </div>
+            <div class="voucher-card__perks">
+                <span class="voucher-card__perk"><span class="material-symbols-outlined">restaurant</span>อาหารเช้า</span>
+                <span class="voucher-card__perk"><span class="material-symbols-outlined">spa</span>สปา</span>
+                <span class="voucher-card__perk"><span class="material-symbols-outlined">schedule</span>Late C/O</span>
+            </div>
+
+            <div class="voucher-card__footer">
+                <!-- Side-by-side duel -->
+                <div class="footer-c__duel">
+                    <div class="footer-c__side footer-c__side--ota">
+                        <div class="footer-c__side-label">ราคา OTA เฉลี่ย</div>
+                        <div class="footer-c__side-price">฿18,500 <span class="footer-c__side-unit">/ คืน</span></div>
+                    </div>
+                    <div class="footer-c__side footer-c__side--ha">
+                        <div class="footer-c__side-label">Hotel Addict</div>
+                        <div class="footer-c__side-price">฿12,500 <span class="footer-c__side-unit">/ คืน</span></div>
+                    </div>
+                </div>
+                <div class="footer-c__bottom">
+                    <span class="footer-c__savings-text">ประหยัด ฿6,000 จาก OTA</span>
+                    <div class="footer-c__badge">
+                        <span class="voucher-card__discount">-32%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+
+    <div class="annotation">
+        <div class="annotation__title">แนวทาง C — สิ่งที่เปลี่ยน</div>
+        <ul class="annotation__list">
+            <li>Footer เป็น 2 column: OTA (ซ้าย, จาง) vs Hotel Addict (ขวา, เด่น)</li>
+            <li>เปรียบเทียบราคาตรงๆ แบบ head-to-head</li>
+            <li>แถวล่างแสดง savings amount + % badge</li>
+        </ul>
+        <div class="pros-cons">
+            <div class="pros-cons__col">
+                <div class="pros-cons__label pros-cons__label--pro">ข้อดี</div>
+                <div>เปรียบเทียบได้ชัดเจนมาก, ตรงไปตรงมา</div>
+            </div>
+            <div class="pros-cons__col">
+                <div class="pros-cons__label pros-cons__label--con">ข้อเสีย</div>
+                <div>ดู spreadsheet-ish, กิน horizontal space บน mobile 393px, ตัวเลข OTA เล็ก</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- ===== RECOMMENDATION ===== -->
+<div class="rec-banner">
+    <div class="rec-banner__card">
+        <div class="rec-banner__title">Recommendation: แนวทาง B — Value Spotlight</div>
+        <p class="rec-banner__text">Balance ดีที่สุดระหว่างข้อมูลเปรียบเทียบ vs ความอ่านง่ายบน mobile</p>
+        <ul class="rec-banner__reasons">
+            <li>
+                <span class="material-symbols-outlined">visibility</span>
+                Savings Strip สีเขียวโดดเด่น — ผู้ใช้ scroll ผ่านก็เห็น value ทันที
+            </li>
+            <li>
+                <span class="material-symbols-outlined">bar_chart</span>
+                Mini bar ช่วยเข้าใจสัดส่วนราคาได้เร็วกว่าตัวเลขอย่างเดียว (Gestalt principle)
+            </li>
+            <li>
+                <span class="material-symbols-outlined">smartphone</span>
+                Mobile-friendly — ข้อมูลเรียงแนวตั้ง ไม่มีปัญหา horizontal space
+            </li>
+            <li>
+                <span class="material-symbols-outlined">redeem</span>
+                "รวมสิทธิพิเศษมูลค่า ฿3,500" เพิ่ม perceived value เกินแค่ราคา
+            </li>
+            <li>
+                <span class="material-symbols-outlined">touch_app</span>
+                ไม่ดูเหมือน spreadsheet — มี visual hierarchy ชัด ดู premium
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

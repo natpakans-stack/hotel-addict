@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ยืนยันการชองและชำระเงิน | Hotel Addict</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0b95da",
+                        "gold": "#d4af37",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif; }
+        .gold-accent { color: #d4af37; }
+        .bg-gold { background-color: #d4af37; }
+        .border-gold { border-color: #d4af37; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="border-b border-slate-200 dark:border-slate-800 bg-background-light dark:bg-background-dark sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-20">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-4xl gold-accent">auto_awesome</span>
+<h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white uppercase">Hotel <span class="gold-accent">Addict</span></h1>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">หน้าแรก</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">จองโรงแรม</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors gold-accent" href="#">โปรโมชั่นพิเศษ</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">ติดต่อเรา</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors relative">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute top-1 right-1 bg-primary text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">1</span>
+</button>
+<div class="h-8 w-[1px] bg-slate-200 dark:bg-slate-800 mx-2"></div>
+<button class="flex items-center gap-2 py-2 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-sm font-bold">เข้าสู่ระบบ</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 mb-8 text-sm text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary" href="#">หน้าแรก</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<a class="hover:text-primary" href="#">ค้นหาโรงแรม</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-slate-900 dark:text-white font-semibold">ยืนยันการชำระเงิน</span>
+</nav>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+<!-- Left Column: Checkout Form -->
+<div class="lg:col-span-8 space-y-10">
+<section>
+<h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+<span class="w-2 h-8 bg-gold rounded-full"></span>
+                        ข้อมูลผู้ติดต่อ
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-semibold opacity-80 ml-1">ชื่อจริง</label>
+<input class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" placeholder="ระบุชื่อจริงตามบัตรประชาชน" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold opacity-80 ml-1">นามสกุล</label>
+<input class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" placeholder="ระบุนามสกุล" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold opacity-80 ml-1">อีเมล</label>
+<input class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" placeholder="example@email.com" type="email"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold opacity-80 ml-1">เบอร์โทรศัพท์</label>
+<input class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" placeholder="08X-XXX-XXXX" type="tel"/>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+<span class="w-2 h-8 bg-gold rounded-full"></span>
+                        ช่องทางการชำระเงิน
+                    </h2>
+<div class="space-y-4">
+<!-- Credit Card Option (Expanded) -->
+<div class="border-2 border-primary bg-primary/5 dark:bg-primary/10 rounded-2xl p-6">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full border-2 border-primary flex items-center justify-center">
+<div class="w-3 h-3 bg-primary rounded-full"></div>
+</div>
+<span class="font-bold text-lg">บัตรเครดิต / บัตรเดบิต</span>
+</div>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-3xl opacity-60">credit_card</span>
+<span class="material-symbols-outlined text-3xl opacity-60">contactless</span>
+</div>
+</div>
+<div class="space-y-4 max-w-xl">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider opacity-60">หมายเลขบัตร</label>
+<div class="relative">
+<input class="w-full bg-white dark:bg-slate-800 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none text-lg tracking-[0.2em]" placeholder="0000 0000 0000 0000" type="text"/>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 flex gap-2">
+<div class="h-6 w-10 bg-slate-200 dark:bg-slate-700 rounded-sm"></div>
+<div class="h-6 w-10 bg-slate-200 dark:bg-slate-700 rounded-sm"></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider opacity-60">วันหมดอายุ</label>
+<input class="w-full bg-white dark:bg-slate-800 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none" placeholder="MM / YY" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider opacity-60">CVC / CVV</label>
+<input class="w-full bg-white dark:bg-slate-800 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none" placeholder="123" type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider opacity-60">ชื่อบนบัตร</label>
+<input class="w-full bg-white dark:bg-slate-800 border-none rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary outline-none uppercase" placeholder="NAME SURNAME" type="text"/>
+</div>
+</div>
+</div>
+<!-- PromptPay Option -->
+<div class="border border-slate-200 dark:border-slate-800 rounded-2xl p-6 hover:border-primary/50 cursor-pointer transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full border-2 border-slate-300 dark:border-slate-700"></div>
+<span class="font-bold text-lg">PromptPay (พร้อมเพย์)</span>
+</div>
+<span class="material-symbols-outlined text-3xl opacity-60 text-primary">qr_code_2</span>
+</div>
+</div>
+<!-- Bank Transfer Option -->
+<div class="border border-slate-200 dark:border-slate-800 rounded-2xl p-6 hover:border-primary/50 cursor-pointer transition-colors">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full border-2 border-slate-300 dark:border-slate-700"></div>
+<span class="font-bold text-lg">โอนเงินผ่านบัญชีธนาคาร</span>
+</div>
+<span class="material-symbols-outlined text-3xl opacity-60">account_balance</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Sidebar Order Summary -->
+<div class="lg:col-span-4">
+<div class="sticky top-28 space-y-6">
+<div class="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-2xl shadow-black/5 dark:shadow-black/20 border border-slate-200 dark:border-slate-800">
+<!-- Hotel Image & Header -->
+<div class="relative h-48 overflow-hidden">
+<img alt="Luxury Resort" class="w-full h-full object-cover" data-alt="Luxury resort swimming pool at sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP0kh71jkzd-rtcO5CmCmDcp7Dp7FDmMQcTiu1JA-pQYNgbifGrwJ2jaU6DV_CoEFUtQy1LbbBbz7wCvbgj-IIjhOrgoBka6ePaR5sTp43Kyld43KBhjK_QpWsXxCfqXavZxr5jC5QjlqeeoKpuOPHGSoqq3L6vXRyWUZTVbFXjKwgY9dyOp7otTAGhC8FibgERtMroDQYs6Du_Q1BGYk7bVt7iPDXumP-OYtwp5s_ebOAEj36i2yFnKG1xoS5nO_wxM4QzVtNn0od"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4">
+<h3 class="text-white text-xl font-bold">The Royal Grand Azure</h3>
+<p class="text-white/80 text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-xs gold-accent">location_on</span>
+                                    เกาะสมุย, สุราษฎร์ธานี
+                                </p>
+</div>
+</div>
+<div class="p-6 space-y-6">
+<!-- Room Type & Quantity -->
+<div class="flex justify-between items-start">
+<div>
+<p class="text-xs font-bold uppercase tracking-widest text-primary mb-1">ประเภทห้องพัก</p>
+<h4 class="font-bold text-lg">Deluxe Ocean Suite</h4>
+<p class="text-sm opacity-60">รวมอาหารเช้า สำหรับ 2 ท่าน</p>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="text-xs font-bold opacity-60 uppercase">จำนวนคืน</span>
+<div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-full px-3 py-1 gap-4">
+<button class="material-symbols-outlined text-sm font-bold">remove</button>
+<span class="font-bold text-sm">2</span>
+<button class="material-symbols-outlined text-sm font-bold">add</button>
+</div>
+</div>
+</div>
+<!-- Date Info -->
+<div class="grid grid-cols-2 gap-4 py-4 border-y border-slate-100 dark:border-slate-800">
+<div>
+<p class="text-[10px] font-bold uppercase opacity-50 mb-1">เช็คอิน</p>
+<p class="font-bold text-sm">24 พ.ย. 2024</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold uppercase opacity-50 mb-1">เช็คเอาท์</p>
+<p class="font-bold text-sm">26 พ.ย. 2024</p>
+</div>
+</div>
+<!-- Price Breakdown -->
+<div class="space-y-3">
+<div class="flex justify-between text-sm">
+<span class="opacity-60">ราคาปกติ (2 คืน)</span>
+<span class="font-medium">฿18,500.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="opacity-60">ภาษีและค่าธรรมเนียม</span>
+<span class="font-medium">฿1,850.00</span>
+</div>
+<div class="flex justify-between text-sm text-green-500">
+<span class="font-semibold">ส่วนลดโปรโมชั่น Addict Gold</span>
+<span class="font-semibold">-฿2,350.00</span>
+</div>
+<div class="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-end">
+<div>
+<p class="text-xs font-bold uppercase opacity-50">ยอดชำระรวมทั้งสิ้น</p>
+<p class="text-3xl font-black gold-accent">฿18,000.00</p>
+</div>
+<span class="text-[10px] opacity-40 mb-1">รวม VAT 7% แล้ว</span>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-black py-4 rounded-xl text-lg shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">lock</span>
+                                ชำระเงินทันที
+                            </button>
+<p class="text-[10px] text-center opacity-40 leading-relaxed px-4">
+                                การคลิกชำระเงินแสดงว่าคุณยอมรับ <a class="underline" href="#">ข้อตกลงและเงื่อนไข</a> และ <a class="underline" href="#">นโยบายความเป็นส่วนตัว</a> ของ Hotel Addict
+                            </p>
+</div>
+</div>
+<!-- Trust Badge -->
+<div class="flex items-center justify-center gap-6 opacity-40 grayscale hover:grayscale-0 transition-all">
+<span class="material-symbols-outlined text-4xl">verified_user</span>
+<span class="material-symbols-outlined text-4xl">security</span>
+<span class="material-symbols-outlined text-4xl">payment_card</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900 mt-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-2 text-primary mb-6">
+<span class="material-symbols-outlined text-3xl gold-accent">auto_awesome</span>
+<h2 class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">Hotel Addict</h2>
+</div>
+<p class="text-sm opacity-60 leading-relaxed">
+                        แพลตฟอร์มจองโรงแรมชั้นนำที่คัดสรรเฉพาะที่พักระดับพรีเมียม เพื่อประสบการณ์การพักผ่อนที่ดีที่สุดของคุณ
+                    </p>
+</div>
+<div>
+<h3 class="font-bold mb-6">บริการลูกค้า</h3>
+<ul class="space-y-3 text-sm opacity-60">
+<li><a class="hover:text-primary" href="#">ศูนย์ช่วยเหลือ</a></li>
+<li><a class="hover:text-primary" href="#">วิธีการจอง</a></li>
+<li><a class="hover:text-primary" href="#">นโยบายการคืนเงิน</a></li>
+<li><a class="hover:text-primary" href="#">ติดต่อเรา</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-bold mb-6">เกี่ยวกับเรา</h3>
+<ul class="space-y-3 text-sm opacity-60">
+<li><a class="hover:text-primary" href="#">ประวัติบริษัท</a></li>
+<li><a class="hover:text-primary" href="#">สมัครงาน</a></li>
+<li><a class="hover:text-primary" href="#">ข่าวประชาสัมพันธ์</a></li>
+<li><a class="hover:text-primary" href="#">พาร์ทเนอร์</a></li>
+</ul>
+</div>
+<div>
+<h3 class="font-bold mb-6">ติดตามเรา</h3>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-900 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-xl">share</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-900 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-xl">campaign</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-900 flex items-center justify-center hover:bg-primary hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-xl">rss_feed</span>
+</a>
+</div>
+</div>
+</div>
+<div class="border-t border-slate-100 dark:border-slate-900 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs opacity-40 font-medium">
+<p>© 2024 Hotel Addict Co., Ltd. All rights reserved.</p>
+<div class="flex gap-8">
+<a href="#">Terms of Service</a>
+<a href="#">Privacy Policy</a>
+<a href="#">Cookies Policy</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

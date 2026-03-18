@@ -407,6 +407,15 @@
                 padding: var(--space-sm) var(--space-md);
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -510,6 +519,7 @@
     </div>
 </section>
 
+<main>
 <!-- === TRINITY COMPARISON === -->
 <div class="skeleton-wrapper" id="skelTrinityResults">
     <div class="skel-screen" aria-hidden="true">
@@ -674,19 +684,22 @@
             </div>
 
             <a href="payment.html" class="btn btn-primary btn-lg" style="width: 100%; text-align: center; text-decoration: none;">
-                เลือกดีลนี้เลย
+                ซื้อวอชเชอร์นี้เลย
             </a>
         </div>
 
         <!-- OTA Deal -->
         <div class="comparison-card comparison-card--other">
             <div class="comparison-card__header">
-                <p class="comparison-card__label">OTA Deal</p>
+                <p class="comparison-card__label" style="display:flex;align-items:center;gap:8px;">
+                    <img src="https://www.google.com/s2/favicons?domain=agoda.com&sz=32" alt="Agoda" width="16" height="16" style="border-radius:3px;">
+                    Agoda
+                </p>
                 <h3 class="comparison-card__title">ราคาปกติ</h3>
             </div>
 
             <p style="color: var(--text-secondary); font-size: var(--text-body-sm); line-height: var(--lh-body-md); margin-bottom: var(--space-lg);">
-                ราคาจองผ่านเว็บท่องเที่ยวทั่วไป ได้แค่ห้องพักเปล่า ไม่มีสิทธิพิเศษใดๆ
+                ราคาจองผ่าน Agoda ได้แค่ห้องพักเปล่า ไม่มีสิทธิพิเศษใดๆ
             </p>
 
             <ul class="perks-list perks-list--negative">
@@ -709,7 +722,7 @@
             </ul>
 
             <div style="padding-top: var(--space-md); border-top: 1px solid var(--border); margin-top: auto;">
-                <p style="font-size: var(--text-body-sm); color: var(--text-muted); margin-bottom: var(--space-xs);">ราคาจากเว็บจองทั่วไป</p>
+                <p style="font-size: var(--text-body-sm); color: var(--text-muted); margin-bottom: var(--space-xs);">ราคาจาก Agoda</p>
                 <div class="price-block">
                     <span class="price-value" style="color: var(--text-primary);">฿8,500</span>
                     <span class="price-unit">/คืน</span>
@@ -735,7 +748,7 @@
                     <tr>
                         <th style="width: 35%;">สิ่งที่คุณจะได้รับ</th>
                         <th class="col-highlight" style="width: 32.5%;">Hotel Addict (แนะนำ)</th>
-                        <th style="width: 32.5%;">เว็บจองทั่วไป</th>
+                        <th style="width: 32.5%;"><img src="https://www.google.com/s2/favicons?domain=agoda.com&sz=32" alt="Agoda" width="16" height="16" style="border-radius:3px;vertical-align:middle;margin-right:4px;">Agoda</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -779,6 +792,7 @@
 </div>
     </div><!-- /real-content -->
 </div><!-- /skeleton-wrapper #skelTrinityResults -->
+</main>
 
 
 <!-- === FOOTER === -->
@@ -791,7 +805,7 @@
                     <span style="font-family:var(--font-heading);font-size:var(--text-h4);font-weight:var(--fw-bold);color:#FFFFFF;">Hotel <span class="footer__gold">Addict</span></span>
                 </a>
                 <p style="color:var(--text-muted);font-size:var(--text-body-sm);line-height:var(--lh-body-sm);max-width:340px;margin-bottom:var(--space-lg);">
-                    ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง เพราะเราเจรจาราคาพิเศษที่ไม่มีที่ไหนได้
+                    วอชเชอร์โรงแรมหรู ซื้อก่อน เลือกวันทีหลัง เพราะเราเจรจาราคาพิเศษที่ไม่มีที่ไหนได้
                 </p>
                 <div class="footer__social">
                     <button class="footer__social-btn" aria-label="Facebook">
@@ -825,7 +839,7 @@
                 <div class="footer__heading">ช่วยเหลือ</div>
                 <ul class="footer__list">
                     <li><a href="#">ศูนย์ช่วยเหลือ</a></li>
-                    <li><a href="#">วิธีจองวอชเชอร์</a></li>
+                    <li><a href="#">วิธีซื้อวอชเชอร์</a></li>
                     <li><a href="#">นโยบายการยกเลิก</a></li>
                     <li><a href="#">ข้อกำหนดการใช้งาน</a></li>
                 </ul>

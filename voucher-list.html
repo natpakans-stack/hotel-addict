@@ -165,6 +165,105 @@
             outline: none;
         }
 
+        /* === Destination Banner === */
+        .dest-banner {
+            position: relative;
+            height: 140px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-bottom: var(--space-lg);
+        }
+        .dest-banner__bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+        }
+        .dest-banner__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(16,17,20,0.7) 0%, rgba(16,17,20,0.3) 100%);
+        }
+        .dest-banner__content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: var(--space-lg) var(--space-xl);
+        }
+        .dest-banner__title {
+            font-family: var(--font-heading);
+            font-size: var(--text-h4);
+            font-weight: var(--fw-bold);
+            color: var(--bg-white);
+            margin-bottom: var(--space-xs);
+        }
+        .dest-banner__meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            font-size: var(--text-body-sm);
+            color: rgba(255,255,255,0.85);
+        }
+        .dest-banner__meta span {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        .dest-banner__tag {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 4px 12px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: var(--radius-full);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            color: var(--bg-white);
+        }
+        .dest-banner__clear {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: var(--space-xl);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: 6px 14px;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: none;
+            border-radius: var(--radius-full);
+            font-family: var(--font-body);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-semibold);
+            color: var(--text-body);
+            cursor: pointer;
+            transition: background var(--transition-fast);
+        }
+        .dest-banner__clear:hover {
+            background: var(--bg-white);
+        }
+
+        @media (max-width: 768px) {
+            .dest-banner {
+                height: 160px;
+                border-radius: var(--radius-lg);
+            }
+            .dest-banner__title {
+                font-size: var(--text-h3);
+            }
+            .dest-banner__content {
+                padding: var(--space-lg);
+            }
+        }
+
         /* Filter chips */
         .filter-chips {
             display: flex;
@@ -177,7 +276,7 @@
         .filter-chip {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             padding: 8px 16px;
             border-radius: var(--radius-full);
             font-family: var(--font-body);
@@ -204,6 +303,11 @@
 
         .filter-chip .material-symbols-outlined {
             font-size: 16px;
+        }
+
+        /* Filter overlay — hidden on desktop */
+        .filters-overlay {
+            display: none;
         }
 
         /* Content layout: sidebar + grid */
@@ -313,7 +417,7 @@
         .toolbar__filter-btn {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             padding: 8px 16px;
             border: 1.5px solid var(--border);
             border-radius: var(--radius-md);
@@ -703,7 +807,7 @@
         .voucher-card__perks {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 8px;
             margin-bottom: var(--space-md);
         }
 
@@ -724,30 +828,84 @@
 
         .voucher-card__footer {
             display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0;
             margin-top: auto;
             padding-top: var(--space-md);
             border-top: 1px solid var(--border);
         }
 
-        .voucher-card__price-original {
-            font-size: var(--text-body-sm);
+        /* Price Duel — side-by-side OTA vs Hotel Addict */
+        .voucher-card__price-duel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: var(--space-sm);
+        }
+
+        .price-duel__side {
+            padding: 12px 14px;
+            text-align: center;
+        }
+
+        .price-duel__side--ota {
+            background: #ECEDEF;
+        }
+
+        .price-duel__side--ha {
+            background: var(--color-gold-light);
+        }
+
+        .price-duel__label {
+            font-size: 11px;
+            font-weight: var(--fw-semibold);
+            margin-bottom: 4px;
+            letter-spacing: 0.02em;
+        }
+
+        .price-duel__side--ota .price-duel__label {
+            color: var(--text-muted);
+        }
+
+        .price-duel__side--ha .price-duel__label {
+            color: var(--color-gold-dark);
+        }
+
+        .price-duel__price {
+            font-family: var(--font-heading);
+            font-weight: var(--fw-bold);
+        }
+
+        .price-duel__side--ota .price-duel__price {
+            font-size: var(--text-body-md);
             color: var(--text-muted);
             text-decoration: line-through;
         }
 
-        .voucher-card__price {
-            font-family: var(--font-heading);
+        .price-duel__side--ha .price-duel__price {
             font-size: var(--text-body-lg);
-            font-weight: var(--fw-bold);
             color: var(--text-primary);
         }
 
-        .voucher-card__price-unit {
-            font-size: var(--text-body-sm);
+        .price-duel__unit {
+            font-size: 11px;
             font-weight: var(--fw-regular);
             color: var(--text-secondary);
+        }
+
+        /* Footer bottom row: savings + discount badge */
+        .voucher-card__footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .voucher-card__savings-text {
+            font-size: var(--text-micro);
+            font-weight: var(--fw-semibold);
+            color: var(--color-gold-dark);
         }
 
         .voucher-card__discount {
@@ -806,9 +964,52 @@
                 flex-direction: column;
             }
 
+            /* Bottom-sheet overlay backdrop */
+            .filters-overlay {
+                display: block;
+                position: fixed;
+                inset: 0;
+                background: rgba(16, 17, 20, 0.5);
+                z-index: 999;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s ease, visibility 0.3s ease;
+            }
+
+            .filters-overlay.is-visible {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            /* Side modal filter panel — slides from left */
             .filters {
-                width: 100%;
-                position: static;
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: auto;
+                z-index: 1000;
+                width: 85%;
+                max-width: 320px;
+                height: 100%;
+                max-height: none;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                border: none;
+                border-radius: 0 var(--radius-xl) var(--radius-xl) 0;
+                padding: var(--space-lg);
+                margin: 0;
+                opacity: 1;
+                transform: translateX(-100%);
+                transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+                box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+                border-color: transparent;
+            }
+
+            .filters.is-open {
+                display: block;
+                transform: translateX(0);
+                border-color: transparent;
             }
 
             .voucher-grid--list .voucher-card {
@@ -824,20 +1025,152 @@
 
         @media (max-width: 640px) {
             .voucher-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-sm);
             }
 
-            .search-row {
+            /* ===== COMPACT CARD — minimal mobile 2-col ===== */
+            .voucher-card {
+                border-radius: var(--radius-md);
+            }
+            .voucher-card__body {
+                padding: 8px;
+            }
+            /* Hide: category, stars, perks, price-duel, savings */
+            .voucher-card__meta,
+            .voucher-card__perks,
+            .price-duel,
+            .voucher-card__savings-text,
+            .voucher-card__rating {
+                display: none !important;
+            }
+            .voucher-card__name {
+                font-size: 13px;
+                font-weight: 600;
+                margin-bottom: 2px;
+                line-height: 1.3;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .voucher-card__location {
+                font-size: 11px;
+                margin-bottom: 6px;
+            }
+            .voucher-card__location .material-symbols-outlined {
+                font-size: 13px;
+            }
+            /* Simple price row: ฿12,500 -32% */
+            .voucher-card__footer {
+                border-top: none;
+                padding-top: 0;
+                margin-top: 0;
+            }
+            .voucher-card__price {
+                font-size: 15px;
+            }
+            .voucher-card__price-original {
+                font-size: 10px;
+            }
+            .voucher-card__price-unit {
+                font-size: 10px;
+            }
+            .voucher-card__discount {
+                font-size: 9px;
+                padding: 2px 5px;
+            }
+
+            .voucher-card__badge {
+                top: 8px;
+                left: 8px;
+                font-size: 10px;
+                padding: 3px 6px;
+            }
+
+            .voucher-card__wishlist {
+                top: 8px;
+                right: 8px;
+                width: 28px;
+                height: 28px;
+            }
+
+            .voucher-card__wishlist .material-symbols-outlined {
+                font-size: 16px;
+            }
+
+            /* Force grid view on small mobile — no list view */
+            .voucher-grid--list {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            .voucher-grid--list .voucher-card {
                 flex-direction: column;
             }
 
-            .search-btn {
+            .voucher-grid--list .voucher-card__image {
                 width: 100%;
-                justify-content: center;
+                aspect-ratio: 16/10;
+                height: auto;
+            }
+
+            /* Search bar: single row — input + compact pill button */
+            .search-section {
+                padding: var(--space-md) 0;
+            }
+
+            .search-row {
+                flex-direction: row;
+            }
+
+            .search-input-wrap {
+                padding: 8px 12px;
+            }
+
+            .search-btn {
+                width: auto;
+                height: 40px;
+                padding: 0 16px;
+                border-radius: var(--radius-full);
+                font-size: var(--text-body-sm);
+            }
+
+            .search-btn .material-symbols-outlined {
+                font-size: 18px;
+            }
+
+            /* Category chips: horizontal scroll, no wrap */
+            .filter-chips {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding-bottom: var(--space-sm);
+                margin-left: calc(-1 * var(--space-md));
+                margin-right: calc(-1 * var(--space-md));
+                padding-left: var(--space-md);
+                padding-right: var(--space-md);
+            }
+
+            .filter-chips::-webkit-scrollbar {
+                display: none;
+            }
+
+            .filter-chip {
+                white-space: nowrap;
+                flex-shrink: 0;
             }
 
             .toolbar__view-toggle {
                 display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
@@ -923,7 +1256,7 @@
                 <div class="search-row">
                     <div class="search-input-wrap">
                         <span class="material-symbols-outlined">search</span>
-                        <input type="text" placeholder="ค้นหาโรงแรม จุดหมาย หรือชื่อวอชเชอร์..." aria-label="ค้นหาวอชเชอร์">
+                        <input type="text" placeholder="ค้นหาโรงแรม จุดหมาย หรือชื่อวอชเชอร์..." aria-label="ค้นหาวอชเชอร์" value="กรุงเทพ">
                     </div>
                     <button class="search-btn">
                         <span class="material-symbols-outlined">search</span>
@@ -932,28 +1265,33 @@
                 </div>
 
                 <!-- Filter chips -->
-                <div class="filter-chips" style="margin-top:var(--space-md);">
-                    <button class="filter-chip filter-chip--active">
+                <div class="filter-chips" role="tablist" style="margin-top:var(--space-md);">
+                    <button class="filter-chip filter-chip--active" role="tab" aria-selected="true">
+                        <span class="material-symbols-outlined">location_on</span>
+                        กรุงเทพ
+                        <span class="material-symbols-outlined" style="font-size:16px;margin-left:2px;">close</span>
+                    </button>
+                    <button class="filter-chip" role="tab" aria-selected="false">
                         <span class="material-symbols-outlined">local_fire_department</span>
                         ทั้งหมด
                     </button>
-                    <button class="filter-chip">
+                    <button class="filter-chip" role="tab" aria-selected="false">
                         <span class="material-symbols-outlined">beach_access</span>
                         ทะเล
                     </button>
-                    <button class="filter-chip">
+                    <button class="filter-chip" role="tab" aria-selected="false">
                         <span class="material-symbols-outlined">landscape</span>
                         ภูเขา
                     </button>
-                    <button class="filter-chip">
+                    <button class="filter-chip" role="tab" aria-selected="false">
                         <span class="material-symbols-outlined">location_city</span>
                         ในเมือง
                     </button>
-                    <button class="filter-chip">
+                    <button class="filter-chip" role="tab" aria-selected="false">
                         <span class="material-symbols-outlined">spa</span>
                         สปา & เวลเนส
                     </button>
-                    <button class="filter-chip">
+                    <button class="filter-chip" role="tab" aria-selected="false">
                         <span class="material-symbols-outlined">family_restroom</span>
                         ครอบครัว
                     </button>
@@ -964,6 +1302,33 @@
 
     <!-- ==================== MAIN CONTENT ==================== -->
     <main class="container">
+
+        <!-- Destination Banner -->
+        <div class="dest-banner" id="destBanner" style="margin-top:var(--space-lg);display:none;">
+            <div class="dest-banner__bg" style="background-image:url('assets/images/destinations/dest-bangkok-hd.jpg');"></div>
+            <div class="dest-banner__overlay"></div>
+            <button class="dest-banner__clear" onclick="this.closest('.dest-banner').style.display='none'">
+                <span class="material-symbols-outlined" style="font-size:16px;">close</span>
+                ล้างตัวกรอง
+            </button>
+            <div class="dest-banner__content">
+                <h1 class="dest-banner__title">วอชเชอร์โรงแรมในกรุงเทพ</h1>
+                <div class="dest-banner__meta">
+                    <span>
+                        <span class="material-symbols-outlined" style="font-size:16px;">confirmation_number</span>
+                        42 วอชเชอร์
+                    </span>
+                    <span>
+                        <span class="material-symbols-outlined" style="font-size:16px;">hotel</span>
+                        28 โรงแรม
+                    </span>
+                    <div class="dest-banner__tag">
+                        <span class="material-symbols-outlined" style="font-size:14px;">bolt</span>
+                        เริ่มต้น ฿2,900/คืน
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Toolbar -->
         <div class="toolbar">
@@ -991,6 +1356,7 @@
         <div class="content-layout">
 
             <!-- Sidebar filters -->
+            <div class="filters-overlay" id="filtersOverlay" onclick="toggleFilter()"></div>
             <aside class="filters is-open" id="filterSidebar">
                 <div class="filters__header">
                     <span class="filters__title">ตัวกรอง</span>
@@ -1002,9 +1368,9 @@
                 <div class="filter-group">
                     <h3 class="filter-group__title">ช่วงราคา</h3>
                     <div class="price-range">
-                        <input type="text" class="price-range__input" placeholder="฿0" aria-label="ราคาต่ำสุด">
+                        <input type="text" inputmode="numeric" class="price-range__input" placeholder="฿0" aria-label="ราคาต่ำสุด">
                         <span class="price-range__sep">—</span>
-                        <input type="text" class="price-range__input" placeholder="฿50,000" aria-label="ราคาสูงสุด">
+                        <input type="text" inputmode="numeric" class="price-range__input" placeholder="฿50,000" aria-label="ราคาสูงสุด">
                     </div>
                 </div>
 
@@ -1029,43 +1395,50 @@
                 </div>
 
                 <!-- Location -->
-                <div class="filter-group">
+                <div class="filter-group" id="destFilterGroup">
                     <h3 class="filter-group__title">จุดหมาย</h3>
-                    <label class="filter-option">
-                        <input type="checkbox">
-                        กรุงเทพมหานคร
-                        <span class="filter-option__count">12</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox">
-                        ภูเก็ต
-                        <span class="filter-option__count">10</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox">
-                        หัวหิน
-                        <span class="filter-option__count">8</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox">
-                        เขาใหญ่
-                        <span class="filter-option__count">6</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox">
-                        เกาะสมุย
-                        <span class="filter-option__count">5</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox">
-                        เชียงใหม่
-                        <span class="filter-option__count">4</span>
-                    </label>
-                    <label class="filter-option">
-                        <input type="checkbox">
-                        กระบี่
-                        <span class="filter-option__count">3</span>
-                    </label>
+                    <div style="position:relative;margin-bottom:8px;">
+                        <span class="material-symbols-outlined" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--text-muted);">search</span>
+                        <input type="text" id="destSearch" placeholder="ค้นหาจุดหมาย..." style="width:100%;padding:8px 10px 8px 34px;border:1px solid var(--border);border-radius:var(--radius-md);font-size:var(--text-body-sm);font-family:var(--font-body);outline:none;" oninput="filterDest(this.value)">
+                    </div>
+                    <div id="destList">
+                        <label class="filter-option">
+                            <input type="checkbox" checked>
+                            กรุงเทพมหานคร
+                            <span class="filter-option__count">12</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            ภูเก็ต
+                            <span class="filter-option__count">10</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            หัวหิน
+                            <span class="filter-option__count">8</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            เขาใหญ่
+                            <span class="filter-option__count">6</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox">
+                            เกาะสมุย
+                            <span class="filter-option__count">5</span>
+                        </label>
+                        <label class="filter-option" style="display:none;" data-extra>
+                            <input type="checkbox">
+                            เชียงใหม่
+                            <span class="filter-option__count">4</span>
+                        </label>
+                        <label class="filter-option" style="display:none;" data-extra>
+                            <input type="checkbox">
+                            กระบี่
+                            <span class="filter-option__count">3</span>
+                        </label>
+                    </div>
+                    <button type="button" id="destSeeMore" onclick="toggleDestMore()" style="background:none;border:none;color:var(--color-gold-dark);font-size:var(--text-body-sm);font-weight:600;cursor:pointer;padding:6px 0;font-family:var(--font-body);">ดูเพิ่มเติม (2)</button>
                 </div>
 
                 <!-- Perks -->
@@ -1131,7 +1504,7 @@
                                         <div class="skel skel-chip" style="width:76px;height:28px;"></div>
                                     </div>
                                     <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
-                                        <div class="skel-stack" style="gap:6px;">
+                                        <div class="skel-stack" style="gap:8px;">
                                             <div class="skel skel-text skel-text--caption" style="width:80px;"></div>
                                             <div class="skel skel-text" style="width:120px;height:22px;"></div>
                                         </div>
@@ -1155,7 +1528,7 @@
                                         <div class="skel skel-chip" style="width:76px;height:28px;"></div>
                                     </div>
                                     <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
-                                        <div class="skel-stack" style="gap:6px;">
+                                        <div class="skel-stack" style="gap:8px;">
                                             <div class="skel skel-text skel-text--caption" style="width:80px;"></div>
                                             <div class="skel skel-text" style="width:120px;height:22px;"></div>
                                         </div>
@@ -1179,7 +1552,7 @@
                                         <div class="skel skel-chip" style="width:76px;height:28px;"></div>
                                     </div>
                                     <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
-                                        <div class="skel-stack" style="gap:6px;">
+                                        <div class="skel-stack" style="gap:8px;">
                                             <div class="skel skel-text skel-text--caption" style="width:80px;"></div>
                                             <div class="skel skel-text" style="width:120px;height:22px;"></div>
                                         </div>
@@ -1203,7 +1576,7 @@
                                         <div class="skel skel-chip" style="width:76px;height:28px;"></div>
                                     </div>
                                     <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
-                                        <div class="skel-stack" style="gap:6px;">
+                                        <div class="skel-stack" style="gap:8px;">
                                             <div class="skel skel-text skel-text--caption" style="width:80px;"></div>
                                             <div class="skel skel-text" style="width:120px;height:22px;"></div>
                                         </div>
@@ -1227,7 +1600,7 @@
                                         <div class="skel skel-chip" style="width:76px;height:28px;"></div>
                                     </div>
                                     <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
-                                        <div class="skel-stack" style="gap:6px;">
+                                        <div class="skel-stack" style="gap:8px;">
                                             <div class="skel skel-text skel-text--caption" style="width:80px;"></div>
                                             <div class="skel skel-text" style="width:120px;height:22px;"></div>
                                         </div>
@@ -1251,7 +1624,7 @@
                                         <div class="skel skel-chip" style="width:76px;height:28px;"></div>
                                     </div>
                                     <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
-                                        <div class="skel-stack" style="gap:6px;">
+                                        <div class="skel-stack" style="gap:8px;">
                                             <div class="skel skel-text skel-text--caption" style="width:80px;"></div>
                                             <div class="skel skel-text" style="width:120px;height:22px;"></div>
                                         </div>
@@ -1296,11 +1669,20 @@
                                 <span class="voucher-card__perk"><span class="material-symbols-outlined">schedule</span>Late C/O</span>
                             </div>
                             <div class="voucher-card__footer">
-                                <div>
-                                    <div class="voucher-card__price-original">฿18,500</div>
-                                    <div class="voucher-card__price">฿12,500 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                <div class="voucher-card__price-duel">
+                                    <div class="price-duel__side price-duel__side--ota">
+                                        <div class="price-duel__label">ราคา OTA เฉลี่ย</div>
+                                        <div class="price-duel__price">฿18,500 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
+                                    <div class="price-duel__side price-duel__side--ha">
+                                        <div class="price-duel__label">Hotel Addict</div>
+                                        <div class="price-duel__price">฿12,500 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
                                 </div>
-                                <span class="voucher-card__discount">-32%</span>
+                                <div class="voucher-card__footer-bottom">
+                                    <span class="voucher-card__savings-text">ประหยัด ฿6,000 จาก OTA</span>
+                                    <span class="voucher-card__discount">-32%</span>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -1335,11 +1717,20 @@
                                 <span class="voucher-card__perk"><span class="material-symbols-outlined">airport_shuttle</span>รถรับ-ส่ง</span>
                             </div>
                             <div class="voucher-card__footer">
-                                <div>
-                                    <div class="voucher-card__price-original">฿55,000</div>
-                                    <div class="voucher-card__price">฿39,900 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                <div class="voucher-card__price-duel">
+                                    <div class="price-duel__side price-duel__side--ota">
+                                        <div class="price-duel__label">ราคา OTA เฉลี่ย</div>
+                                        <div class="price-duel__price">฿55,000 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
+                                    <div class="price-duel__side price-duel__side--ha">
+                                        <div class="price-duel__label">Hotel Addict</div>
+                                        <div class="price-duel__price">฿39,900 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
                                 </div>
-                                <span class="voucher-card__discount">-27%</span>
+                                <div class="voucher-card__footer-bottom">
+                                    <span class="voucher-card__savings-text">ประหยัด ฿15,100 จาก OTA</span>
+                                    <span class="voucher-card__discount">-27%</span>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -1374,11 +1765,20 @@
                                 <span class="voucher-card__perk"><span class="material-symbols-outlined">spa</span>สปา</span>
                             </div>
                             <div class="voucher-card__footer">
-                                <div>
-                                    <div class="voucher-card__price-original">฿16,800</div>
-                                    <div class="voucher-card__price">฿11,500 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                <div class="voucher-card__price-duel">
+                                    <div class="price-duel__side price-duel__side--ota">
+                                        <div class="price-duel__label">ราคา OTA เฉลี่ย</div>
+                                        <div class="price-duel__price">฿16,800 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
+                                    <div class="price-duel__side price-duel__side--ha">
+                                        <div class="price-duel__label">Hotel Addict</div>
+                                        <div class="price-duel__price">฿11,500 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
                                 </div>
-                                <span class="voucher-card__discount">-32%</span>
+                                <div class="voucher-card__footer-bottom">
+                                    <span class="voucher-card__savings-text">ประหยัด ฿5,300 จาก OTA</span>
+                                    <span class="voucher-card__discount">-32%</span>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -1413,11 +1813,20 @@
                                 <span class="voucher-card__perk"><span class="material-symbols-outlined">spa</span>สปา</span>
                             </div>
                             <div class="voucher-card__footer">
-                                <div>
-                                    <div class="voucher-card__price-original">฿21,000</div>
-                                    <div class="voucher-card__price">฿15,000 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                <div class="voucher-card__price-duel">
+                                    <div class="price-duel__side price-duel__side--ota">
+                                        <div class="price-duel__label">ราคา OTA เฉลี่ย</div>
+                                        <div class="price-duel__price">฿21,000 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
+                                    <div class="price-duel__side price-duel__side--ha">
+                                        <div class="price-duel__label">Hotel Addict</div>
+                                        <div class="price-duel__price">฿15,000 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
                                 </div>
-                                <span class="voucher-card__discount">-29%</span>
+                                <div class="voucher-card__footer-bottom">
+                                    <span class="voucher-card__savings-text">ประหยัด ฿6,000 จาก OTA</span>
+                                    <span class="voucher-card__discount">-29%</span>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -1451,11 +1860,20 @@
                                 <span class="voucher-card__perk"><span class="material-symbols-outlined">pool</span>Pool Villa</span>
                             </div>
                             <div class="voucher-card__footer">
-                                <div>
-                                    <div class="voucher-card__price-original">฿28,000</div>
-                                    <div class="voucher-card__price">฿19,500 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                <div class="voucher-card__price-duel">
+                                    <div class="price-duel__side price-duel__side--ota">
+                                        <div class="price-duel__label">ราคา OTA เฉลี่ย</div>
+                                        <div class="price-duel__price">฿28,000 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
+                                    <div class="price-duel__side price-duel__side--ha">
+                                        <div class="price-duel__label">Hotel Addict</div>
+                                        <div class="price-duel__price">฿19,500 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
                                 </div>
-                                <span class="voucher-card__discount">-30%</span>
+                                <div class="voucher-card__footer-bottom">
+                                    <span class="voucher-card__savings-text">ประหยัด ฿8,500 จาก OTA</span>
+                                    <span class="voucher-card__discount">-30%</span>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -1488,11 +1906,20 @@
                                 <span class="voucher-card__perk"><span class="material-symbols-outlined">schedule</span>Late C/O</span>
                             </div>
                             <div class="voucher-card__footer">
-                                <div>
-                                    <div class="voucher-card__price-original">฿9,800</div>
-                                    <div class="voucher-card__price">฿6,500 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                <div class="voucher-card__price-duel">
+                                    <div class="price-duel__side price-duel__side--ota">
+                                        <div class="price-duel__label">ราคา OTA เฉลี่ย</div>
+                                        <div class="price-duel__price">฿9,800 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
+                                    <div class="price-duel__side price-duel__side--ha">
+                                        <div class="price-duel__label">Hotel Addict</div>
+                                        <div class="price-duel__price">฿6,500 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
                                 </div>
-                                <span class="voucher-card__discount">-34%</span>
+                                <div class="voucher-card__footer-bottom">
+                                    <span class="voucher-card__savings-text">ประหยัด ฿3,300 จาก OTA</span>
+                                    <span class="voucher-card__discount">-34%</span>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -1526,11 +1953,20 @@
                                 <span class="voucher-card__perk"><span class="material-symbols-outlined">pool</span>สระว่ายน้ำ</span>
                             </div>
                             <div class="voucher-card__footer">
-                                <div>
-                                    <div class="voucher-card__price-original">฿12,500</div>
-                                    <div class="voucher-card__price">฿8,900 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                <div class="voucher-card__price-duel">
+                                    <div class="price-duel__side price-duel__side--ota">
+                                        <div class="price-duel__label">ราคา OTA เฉลี่ย</div>
+                                        <div class="price-duel__price">฿12,500 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
+                                    <div class="price-duel__side price-duel__side--ha">
+                                        <div class="price-duel__label">Hotel Addict</div>
+                                        <div class="price-duel__price">฿8,900 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
                                 </div>
-                                <span class="voucher-card__discount">-29%</span>
+                                <div class="voucher-card__footer-bottom">
+                                    <span class="voucher-card__savings-text">ประหยัด ฿3,600 จาก OTA</span>
+                                    <span class="voucher-card__discount">-29%</span>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -1565,11 +2001,20 @@
                                 <span class="voucher-card__perk"><span class="material-symbols-outlined">schedule</span>Late C/O</span>
                             </div>
                             <div class="voucher-card__footer">
-                                <div>
-                                    <div class="voucher-card__price-original">฿19,200</div>
-                                    <div class="voucher-card__price">฿14,200 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                <div class="voucher-card__price-duel">
+                                    <div class="price-duel__side price-duel__side--ota">
+                                        <div class="price-duel__label">ราคา OTA เฉลี่ย</div>
+                                        <div class="price-duel__price">฿19,200 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
+                                    <div class="price-duel__side price-duel__side--ha">
+                                        <div class="price-duel__label">Hotel Addict</div>
+                                        <div class="price-duel__price">฿14,200 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
                                 </div>
-                                <span class="voucher-card__discount">-26%</span>
+                                <div class="voucher-card__footer-bottom">
+                                    <span class="voucher-card__savings-text">ประหยัด ฿5,000 จาก OTA</span>
+                                    <span class="voucher-card__discount">-26%</span>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -1603,11 +2048,20 @@
                                 <span class="voucher-card__perk"><span class="material-symbols-outlined">spa</span>สปา</span>
                             </div>
                             <div class="voucher-card__footer">
-                                <div>
-                                    <div class="voucher-card__price-original">฿14,500</div>
-                                    <div class="voucher-card__price">฿9,800 <span class="voucher-card__price-unit">/ คืน</span></div>
+                                <div class="voucher-card__price-duel">
+                                    <div class="price-duel__side price-duel__side--ota">
+                                        <div class="price-duel__label">ราคา OTA เฉลี่ย</div>
+                                        <div class="price-duel__price">฿14,500 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
+                                    <div class="price-duel__side price-duel__side--ha">
+                                        <div class="price-duel__label">Hotel Addict</div>
+                                        <div class="price-duel__price">฿9,800 <span class="price-duel__unit">/ คืน</span></div>
+                                    </div>
                                 </div>
-                                <span class="voucher-card__discount">-32%</span>
+                                <div class="voucher-card__footer-bottom">
+                                    <span class="voucher-card__savings-text">ประหยัด ฿4,700 จาก OTA</span>
+                                    <span class="voucher-card__discount">-32%</span>
+                                </div>
                             </div>
                         </div>
                     </a>
@@ -1635,7 +2089,7 @@
             <div class="footer__grid">
                 <div class="footer__col">
                     <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
-                    <p class="footer__desc">ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง</p>
+                    <p class="footer__desc">วอชเชอร์โรงแรมหรู ซื้อก่อน เลือกวันทีหลัง</p>
                     <div class="footer__social">
                         <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
                         <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
@@ -1646,7 +2100,7 @@
                     <h4 class="footer__heading">บริการลูกค้า</h4>
                     <ul class="footer__list">
                         <li><a href="#">ศูนย์ช่วยเหลือ</a></li>
-                        <li><a href="#">วิธีจองวอชเชอร์</a></li>
+                        <li><a href="#">วิธีซื้อวอชเชอร์</a></li>
                         <li><a href="#">นโยบายการยกเลิก</a></li>
                         <li><a href="#">ติดต่อเรา</a></li>
                     </ul>
@@ -1663,7 +2117,7 @@
                 <div class="footer__col">
                     <h4 class="footer__heading">ค้นพบ</h4>
                     <ul class="footer__list">
-                        <li><a href="index.html">ดีลโรงแรม</a></li>
+                        <li><a href="index.html">วอชเชอร์โรงแรม</a></li>
                         <li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li>
                         <li><a href="wishlist.html">รายการโปรด</a></li>
                         <li><a href="voucher-list.html">ค้นหาวอชเชอร์</a></li>
@@ -1688,12 +2142,49 @@
 
     <script src="js/main.js"></script>
     <script>
+        // Collapse filter panel on mobile by default
+        (function() {
+            if (window.innerWidth <= 768) {
+                var sidebar = document.getElementById('filterSidebar');
+                var btn = document.getElementById('filterToggleBtn');
+                if (sidebar) sidebar.classList.remove('is-open');
+                if (btn) btn.classList.remove('is-active');
+            }
+        })();
+
         // Toggle filter sidebar
         function toggleFilter() {
             const sidebar = document.getElementById('filterSidebar');
             const btn = document.getElementById('filterToggleBtn');
+            const overlay = document.getElementById('filtersOverlay');
             sidebar.classList.toggle('is-open');
             btn.classList.toggle('is-active');
+            if (overlay) {
+                overlay.classList.toggle('is-visible', sidebar.classList.contains('is-open'));
+            }
+            // Prevent body scroll when bottom sheet is open on mobile
+            if (window.innerWidth <= 768) {
+                document.body.style.overflow = sidebar.classList.contains('is-open') ? 'hidden' : '';
+            }
+        }
+
+        // Destination filter: see more / search
+        var destExpanded = false;
+        function toggleDestMore() {
+            destExpanded = !destExpanded;
+            var extras = document.querySelectorAll('#destList [data-extra]');
+            extras.forEach(function(el) { el.style.display = destExpanded ? '' : 'none'; });
+            document.getElementById('destSeeMore').textContent = destExpanded ? 'แสดงน้อยลง' : 'ดูเพิ่มเติม (2)';
+        }
+        function filterDest(q) {
+            var items = document.querySelectorAll('#destList .filter-option');
+            var lower = q.toLowerCase();
+            items.forEach(function(el) {
+                var text = el.textContent.toLowerCase();
+                el.style.display = text.includes(lower) ? '' : 'none';
+            });
+            // Hide see more when searching
+            document.getElementById('destSeeMore').style.display = q.length > 0 ? 'none' : '';
         }
 
         // Reset all filter checkboxes
@@ -1746,6 +2237,84 @@
                 }, 400);
             }, 250);
         }
+    </script>
+
+    <!-- Destination context from URL param -->
+    <script>
+    (function() {
+        var params = new URLSearchParams(window.location.search);
+        var dest = params.get('dest');
+        if (!dest) return;
+
+        var destinations = {
+            'กรุงเทพ': {
+                title: 'วอชเชอร์โรงแรมในกรุงเทพ',
+                img: 'assets/images/destinations/dest-bangkok-hd.jpg',
+                vouchers: 42, hotels: 28, startPrice: '2,900',
+                filterName: 'กรุงเทพมหานคร'
+            },
+            'หัวหิน': {
+                title: 'วอชเชอร์โรงแรมในหัวหิน',
+                img: 'assets/images/destinations/dest-huahin-hd.jpg',
+                vouchers: 18, hotels: 12, startPrice: '3,500',
+                filterName: 'หัวหิน'
+            },
+            'เขาใหญ่': {
+                title: 'วอชเชอร์โรงแรมในเขาใหญ่',
+                img: 'assets/images/destinations/dest-khaoyai-hd.jpg',
+                vouchers: 14, hotels: 9, startPrice: '4,200',
+                filterName: 'เขาใหญ่'
+            },
+            'เกาะสมุย': {
+                title: 'วอชเชอร์โรงแรมในเกาะสมุย',
+                img: 'assets/images/destinations/dest-samui-hd.jpg',
+                vouchers: 22, hotels: 15, startPrice: '3,800',
+                filterName: 'เกาะสมุย'
+            },
+            'ภูเก็ต': {
+                title: 'วอชเชอร์โรงแรมในภูเก็ต',
+                img: 'assets/images/destinations/dest-phuket-hd.jpg',
+                vouchers: 35, hotels: 24, startPrice: '2,500',
+                filterName: 'ภูเก็ต'
+            }
+        };
+
+        var d = destinations[dest];
+        if (!d) return;
+
+        // Update search input
+        var searchInput = document.querySelector('.search-input-wrap input');
+        if (searchInput) searchInput.value = dest;
+
+        // Update banner
+        var banner = document.querySelector('.dest-banner');
+        if (banner) {
+            banner.querySelector('.dest-banner__bg').style.backgroundImage = "url('" + d.img + "')";
+            banner.querySelector('.dest-banner__title').textContent = d.title;
+            var metaSpans = banner.querySelectorAll('.dest-banner__meta > span');
+            if (metaSpans[0]) metaSpans[0].innerHTML = '<span class="material-symbols-outlined" style="font-size:16px;">confirmation_number</span>' + d.vouchers + ' วอชเชอร์';
+            if (metaSpans[1]) metaSpans[1].innerHTML = '<span class="material-symbols-outlined" style="font-size:16px;">hotel</span>' + d.hotels + ' โรงแรม';
+            var tag = banner.querySelector('.dest-banner__tag');
+            if (tag) tag.innerHTML = '<span class="material-symbols-outlined" style="font-size:14px;">bolt</span>เริ่มต้น ฿' + d.startPrice + '/คืน';
+        }
+
+        // Update active filter chip
+        var activeChip = document.querySelector('.filter-chip--active');
+        if (activeChip) {
+            var chipText = activeChip.childNodes;
+            // Update text content: icon + name + close icon
+            activeChip.innerHTML = '<span class="material-symbols-outlined">location_on</span>' + dest + '<span class="material-symbols-outlined" style="font-size:16px;margin-left:2px;">close</span>';
+        }
+
+        // Update sidebar checkbox
+        var checkboxes = document.querySelectorAll('.filter-option input[type="checkbox"]');
+        checkboxes.forEach(function(cb) {
+            var label = cb.closest('.filter-option');
+            if (!label) return;
+            var text = label.textContent.trim();
+            cb.checked = text.indexOf(d.filterName) !== -1;
+        });
+    })();
     </script>
 </body>
 </html>

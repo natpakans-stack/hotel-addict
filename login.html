@@ -516,13 +516,22 @@
         .login-hero__social-proof {
             animation: fadeInUp 0.6s ease 0.2s both;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
 <body>
 
 <!-- ==================== SKELETON + CONTENT ==================== -->
 
-<div class="login-page">
+<main class="login-page">
 
     <!-- ======================== -->
     <!-- LEFT: Hero Image Panel   -->
@@ -540,7 +549,7 @@
 
             <!-- Heading -->
             <div class="login-hero__heading">
-                <h1>ปลดล็อกดีลโรงแรมหรูที่คนอื่นเข้าไม่ถึง</h1>
+                <h1>ปลดล็อกวอชเชอร์โรงแรมหรูที่คนอื่นเข้าไม่ถึง</h1>
                 <p>เข้าสู่ระบบเพื่อรับราคาพิเศษเฉพาะสมาชิก พร้อมสิทธิ์จองก่อนใครและ Flash Deal ที่หมดเร็วที่สุด</p>
             </div>
 
@@ -583,10 +592,11 @@
                         <div class="input-wrapper">
                             <span class="material-symbols-outlined" aria-hidden="true">mail</span>
                             <input
-                                type="text"
+                                type="email"
                                 id="login-email"
                                 class="input"
                                 placeholder="example@email.com หรือ 0812345678"
+                                inputmode="email"
                                 autocomplete="username"
                                 required
                             >
@@ -676,7 +686,7 @@
         </div>
     </div>
 
-</div>
+</main>
 
 <!-- Main JS -->
 <script src="js/main.js"></script>

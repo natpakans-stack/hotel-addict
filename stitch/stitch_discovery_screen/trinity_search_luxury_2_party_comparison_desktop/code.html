@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#c5a572", // Gold accent for luxury feel
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#0a0f12",
+                        "navy-deep": "#101c22",
+                        "navy-accent": "#1a2a33",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #c5a572 0%, #e8d1a7 50%, #c5a572 100%);
+        }
+        .luxury-card-shadow {
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="relative flex h-auto min-h-screen w-full mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden border-x border-slate-200 dark:border-slate-800 max-w-7xl">
+<!-- Top Navigation -->
+<nav class="sticky top-0 z-50 w-full bg-background-dark/80 backdrop-blur-md border-b border-slate-800 px-8 py-4 flex items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="flex flex-col">
+<h2 class="text-white text-lg font-bold tracking-widest uppercase">TRINITY SEARCH</h2>
+<p class="text-[10px] text-primary font-semibold tracking-[0.2em] uppercase">Hotel Addict</p>
+</div>
+<div class="hidden md:flex items-center gap-6 ml-8">
+<a class="text-sm font-bold text-primary" href="#">หน้าแรก</a>
+<a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="#">ค้นหา</a>
+<a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="#">โปรโมชั่น</a>
+<a class="text-sm font-medium text-slate-300 hover:text-white transition-colors" href="#">บทความ</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+<input class="bg-navy-accent border-none rounded-full pl-10 pr-4 py-2 text-sm text-white w-64 focus:ring-1 focus:ring-primary" placeholder="ค้นหาโรงแรม..." type="text"/>
+</div>
+<button class="flex items-center gap-2 text-slate-300 hover:text-white transition-colors px-3 py-2">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+<button class="flex items-center gap-2 text-slate-300 hover:text-white transition-colors px-3 py-2 border-l border-slate-800 ml-2">
+<span class="material-symbols-outlined">person</span>
+<span class="text-sm font-medium hidden sm:block">โปรไฟล์</span>
+</button>
+</div>
+</nav>
+<!-- Hero Section -->
+<div class="@container">
+<div class="px-8 py-8">
+<div class="relative bg-cover bg-center flex flex-col justify-end overflow-hidden rounded-2xl min-h-[450px] luxury-card-shadow" style='background-image: linear-gradient(0deg, rgba(10, 15, 18, 0.9) 0%, rgba(10, 15, 18, 0.2) 50%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuABVdQARGOgu8eXjochUCypeYD_1umV6pue43tfTOjX8KOblxpvfA5Xmn6YkJrVZZ0KY__HdEtcuw32a_uwPCjpgx_CxKqqSva_txhm9V6cGNPSAMONvxILEDRgoRULKRtPho5ZGtq-fPN8_30KvYyaeREqUGRO2ILkrhfVN7RDTzWOubjotPQdIJXpQxXr9YxX_dsYnnMUtL9cmLv8_Fz-dInKDdRBYBaMpbTR8z4Bbg-ZjDyL8Re6JykJQ4p023iMh4A3fKmXr89n");'>
+<div class="flex flex-col p-10">
+<div class="flex items-center gap-1 mb-2">
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1">star</span>
+<span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'FILL' 1">star</span>
+</div>
+<h1 class="text-white tracking-tight text-5xl font-bold leading-tight mb-2">Paradise Pool Villa Resort</h1>
+<div class="flex items-center gap-2 text-slate-200">
+<span class="material-symbols-outlined">location_on</span>
+<p class="text-lg font-medium">เกาะสมุย, สุราษฎร์ธานี</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section Title -->
+<div class="px-4 pt-4 pb-2"><div class="flex items-center justify-between px-4">
+<h3 class="text-white text-3xl font-bold tracking-tight">Trinity Comparison</h3>
+<span class="text-sm font-bold text-primary bg-primary/10 px-4 py-2 rounded-full uppercase tracking-widest border border-primary/20">Exclusive Deals for you</span>
+</div></div>
+<!-- Comparison Cards -->
+<div class="px-8 grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+<!-- Hotel Addict Deal (Premium - Span 2 columns on desktop) -->
+<div class="lg:col-span-2 relative overflow-hidden rounded-2xl border-2 border-primary bg-navy-accent p-8 luxury-card-shadow flex flex-col justify-between">
+<div class="absolute top-0 right-0 gold-gradient px-8 py-2 rounded-bl-2xl">
+<span class="text-xs font-bold text-navy-deep uppercase tracking-widest">BEST VALUE DEAL</span>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-start gap-6">
+<div class="flex-1">
+<p class="text-primary text-sm font-bold uppercase tracking-widest mb-2">Hotel Addict Deal</p>
+<h4 class="text-3xl font-bold text-white mb-6">Exclusive Offer</h4>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex items-center gap-3 text-slate-200">
+<span class="material-symbols-outlined text-primary text-2xl">restaurant</span>
+<span class="text-base">ฟรีอาหารเช้าสำหรับ 2 ท่าน</span>
+</div>
+<div class="flex items-center gap-3 text-slate-200">
+<span class="material-symbols-outlined text-primary text-2xl">schedule</span>
+<span class="text-base">เช็คเอาท์ล่วงเวลา (Late Check-out)</span>
+</div>
+<div class="flex items-center gap-3 text-slate-200">
+<span class="material-symbols-outlined text-primary text-2xl">spa</span>
+<span class="text-base">เครดิตสปา ฿1,000 ต่อการเข้าพัก</span>
+</div>
+<div class="flex items-center gap-3 text-slate-200">
+<span class="material-symbols-outlined text-primary text-2xl">wifi</span>
+<span class="text-base">High-speed Wi-Fi ทั่วบริเวณ</span>
+</div>
+</div>
+</div>
+<div class="text-right flex flex-col items-end shrink-0">
+<p class="text-slate-400 text-lg line-through mb-1">฿10,000</p>
+<div class="flex items-baseline gap-2 mb-2">
+<span class="text-white text-5xl font-bold">฿6,500</span>
+<span class="text-slate-400 text-sm font-medium">/คืน</span>
+</div>
+<span class="text-green-400 text-sm font-bold bg-green-400/10 px-3 py-1 rounded-full border border-green-400/20">SAVE 35% TODAY</span>
+</div>
+</div>
+<button class="w-full mt-8 gold-gradient text-navy-deep text-lg font-bold py-4 rounded-xl hover:scale-[1.02] transition-transform shadow-xl">
+            จองราคานี้เลย (Confirm Booking)
+        </button>
+</div>
+<!-- OTA Deal (Standard) -->
+<div class="rounded-2xl border border-slate-800 bg-navy-deep p-8 flex flex-col">
+<div class="flex-1">
+<p class="text-slate-500 text-sm font-bold uppercase tracking-widest mb-2">OTA Deal</p>
+<h4 class="text-2xl font-bold text-white mb-6">Standard Rate</h4>
+<p class="text-slate-400 text-sm leading-relaxed mb-6">ราคามาตรฐานสำหรับการจองผ่านเอเจนซี่ทั่วไป ไม่รวมสิทธิประโยชน์พิเศษและกิจกรรมเสริมต่างๆ</p>
+<div class="space-y-4">
+<div class="flex items-center gap-3 text-slate-500">
+<span class="material-symbols-outlined text-xl">cancel</span>
+<span class="text-sm">ไม่มีอาหารเช้า</span>
+</div>
+<div class="flex items-center gap-3 text-slate-500">
+<span class="material-symbols-outlined text-xl">cancel</span>
+<span class="text-sm">เช็คเอาท์เวลาปกติ</span>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-slate-800">
+<div class="flex items-baseline justify-between mb-4">
+<span class="text-slate-400 text-sm">ราคาปกติจากตัวแทนทั่วไป</span>
+<div class="flex items-baseline gap-1">
+<span class="text-white text-3xl font-bold">฿8,500</span>
+<span class="text-slate-500 text-xs">/คืน</span>
+</div>
+</div>
+<button class="w-full border border-slate-700 text-white font-bold py-3 rounded-xl hover:bg-slate-800 transition-colors">
+                เลือกราคานี้
+            </button>
+</div>
+</div>
+</div>
+<!-- Comparison Table -->
+<div class="px-8 pb-32">
+<h4 class="text-white text-2xl font-bold mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl">analytics</span>
+        ตารางเปรียบเทียบรายละเอียด (Comparison Table)
+    </h4>
+<div class="overflow-hidden rounded-2xl border border-slate-800 bg-navy-deep luxury-card-shadow">
+<table class="w-full text-base text-left border-collapse">
+<thead class="bg-navy-accent text-slate-400 text-sm uppercase font-bold tracking-widest">
+<tr>
+<th class="p-6 border-b border-slate-800">รายละเอียดสิทธิประโยชน์</th>
+<th class="p-6 border-b border-slate-800 text-center text-primary bg-primary/5">Hotel Addict (Recommend)</th>
+<th class="p-6 border-b border-slate-800 text-center">OTA (Standard)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-800">
+<tr class="hover:bg-slate-800/30 transition-colors">
+<td class="p-6 text-slate-300 font-medium">ราคาต่อคืน (Rate per night)</td>
+<td class="p-6 text-center font-bold text-primary text-xl bg-primary/5">฿6,500</td>
+<td class="p-6 text-center font-medium text-slate-300 text-xl">฿8,500</td>
+</tr>
+<tr class="hover:bg-slate-800/30 transition-colors">
+<td class="p-6 text-slate-300">ส่วนลดพิเศษ (Special Discount)</td>
+<td class="p-6 text-center bg-primary/5">
+<span class="bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1.5 rounded-full border border-green-500/30">35% OFF SAVINGS</span>
+</td>
+<td class="p-6 text-center text-slate-500">-</td>
+</tr>
+<tr class="hover:bg-slate-800/30 transition-colors">
+<td class="p-6 text-slate-300">อาหารเช้า (Daily Breakfast)</td>
+<td class="p-6 text-center text-green-400 bg-primary/5">
+<span class="material-symbols-outlined text-3xl">check_circle</span>
+</td>
+<td class="p-6 text-center text-slate-600">
+<span class="material-symbols-outlined text-3xl">cancel</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-800/30 transition-colors">
+<td class="p-6 text-slate-300">สิทธิประโยชน์อื่น ๆ (Extra Perks)</td>
+<td class="p-6 text-center text-slate-200 font-medium bg-primary/5">สปาเครดิต &amp; Late Check-out</td>
+<td class="p-6 text-center text-slate-500 text-sm">ไม่มีสิทธิประโยชน์เพิ่มเติม</td>
+</tr>
+<tr class="hover:bg-slate-800/30 transition-colors">
+<td class="p-6 text-slate-300">นโยบายยกเลิก (Cancellation Policy)</td>
+<td class="p-6 text-center text-sm font-bold text-green-400 bg-primary/5">ยกเลิกฟรี 24 ชม. (Free Cancellation)</td>
+<td class="p-6 text-center text-sm text-slate-500 font-medium">ไม่คืนเงิน (Non-refundable)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Bottom NavBar -->
+</div>
+</body></html>

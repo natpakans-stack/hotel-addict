@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#c5a572",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#0a0f12",
+                        "gold": "#c5a572",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.75rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }</script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased"><div class="flex min-h-screen w-full bg-background-dark overflow-hidden">
+<!-- Left Column: Branding & Image -->
+<div class="hidden lg:flex lg:w-1/2 relative flex-col justify-end p-12 overflow-hidden">
+<img alt="Luxury Hotel" class="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-10000 hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1NezLIVdmWXw0ojCtvzTtHrmWXXMEncDv3ncPUTUq5MQKiULg9M8jOFCkPnPjKmFkPzJ_LwmHj7u6a9huLAPotRiDdCsCgzIKW8HMiAarLmZuQYfMSJtm52DnaDqUOowqrGRxflqzXavtaNns49tWPij_pd4H8EMs7myhVdhOuGBqe-WMOpovu7-EHMMIb7U8QHAO6s0nlvoarjdzW-1K-vcDJ3oxBXgrXe348SxcPAAXA9NAQozQYwvIfo2_waR0_UNDDH41LjlD"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-gold text-4xl">hotel_class</span>
+<h1 class="text-3xl font-bold tracking-tighter text-white uppercase">Hotel Addict</h1>
+</div>
+<h2 class="text-5xl font-bold text-white mb-4 leading-tight tracking-tight">สัมผัสประสบการณ์<br/><span class="text-gold">ความหรูหรา</span>ระดับพรีเมียม</h2>
+<p class="text-slate-300 text-xl max-w-md">ร่วมเป็นส่วนหนึ่งของคอมมูนิตี้ระดับเอ็กซ์คลูซีฟ พร้อมรับข้อเสนอโรงแรมที่พักสุดพิเศษสำหรับคุณเท่านั้น</p>
+</div>
+</div>
+<!-- Right Column: Form -->
+<div class="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 overflow-y-auto">
+<div class="w-full max-w-md space-y-8">
+<div class="lg:hidden flex items-center gap-2 mb-8 justify-center">
+<span class="material-symbols-outlined text-gold text-3xl">hotel_class</span>
+<h1 class="text-2xl font-bold tracking-tighter text-white uppercase">Hotel Addict</h1>
+</div>
+<div class="text-center lg:text-left">
+<h2 class="text-3xl font-bold text-white mb-2">สร้างบัญชีใหม่</h2>
+<p class="text-slate-400">กรอกข้อมูลของคุณเพื่อเริ่มต้นการเดินทางที่หรูหรา</p>
+</div>
+<!-- Form Fields -->
+<div class="space-y-5">
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-300">ชื่อ-นามสกุล</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">person</span>
+<input class="w-full bg-slate-900/50 border border-slate-800 rounded-xl h-14 pl-12 text-white focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-all" placeholder="สมชาย เข็มกลัด" type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-300">อีเมล</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">mail</span>
+<input class="w-full bg-slate-900/50 border border-slate-800 rounded-xl h-14 pl-12 text-white focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-all" placeholder="example@mail.com" type="email"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-300">เบอร์โทรศัพท์</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">phone</span>
+<input class="w-full bg-slate-900/50 border border-slate-800 rounded-xl h-14 pl-12 text-white focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-all" placeholder="081-234-5678" type="tel"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-semibold text-slate-300">รหัสผ่าน</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500">lock</span>
+<input class="w-full bg-slate-900/50 border border-slate-800 rounded-xl h-14 pl-12 pr-12 text-white focus:border-gold focus:ring-1 focus:ring-gold outline-none transition-all" placeholder="••••••••" type="password"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 cursor-pointer hover:text-white">visibility</span>
+</div>
+</div>
+</div>
+<button class="w-full bg-gold hover:bg-[#b39362] text-background-dark font-bold h-14 rounded-xl shadow-lg shadow-gold/10 transition-all active:scale-[0.98] mt-4">
+                ลงชื่อเข้าใช้งาน
+            </button>
+<div class="relative py-4 flex items-center gap-4">
+<div class="flex-1 h-px bg-slate-800"></div>
+<span class="text-xs font-bold text-slate-500 uppercase tracking-widest">หรือดำเนินการต่อด้วย</span>
+<div class="flex-1 h-px bg-slate-800"></div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-3 bg-transparent border border-slate-800 rounded-xl py-3 hover:bg-slate-900 transition-colors">
+<img alt="Google" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAxbM5TYfdkk64gUIiIJxGl0YPtRf83NkzkaLTUEggT2Cet6w0A5YyB0fO3IJ9YXFFiQ85biSXChOQY7w3-qD2GOJvu6dp1sUFIosK7aowkYSYHnL2JMT9azprDhzpvCgpcc4Pk6TV93C4JRt6K4Xrlxx6qCat1K0wrzeU94E7fhLylzkJV_xKEQDrkezNYYBTDYMQebt0ijiDH7ILuwilRN9dh9ZtOqOqcGy_awJ3qP2icUBtN80IADycwSjU23t8Apr6GxX-asZt"/>
+<span class="text-white text-sm font-semibold">Google</span>
+</button>
+<button class="flex items-center justify-center gap-3 bg-transparent border border-slate-800 rounded-xl py-3 hover:bg-slate-900 transition-colors">
+<img alt="Facebook" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADd3oW7DLk6BHYVTA_41BftviLj--VdrRZTDhQQL9QuAEdPGERVd91dfFfS4NrYNPu7C7oEAbogQzSTEd2RA3WjKBu-1yJSKYWd_11CLqHZL4L77tN1pKHV9X47RJ9zPmQp7_L306hfS5bGoQCJ9Fin0yfBrBOJRlLv5Y-zCKcOQS3AssJ3G8AF_c9LyR4QB6Ho9ZV2eW0xi8Pn3A4CgKzCKpgFZDSWsob2vOUrR55jv8tnOYuW3hWeestT5Lg0jPw2DiqPkdy_KHF"/>
+<span class="text-white text-sm font-semibold">Facebook</span>
+</button>
+</div>
+<p class="text-center text-slate-500 text-sm">
+                มีบัญชีอยู่แล้ว? 
+                <a class="text-gold font-bold hover:underline ml-1" href="#">เข้าสู่ระบบ</a>
+</p>
+</div>
+</div>
+</div></body></html>

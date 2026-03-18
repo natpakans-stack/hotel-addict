@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เลือกวันเข้าพัก — Hotel Addict</title>
-    <meta name="description" content="เลือกวันเข้าพักและส่งคำขอตรวจสอบห้องว่างไปยังโรงแรม">
+    <title>ใช้วอชเชอร์ — เลือกวันเข้าพัก | Hotel Addict</title>
+    <meta name="description" content="เลือกวันที่ต้องการใช้วอชเชอร์และส่งคำขอเข้าพักไปยังโรงแรม">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -12,7 +12,7 @@
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="เลือกวันเข้าพัก — Hotel Addict">
-    <meta property="og:description" content="เลือกวันเข้าพักและส่งคำขอตรวจสอบห้องว่างไปยังโรงแรม">
+    <meta property="og:description" content="เลือกวันที่ต้องการใช้วอชเชอร์และส่งคำขอเข้าพักไปยังโรงแรม">
     <meta property="og:image" content="assets/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -20,7 +20,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="เลือกวันเข้าพัก — Hotel Addict">
-    <meta name="twitter:description" content="เลือกวันเข้าพักและส่งคำขอตรวจสอบห้องว่างไปยังโรงแรม">
+    <meta name="twitter:description" content="เลือกวันที่ต้องการใช้วอชเชอร์และส่งคำขอเข้าพักไปยังโรงแรม">
     <meta name="twitter:image" content="assets/og-image.jpg">
 
     <!-- Google Fonts -->
@@ -144,6 +144,7 @@
             font-size: var(--text-body-sm);
             color: var(--text-body);
             position: relative;
+            cursor: pointer;
         }
 
         .calendar-day--empty {
@@ -153,6 +154,8 @@
         .calendar-day--past {
             color: var(--text-muted);
             opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
         }
 
         .calendar-day--range {
@@ -512,6 +515,15 @@
                 grid-template-columns: 1fr 420px;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -595,8 +607,8 @@
                 <div>
                     <!-- Page Header -->
                     <div class="page-header">
-                        <h2>เลือกวันที่อยากไป</h2>
-                        <p>เลือกช่วงวันที่ต้องการ แล้วเราจะเช็คห้องว่างกับโรงแรมให้</p>
+                        <h2>เลือกวันที่ต้องการใช้วอชเชอร์</h2>
+                        <p>เลือกช่วงวันที่ต้องการเข้าพัก เราจะส่งคำขอใช้วอชเชอร์ไปยังโรงแรมให้</p>
                     </div>
 
                     <!-- Calendar -->
@@ -735,7 +747,7 @@
                     </section>
 
                     <!-- Contact Form -->
-                    <section class="contact-section" style="margin-top: var(--space-xl);">
+                    <form class="contact-section" style="margin-top: var(--space-xl);" action="#" method="post" novalidate>
                         <div class="contact-section__header">
                             <span class="material-symbols-outlined">person</span>
                             <h3>ข้อมูลผู้เข้าพัก</h3>
@@ -759,7 +771,7 @@
                                 <input type="tel" class="input" id="contact-phone" placeholder="08x-xxx-xxxx" value="089-123-4567" autocomplete="tel">
                             </div>
                         </div>
-                    </section>
+                    </form>
 
                     <!-- Info Box -->
                     <div class="info-box info-box--teal" style="margin-top: var(--space-xl);">
@@ -767,10 +779,10 @@
                             <span class="material-symbols-outlined">info</span>
                         </div>
                         <div>
-                            <div class="info-box__title">ทำงานยังไง?</div>
+                            <div class="info-box__title">การใช้วอชเชอร์ทำงานยังไง?</div>
                             <p class="info-box__text">
-                                เลือกวันที่ต้องการ แล้วกด "ส่งคำขอ" เราจะเช็คห้องว่างกับโรงแรมให้ทันที
-                                โรงแรมจะยืนยันกลับมาทางอีเมล <strong>ภายใน 24 ชม.</strong> ไม่ต้องโทรเช็คเอง
+                                เลือกวันที่ต้องการเข้าพัก แล้วกด "ส่งคำขอใช้วอชเชอร์" เราจะส่งคำขอไปยังโรงแรมให้ทันที
+                                โรงแรมจะยืนยันห้องว่างกลับมาทางอีเมล <strong>ภายใน 24 ชม.</strong> ไม่ต้องโทรเช็คเอง
                             </p>
                         </div>
                     </div>
@@ -860,7 +872,7 @@
                             <div class="summary-card__actions">
                                 <a href="success-request.html" class="btn-gold">
                                     <span class="material-symbols-outlined" style="font-size:20px;">send</span>
-                                    ส่งคำขอเช็คห้องว่าง
+                                    ส่งคำขอใช้วอชเชอร์
                                 </a>
                                 <button class="btn-outline">
                                     <span class="material-symbols-outlined" style="font-size:20px;">support_agent</span>
@@ -897,7 +909,7 @@
             <div class="footer__grid">
                 <div class="footer__col">
                     <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
-                    <p class="footer__desc">ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง</p>
+                    <p class="footer__desc">วอชเชอร์โรงแรมหรู ซื้อก่อน เลือกวันทีหลัง</p>
                     <div class="footer__social">
                         <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
                         <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
@@ -906,7 +918,7 @@
                 </div>
                 <div class="footer__col">
                     <h4 class="footer__heading">บริการลูกค้า</h4>
-                    <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีจองวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
+                    <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีซื้อวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
                 </div>
                 <div class="footer__col">
                     <h4 class="footer__heading">เกี่ยวกับเรา</h4>
@@ -914,7 +926,7 @@
                 </div>
                 <div class="footer__col">
                     <h4 class="footer__heading">ค้นพบ</h4>
-                    <ul class="footer__list"><li><a href="index.html">ดีลโรงแรม</a></li><li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li><li><a href="wishlist.html">รายการโปรด</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
+                    <ul class="footer__list"><li><a href="index.html">วอชเชอร์โรงแรม</a></li><li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li><li><a href="wishlist.html">รายการโปรด</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
                 </div>
             </div>
             <div class="footer__bottom">

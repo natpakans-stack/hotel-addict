@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>เลือกวันเข้าพัก - Hotel Addict</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0b95da",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101c22",
+                        "accent-gold": "#d4af37",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "Noto Sans Thai", "sans-serif"],
+                        "sans": ["Plus Jakarta Sans", "Noto Sans Thai", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+        .form-input-custom {
+            @apply w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-[1440px] mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-10 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-2xl">hotel</span>
+</div>
+<h1 class="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white font-display">Hotel Addict</h1>
+</div>
+<nav class="hidden md:flex items-center gap-10">
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">ดีลโรงแรม</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">แพ็คเกจ</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">บทความ</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">การจองของฉัน</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-xl font-bold text-sm transition-all">
+                    โปรไฟล์
+                </button>
+<div class="size-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden border-2 border-primary/20">
+<img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQWFCTriyUjz9wJySAuh_bO7kOtBDfoe1Vvamo7Gu1Oo7hN8TdKnS8ojBrop8U3SWGq5kJzleV0YN4z1SEedDtJbmirBFoEV-FTSFUq9_EId1BzN7CxKZIJV5Hpawn7QUC94eRK6G1E9CKm6wX_yodE5CUuDUH4jbl12ZASg-3mwJICOgyyWRuL0ojPNHLhVUe8czm-nRS8oXVI4to4SAHsppyW5whe667O2xUOGGJm9H_XSgsnxbNM2yNsNAg_NtEiWKhfRoB1KYi"/>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-[1440px] mx-auto px-6 py-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-7xl mx-auto">
+<!-- Left Column: Calendar & Forms -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- Interactive Calendar Section -->
+<section class="bg-white dark:bg-slate-900/50 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h2 class="text-3xl font-black mb-2 tracking-tight">เลือกวันเข้าพัก</h2>
+<p class="text-slate-500 dark:text-slate-400">ระบุวันที่คุณต้องการเข้าพักเพื่อส่งคำขอตรวจสอบไปยังทางโรงแรม</p>
+</div>
+<div class="flex gap-2">
+<button class="size-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="size-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div>
+<p class="text-center font-bold mb-6 text-primary">ตุลาคม 2566</p>
+<div class="calendar-grid text-center text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest">
+<div>อา</div><div>จ</div><div>อ</div><div>พ</div><div>พฤ</div><div>ศ</div><div>ส</div>
+</div>
+<div class="calendar-grid gap-y-1">
+<div class="col-start-1 h-12 flex items-center justify-center text-slate-400">1</div>
+<div class="h-12 flex items-center justify-center text-slate-400">2</div>
+<div class="h-12 flex items-center justify-center text-slate-400">3</div>
+<div class="h-12 flex items-center justify-center text-slate-400">4</div>
+<button class="h-12 w-full rounded-l-full bg-primary/20 text-white font-bold">
+<div class="size-10 mx-auto flex items-center justify-center rounded-full bg-primary shadow-lg shadow-primary/40">5</div>
+</button>
+<button class="h-12 w-full bg-primary/20 text-white flex items-center justify-center">6</button>
+<button class="h-12 w-full bg-primary/20 text-white flex items-center justify-center">7</button>
+<button class="h-12 w-full bg-primary/20 text-white flex items-center justify-center">8</button>
+<button class="h-12 w-full bg-primary/20 text-white flex items-center justify-center">9</button>
+<button class="h-12 w-full bg-primary/20 text-white flex items-center justify-center">10</button>
+<button class="h-12 w-full bg-primary/20 text-white flex items-center justify-center">11</button>
+<button class="h-12 w-full bg-primary/20 text-white flex items-center justify-center">12</button>
+<button class="h-12 w-full bg-primary/20 text-white flex items-center justify-center">13</button>
+<button class="h-12 w-full bg-primary/20 text-white flex items-center justify-center">14</button>
+<button class="h-12 w-full bg-primary/20 text-white flex items-center justify-center">15</button>
+<button class="h-12 w-full bg-primary/20 text-white flex items-center justify-center">16</button>
+<button class="h-12 w-full bg-primary/20 text-white flex items-center justify-center">17</button>
+<button class="h-12 w-full bg-primary/20 text-white flex items-center justify-center">18</button>
+<button class="h-12 w-full bg-primary/20 text-white flex items-center justify-center">19</button>
+<button class="h-12 w-full rounded-r-full bg-primary/20 text-white font-bold flex items-center justify-center">
+<div class="size-10 mx-auto flex items-center justify-center rounded-full bg-primary shadow-lg shadow-primary/40">20</div>
+</button>
+<div class="h-12 flex items-center justify-center">21</div>
+<div class="h-12 flex items-center justify-center">22</div>
+<div class="h-12 flex items-center justify-center">23</div>
+<div class="h-12 flex items-center justify-center">24</div>
+<div class="h-12 flex items-center justify-center">25</div>
+<div class="h-12 flex items-center justify-center">26</div>
+<div class="h-12 flex items-center justify-center">27</div>
+<div class="h-12 flex items-center justify-center">28</div>
+<div class="h-12 flex items-center justify-center">29</div>
+<div class="h-12 flex items-center justify-center">30</div>
+<div class="h-12 flex items-center justify-center">31</div>
+</div>
+</div>
+<div>
+<p class="text-center font-bold mb-6 text-primary">พฤศจิกายน 2566</p>
+<div class="calendar-grid text-center text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest">
+<div>อา</div><div>จ</div><div>อ</div><div>พ</div><div>พฤ</div><div>ศ</div><div>ส</div>
+</div>
+<div class="calendar-grid gap-y-1">
+<div class="col-start-4 h-12 flex items-center justify-center">1</div>
+<div class="h-12 flex items-center justify-center">2</div>
+<div class="h-12 flex items-center justify-center">3</div>
+<div class="h-12 flex items-center justify-center">4</div>
+<div class="h-12 flex items-center justify-center">5</div>
+<div class="h-12 flex items-center justify-center">6</div>
+<div class="h-12 flex items-center justify-center">7</div>
+<div class="h-12 flex items-center justify-center">8</div>
+<div class="h-12 flex items-center justify-center">9</div>
+<div class="h-12 flex items-center justify-center">10</div>
+<div class="h-12 flex items-center justify-center">11</div>
+<div class="h-12 flex items-center justify-center">12</div>
+<div class="h-12 flex items-center justify-center">13</div>
+<div class="h-12 flex items-center justify-center">14</div>
+<div class="h-12 flex items-center justify-center">15</div>
+<div class="h-12 flex items-center justify-center">16</div>
+<div class="h-12 flex items-center justify-center">17</div>
+<div class="h-12 flex items-center justify-center">18</div>
+<div class="h-12 flex items-center justify-center">19</div>
+<div class="h-12 flex items-center justify-center">20</div>
+<div class="h-12 flex items-center justify-center">21</div>
+<div class="h-12 flex items-center justify-center">22</div>
+<div class="h-12 flex items-center justify-center">23</div>
+<div class="h-12 flex items-center justify-center">24</div>
+<div class="h-12 flex items-center justify-center">25</div>
+<div class="h-12 flex items-center justify-center">26</div>
+<div class="h-12 flex items-center justify-center">27</div>
+<div class="h-12 flex items-center justify-center">28</div>
+<div class="h-12 flex items-center justify-center">29</div>
+<div class="h-12 flex items-center justify-center">30</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Information Form -->
+<section class="bg-white dark:bg-slate-900/50 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-xl">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary">person</span>
+<h2 class="text-2xl font-black tracking-tight">ข้อมูลติดต่อ</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-bold text-slate-500 dark:text-slate-400 ml-1">ชื่อ</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="ระบุชื่อจริง" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-bold text-slate-500 dark:text-slate-400 ml-1">นามสกุล</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="ระบุนามสกุล" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-bold text-slate-500 dark:text-slate-400 ml-1">อีเมล</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="example@email.com" type="email"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-bold text-slate-500 dark:text-slate-400 ml-1">เบอร์โทรศัพท์</label>
+<input class="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="08x-xxx-xxxx" type="tel"/>
+</div>
+</div>
+</section>
+<div class="bg-primary/5 border border-primary/20 rounded-2xl p-6">
+<div class="flex gap-4">
+<div class="size-12 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">info</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="text-lg font-bold">วิธีการเช็ควันว่าง</h3>
+<p class="text-slate-500 dark:text-slate-400 leading-relaxed">
+                                เมื่อคุณเลือกช่วงวันที่ต้องการ ระบบจะส่งคำขอ "ตรวจสอบห้องว่าง" ไปยังโรงแรมโดยอัตโนมัติ 
+                                ทางโรงแรมจะทำการตรวจสอบสิทธิ์และสถานะห้องว่าง ณ เวลานั้น และจะแจ้งผลการยืนยันกลับหาคุณ 
+                                ผ่านอีเมลที่ลงทะเบียนไว้ <span class="text-primary font-bold">ภายใน 24 ชั่วโมง</span>
+</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Summary & Actions -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-xl sticky top-28">
+<div class="aspect-video relative">
+<img alt="Resort" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWpdgGbu2NZou_2sFW-JWuuh_EP13tfSt1p-bo0c5T9W-qQ4t7Q_L7l2WlOf__DPJ9EhPoZD6vViQ5Lyuwfswo9p_NXeC6kTs6L_FbFLpd_HXjasdm2l2RUd8QJK3bFr72rgi8F3TnrS-4TZ4dAXSUJBSd3hfTqWkU-hSCkwEG0ybCIkarSCnCATkR4csYoanoLXrFYYc2F-rBomZzC4tqJCPFrBPL3vGiKh1HCQBbB2mO65g8yIwAEy1t43897PtDzkJFLkq4uvDk"/>
+<div class="absolute top-4 left-4 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wider">
+                            เวาเชอร์ของคุณ
+                        </div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-black mb-1">Paradise Pool Villa Resort</h3>
+<p class="text-slate-500 dark:text-slate-400 text-sm mb-6">พาราไดซ์ พูล วิลล่า รีสอร์ท - ภูเก็ต</p>
+<div class="space-y-4 border-t border-slate-100 dark:border-slate-800 pt-6">
+<div class="flex justify-between items-center">
+<span class="text-slate-500 text-sm">ประเภทห้อง</span>
+<span class="font-bold">One Bedroom Pool Villa</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-slate-500 text-sm">จำนวนคืน</span>
+<span class="font-bold">2 คืน</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-slate-500 text-sm">วันที่ต้องการ</span>
+<span class="font-bold text-primary">5 - 20 ต.ค. 2566</span>
+</div>
+</div>
+<div class="mt-8 flex flex-col gap-3">
+<button class="w-full bg-primary hover:bg-primary/90 text-white py-4 rounded-2xl font-black text-lg transition-all shadow-lg shadow-primary/25 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">send</span>
+                                ส่งคำขอ
+                            </button>
+<button class="w-full border-2 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 py-3.5 rounded-2xl font-bold transition-all text-slate-700 dark:text-slate-200 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">support_agent</span>
+                                ติดต่อโรงแรม
+                            </button>
+<button class="w-full text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary py-2 rounded-2xl font-bold transition-all text-sm flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg">account_balance_wallet</span>
+                                กลับไปที่หน้า Voucher Wallet
+                            </button>
+</div>
+<div class="bg-accent-gold/10 border border-accent-gold/20 rounded-2xl p-5 mt-6">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-accent-gold text-xl">verified_user</span>
+<p class="font-bold text-accent-gold text-sm">ความช่วยเหลือระดับพรีเมียม</p>
+</div>
+<p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                                หากคุณต้องการความช่วยเหลือด่วน ติดต่อ Concierge ได้ที่ <span class="font-bold text-accent-gold">02-xxx-xxxx</span>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-12">
+<div class="max-w-[1440px] mx-auto px-6 text-center">
+<div class="flex items-center justify-center gap-2 mb-6">
+<div class="size-6 bg-primary rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-sm">hotel</span>
+</div>
+<span class="font-bold tracking-tight">Hotel Addict</span>
+</div>
+<p class="text-slate-500 text-sm">© 2023 Hotel Addict Thailand. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

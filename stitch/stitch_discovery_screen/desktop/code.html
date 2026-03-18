@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#c5a572",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased min-h-screen">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col items-center">
+<!-- Top Navigation -->
+<header class="w-full max-w-[960px] flex items-center justify-between border-b border-white/10 px-6 py-4">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined text-3xl">hotel_class</span>
+<h2 class="text-slate-100 text-xl font-bold leading-tight tracking-tight">Hotel Addict</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center rounded-xl h-10 w-10 bg-white/5 hover:bg-white/10 text-slate-100 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+</div>
+</header>
+<main class="layout-content-container flex flex-col max-w-[600px] w-full flex-1 px-6 py-10">
+<!-- Success Icon & Header -->
+<div class="flex flex-col items-center text-center mb-10">
+<div class="size-24 bg-green-500/10 border border-green-500/20 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-green-500 text-6xl" style="font-variation-settings: 'FILL' 1">check_circle</span>
+</div>
+<h1 class="text-slate-100 text-3xl font-bold leading-tight mb-2">ชำระเงินสำเร็จ!</h1>
+<p class="text-slate-400">ขอบคุณที่ร่วมเดินทางไปกับเรา คำสั่งซื้อของคุณได้รับการยืนยันแล้ว</p>
+</div>
+<!-- Order Summary Card -->
+<div class="bg-white/5 border border-white/10 rounded-2xl p-6 mb-6">
+<h3 class="text-primary text-sm font-semibold uppercase tracking-wider mb-4">รายละเอียดการจอง</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<p class="text-slate-400 text-sm">หมายเลขคำสั่งซื้อ</p>
+<p class="text-slate-100 font-medium">#HA-2026-9988</p>
+</div>
+<div class="flex justify-between items-center">
+<p class="text-slate-400 text-sm">วันที่ทำรายการ</p>
+<p class="text-slate-100 font-medium">24 ตุลาคม 2026</p>
+</div>
+<div class="flex justify-between items-center">
+<p class="text-slate-400 text-sm">วิธีการชำระเงิน</p>
+<p class="text-slate-100 font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">credit_card</span>
+                                Credit Card **** 1234
+                            </p>
+</div>
+<div class="pt-4 border-t border-white/10 flex justify-between items-center">
+<p class="text-slate-100 font-bold">ยอดชำระสุทธิ</p>
+<p class="text-primary text-2xl font-bold">฿6,550</p>
+</div>
+</div>
+</div>
+<!-- Item Details Card -->
+<div class="bg-white/5 border border-white/10 rounded-2xl p-4 mb-6">
+<div class="flex gap-4">
+<div class="size-24 rounded-lg bg-cover bg-center shrink-0 border border-white/10" data-alt="Luxury pool villa resort at sunset" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDOpbCrfQQCupY5vpNzheaPLNYMPV6VM7nuHlvD8bf0-jAlw9g-37mWLlgDsjqBGjAZV4w7lI8sfof9IZ7lxfwm-jFAuVVHUd_hT4Uv3pr4XQHDaUo-Dm79UqrEdPj9DbbRl6K4g7_JchZE3BDeFatmJmvmWz3k7KvH5LlMNwxMa2yoVhrS3s4W6lUlOFdkB3ERKdecyobkpqZA9949lmoui2OwmjAN7cSGEOGVlJP3M7PaA9LWeaRCHM9HkSU9kFOEt_qn5eyXpKl-')">
+</div>
+<div class="flex flex-col justify-center">
+<h4 class="text-slate-100 font-bold leading-tight mb-1">Paradise Pool Villa Resort</h4>
+<p class="text-slate-400 text-sm mb-2">ประเภทห้อง: Luxury Pool Villa</p>
+<div class="inline-flex items-center px-2 py-0.5 rounded bg-primary/20 text-primary text-xs font-medium w-fit">
+                                จำนวน: 1 Voucher
+                            </div>
+</div>
+</div>
+</div>
+<!-- Next Steps Section -->
+<div class="mb-10">
+<h3 class="text-slate-100 text-lg font-bold mb-4">ขั้นตอนถัดไป (Next Steps)</h3>
+<div class="space-y-4">
+<div class="flex gap-4 items-start">
+<div class="size-8 rounded-full bg-primary text-background-dark flex items-center justify-center shrink-0 font-bold">1</div>
+<p class="text-slate-300 pt-1">ตรวจสอบคูปองของคุณได้ที่เมนู <span class="text-primary font-medium">"Voucher ของฉัน"</span></p>
+</div>
+<div class="flex gap-4 items-start">
+<div class="size-8 rounded-full bg-primary text-background-dark flex items-center justify-center shrink-0 font-bold">2</div>
+<p class="text-slate-300 pt-1">ติดต่อโรงแรมล่วงหน้าอย่างน้อย 7 วันเพื่อยืนยันวันเข้าพัก</p>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-3">
+<button class="w-full bg-primary hover:bg-primary/90 text-background-dark font-bold py-4 rounded-xl transition-all shadow-lg shadow-primary/20">
+                        ไปที่ Voucher ของฉัน
+                    </button>
+<button class="w-full bg-white/5 hover:bg-white/10 text-slate-100 font-bold py-4 rounded-xl transition-all border border-white/10">
+                        กลับหน้าหลัก
+                    </button>
+</div>
+<!-- Footer Info -->
+<footer class="mt-12 text-center">
+<p class="text-slate-500 text-sm">
+                        หากมีข้อสงสัยหรือต้องการความช่วยเหลือ ติดต่อฝ่ายบริการลูกค้าได้ตลอด 24 ชั่วโมง
+                    </p>
+<div class="flex justify-center gap-4 mt-4 text-primary">
+<span class="material-symbols-outlined">support_agent</span>
+<span class="material-symbols-outlined">mail</span>
+<span class="material-symbols-outlined">call</span>
+</div>
+</footer>
+</main>
+</div>
+</div>
+</body></html>

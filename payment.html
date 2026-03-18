@@ -559,6 +559,15 @@
             padding-top: calc(var(--nav-height) + var(--space-xl));
             padding-bottom: var(--space-3xl);
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -642,7 +651,7 @@
         <nav class="breadcrumb" aria-label="breadcrumb">
             <a href="index.html">หน้าแรก</a>
             <span class="material-symbols-outlined">chevron_right</span>
-            <a href="#">ดีลโรงแรม</a>
+            <a href="#">วอชเชอร์โรงแรม</a>
             <span class="material-symbols-outlined">chevron_right</span>
             <span class="breadcrumb__current">ชำระเงิน</span>
         </nav>
@@ -651,12 +660,12 @@
         <div class="checkout-grid">
 
             <!-- ===== LEFT COLUMN ===== -->
-            <div>
+            <form action="#" method="post" novalidate>
                 <!-- ข้อมูลผู้ติดต่อ -->
                 <section class="checkout-section">
                     <div class="section-heading">
                         <span class="section-heading__bar"></span>
-                        <h2>ข้อมูลผู้จอง</h2>
+                        <h2>ข้อมูลผู้ซื้อวอชเชอร์</h2>
                     </div>
                     <div class="form-grid form-grid--2col">
                         <div class="form-group">
@@ -763,7 +772,7 @@
 
                     </div>
                 </section>
-            </div>
+            </form>
 
             <!-- ===== RIGHT COLUMN (SIDEBAR) ===== -->
             <div class="sidebar">
@@ -915,12 +924,12 @@
                             <!-- CTA -->
                             <a href="success-payment.html" class="btn-cta" style="text-decoration:none;">
                                 <span class="material-symbols-outlined">lock</span>
-                                ยืนยันและชำระเงิน
+                                ยืนยันซื้อวอชเชอร์
                             </a>
 
                             <!-- Terms -->
                             <p class="terms-text">
-                                เมื่อกดชำระเงิน แสดงว่าคุณยอมรับ<a href="#">เงื่อนไขการใช้งาน</a>และ<a href="#">นโยบายความเป็นส่วนตัว</a>ของ Hotel Addict
+                                เมื่อกดซื้อวอชเชอร์ แสดงว่าคุณยอมรับ<a href="#">เงื่อนไขการใช้งาน</a>และ<a href="#">นโยบายความเป็นส่วนตัว</a>ของ Hotel Addict
                             </p>
 
                         </div>
@@ -958,7 +967,7 @@
         <div class="footer__grid">
             <div class="footer__col">
                 <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
-                <p class="footer__desc">ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง</p>
+                <p class="footer__desc">วอชเชอร์โรงแรมหรู ซื้อก่อน เลือกวันทีหลัง</p>
                 <div class="footer__social">
                     <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
                     <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
@@ -967,7 +976,7 @@
             </div>
             <div class="footer__col">
                 <h4 class="footer__heading">บริการลูกค้า</h4>
-                <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีจองวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
+                <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีซื้อวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
             </div>
             <div class="footer__col">
                 <h4 class="footer__heading">เกี่ยวกับเรา</h4>
@@ -975,7 +984,7 @@
             </div>
             <div class="footer__col">
                 <h4 class="footer__heading">ค้นพบ</h4>
-                <ul class="footer__list"><li><a href="index.html">ดีลโรงแรม</a></li><li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li><li><a href="wishlist.html">รายการโปรด</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
+                <ul class="footer__list"><li><a href="index.html">วอชเชอร์โรงแรม</a></li><li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li><li><a href="wishlist.html">รายการโปรด</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
             </div>
         </div>
         <div class="footer__bottom">

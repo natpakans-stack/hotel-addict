@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0b95da",
+                        "accent": "#d4af37",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101c22",
+                        "surface-dark": "#182b34",
+                        "border-dark": "#315668"
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased min-h-screen">
+<div class="flex min-h-screen w-full">
+<!-- Left Side: Hero Image Section -->
+<div class="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Luxury hotel lobby with gold accents and marble floors" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD3E5ZVuhC1Gu_Q7TapXxJzJdcyAfAHqPfYYZa8-WOvwflo7E_SeP1FCliKjA0jRYkNpizo1MByQy7lp_dlsqJ2-3ZD41LxC2aDKo08FQM2Z20k4nH8ppzp7QPD4pzrUoOdgeEZRQfTT1tZ8952KkYis09vj7mofBc5QSWkAT-g-1xdNw2Y7B8XJx9QoWGUGtkgfe_sYjEsSw0UhPBrH8Sw33M41q4NuQFN6gUkFeSCDAKdtYqQXu9nyfX8yZi33KD3ZT6TkNu8R2jA');">
+<div class="absolute inset-0 bg-gradient-to-r from-background-dark/80 to-transparent"></div>
+</div>
+<div class="relative z-10 flex flex-col justify-between p-16 w-full">
+<div class="flex items-center gap-3">
+<div class="text-primary">
+<svg class="size-10" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<span class="text-2xl font-bold tracking-tight text-white">Hotel Addict</span>
+</div>
+<div class="max-w-md">
+<h1 class="text-5xl font-extrabold text-white leading-tight mb-6">ค้นพบความสุขแห่งการพักผ่อนระดับพรีเมียม</h1>
+<p class="text-lg text-slate-300 leading-relaxed">สัมผัสประสบการณ์การจองโรงแรมที่เหนือระดับ พร้อมสิทธิพิเศษสำหรับสมาชิกคนสำคัญเช่นคุณ</p>
+</div>
+<div class="flex gap-4">
+<div class="flex -space-x-3 overflow-hidden">
+<img alt="User 1" class="inline-block h-10 w-10 rounded-full ring-2 ring-background-dark" data-alt="Profile picture of a female traveler" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxDQXaqYC1QBA4jRsfZ6OIBD1h3HEI4O-3C33yPqH8_JOqEk-3L21hLsVpzHNyXhJP9vdC6odHHIoZUj9cv0mUDroubXfv_unhqa_CXIL3pFA9c81hRkQCF0vFU7pZM60T_l6f8H5b2RgG2wDPq0lKTilE7xrdphALJC-5t3QtD7R-q81LdxU4O7yXAqsE7vu3YpeJlv5lZu2KgPYIS4EIgy00j9XueYc4vTe6ePonQzg9G0vLfCX6YhUef3UgwJkkDLrBlBlZb_QH"/>
+<img alt="User 2" class="inline-block h-10 w-10 rounded-full ring-2 ring-background-dark" data-alt="Profile picture of a male traveler" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB02uqlHIsE6RB5FfmVx5Gpom2wXuXgJOyoJU1zVCyHxlQ0p71EZWe8TkS0rB-gdlS8PBr5h8GKTucpHj_9F0KnO4JhCDHr-BJHYvWjxSuTsm5w18x9wMTYzCWobh1KP0coyCTVsXmKVLgM7svmnEjPxWEqMaIWBHvPhUWOKM1Tkull1iKB9cmUFQVxuU8LuIgkGVx8kTsqyaT4JWbTnpBGZJVCn-JRgtSzX1AlA935NT0Au9Vf1Blb_5wggoKVyNZkOia9wK91nztq"/>
+<img alt="User 3" class="inline-block h-10 w-10 rounded-full ring-2 ring-background-dark" data-alt="Profile picture of a young man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAldMvsqc8Uuw62-sJCg72Vg2R4cFS9tniS4qDx8iqK9RX1tk3WUy8_rJYLAvsnzHNCZyXsw2sD8w7EGEUD06OYKdVqj8TaT0bPOJl43zjqZQ4dYHjc7FRNcZFSPRecNPArLQb3FwbWPjjGRnWwS7JWAcyKt_lDRreHYEuqsVrli5ikRsYq5vhbYeKLoSeX33Zf0PWhwqWT5RPFm2UhCNAPFU_aEeo7C_-Z8hqzjo-edkIOOYU5IQ8LXA8Q2a_zWRhv1RHd0w8YIOYP"/>
+</div>
+<p class="text-sm text-slate-300 flex items-center">เข้าร่วมกับสมาชิกกว่า 10,000+ คนทั่วไทย</p>
+</div>
+</div>
+</div>
+<!-- Right Side: Login Form Section -->
+<div class="w-full lg:w-1/2 flex items-center justify-center p-8 bg-background-light dark:bg-background-dark">
+<div class="w-full max-w-[480px]">
+<!-- Mobile Logo (Hidden on desktop) -->
+<div class="flex lg:hidden items-center gap-3 mb-12 justify-center">
+<div class="text-primary">
+<svg class="size-8" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Hotel Addict</span>
+</div>
+<div class="bg-white dark:bg-surface-dark p-8 lg:p-10 rounded-xl shadow-2xl border border-slate-200 dark:border-border-dark">
+<div class="text-center lg:text-left mb-8">
+<h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">ยินดีต้อนรับกลับมา</h2>
+<p class="text-slate-500 dark:text-slate-400">เข้าสู่ระบบเพื่อจัดการการจองและดูโปรโมชั่นพิเศษของคุณ</p>
+</div>
+<form action="#" class="space-y-6">
+<div>
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">อีเมลหรือเบอร์โทรศัพท์</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</span>
+<input class="block w-full pl-11 pr-4 py-3.5 bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500" placeholder="example@email.com หรือ 0812345678" type="text"/>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-2">
+<label class="block text-sm font-medium text-slate-700 dark:text-slate-300">รหัสผ่าน</label>
+<a class="text-sm font-semibold text-primary hover:text-primary/80 transition-colors" href="#">ลืมรหัสผ่าน?</a>
+</div>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+</span>
+<input class="block w-full pl-11 pr-12 py-3.5 bg-slate-50 dark:bg-background-dark border border-slate-200 dark:border-border-dark rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500" placeholder="••••••••" type="password"/>
+<button class="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+</div>
+<button class="w-full py-4 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl shadow-lg shadow-primary/20 transition-all transform active:scale-[0.98]" type="submit">
+                            เข้าสู่ระบบ
+                        </button>
+<div class="relative py-4">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-slate-200 dark:border-border-dark"></div>
+</div>
+<div class="relative flex justify-center text-xs uppercase">
+<span class="bg-white dark:bg-surface-dark px-4 text-slate-500 dark:text-slate-400 font-medium">หรือเข้าสู่ระบบด้วย</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<button class="flex justify-center items-center py-3 px-4 border border-slate-200 dark:border-border-dark rounded-xl hover:bg-slate-50 dark:hover:bg-background-dark transition-colors" type="button">
+<img alt="Google" class="h-6 w-6" data-alt="Google logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBnsbAH3-1zgeHY6rlj6VnXtyfNpCIpyhc00IyxBOfz7PFlzKehhlUZ54LNWcAcOyRti7aoBBXMidhnzYUVdaXHQGIGJavoE28SgTt-sHEN0Dq_qgVT2IyeAK4-umDSyrjUg--C8GSz8lp-5hEtVvvgNZU83BCinFrH0D4vFgUKKymKoQN73hA6kKSUdTk1TEZidh9VpznWumIPzzY686qbP7YPVxT1PAyETUFcZWHY0Vw4d5_gxtOShdOuyXQ3Jf-CzQDrMRyexZW"/>
+</button>
+<button class="flex justify-center items-center py-3 px-4 border border-slate-200 dark:border-border-dark rounded-xl hover:bg-slate-50 dark:hover:bg-background-dark transition-colors" type="button">
+<img alt="Facebook" class="h-6 w-6" data-alt="Facebook logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSTYVStVealAbtomV9A2OqrlFWGzHQa8Ip9WryZ2UWU7-zA5xVup0omFylH3kf_nrq1jSMbKuZobnlFqhM8VxvMZCOXaUKJ9uVmIFl7BRU9HTYNaWOIhRnzK-LVYnM3zt3ndAJYRRO3bdiNNQ8aCMDx8knhKsRKesUI_IFc3QYmb_Y042Ivy7rm2hT9HYQw7QM9cM93vTn7xh3eDWrbnDTq9XglpfxjK3oHhfpTKmNDHUXpNj3ttpucOA2qSFmntRB2tbT3tTH3Z69"/>
+</button>
+<button class="flex justify-center items-center py-3 px-4 border border-slate-200 dark:border-border-dark rounded-xl hover:bg-slate-50 dark:hover:bg-background-dark transition-colors" type="button">
+<img alt="Apple" class="h-6 w-6 dark:invert" data-alt="Apple logo icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl6wvqv_Zbn3cNrZgKDvFL7wRXHT2fFbA7MauznZExtL7Lh5FCFFaMOQ0HIZ39nbUMC1eTO_w9Z0yjP3usiZHuvnDrRGaB9ZAVNKo17Sbf1dOihj026VqQD-HIMBX5BGoFqxCXc_z364ped5AsSa08kc-qtc9TBDf4hy-THbyVb9Th0PqQ71REx2IAvHN4OhD0M5a9tb8dws2IydfaLuS935DKQeOdcL_sdRmenGDc2CetuNX-HRsloMdarQuIjwTEFe41cPBthElZ"/>
+</button>
+</div>
+</form>
+<div class="mt-10 text-center">
+<p class="text-slate-600 dark:text-slate-400">
+                            ยังไม่มีบัญชีผู้ใช้? 
+                            <a class="text-accent font-bold hover:underline ml-1" href="#">สมัครสมาชิกที่นี่</a>
+</p>
+</div>
+</div>
+<div class="mt-8 text-center flex flex-wrap justify-center gap-6 text-xs text-slate-400 dark:text-slate-500 uppercase tracking-widest font-semibold">
+<a class="hover:text-primary transition-colors" href="#">ข้อกำหนดการใช้งาน</a>
+<a class="hover:text-primary transition-colors" href="#">นโยบายความเป็นส่วนตัว</a>
+<a class="hover:text-primary transition-colors" href="#">ติดต่อเรา</a>
+</div>
+</div>
+</div>
+</div>
+</body></html>

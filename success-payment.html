@@ -150,7 +150,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: var(--space-md);
             padding-top: var(--space-md);
             margin-top: var(--space-xs);
             border-top: 2px solid var(--border);
@@ -369,7 +368,7 @@
         /* === RESPONSIVE === */
         @media (max-width: 768px) {
             .success-content {
-                padding: var(--space-lg) var(--space-md) var(--space-2xl);
+                padding: calc(var(--nav-height) + var(--space-lg)) var(--space-md) var(--space-2xl);
             }
 
             .success-hero h1 {
@@ -394,6 +393,15 @@
 
             .order-card__total-value {
                 font-size: var(--text-h4);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
@@ -477,8 +485,8 @@
                 <div class="success-icon">
                     <span class="material-symbols-outlined">check_circle</span>
                 </div>
-                <h1>เรียบร้อย! ทริปหรูรอคุณอยู่</h1>
-                <p>ชำระเงินสำเร็จแล้ว E-Voucher ถูกส่งไปที่อีเมลของคุณเรียบร้อย</p>
+                <h1>ซื้อวอชเชอร์สำเร็จ!</h1>
+                <p>ชำระเงินเรียบร้อย E-Voucher ถูกส่งไปที่อีเมลของคุณแล้ว พร้อมใช้เมื่อไหร่ก็ได้ภายใน 1 ปี</p>
             </section>
 
             <!-- Order Summary -->
@@ -530,7 +538,7 @@
                     </div>
                     <div class="next-steps__item">
                         <div class="next-steps__number">2</div>
-                        <p class="next-steps__text">เลือกวันเข้าพักและแจ้งโรงแรมล่วงหน้าอย่างน้อย 7 วัน</p>
+                        <p class="next-steps__text">พร้อมใช้เมื่อไหร่ กดใช้วอชเชอร์แล้วเลือกวันเข้าพัก แจ้งโรงแรมล่วงหน้าอย่างน้อย 7 วัน</p>
                     </div>
                 </div>
             </section>
@@ -541,7 +549,7 @@
                     <span class="material-symbols-outlined">confirmation_number</span>
                     ดูบัตรกำนัลของฉัน
                 </a>
-                <a href="index.html" class="btn-outline">ดูดีลอื่นเพิ่มเติม</a>
+                <a href="index.html" class="btn-outline">ดูวอชเชอร์อื่นเพิ่มเติม</a>
             </div>
 
             <!-- Footer Contact -->
@@ -567,7 +575,7 @@
                 <div class="footer__grid">
                     <div class="footer__col">
                         <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
-                        <p class="footer__desc">ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง</p>
+                        <p class="footer__desc">วอชเชอร์โรงแรมหรู ซื้อก่อน เลือกวันทีหลัง</p>
                         <div class="footer__social">
                             <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
                             <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
@@ -576,7 +584,7 @@
                     </div>
                     <div class="footer__col">
                         <h4 class="footer__heading">บริการลูกค้า</h4>
-                        <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีจองวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
+                        <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีซื้อวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
                     </div>
                     <div class="footer__col">
                         <h4 class="footer__heading">เกี่ยวกับเรา</h4>
@@ -584,7 +592,7 @@
                     </div>
                     <div class="footer__col">
                         <h4 class="footer__heading">ค้นพบ</h4>
-                        <ul class="footer__list"><li><a href="index.html">ดีลโรงแรม</a></li><li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li><li><a href="wishlist.html">รายการโปรด</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
+                        <ul class="footer__list"><li><a href="index.html">วอชเชอร์โรงแรม</a></li><li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li><li><a href="wishlist.html">รายการโปรด</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
                     </div>
                 </div>
                 <div class="footer__bottom">

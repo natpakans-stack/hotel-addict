@@ -34,6 +34,14 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
+        /* === AVATAR TOKENS === */
+        :root {
+            --avatar-pink: #E88DB4;
+            --avatar-purple: #7279FB;
+            --avatar-orange: #E8A95D;
+            --avatar-rose: #C25D8E;
+        }
+
         /* === PAGE-SPECIFIC STYLES === */
 
         /* ============================================
@@ -229,7 +237,6 @@
             align-items: center;
             justify-content: center;
             overflow: visible;
-            padding-bottom: 60px;
         }
 
         /* Hero slideshow container */
@@ -327,23 +334,31 @@
         }
 
         /* Search Card — half-overlap between Hero and next section */
+        @keyframes searchCardReveal {
+            from { opacity: 0; transform: translateY(calc(-50% + 30px)); }
+            to   { opacity: 1; transform: translateY(-50%); }
+        }
+
         .search-card {
             position: relative;
             z-index: 10;
             max-width: 880px;
-            margin: -90px auto 0;
+            margin: 0 auto;
             padding: 0 var(--space-lg);
-            animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1.4s both;
+            animation: searchCardReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1.4s both;
+            box-sizing: border-box;
         }
 
         .search-bar {
             display: flex;
-            flex-direction: column;
+            align-items: center;
             gap: var(--space-sm);
             background: var(--bg-white);
             border-radius: var(--radius-xl);
-            padding: var(--space-md);
+            padding: var(--space-sm) var(--space-sm) var(--space-sm) var(--space-md);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+            position: relative;
+            width: 100%;
         }
 
         /* Row 1: Destination */
@@ -352,14 +367,14 @@
             display: flex;
             align-items: center;
             gap: var(--space-md);
-            padding: 14px 16px;
-            border-radius: var(--radius-lg);
-            border: 1.5px solid var(--border);
-            transition: border-color var(--transition-fast);
+            padding: 8px 12px;
+            flex: 1;
+            min-width: 0;
+            border: none;
         }
 
-        .search-bar__destination:focus-within {
-            border-color: var(--color-gold);
+        .search-bar:focus-within {
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12), 0 0 0 2px var(--color-gold);
         }
 
         .search-bar__destination .material-symbols-outlined {
@@ -409,42 +424,13 @@
             color: var(--text-primary);
         }
 
-        /* Row 2: Fields + Button */
-        .search-bar__row {
-            display: flex;
-            align-items: stretch;
-            gap: var(--space-sm);
-        }
-
-        .search-bar__field {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            padding: 12px 16px;
-            border-radius: var(--radius-lg);
-            background: var(--bg-cream);
-            border: 1.5px solid transparent;
-            transition: border-color var(--transition-fast);
-            min-width: 0;
-            cursor: pointer;
-        }
-
-        .search-bar__field:hover {
-            border-color: var(--color-gold-light);
-        }
-
-        .search-bar__field .material-symbols-outlined {
-            color: var(--color-gold-dark);
-            font-size: 22px;
-            flex-shrink: 0;
-        }
+        /* Search bar button is now inside destination row — no separate row needed */
 
         .search-bar__btn {
             flex-shrink: 0;
-            height: auto;
+            height: 52px;
             padding: 0 28px;
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius-full);
             background: var(--color-gold-dark);
             color: var(--bg-white);
             font-family: var(--font-heading);
@@ -452,15 +438,17 @@
             font-weight: var(--fw-bold);
             border: none;
             cursor: pointer;
-            transition: background var(--transition-fast), transform var(--transition-fast);
+            transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
             display: flex;
             align-items: center;
             gap: var(--space-sm);
+            white-space: nowrap;
         }
 
         .search-bar__btn:hover {
             background: var(--color-gold);
             transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         /* Search card tagline */
@@ -472,268 +460,74 @@
             font-weight: var(--fw-medium);
         }
 
-        /* Search bar field active state */
-        .search-bar__field.active {
-            border-color: var(--color-gold);
-            background: var(--bg-white);
-        }
-
-        /* === DATE PICKER DROPDOWN === */
-        .datepicker-dropdown {
-            display: none;
-            position: absolute;
-            top: calc(100% + 8px);
-            left: 0;
-            right: 0;
-            background: var(--bg-white);
-            border-radius: var(--radius-xl);
-            box-shadow: 0 12px 48px rgba(0,0,0,0.15);
-            padding: var(--space-lg);
-            z-index: 100;
-        }
-        .datepicker-dropdown.open { display: block; }
-
-        .datepicker-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: var(--space-md);
-        }
-        .datepicker-months {
-            display: flex;
-            gap: var(--space-3xl);
-        }
-        .datepicker-month-title {
-            font-weight: var(--fw-bold);
-            font-size: var(--text-body-md);
-            color: var(--text-primary);
-            min-width: 160px;
-            text-align: center;
-        }
-        .datepicker-nav {
-            background: none;
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius-full);
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--text-primary);
-            transition: all var(--transition-fast);
-        }
-        .datepicker-nav:hover {
-            border-color: var(--color-gold);
-            color: var(--color-gold-dark);
-        }
-
-        .datepicker-body {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-xl);
-        }
-
-        .datepicker-calendar {
-            font-size: var(--text-body-sm);
-        }
-        .datepicker-calendar .dp-weekdays {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            text-align: center;
-            font-size: var(--text-micro);
-            color: var(--text-muted);
-            font-weight: var(--fw-semibold);
-            margin-bottom: var(--space-xs);
-        }
-        .datepicker-calendar .dp-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 2px;
-        }
-        .dp-day {
-            height: 38px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: var(--radius-full);
-            cursor: pointer;
-            font-size: var(--text-body-sm);
-            color: var(--text-primary);
-            transition: all var(--transition-fast);
-            position: relative;
-        }
-        .dp-day:hover:not(.dp-day--disabled):not(.dp-day--empty) {
-            background: var(--color-gold-subtle);
-        }
-        .dp-day--empty { cursor: default; }
-        .dp-day--disabled {
-            color: var(--text-muted);
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
-        .dp-day--today {
-            font-weight: var(--fw-bold);
-            border: 1.5px solid var(--color-gold);
-        }
-        .dp-day--selected {
-            background: var(--color-gold-dark) !important;
-            color: #FFFFFF !important;
-            font-weight: var(--fw-bold);
-        }
-        .dp-day--in-range {
-            background: var(--color-gold-subtle);
-            border-radius: 0;
-        }
-        .dp-day--range-start {
-            border-radius: var(--radius-full) 0 0 var(--radius-full);
-        }
-        .dp-day--range-end {
-            border-radius: 0 var(--radius-full) var(--radius-full) 0;
-        }
-
-        .datepicker-footer {
-            display: flex;
-            justify-content: flex-end;
-            gap: var(--space-sm);
-            margin-top: var(--space-md);
-            padding-top: var(--space-md);
-            border-top: 1px solid var(--border);
-        }
-        .datepicker-clear {
-            background: none;
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 8px 20px;
-            font-family: var(--font-body);
-            font-size: var(--text-body-sm);
-            font-weight: var(--fw-semibold);
-            color: var(--text-secondary);
-            cursor: pointer;
-        }
-        .datepicker-clear:hover { border-color: var(--color-gold); }
-        .datepicker-done {
-            background: var(--color-gold-dark);
-            border: none;
-            border-radius: var(--radius-md);
-            padding: 8px 24px;
-            font-family: var(--font-body);
-            font-size: var(--text-body-sm);
-            font-weight: var(--fw-bold);
-            color: #FFFFFF;
-            cursor: pointer;
-        }
-        .datepicker-done:hover { background: var(--color-gold); }
-
-        /* === GUEST PICKER DROPDOWN === */
-        .guest-dropdown {
-            display: none;
-            position: absolute;
-            top: calc(100% + 8px);
-            right: 0;
-            background: var(--bg-white);
-            border-radius: var(--radius-xl);
-            box-shadow: 0 12px 48px rgba(0,0,0,0.15);
-            padding: var(--space-lg);
-            z-index: 100;
-            width: 320px;
-        }
-        .guest-dropdown.open { display: block; }
-
-        .guest-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: var(--space-md) 0;
-            border-bottom: 1px solid var(--border);
-        }
-        .guest-row:last-of-type { border-bottom: none; }
-        .guest-row__label {
-            font-weight: var(--fw-semibold);
-            font-size: var(--text-body-md);
-            color: var(--text-primary);
-        }
-        .guest-row__hint {
-            display: block;
-            font-size: var(--text-micro);
-            color: var(--text-muted);
-        }
-        .guest-row__controls {
-            display: flex;
-            align-items: center;
-            gap: var(--space-md);
-        }
-        .guest-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius-full);
-            border: 1.5px solid var(--border);
-            background: var(--bg-white);
-            font-size: 18px;
-            font-weight: var(--fw-bold);
-            color: var(--text-primary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all var(--transition-fast);
-        }
-        .guest-btn:hover {
-            border-color: var(--color-gold);
-            color: var(--color-gold-dark);
-        }
-        .guest-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-        .guest-count {
-            font-size: var(--text-body-md);
-            font-weight: var(--fw-bold);
-            color: var(--text-primary);
-            min-width: 24px;
-            text-align: center;
-        }
-        .guest-done {
-            width: 100%;
-            padding: 12px;
-            margin-top: var(--space-md);
-            background: var(--color-gold-dark);
-            color: #FFFFFF;
-            border: none;
-            border-radius: var(--radius-md);
-            font-family: var(--font-body);
-            font-size: var(--text-body-md);
-            font-weight: var(--fw-bold);
-            cursor: pointer;
-            transition: background var(--transition-fast);
-        }
-        .guest-done:hover { background: var(--color-gold); }
-
-        /* Search bar is the position anchor for dropdowns */
-        .search-bar { }
+        /* Search bar field active state — kept for destination focus */
 
         @media (max-width: 768px) {
-            .search-bar__row {
-                flex-direction: column;
+            .search-card {
+                padding: 0 var(--space-md);
             }
-            .search-bar__btn {
-                height: 48px;
-                justify-content: center;
+
+            /* Single-row: icon-less input + compact pill button */
+            .search-bar {
+                flex-direction: row;
+                align-items: center;
+                padding: 6px 6px 6px 20px;
+                gap: var(--space-sm);
+                border-radius: var(--radius-full);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
             }
-            .datepicker-dropdown {
-                width: calc(100vw - 32px);
-                left: 50%;
+
+            /* Hide the search icon inside destination row on mobile */
+            .search-bar__destination > .material-symbols-outlined:first-child {
+                display: none;
             }
-            .datepicker-body {
-                grid-template-columns: 1fr;
-            }
-            .datepicker-months {
+
+            .search-bar__destination {
+                width: auto;
+                flex: 1;
+                min-width: 0;
+                padding: 8px 0;
+                background: transparent;
+                border: none;
                 gap: 0;
             }
-            .datepicker-month-title:nth-child(2) { display: none; }
-            .guest-dropdown {
-                right: 0;
-                width: calc(100vw - 32px);
+
+            .search-bar__label {
+                display: none;
+            }
+
+            .search-bar__destination-input input {
+                font-size: var(--text-body-sm);
+            }
+            .search-bar__destination-input input::placeholder {
+                color: var(--text-muted);
+                font-size: var(--text-body-sm);
+                font-weight: var(--fw-regular);
+            }
+
+            /* Compact pill button — icon only on small screens, icon+text on wider mobile */
+            .search-bar__btn {
+                width: auto;
+                height: 44px;
+                min-width: 44px;
+                padding: 0 20px;
+                border-radius: var(--radius-full);
+                font-size: var(--text-body-sm);
+                gap: var(--space-xs);
+                flex-shrink: 0;
+                justify-content: center;
+            }
+
+            /* On very narrow screens (≤420px), show icon-only button */
+            @media (max-width: 420px) {
+                .search-bar__btn {
+                    width: 44px;
+                    padding: 0;
+                    font-size: 0; /* hide text */
+                }
+                .search-bar__btn .material-symbols-outlined {
+                    font-size: 22px !important;
+                }
             }
         }
 
@@ -782,6 +576,20 @@
             white-space: nowrap;
         }
 
+        /* Mobile: stack header vertically, link under heading */
+        @media (max-width: 768px) {
+            .section-header {
+                flex-wrap: wrap;
+                align-items: baseline;
+                gap: var(--space-xs);
+                margin-bottom: var(--space-lg);
+            }
+            .section-header h2 {
+                flex: 1;
+                min-width: 0;
+            }
+        }
+
         .section-header__link:hover {
             color: var(--color-gold);
         }
@@ -799,15 +607,15 @@
         .search-suggest {
             display: none;
             position: absolute;
-            top: calc(100% + var(--space-sm));
+            top: calc(100% + var(--space-xs));
             font-family: var(--font-body);
-            left: -1.5px;
-            right: -1.5px;
+            left: 0;
+            right: 0;
             background: var(--bg-white);
             border-radius: var(--radius-xl);
             box-shadow: 0 12px 40px rgba(0,0,0,0.14);
             z-index: 50;
-            max-height: 480px;
+            max-height: 70vh;
             overflow-y: auto;
             border: 1px solid var(--border);
         }
@@ -911,6 +719,109 @@
             color: var(--text-primary);
         }
 
+        /* === Ranking Section in Search Suggest === */
+        .search-suggest__ranking {
+            padding: var(--space-lg);
+            border-top: 1px solid var(--border);
+        }
+        .search-suggest__ranking-title {
+            font-size: var(--text-body-md);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        .search-suggest__ranking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+        }
+        .ranking-column {
+            background: var(--bg-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .ranking-column__header {
+            padding: var(--space-sm) var(--space-md);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            color: var(--bg-white);
+            background: linear-gradient(135deg, var(--color-gold-dark) 0%, var(--color-gold) 100%);
+        }
+        .ranking-column__list {
+            padding: var(--space-xs) 0;
+        }
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-xs) var(--space-md);
+            cursor: pointer;
+            transition: background var(--transition-fast);
+            text-decoration: none;
+            color: inherit;
+        }
+        .ranking-item:hover {
+            background: var(--bg-cream);
+        }
+        .ranking-item__num {
+            width: 24px;
+            height: 24px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            flex-shrink: 0;
+            background: var(--bg-cream);
+            color: var(--text-secondary);
+        }
+        .ranking-item:nth-child(1) .ranking-item__num {
+            background: var(--color-gold-dark);
+            color: var(--bg-white);
+        }
+        .ranking-item:nth-child(2) .ranking-item__num {
+            background: var(--color-gold);
+            color: var(--bg-white);
+        }
+        .ranking-item:nth-child(3) .ranking-item__num {
+            background: var(--color-gold-light);
+            color: var(--color-gold-dark);
+        }
+        .ranking-item__img {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .ranking-item__info {
+            flex: 1;
+            min-width: 0;
+        }
+        .ranking-item__name {
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-semibold);
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .ranking-item__location {
+            font-size: var(--text-micro);
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .search-suggest__ranking-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Recent Searches: Scroll Arrows */
         .recent-searches__wrapper {
             position: relative;
@@ -966,15 +877,7 @@
             gap: var(--space-md);
             overflow-x: auto;
             padding-bottom: var(--space-sm);
-            scrollbar-width: thin;
             position: relative;
-        }
-        .recent-searches__list::-webkit-scrollbar {
-            height: 4px;
-        }
-        .recent-searches__list::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: var(--radius-full);
         }
         .recent-search-card {
             flex-shrink: 0;
@@ -1325,7 +1228,7 @@
         }
 
         .voucher-card__tag {
-            font-size: 10px;
+            font-size: 12px;
             font-weight: var(--fw-bold);
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -1614,7 +1517,6 @@
         @media (max-width: 768px) {
             .hero {
                 height: 380px;
-                padding-bottom: var(--space-lg);
             }
 
             .hero__title {
@@ -1627,22 +1529,10 @@
             }
 
             .search-card {
-                margin-top: -32px;
+                transform: translateY(-50%);
             }
 
-            .search-bar {
-                flex-direction: column;
-                padding: var(--space-md);
-            }
-
-            .search-bar__field {
-                width: 100%;
-            }
-
-            .search-bar__btn {
-                width: 100%;
-                justify-content: center;
-            }
+            /* search-bar already handled by 768px block above */
 
             .voucher-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -1669,11 +1559,79 @@
 
         @media (max-width: 480px) {
             .voucher-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-sm);
             }
 
+            /* Compact vertical 2-col cards */
+            .voucher-grid .voucher-card {
+                border-radius: var(--radius-md);
+            }
+            .voucher-grid .voucher-card__image {
+                aspect-ratio: 4/3;
+            }
+            .voucher-grid .voucher-card__body {
+                padding: var(--space-sm);
+            }
+            .voucher-grid .voucher-card__meta {
+                margin-bottom: 2px;
+            }
+            .voucher-grid .voucher-card__category {
+                font-size: 10px;
+                letter-spacing: 0.04em;
+            }
+            .voucher-grid .voucher-card__tag {
+                font-size: 10px;
+                padding: 1px 5px;
+            }
+            .voucher-grid .voucher-card__name {
+                font-size: var(--text-body-sm);
+                line-height: 1.3;
+                white-space: nowrap;
+            }
+            .voucher-grid .voucher-card__location {
+                margin-bottom: var(--space-xs);
+                font-size: 11px;
+            }
+            .voucher-grid .voucher-card__location .material-symbols-outlined {
+                font-size: 13px;
+            }
+            .voucher-grid .voucher-card__footer {
+                padding-top: var(--space-xs);
+            }
+            .voucher-grid .voucher-card__price {
+                font-size: var(--text-body-md);
+            }
+            .voucher-grid .voucher-card__price-unit {
+                font-size: 11px;
+            }
+            .voucher-grid .voucher-card__price-original {
+                font-size: 11px;
+            }
+            .voucher-grid .voucher-card__discount {
+                font-size: 11px;
+                padding: 2px 6px;
+            }
+            /* Hide wishlist on compact */
+            .voucher-grid .voucher-card__wishlist {
+                display: none;
+            }
+
+            /* Horizontal scroll destinations on mobile */
             .destinations-grid {
-                grid-template-columns: 1fr 1fr;
+                display: flex;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                gap: var(--space-sm);
+                margin: 0 calc(var(--space-md) * -1);
+                padding: 0 var(--space-md);
+                scroll-snap-type: x proximity;
+            }
+            .destinations-grid::-webkit-scrollbar { display: none; }
+            .destination-card {
+                flex: 0 0 140px;
+                scroll-snap-align: start;
+                aspect-ratio: 3/4;
             }
 
             .why-grid {
@@ -1762,11 +1720,17 @@
             .hero__overlay,
             .hero__title,
             .hero__subtitle,
-            .search-card,
             .navbar--transparent {
                 animation: none !important;
                 opacity: 1 !important;
                 transform: none !important;
+                filter: none !important;
+                transition: none !important;
+            }
+            .search-card {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: translateY(-50%) !important;
                 filter: none !important;
                 transition: none !important;
             }
@@ -2015,7 +1979,7 @@
                 line-height: var(--lh-h3);
             }
             .marquee-grid {
-                height: 500px;
+                height: 420px;
                 gap: var(--space-md);
             }
         }
@@ -2023,7 +1987,7 @@
         @media (max-width: 480px) {
             .marquee-grid {
                 grid-template-columns: 1fr;
-                height: 460px;
+                height: 320px;
             }
             /* Show only column 1 on mobile */
             .marquee-col:nth-child(2),
@@ -2154,11 +2118,12 @@
         </div>
         <div class="hero__overlay"></div>
         <div class="hero__content">
-            <h1 class="hero__title">ที่พักในฝัน<br><span class="typewriter" id="heroTypewriter"></span><span class="typewriter__cursor"></span></h1>
-            <p class="hero__subtitle">ดีลตรงจากโรงแรม ไม่ผ่านคนกลาง ถูกกว่า OTA ทุกแพลตฟอร์ม พร้อมสิทธิพิเศษที่จองที่อื่นไม่มี</p>
+            <h1 class="hero__title">วอชเชอร์โรงแรมหรู<br><span class="typewriter" id="heroTypewriter"></span><span class="typewriter__cursor"></span></h1>
+            <p class="hero__subtitle">ซื้อวอชเชอร์ตรงจากโรงแรม ราคาพิเศษกว่า OTA ค่อยเลือกวันเข้าพักทีหลังได้ พร้อมสิทธิพิเศษที่ซื้อที่อื่นไม่มี</p>
         </div>
     </section>
 
+    <main>
     <!-- ==================== SEARCH CARD (half-overlap) ==================== -->
     <div class="search-card">
         <div class="search-bar">
@@ -2166,15 +2131,20 @@
             <div class="search-bar__destination" id="searchDestWrapper">
                 <span class="material-symbols-outlined">search</span>
                 <div class="search-bar__destination-input">
-                    <span class="search-bar__label">ใส่จุดหมายปลายทางหรือชื่อที่พัก</span>
+                    <span class="search-bar__label">ค้นหาวอชเชอร์โรงแรม — จุดหมายหรือชื่อที่พัก</span>
                     <input type="text" id="searchDestInput" placeholder="เช่น ภูเก็ต, หัวหิน, เขาใหญ่" aria-label="ค้นหาจุดหมาย" autocomplete="off">
                 </div>
                 <button type="button" class="search-bar__clear" id="searchClearBtn" aria-label="ล้างข้อความ" style="display:none;background:none;border:none;cursor:pointer;color:var(--text-muted);padding:4px;">
                     <span class="material-symbols-outlined" style="font-size:20px;">close</span>
                 </button>
+            </div>
+            <button class="search-bar__btn" type="button" onclick="window.location.href='voucher-list.html'">
+                <span class="material-symbols-outlined" style="font-size:20px;">search</span>
+                ค้นหาวอชเชอร์
+            </button>
 
-                <!-- Search Suggestion Dropdown -->
-                <div class="search-suggest" id="searchSuggest">
+            <!-- Search Suggestion Dropdown (positioned from .search-bar) -->
+            <div class="search-suggest" id="searchSuggest">
                 <!-- Recent Searches -->
                 <div class="search-suggest__section" id="suggestRecent">
                     <div class="search-suggest__header">
@@ -2187,7 +2157,7 @@
                         </div>
                         <div class="search-suggest__item-info">
                             <div class="search-suggest__item-name">ตรัง</div>
-                            <div class="search-suggest__item-detail">23 มี.ค. - 24 มี.ค. • 1 ห้อง • 2 ผู้ใหญ่</div>
+                            <div class="search-suggest__item-detail">ค้นหาเมื่อ 23 มี.ค.</div>
                         </div>
                     </div>
                 </div>
@@ -2203,114 +2173,131 @@
                         </div>
                     </div>
                     <div class="search-suggest__city" data-value="กรุงเทพ">
-                        <img class="search-suggest__city-img" src="assets/images/destinations/dest-bangkok.jpg" alt="กรุงเทพ" loading="lazy">
+                        <img class="search-suggest__city-img" src="assets/images/destinations/dest-bangkok-hd.jpg" alt="กรุงเทพ" loading="lazy">
                         <div class="search-suggest__city-name">กรุงเทพ</div>
                     </div>
                     <div class="search-suggest__city" data-value="หัวหิน">
-                        <img class="search-suggest__city-img" src="assets/images/destinations/dest-huahin.jpg" alt="หัวหิน" loading="lazy">
+                        <img class="search-suggest__city-img" src="assets/images/destinations/dest-huahin-hd.jpg" alt="หัวหิน" loading="lazy">
                         <div class="search-suggest__city-name">หัวหิน</div>
                     </div>
                     <div class="search-suggest__city" data-value="เขาใหญ่">
-                        <img class="search-suggest__city-img" src="assets/images/destinations/dest-khaoyai.jpg" alt="เขาใหญ่" loading="lazy">
+                        <img class="search-suggest__city-img" src="assets/images/destinations/dest-khaoyai-hd.jpg" alt="เขาใหญ่" loading="lazy">
                         <div class="search-suggest__city-name">เขาใหญ่</div>
                     </div>
                     <div class="search-suggest__city" data-value="เกาะสมุย">
-                        <img class="search-suggest__city-img" src="assets/images/destinations/dest-samui.jpg" alt="เกาะสมุย" loading="lazy">
+                        <img class="search-suggest__city-img" src="assets/images/destinations/dest-samui-hd.jpg" alt="เกาะสมุย" loading="lazy">
                         <div class="search-suggest__city-name">เกาะสมุย</div>
                     </div>
                     <div class="search-suggest__city" data-value="ภูเก็ต">
-                        <img class="search-suggest__city-img" src="assets/images/destinations/dest-phuket.jpg" alt="ภูเก็ต" loading="lazy">
+                        <img class="search-suggest__city-img" src="assets/images/destinations/dest-phuket-hd.jpg" alt="ภูเก็ต" loading="lazy">
                         <div class="search-suggest__city-name">ภูเก็ต</div>
                     </div>
                 </div>
-                </div>
-            </div>
-            <!-- Row 2: Date + Guests + Search -->
-            <div class="search-bar__row">
-                <div class="search-bar__field" id="checkinField">
-                    <span class="material-symbols-outlined">calendar_month</span>
-                    <div>
-                        <span class="search-bar__label">เช็คอิน</span>
-                        <span class="search-bar__value" id="checkinValue">เลือกวันที่</span>
-                    </div>
-                </div>
-                <div class="search-bar__field" id="checkoutField">
-                    <span class="material-symbols-outlined">calendar_month</span>
-                    <div>
-                        <span class="search-bar__label">เช็คเอาต์</span>
-                        <span class="search-bar__value" id="checkoutValue">เลือกวันที่</span>
-                    </div>
-                </div>
-                <div class="search-bar__field" id="guestField">
-                    <span class="material-symbols-outlined">family_restroom</span>
-                    <div>
-                        <span class="search-bar__label">ผู้เข้าพักและห้องพัก</span>
-                        <span class="search-bar__value" id="guestValue">2 ผู้ใหญ่, 1 ห้อง</span>
-                    </div>
-                </div>
-                <button class="search-bar__btn" type="button" onclick="window.location.href='voucher-list.html'">
-                    <span class="material-symbols-outlined" style="font-size:20px;">search</span>
-                    ค้นหา
-                </button>
-            </div>
 
-            <!-- Date Range Picker Dropdown -->
-        <div class="datepicker-dropdown" id="datepickerDropdown">
-            <div class="datepicker-header">
-                <button class="datepicker-nav" id="dpPrev" type="button"><span class="material-symbols-outlined">chevron_left</span></button>
-                <div class="datepicker-months">
-                    <span class="datepicker-month-title" id="dpMonth1"></span>
-                    <span class="datepicker-month-title" id="dpMonth2"></span>
-                </div>
-                <button class="datepicker-nav" id="dpNext" type="button"><span class="material-symbols-outlined">chevron_right</span></button>
-            </div>
-            <div class="datepicker-body">
-                <div class="datepicker-calendar" id="dpCal1"></div>
-                <div class="datepicker-calendar" id="dpCal2"></div>
-            </div>
-            <div class="datepicker-footer">
-                <button class="datepicker-clear" id="dpClear" type="button">ล้าง</button>
-                <button class="datepicker-done" id="dpDone" type="button">ตกลง</button>
-            </div>
-        </div>
+                <!-- Ranking Section -->
+                <div class="search-suggest__ranking">
+                    <div class="search-suggest__ranking-title">
+                        <span class="material-symbols-outlined" style="font-size:20px;color:var(--color-gold-dark);">emoji_events</span>
+                        จัดอันดับวอชเชอร์ยอดนิยม
+                    </div>
+                    <div class="search-suggest__ranking-grid">
+                        <!-- Column 1: Thailand -->
+                        <div class="ranking-column">
+                            <div class="ranking-column__header">วอชเชอร์ขายดีในไทย</div>
+                            <div class="ranking-column__list">
+                                <a href="voucher-detail.html" class="ranking-item">
+                                    <span class="ranking-item__num">1</span>
+                                    <img class="ranking-item__img" src="assets/images/hotels/hotel-pool-villa.jpg" alt="Paradise Pool Villa" loading="lazy">
+                                    <div class="ranking-item__info">
+                                        <div class="ranking-item__name">Paradise Pool Villa Resort</div>
+                                        <div class="ranking-item__location">ภูเก็ต, ไทย</div>
+                                    </div>
+                                </a>
+                                <a href="voucher-detail.html" class="ranking-item">
+                                    <span class="ranking-item__num">2</span>
+                                    <img class="ranking-item__img" src="assets/images/hotels/hotel-bedroom-luxury.jpg" alt="The Ritz-Carlton" loading="lazy">
+                                    <div class="ranking-item__info">
+                                        <div class="ranking-item__name">The Ritz-Carlton Bangkok</div>
+                                        <div class="ranking-item__location">กรุงเทพ, ไทย</div>
+                                    </div>
+                                </a>
+                                <a href="voucher-detail.html" class="ranking-item">
+                                    <span class="ranking-item__num">3</span>
+                                    <img class="ranking-item__img" src="assets/images/hotels/hotel-siam-heritage.jpg" alt="Amanpuri" loading="lazy">
+                                    <div class="ranking-item__info">
+                                        <div class="ranking-item__name">Amanpuri Phuket</div>
+                                        <div class="ranking-item__location">ภูเก็ต, ไทย</div>
+                                    </div>
+                                </a>
+                                <a href="voucher-detail.html" class="ranking-item">
+                                    <span class="ranking-item__num">4</span>
+                                    <img class="ranking-item__img" src="assets/images/hotels/hotel-capella-bangkok.jpg" alt="InterContinental" loading="lazy">
+                                    <div class="ranking-item__info">
+                                        <div class="ranking-item__name">InterContinental Hua Hin</div>
+                                        <div class="ranking-item__location">หัวหิน, ไทย</div>
+                                    </div>
+                                </a>
+                                <a href="voucher-detail.html" class="ranking-item">
+                                    <span class="ranking-item__num">5</span>
+                                    <img class="ranking-item__img" src="assets/images/hotels/hotel-mountain-resort-4k.jpg" alt="Kirimaya" loading="lazy">
+                                    <div class="ranking-item__info">
+                                        <div class="ranking-item__name">Kirimaya Golf Resort & Spa</div>
+                                        <div class="ranking-item__location">เขาใหญ่, ไทย</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
 
-        <!-- Guest Picker Dropdown -->
-        <div class="guest-dropdown" id="guestDropdown">
-            <div class="guest-row">
-                <div class="guest-row__info">
-                    <span class="guest-row__label">ผู้ใหญ่</span>
-                    <span class="guest-row__hint">อายุ 18 ปีขึ้นไป</span>
+                        <!-- Column 2: International -->
+                        <div class="ranking-column">
+                            <div class="ranking-column__header">วอชเชอร์ขายดีต่างประเทศ</div>
+                            <div class="ranking-column__list">
+                                <a href="voucher-detail.html" class="ranking-item">
+                                    <span class="ranking-item__num">1</span>
+                                    <img class="ranking-item__img" src="assets/images/hotels/hotel-flash-deal-1.jpg" alt="Aman Tokyo" loading="lazy">
+                                    <div class="ranking-item__info">
+                                        <div class="ranking-item__name">Aman Tokyo</div>
+                                        <div class="ranking-item__location">โตเกียว, ญี่ปุ่น</div>
+                                    </div>
+                                </a>
+                                <a href="voucher-detail.html" class="ranking-item">
+                                    <span class="ranking-item__num">2</span>
+                                    <img class="ranking-item__img" src="assets/images/hotels/hotel-anantara-chiangmai.jpg" alt="Park Hyatt" loading="lazy">
+                                    <div class="ranking-item__info">
+                                        <div class="ranking-item__name">Park Hyatt Kyoto</div>
+                                        <div class="ranking-item__location">เกียวโต, ญี่ปุ่น</div>
+                                    </div>
+                                </a>
+                                <a href="voucher-detail.html" class="ranking-item">
+                                    <span class="ranking-item__num">3</span>
+                                    <img class="ranking-item__img" src="assets/images/hotels/hotel-flash-deal-3.jpg" alt="Mandarin Oriental" loading="lazy">
+                                    <div class="ranking-item__info">
+                                        <div class="ranking-item__name">Mandarin Oriental Singapore</div>
+                                        <div class="ranking-item__location">สิงคโปร์</div>
+                                    </div>
+                                </a>
+                                <a href="voucher-detail.html" class="ranking-item">
+                                    <span class="ranking-item__num">4</span>
+                                    <img class="ranking-item__img" src="assets/images/hotels/hotel-spa-pool.jpg" alt="Four Seasons" loading="lazy">
+                                    <div class="ranking-item__info">
+                                        <div class="ranking-item__name">Four Seasons Bali</div>
+                                        <div class="ranking-item__location">บาหลี, อินโดนีเซีย</div>
+                                    </div>
+                                </a>
+                                <a href="voucher-detail.html" class="ranking-item">
+                                    <span class="ranking-item__num">5</span>
+                                    <img class="ranking-item__img" src="assets/images/hotels/hotel-pool-villa-4k.jpg" alt="Soneva Fushi" loading="lazy">
+                                    <div class="ranking-item__info">
+                                        <div class="ranking-item__name">Soneva Fushi Maldives</div>
+                                        <div class="ranking-item__location">มัลดีฟส์</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="guest-row__controls">
-                    <button class="guest-btn" type="button" data-target="adults" data-action="minus">−</button>
-                    <span class="guest-count" id="adultCount">2</span>
-                    <button class="guest-btn" type="button" data-target="adults" data-action="plus">+</button>
-                </div>
+
             </div>
-            <div class="guest-row">
-                <div class="guest-row__info">
-                    <span class="guest-row__label">เด็ก</span>
-                    <span class="guest-row__hint">อายุ 0–17 ปี</span>
-                </div>
-                <div class="guest-row__controls">
-                    <button class="guest-btn" type="button" data-target="children" data-action="minus">−</button>
-                    <span class="guest-count" id="childCount">0</span>
-                    <button class="guest-btn" type="button" data-target="children" data-action="plus">+</button>
-                </div>
-            </div>
-            <div class="guest-row">
-                <div class="guest-row__info">
-                    <span class="guest-row__label">ห้องพัก</span>
-                    <span class="guest-row__hint">จำนวนห้อง</span>
-                </div>
-                <div class="guest-row__controls">
-                    <button class="guest-btn" type="button" data-target="rooms" data-action="minus">−</button>
-                    <span class="guest-count" id="roomCount">1</span>
-                    <button class="guest-btn" type="button" data-target="rooms" data-action="plus">+</button>
-                </div>
-            </div>
-            <button class="guest-done" id="guestDone" type="button">ตกลง</button>
-        </div>
         </div>
     </div>
 
@@ -2725,7 +2712,7 @@
                         <!-- Destination card 1 -->
                         <div style="position:relative;border-radius:var(--radius-xl);overflow:hidden;aspect-ratio:3/4;">
                             <div class="skel skel-image" style="width:100%;height:100%;border-radius:0;aspect-ratio:unset;"></div>
-                            <div style="position:absolute;bottom:0;left:0;right:0;padding:var(--space-md);display:flex;flex-direction:column;gap:6px;">
+                            <div style="position:absolute;bottom:0;left:0;right:0;padding:var(--space-md);display:flex;flex-direction:column;gap:8px;">
                                 <div class="skel skel-text--heading" style="width:70%;height:18px;"></div>
                                 <div class="skel skel-text--caption" style="width:55%;height:12px;"></div>
                             </div>
@@ -2733,7 +2720,7 @@
                         <!-- Destination card 2 -->
                         <div style="position:relative;border-radius:var(--radius-xl);overflow:hidden;aspect-ratio:3/4;">
                             <div class="skel skel-image" style="width:100%;height:100%;border-radius:0;aspect-ratio:unset;"></div>
-                            <div style="position:absolute;bottom:0;left:0;right:0;padding:var(--space-md);display:flex;flex-direction:column;gap:6px;">
+                            <div style="position:absolute;bottom:0;left:0;right:0;padding:var(--space-md);display:flex;flex-direction:column;gap:8px;">
                                 <div class="skel skel-text--heading" style="width:65%;height:18px;"></div>
                                 <div class="skel skel-text--caption" style="width:50%;height:12px;"></div>
                             </div>
@@ -2741,7 +2728,7 @@
                         <!-- Destination card 3 -->
                         <div style="position:relative;border-radius:var(--radius-xl);overflow:hidden;aspect-ratio:3/4;">
                             <div class="skel skel-image" style="width:100%;height:100%;border-radius:0;aspect-ratio:unset;"></div>
-                            <div style="position:absolute;bottom:0;left:0;right:0;padding:var(--space-md);display:flex;flex-direction:column;gap:6px;">
+                            <div style="position:absolute;bottom:0;left:0;right:0;padding:var(--space-md);display:flex;flex-direction:column;gap:8px;">
                                 <div class="skel skel-text--heading" style="width:75%;height:18px;"></div>
                                 <div class="skel skel-text--caption" style="width:60%;height:12px;"></div>
                             </div>
@@ -2749,7 +2736,7 @@
                         <!-- Destination card 4 -->
                         <div style="position:relative;border-radius:var(--radius-xl);overflow:hidden;aspect-ratio:3/4;">
                             <div class="skel skel-image" style="width:100%;height:100%;border-radius:0;aspect-ratio:unset;"></div>
-                            <div style="position:absolute;bottom:0;left:0;right:0;padding:var(--space-md);display:flex;flex-direction:column;gap:6px;">
+                            <div style="position:absolute;bottom:0;left:0;right:0;padding:var(--space-md);display:flex;flex-direction:column;gap:8px;">
                                 <div class="skel skel-text--heading" style="width:60%;height:18px;"></div>
                                 <div class="skel skel-text--caption" style="width:45%;height:12px;"></div>
                             </div>
@@ -2757,7 +2744,7 @@
                         <!-- Destination card 5 -->
                         <div style="position:relative;border-radius:var(--radius-xl);overflow:hidden;aspect-ratio:3/4;">
                             <div class="skel skel-image" style="width:100%;height:100%;border-radius:0;aspect-ratio:unset;"></div>
-                            <div style="position:absolute;bottom:0;left:0;right:0;padding:var(--space-md);display:flex;flex-direction:column;gap:6px;">
+                            <div style="position:absolute;bottom:0;left:0;right:0;padding:var(--space-md);display:flex;flex-direction:column;gap:8px;">
                                 <div class="skel skel-text--heading" style="width:80%;height:18px;"></div>
                                 <div class="skel skel-text--caption" style="width:55%;height:12px;"></div>
                             </div>
@@ -2766,40 +2753,40 @@
                 </div>
                 <div class="real-content">
             <div class="destinations-grid stagger-children">
-                <a href="voucher-list.html" class="destination-card" style="text-decoration:none;">
-                    <img src="assets/images/destinations/dest-huahin.jpg" alt="หัวหิน" loading="lazy">
+                <a href="voucher-list.html?dest=%E0%B8%AB%E0%B8%B1%E0%B8%A7%E0%B8%AB%E0%B8%B4%E0%B8%99" class="destination-card" style="text-decoration:none;">
+                    <img src="assets/images/destinations/dest-huahin-hd.jpg" alt="หัวหิน" loading="lazy">
                     <div class="destination-card__overlay"></div>
                     <div class="destination-card__content">
                         <div class="destination-card__name">หัวหิน</div>
                         <div class="destination-card__count">48 วอชเชอร์</div>
                     </div>
                 </a>
-                <a href="voucher-list.html" class="destination-card" style="text-decoration:none;">
-                    <img src="assets/images/destinations/dest-phuket.jpg" alt="ภูเก็ต" loading="lazy">
+                <a href="voucher-list.html?dest=%E0%B8%A0%E0%B8%B9%E0%B9%80%E0%B8%81%E0%B9%87%E0%B8%95" class="destination-card" style="text-decoration:none;">
+                    <img src="assets/images/destinations/dest-phuket-hd.jpg" alt="ภูเก็ต" loading="lazy">
                     <div class="destination-card__overlay"></div>
                     <div class="destination-card__content">
                         <div class="destination-card__name">ภูเก็ต</div>
                         <div class="destination-card__count">62 วอชเชอร์</div>
                     </div>
                 </a>
-                <a href="voucher-list.html" class="destination-card" style="text-decoration:none;">
-                    <img src="assets/images/destinations/dest-khaoyai.jpg" alt="เขาใหญ่" loading="lazy">
+                <a href="voucher-list.html?dest=%E0%B9%80%E0%B8%82%E0%B8%B2%E0%B9%83%E0%B8%AB%E0%B8%8D%E0%B9%88" class="destination-card" style="text-decoration:none;">
+                    <img src="assets/images/destinations/dest-khaoyai-hd.jpg" alt="เขาใหญ่" loading="lazy">
                     <div class="destination-card__overlay"></div>
                     <div class="destination-card__content">
                         <div class="destination-card__name">เขาใหญ่</div>
                         <div class="destination-card__count">35 วอชเชอร์</div>
                     </div>
                 </a>
-                <a href="voucher-list.html" class="destination-card" style="text-decoration:none;">
-                    <img src="assets/images/destinations/dest-bangkok.jpg" alt="กรุงเทพ" loading="lazy">
+                <a href="voucher-list.html?dest=%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E" class="destination-card" style="text-decoration:none;">
+                    <img src="assets/images/destinations/dest-bangkok-hd.jpg" alt="กรุงเทพ" loading="lazy">
                     <div class="destination-card__overlay"></div>
                     <div class="destination-card__content">
                         <div class="destination-card__name">กรุงเทพ</div>
                         <div class="destination-card__count">85 วอชเชอร์</div>
                     </div>
                 </a>
-                <a href="voucher-list.html" class="destination-card" style="text-decoration:none;">
-                    <img src="assets/images/destinations/dest-samui.jpg" alt="เกาะสมุย" loading="lazy">
+                <a href="voucher-list.html?dest=%E0%B9%80%E0%B8%81%E0%B8%B2%E0%B8%B0%E0%B8%AA%E0%B8%A1%E0%B8%B8%E0%B8%A2" class="destination-card" style="text-decoration:none;">
+                    <img src="assets/images/destinations/dest-samui-hd.jpg" alt="เกาะสมุย" loading="lazy">
                     <div class="destination-card__overlay"></div>
                     <div class="destination-card__content">
                         <div class="destination-card__name">เกาะสมุย</div>
@@ -2894,8 +2881,8 @@
                     <div class="why-item__icon">
                         <span class="material-symbols-outlined">savings</span>
                     </div>
-                    <div class="why-item__title">ดีลตรงจากโรงแรม ถูกกว่า OTA</div>
-                    <div class="why-item__desc">ไม่ผ่านคนกลาง ราคาดีกว่า Agoda, Booking การันตี ถ้าเจอที่ไหนถูกกว่า คืนส่วนต่างให้</div>
+                    <div class="why-item__title">วอชเชอร์ตรงจากโรงแรม ถูกกว่า OTA</div>
+                    <div class="why-item__desc">ซื้อวอชเชอร์ไม่ผ่านคนกลาง ราคาดีกว่า Agoda, Booking การันตี ถ้าเจอที่ไหนถูกกว่า คืนส่วนต่างให้</div>
                 </div>
                 <div class="why-item">
                     <div class="why-item__icon">
@@ -2908,8 +2895,8 @@
                     <div class="why-item__icon">
                         <span class="material-symbols-outlined">calendar_month</span>
                     </div>
-                    <div class="why-item__title">ซื้อก่อน เลือกวันทีหลังได้</div>
-                    <div class="why-item__desc">เจอราคาดี ซื้อเก็บไว้เลย ค่อยเลือกวันเข้าพักทีหลัง มีเวลาให้ถึง 1 ปี</div>
+                    <div class="why-item__title">ซื้อวอชเชอร์ก่อน เลือกวันทีหลังได้</div>
+                    <div class="why-item__desc">เจอราคาดี ซื้อวอชเชอร์เก็บไว้เลย ค่อยเลือกวันเข้าพักทีหลัง มีเวลาให้ถึง 1 ปี</div>
                 </div>
                 <div class="why-item">
                     <div class="why-item__icon">
@@ -2923,7 +2910,7 @@
                         <span class="material-symbols-outlined">support_agent</span>
                     </div>
                     <div class="why-item__title">ทีมคนไทยดูแลตลอด 24 ชม.</div>
-                    <div class="why-item__desc">มีปัญหาแชทหาได้ทันที ทีมคนไทยพร้อมช่วยเหลือตั้งแต่จองจนถึงวันเช็คเอาท์</div>
+                    <div class="why-item__desc">มีปัญหาแชทหาได้ทันที ทีมคนไทยพร้อมช่วยเหลือตั้งแต่ซื้อวอชเชอร์จนถึงวันเช็คเอาท์</div>
                 </div>
             </div>
             <div style="text-align:center;margin-top:var(--space-xl);">
@@ -2952,14 +2939,14 @@
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                             </div>
-                            <div class="skel-stack" style="gap:6px;margin-bottom:var(--space-md);">
+                            <div class="skel-stack" style="gap:8px;margin-bottom:var(--space-md);">
                                 <div class="skel skel-text" style="width:100%;"></div>
                                 <div class="skel skel-text" style="width:95%;"></div>
                                 <div class="skel skel-text skel-text--short" style="width:70%;"></div>
                             </div>
                             <div class="skel-row" style="align-items:center;gap:var(--space-sm);">
                                 <div class="skel skel-avatar" style="flex-shrink:0;"></div>
-                                <div class="skel-stack" style="gap:6px;flex:1;">
+                                <div class="skel-stack" style="gap:8px;flex:1;">
                                     <div class="skel skel-text" style="width:60%;height:14px;"></div>
                                     <div class="skel skel-text--caption" style="width:45%;"></div>
                                 </div>
@@ -2974,14 +2961,14 @@
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                             </div>
-                            <div class="skel-stack" style="gap:6px;margin-bottom:var(--space-md);">
+                            <div class="skel-stack" style="gap:8px;margin-bottom:var(--space-md);">
                                 <div class="skel skel-text" style="width:100%;"></div>
                                 <div class="skel skel-text" style="width:90%;"></div>
                                 <div class="skel skel-text skel-text--short" style="width:60%;"></div>
                             </div>
                             <div class="skel-row" style="align-items:center;gap:var(--space-sm);">
                                 <div class="skel skel-avatar" style="flex-shrink:0;"></div>
-                                <div class="skel-stack" style="gap:6px;flex:1;">
+                                <div class="skel-stack" style="gap:8px;flex:1;">
                                     <div class="skel skel-text" style="width:55%;height:14px;"></div>
                                     <div class="skel skel-text--caption" style="width:40%;"></div>
                                 </div>
@@ -2996,14 +2983,14 @@
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                             </div>
-                            <div class="skel-stack" style="gap:6px;margin-bottom:var(--space-md);">
+                            <div class="skel-stack" style="gap:8px;margin-bottom:var(--space-md);">
                                 <div class="skel skel-text" style="width:100%;"></div>
                                 <div class="skel skel-text" style="width:85%;"></div>
                                 <div class="skel skel-text skel-text--short" style="width:65%;"></div>
                             </div>
                             <div class="skel-row" style="align-items:center;gap:var(--space-sm);">
                                 <div class="skel skel-avatar" style="flex-shrink:0;"></div>
-                                <div class="skel-stack" style="gap:6px;flex:1;">
+                                <div class="skel-stack" style="gap:8px;flex:1;">
                                     <div class="skel skel-text" style="width:50%;height:14px;"></div>
                                     <div class="skel skel-text--caption" style="width:38%;"></div>
                                 </div>
@@ -3021,14 +3008,14 @@
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                             </div>
-                            <div class="skel-stack" style="gap:6px;margin-bottom:var(--space-md);">
+                            <div class="skel-stack" style="gap:8px;margin-bottom:var(--space-md);">
                                 <div class="skel skel-text" style="width:100%;"></div>
                                 <div class="skel skel-text" style="width:92%;"></div>
                                 <div class="skel skel-text skel-text--short" style="width:55%;"></div>
                             </div>
                             <div class="skel-row" style="align-items:center;gap:var(--space-sm);">
                                 <div class="skel skel-avatar" style="flex-shrink:0;"></div>
-                                <div class="skel-stack" style="gap:6px;flex:1;">
+                                <div class="skel-stack" style="gap:8px;flex:1;">
                                     <div class="skel skel-text" style="width:65%;height:14px;"></div>
                                     <div class="skel skel-text--caption" style="width:48%;"></div>
                                 </div>
@@ -3043,14 +3030,14 @@
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                             </div>
-                            <div class="skel-stack" style="gap:6px;margin-bottom:var(--space-md);">
+                            <div class="skel-stack" style="gap:8px;margin-bottom:var(--space-md);">
                                 <div class="skel skel-text" style="width:100%;"></div>
                                 <div class="skel skel-text" style="width:88%;"></div>
                                 <div class="skel skel-text skel-text--short" style="width:72%;"></div>
                             </div>
                             <div class="skel-row" style="align-items:center;gap:var(--space-sm);">
                                 <div class="skel skel-avatar" style="flex-shrink:0;"></div>
-                                <div class="skel-stack" style="gap:6px;flex:1;">
+                                <div class="skel-stack" style="gap:8px;flex:1;">
                                     <div class="skel skel-text" style="width:58%;height:14px;"></div>
                                     <div class="skel skel-text--caption" style="width:42%;"></div>
                                 </div>
@@ -3065,14 +3052,14 @@
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                             </div>
-                            <div class="skel-stack" style="gap:6px;margin-bottom:var(--space-md);">
+                            <div class="skel-stack" style="gap:8px;margin-bottom:var(--space-md);">
                                 <div class="skel skel-text" style="width:100%;"></div>
                                 <div class="skel skel-text" style="width:78%;"></div>
                                 <div class="skel skel-text skel-text--short" style="width:50%;"></div>
                             </div>
                             <div class="skel-row" style="align-items:center;gap:var(--space-sm);">
                                 <div class="skel skel-avatar" style="flex-shrink:0;"></div>
-                                <div class="skel-stack" style="gap:6px;flex:1;">
+                                <div class="skel-stack" style="gap:8px;flex:1;">
                                     <div class="skel skel-text" style="width:62%;height:14px;"></div>
                                     <div class="skel skel-text--caption" style="width:44%;"></div>
                                 </div>
@@ -3090,14 +3077,14 @@
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                             </div>
-                            <div class="skel-stack" style="gap:6px;margin-bottom:var(--space-md);">
+                            <div class="skel-stack" style="gap:8px;margin-bottom:var(--space-md);">
                                 <div class="skel skel-text" style="width:100%;"></div>
                                 <div class="skel skel-text" style="width:96%;"></div>
                                 <div class="skel skel-text skel-text--short" style="width:68%;"></div>
                             </div>
                             <div class="skel-row" style="align-items:center;gap:var(--space-sm);">
                                 <div class="skel skel-avatar" style="flex-shrink:0;"></div>
-                                <div class="skel-stack" style="gap:6px;flex:1;">
+                                <div class="skel-stack" style="gap:8px;flex:1;">
                                     <div class="skel skel-text" style="width:70%;height:14px;"></div>
                                     <div class="skel skel-text--caption" style="width:50%;"></div>
                                 </div>
@@ -3112,14 +3099,14 @@
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                             </div>
-                            <div class="skel-stack" style="gap:6px;margin-bottom:var(--space-md);">
+                            <div class="skel-stack" style="gap:8px;margin-bottom:var(--space-md);">
                                 <div class="skel skel-text" style="width:100%;"></div>
                                 <div class="skel skel-text" style="width:83%;"></div>
                                 <div class="skel skel-text skel-text--short" style="width:58%;"></div>
                             </div>
                             <div class="skel-row" style="align-items:center;gap:var(--space-sm);">
                                 <div class="skel skel-avatar" style="flex-shrink:0;"></div>
-                                <div class="skel-stack" style="gap:6px;flex:1;">
+                                <div class="skel-stack" style="gap:8px;flex:1;">
                                     <div class="skel skel-text" style="width:53%;height:14px;"></div>
                                     <div class="skel skel-text--caption" style="width:40%;"></div>
                                 </div>
@@ -3134,14 +3121,14 @@
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                                 <div class="skel" style="width:16px;height:16px;border-radius:3px;flex-shrink:0;"></div>
                             </div>
-                            <div class="skel-stack" style="gap:6px;margin-bottom:var(--space-md);">
+                            <div class="skel-stack" style="gap:8px;margin-bottom:var(--space-md);">
                                 <div class="skel skel-text" style="width:100%;"></div>
                                 <div class="skel skel-text" style="width:91%;"></div>
                                 <div class="skel skel-text skel-text--short" style="width:63%;"></div>
                             </div>
                             <div class="skel-row" style="align-items:center;gap:var(--space-sm);">
                                 <div class="skel skel-avatar" style="flex-shrink:0;"></div>
-                                <div class="skel-stack" style="gap:6px;flex:1;">
+                                <div class="skel-stack" style="gap:8px;flex:1;">
                                     <div class="skel skel-text" style="width:67%;height:14px;"></div>
                                     <div class="skel skel-text--caption" style="width:46%;"></div>
                                 </div>
@@ -3180,7 +3167,7 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"จอง Pool Villa ที่เขาใหญ่ ถูกกว่าจองผ่าน Agoda เกือบ 40% ตอนแรกไม่เชื่อ แต่พอเช็คอินจริงห้องเหมือนกันเป๊ะ สิทธิพิเศษยิ่งเยอะกว่าด้วย"</p>
+                        <p class="testi-card__quote">"ซื้อวอชเชอร์ Pool Villa ที่เขาใหญ่ ถูกกว่าจองผ่าน Agoda เกือบ 40% ตอนแรกไม่เชื่อ แต่พอเช็คอินจริงห้องเหมือนกันเป๊ะ สิทธิพิเศษยิ่งเยอะกว่าด้วย"</p>
                         <div class="testi-card__author">
                             <img src="assets/images/avatars/avatar-woman-1.jpg" alt="คุณปราณี" class="testi-card__avatar">
                             <div>
@@ -3197,7 +3184,7 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"สิ่งที่ชอบคือจองง่ายมาก จ่ายเงินปุ๊บได้วอชเชอร์ปั๊บ ค่อยเลือกวันเข้าพักทีหลังได้ เหมาะกับคนที่ยังไม่แน่ใจวัน แต่เจอราคาดีไม่อยากพลาด"</p>
+                        <p class="testi-card__quote">"สิ่งที่ชอบคือซื้อวอชเชอร์ง่ายมาก จ่ายเงินปุ๊บได้วอชเชอร์ปั๊บ ค่อยเลือกวันเข้าพักทีหลังได้ เหมาะกับคนที่ยังไม่แน่ใจวัน แต่เจอราคาดีไม่อยากพลาด"</p>
                         <div class="testi-card__author">
                             <img src="assets/images/avatars/avatar-man-1.jpg" alt="คุณธนา" class="testi-card__avatar">
                             <div>
@@ -3216,7 +3203,7 @@
                         </div>
                         <p class="testi-card__quote">"ชอบที่ราคาตรงไปตรงมา ไม่มีค่าธรรมเนียมแอบแฝงตอนจ่ายเงิน ราคาที่เห็นคือราคาสุดท้าย ไม่ต้องมานั่งบวกภาษีเพิ่มทีหลัง"</p>
                         <div class="testi-card__author">
-                            <div class="testi-card__avatar--placeholder" style="background:#E88DB4">พร</div>
+                            <div class="testi-card__avatar--placeholder" style="background:var(--avatar-pink)">พร</div>
                             <div>
                                 <div class="testi-card__name">คุณแพร</div>
                                 <div class="testi-card__role">ครีเอทีฟ ไดเรกเตอร์</div>
@@ -3232,7 +3219,7 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"จอง Pool Villa ที่เขาใหญ่ ถูกกว่าจองผ่าน Agoda เกือบ 40% ตอนแรกไม่เชื่อ แต่พอเช็คอินจริงห้องเหมือนกันเป๊ะ สิทธิพิเศษยิ่งเยอะกว่าด้วย"</p>
+                        <p class="testi-card__quote">"ซื้อวอชเชอร์ Pool Villa ที่เขาใหญ่ ถูกกว่าจองผ่าน Agoda เกือบ 40% ตอนแรกไม่เชื่อ แต่พอเช็คอินจริงห้องเหมือนกันเป๊ะ สิทธิพิเศษยิ่งเยอะกว่าด้วย"</p>
                         <div class="testi-card__author">
                             <img src="assets/images/avatars/avatar-woman-1.jpg" alt="คุณปราณี" class="testi-card__avatar">
                             <div>
@@ -3249,7 +3236,7 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"สิ่งที่ชอบคือจองง่ายมาก จ่ายเงินปุ๊บได้วอชเชอร์ปั๊บ ค่อยเลือกวันเข้าพักทีหลังได้ เหมาะกับคนที่ยังไม่แน่ใจวัน แต่เจอราคาดีไม่อยากพลาด"</p>
+                        <p class="testi-card__quote">"สิ่งที่ชอบคือซื้อวอชเชอร์ง่ายมาก จ่ายเงินปุ๊บได้วอชเชอร์ปั๊บ ค่อยเลือกวันเข้าพักทีหลังได้ เหมาะกับคนที่ยังไม่แน่ใจวัน แต่เจอราคาดีไม่อยากพลาด"</p>
                         <div class="testi-card__author">
                             <img src="assets/images/avatars/avatar-man-1.jpg" alt="คุณธนา" class="testi-card__avatar">
                             <div>
@@ -3268,7 +3255,7 @@
                         </div>
                         <p class="testi-card__quote">"ชอบที่ราคาตรงไปตรงมา ไม่มีค่าธรรมเนียมแอบแฝงตอนจ่ายเงิน ราคาที่เห็นคือราคาสุดท้าย ไม่ต้องมานั่งบวกภาษีเพิ่มทีหลัง"</p>
                         <div class="testi-card__author">
-                            <div class="testi-card__avatar--placeholder" style="background:#E88DB4">พร</div>
+                            <div class="testi-card__avatar--placeholder" style="background:var(--avatar-pink)">พร</div>
                             <div>
                                 <div class="testi-card__name">คุณแพร</div>
                                 <div class="testi-card__role">ครีเอทีฟ ไดเรกเตอร์</div>
@@ -3284,7 +3271,7 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"จอง Pool Villa ที่เขาใหญ่ ถูกกว่าจองผ่าน Agoda เกือบ 40% ตอนแรกไม่เชื่อ แต่พอเช็คอินจริงห้องเหมือนกันเป๊ะ สิทธิพิเศษยิ่งเยอะกว่าด้วย"</p>
+                        <p class="testi-card__quote">"ซื้อวอชเชอร์ Pool Villa ที่เขาใหญ่ ถูกกว่าจองผ่าน Agoda เกือบ 40% ตอนแรกไม่เชื่อ แต่พอเช็คอินจริงห้องเหมือนกันเป๊ะ สิทธิพิเศษยิ่งเยอะกว่าด้วย"</p>
                         <div class="testi-card__author">
                             <img src="assets/images/avatars/avatar-woman-1.jpg" alt="คุณปราณี" class="testi-card__avatar">
                             <div>
@@ -3301,7 +3288,7 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"สิ่งที่ชอบคือจองง่ายมาก จ่ายเงินปุ๊บได้วอชเชอร์ปั๊บ ค่อยเลือกวันเข้าพักทีหลังได้ เหมาะกับคนที่ยังไม่แน่ใจวัน แต่เจอราคาดีไม่อยากพลาด"</p>
+                        <p class="testi-card__quote">"สิ่งที่ชอบคือซื้อวอชเชอร์ง่ายมาก จ่ายเงินปุ๊บได้วอชเชอร์ปั๊บ ค่อยเลือกวันเข้าพักทีหลังได้ เหมาะกับคนที่ยังไม่แน่ใจวัน แต่เจอราคาดีไม่อยากพลาด"</p>
                         <div class="testi-card__author">
                             <img src="assets/images/avatars/avatar-man-1.jpg" alt="คุณธนา" class="testi-card__avatar">
                             <div>
@@ -3320,7 +3307,7 @@
                         </div>
                         <p class="testi-card__quote">"ชอบที่ราคาตรงไปตรงมา ไม่มีค่าธรรมเนียมแอบแฝงตอนจ่ายเงิน ราคาที่เห็นคือราคาสุดท้าย ไม่ต้องมานั่งบวกภาษีเพิ่มทีหลัง"</p>
                         <div class="testi-card__author">
-                            <div class="testi-card__avatar--placeholder" style="background:#E88DB4">พร</div>
+                            <div class="testi-card__avatar--placeholder" style="background:var(--avatar-pink)">พร</div>
                             <div>
                                 <div class="testi-card__name">คุณแพร</div>
                                 <div class="testi-card__role">ครีเอทีฟ ไดเรกเตอร์</div>
@@ -3342,7 +3329,7 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"พนักงานโทรมาแนะนำก่อนเข้าพัก บอกว่าโรงแรมมีโปรอะไรเพิ่มบ้าง รู้สึกเหมือนมีเพื่อนดูแล ไม่ใช่แค่แพลตฟอร์มจองห้อง"</p>
+                        <p class="testi-card__quote">"พนักงานโทรมาแนะนำก่อนเข้าพัก บอกว่าโรงแรมมีโปรอะไรเพิ่มบ้าง รู้สึกเหมือนมีเพื่อนดูแล ไม่ใช่แค่เว็บขายวอชเชอร์ธรรมดา"</p>
                         <div class="testi-card__author">
                             <img src="assets/images/avatars/avatar-man-2.jpg" alt="คุณสมชาย" class="testi-card__avatar">
                             <div>
@@ -3361,7 +3348,7 @@
                         </div>
                         <p class="testi-card__quote">"ซื้อวอชเชอร์ที่มีเครดิตสปา 2,000 บาท ตอนแรกกลัวว่าจะใช้ไม่ได้จริง แต่พอไปถึงโรงแรมเขาเช็คในระบบแล้วใช้ได้เลย สะดวกมาก"</p>
                         <div class="testi-card__author">
-                            <div class="testi-card__avatar--placeholder" style="background:#7279FB">นด</div>
+                            <div class="testi-card__avatar--placeholder" style="background:var(--avatar-purple)">นด</div>
                             <div>
                                 <div class="testi-card__name">คุณนิดา</div>
                                 <div class="testi-card__role">แพทย์</div>
@@ -3376,7 +3363,7 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"เปรียบเทียบราคากับ Agoda แล้ว Hotel Addict ถูกกว่าจริง ห้องเดียวกัน คืนเดียวกัน แต่ประหยัดไปเกือบ 3,000 บาท ยังได้อาหารเช้าฟรีอีก"</p>
+                        <p class="testi-card__quote">"เปรียบเทียบราคากับ Agoda แล้ว วอชเชอร์ Hotel Addict ถูกกว่าจริง ห้องเดียวกัน คืนเดียวกัน แต่ประหยัดไปเกือบ 3,000 บาท ยังได้อาหารเช้าฟรีอีก"</p>
                         <div class="testi-card__author">
                             <div class="testi-card__avatar--placeholder" style="background:#2D8B65">วท</div>
                             <div>
@@ -3394,7 +3381,7 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"พนักงานโทรมาแนะนำก่อนเข้าพัก บอกว่าโรงแรมมีโปรอะไรเพิ่มบ้าง รู้สึกเหมือนมีเพื่อนดูแล ไม่ใช่แค่แพลตฟอร์มจองห้อง"</p>
+                        <p class="testi-card__quote">"พนักงานโทรมาแนะนำก่อนเข้าพัก บอกว่าโรงแรมมีโปรอะไรเพิ่มบ้าง รู้สึกเหมือนมีเพื่อนดูแล ไม่ใช่แค่เว็บขายวอชเชอร์ธรรมดา"</p>
                         <div class="testi-card__author">
                             <img src="assets/images/avatars/avatar-man-2.jpg" alt="คุณสมชาย" class="testi-card__avatar">
                             <div>
@@ -3413,7 +3400,7 @@
                         </div>
                         <p class="testi-card__quote">"ซื้อวอชเชอร์ที่มีเครดิตสปา 2,000 บาท ตอนแรกกลัวว่าจะใช้ไม่ได้จริง แต่พอไปถึงโรงแรมเขาเช็คในระบบแล้วใช้ได้เลย สะดวกมาก"</p>
                         <div class="testi-card__author">
-                            <div class="testi-card__avatar--placeholder" style="background:#7279FB">นด</div>
+                            <div class="testi-card__avatar--placeholder" style="background:var(--avatar-purple)">นด</div>
                             <div>
                                 <div class="testi-card__name">คุณนิดา</div>
                                 <div class="testi-card__role">แพทย์</div>
@@ -3428,7 +3415,7 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"เปรียบเทียบราคากับ Agoda แล้ว Hotel Addict ถูกกว่าจริง ห้องเดียวกัน คืนเดียวกัน แต่ประหยัดไปเกือบ 3,000 บาท ยังได้อาหารเช้าฟรีอีก"</p>
+                        <p class="testi-card__quote">"เปรียบเทียบราคากับ Agoda แล้ว วอชเชอร์ Hotel Addict ถูกกว่าจริง ห้องเดียวกัน คืนเดียวกัน แต่ประหยัดไปเกือบ 3,000 บาท ยังได้อาหารเช้าฟรีอีก"</p>
                         <div class="testi-card__author">
                             <div class="testi-card__avatar--placeholder" style="background:#2D8B65">วท</div>
                             <div>
@@ -3446,7 +3433,7 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"พนักงานโทรมาแนะนำก่อนเข้าพัก บอกว่าโรงแรมมีโปรอะไรเพิ่มบ้าง รู้สึกเหมือนมีเพื่อนดูแล ไม่ใช่แค่แพลตฟอร์มจองห้อง"</p>
+                        <p class="testi-card__quote">"พนักงานโทรมาแนะนำก่อนเข้าพัก บอกว่าโรงแรมมีโปรอะไรเพิ่มบ้าง รู้สึกเหมือนมีเพื่อนดูแล ไม่ใช่แค่เว็บขายวอชเชอร์ธรรมดา"</p>
                         <div class="testi-card__author">
                             <img src="assets/images/avatars/avatar-man-2.jpg" alt="คุณสมชาย" class="testi-card__avatar">
                             <div>
@@ -3465,7 +3452,7 @@
                         </div>
                         <p class="testi-card__quote">"ซื้อวอชเชอร์ที่มีเครดิตสปา 2,000 บาท ตอนแรกกลัวว่าจะใช้ไม่ได้จริง แต่พอไปถึงโรงแรมเขาเช็คในระบบแล้วใช้ได้เลย สะดวกมาก"</p>
                         <div class="testi-card__author">
-                            <div class="testi-card__avatar--placeholder" style="background:#7279FB">นด</div>
+                            <div class="testi-card__avatar--placeholder" style="background:var(--avatar-purple)">นด</div>
                             <div>
                                 <div class="testi-card__name">คุณนิดา</div>
                                 <div class="testi-card__role">แพทย์</div>
@@ -3480,7 +3467,7 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"เปรียบเทียบราคากับ Agoda แล้ว Hotel Addict ถูกกว่าจริง ห้องเดียวกัน คืนเดียวกัน แต่ประหยัดไปเกือบ 3,000 บาท ยังได้อาหารเช้าฟรีอีก"</p>
+                        <p class="testi-card__quote">"เปรียบเทียบราคากับ Agoda แล้ว วอชเชอร์ Hotel Addict ถูกกว่าจริง ห้องเดียวกัน คืนเดียวกัน แต่ประหยัดไปเกือบ 3,000 บาท ยังได้อาหารเช้าฟรีอีก"</p>
                         <div class="testi-card__author">
                             <div class="testi-card__avatar--placeholder" style="background:#2D8B65">วท</div>
                             <div>
@@ -3506,7 +3493,7 @@
                         </div>
                         <p class="testi-card__quote">"ซื้อวอชเชอร์เก็บไว้เป็นของขวัญวันเกิดแม่ วอชเชอร์มีอายุ 1 ปี เลือกวันเข้าพักทีหลังได้ ไม่ต้องรีบ แม่ชอบมากค่ะ"</p>
                         <div class="testi-card__author">
-                            <div class="testi-card__avatar--placeholder" style="background:#E8A95D">อท</div>
+                            <div class="testi-card__avatar--placeholder" style="background:var(--avatar-orange)">อท</div>
                             <div>
                                 <div class="testi-card__name">คุณอรทัย</div>
                                 <div class="testi-card__role">อาจารย์มหาวิทยาลัย</div>
@@ -3521,7 +3508,7 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"จองสุดสัปดาห์ที่ Rosewood Bangkok กับภรรยา ประหยัดไปเกือบหมื่น ได้อัปเกรดห้อง suite ฟรี ได้อาหารเช้า ได้เครดิตสปาอีก คุ้มจริง"</p>
+                        <p class="testi-card__quote">"ซื้อวอชเชอร์ Rosewood Bangkok ไว้เที่ยวกับภรรยา ประหยัดไปเกือบหมื่น ได้อัปเกรดห้อง suite ฟรี ได้อาหารเช้า ได้เครดิตสปาอีก คุ้มจริง"</p>
                         <div class="testi-card__author">
                             <div class="testi-card__avatar--placeholder" style="background:#1A6B4A">ภม</div>
                             <div>
@@ -3538,9 +3525,9 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"ในฐานะดีไซเนอร์ต้องบอกว่า UI ของ Hotel Addict ใช้ง่ายมาก หาดีลสะดวก เปรียบเทียบง่าย จ่ายเงินไม่กี่คลิก UX ดีสุดในบรรดาเว็บจองโรงแรม"</p>
+                        <p class="testi-card__quote">"ในฐานะดีไซเนอร์ต้องบอกว่า UI ของ Hotel Addict ใช้ง่ายมาก หาวอชเชอร์สะดวก เปรียบเทียบง่าย จ่ายเงินไม่กี่คลิก UX ดีสุดในบรรดาเว็บขายวอชเชอร์โรงแรม"</p>
                         <div class="testi-card__author">
-                            <div class="testi-card__avatar--placeholder" style="background:#C25D8E">กว</div>
+                            <div class="testi-card__avatar--placeholder" style="background:var(--avatar-rose)">กว</div>
                             <div>
                                 <div class="testi-card__name">คุณแก้ว</div>
                                 <div class="testi-card__role">UX/UI ดีไซเนอร์</div>
@@ -3558,7 +3545,7 @@
                         </div>
                         <p class="testi-card__quote">"ซื้อวอชเชอร์เก็บไว้เป็นของขวัญวันเกิดแม่ วอชเชอร์มีอายุ 1 ปี เลือกวันเข้าพักทีหลังได้ ไม่ต้องรีบ แม่ชอบมากค่ะ"</p>
                         <div class="testi-card__author">
-                            <div class="testi-card__avatar--placeholder" style="background:#E8A95D">อท</div>
+                            <div class="testi-card__avatar--placeholder" style="background:var(--avatar-orange)">อท</div>
                             <div>
                                 <div class="testi-card__name">คุณอรทัย</div>
                                 <div class="testi-card__role">อาจารย์มหาวิทยาลัย</div>
@@ -3573,7 +3560,7 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"จองสุดสัปดาห์ที่ Rosewood Bangkok กับภรรยา ประหยัดไปเกือบหมื่น ได้อัปเกรดห้อง suite ฟรี ได้อาหารเช้า ได้เครดิตสปาอีก คุ้มจริง"</p>
+                        <p class="testi-card__quote">"ซื้อวอชเชอร์ Rosewood Bangkok ไว้เที่ยวกับภรรยา ประหยัดไปเกือบหมื่น ได้อัปเกรดห้อง suite ฟรี ได้อาหารเช้า ได้เครดิตสปาอีก คุ้มจริง"</p>
                         <div class="testi-card__author">
                             <div class="testi-card__avatar--placeholder" style="background:#1A6B4A">ภม</div>
                             <div>
@@ -3590,9 +3577,9 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"ในฐานะดีไซเนอร์ต้องบอกว่า UI ของ Hotel Addict ใช้ง่ายมาก หาดีลสะดวก เปรียบเทียบง่าย จ่ายเงินไม่กี่คลิก UX ดีสุดในบรรดาเว็บจองโรงแรม"</p>
+                        <p class="testi-card__quote">"ในฐานะดีไซเนอร์ต้องบอกว่า UI ของ Hotel Addict ใช้ง่ายมาก หาวอชเชอร์สะดวก เปรียบเทียบง่าย จ่ายเงินไม่กี่คลิก UX ดีสุดในบรรดาเว็บขายวอชเชอร์โรงแรม"</p>
                         <div class="testi-card__author">
-                            <div class="testi-card__avatar--placeholder" style="background:#C25D8E">กว</div>
+                            <div class="testi-card__avatar--placeholder" style="background:var(--avatar-rose)">กว</div>
                             <div>
                                 <div class="testi-card__name">คุณแก้ว</div>
                                 <div class="testi-card__role">UX/UI ดีไซเนอร์</div>
@@ -3610,7 +3597,7 @@
                         </div>
                         <p class="testi-card__quote">"ซื้อวอชเชอร์เก็บไว้เป็นของขวัญวันเกิดแม่ วอชเชอร์มีอายุ 1 ปี เลือกวันเข้าพักทีหลังได้ ไม่ต้องรีบ แม่ชอบมากค่ะ"</p>
                         <div class="testi-card__author">
-                            <div class="testi-card__avatar--placeholder" style="background:#E8A95D">อท</div>
+                            <div class="testi-card__avatar--placeholder" style="background:var(--avatar-orange)">อท</div>
                             <div>
                                 <div class="testi-card__name">คุณอรทัย</div>
                                 <div class="testi-card__role">อาจารย์มหาวิทยาลัย</div>
@@ -3625,7 +3612,7 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"จองสุดสัปดาห์ที่ Rosewood Bangkok กับภรรยา ประหยัดไปเกือบหมื่น ได้อัปเกรดห้อง suite ฟรี ได้อาหารเช้า ได้เครดิตสปาอีก คุ้มจริง"</p>
+                        <p class="testi-card__quote">"ซื้อวอชเชอร์ Rosewood Bangkok ไว้เที่ยวกับภรรยา ประหยัดไปเกือบหมื่น ได้อัปเกรดห้อง suite ฟรี ได้อาหารเช้า ได้เครดิตสปาอีก คุ้มจริง"</p>
                         <div class="testi-card__author">
                             <div class="testi-card__avatar--placeholder" style="background:#1A6B4A">ภม</div>
                             <div>
@@ -3642,9 +3629,9 @@
                             <span class="material-symbols-outlined">star</span>
                             <span class="material-symbols-outlined">star</span>
                         </div>
-                        <p class="testi-card__quote">"ในฐานะดีไซเนอร์ต้องบอกว่า UI ของ Hotel Addict ใช้ง่ายมาก หาดีลสะดวก เปรียบเทียบง่าย จ่ายเงินไม่กี่คลิก UX ดีสุดในบรรดาเว็บจองโรงแรม"</p>
+                        <p class="testi-card__quote">"ในฐานะดีไซเนอร์ต้องบอกว่า UI ของ Hotel Addict ใช้ง่ายมาก หาวอชเชอร์สะดวก เปรียบเทียบง่าย จ่ายเงินไม่กี่คลิก UX ดีสุดในบรรดาเว็บขายวอชเชอร์โรงแรม"</p>
                         <div class="testi-card__author">
-                            <div class="testi-card__avatar--placeholder" style="background:#C25D8E">กว</div>
+                            <div class="testi-card__avatar--placeholder" style="background:var(--avatar-rose)">กว</div>
                             <div>
                                 <div class="testi-card__name">คุณแก้ว</div>
                                 <div class="testi-card__role">UX/UI ดีไซเนอร์</div>
@@ -3658,6 +3645,7 @@
     </section>
         </div><!-- /real-content -->
     </div><!-- /skeleton-wrapper #skelTestimonials -->
+    </main>
 
 
     <!-- ==================== FOOTER ==================== -->
@@ -3666,7 +3654,7 @@
             <div class="footer__grid">
                 <div class="footer__col">
                     <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
-                    <p class="footer__desc">ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง</p>
+                    <p class="footer__desc">วอชเชอร์โรงแรมหรู ซื้อก่อน เลือกวันทีหลัง</p>
                     <div class="footer__social">
                         <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
                         <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
@@ -3677,7 +3665,7 @@
                     <h4 class="footer__heading">บริการลูกค้า</h4>
                     <ul class="footer__list">
                         <li><a href="#">ศูนย์ช่วยเหลือ</a></li>
-                        <li><a href="#">วิธีจองวอชเชอร์</a></li>
+                        <li><a href="#">วิธีซื้อวอชเชอร์</a></li>
                         <li><a href="#">นโยบายการยกเลิก</a></li>
                         <li><a href="#">ติดต่อเรา</a></li>
                     </ul>
@@ -3694,7 +3682,7 @@
                 <div class="footer__col">
                     <h4 class="footer__heading">ค้นพบ</h4>
                     <ul class="footer__list">
-                        <li><a href="index.html">ดีลโรงแรม</a></li>
+                        <li><a href="index.html">วอชเชอร์โรงแรม</a></li>
                         <li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li>
                         <li><a href="wishlist.html">รายการโปรด</a></li>
                         <li><a href="voucher-list.html">เปรียบเทียบราคา</a></li>
@@ -4045,10 +4033,10 @@
     <script>
         (function() {
             var phrases = [
-                'เริ่มต้นจากดีลที่ใช่',
-                'ราคาที่คุณยิ้มได้',
+                'ซื้อก่อน เลือกวันทีหลัง',
+                'ราคาดีกว่าจองเอง',
                 'สิทธิพิเศษเหนือใคร',
-                'ดีลตรงไม่ผ่านคนกลาง'
+                'ตรงจากโรงแรม ไม่ผ่านคนกลาง'
             ];
             var el = document.getElementById('heroTypewriter');
             if (!el) return;
@@ -4096,232 +4084,14 @@
         })();
     </script>
 
-    <!-- ==================== SEARCH BAR: Date Picker + Guest Picker ==================== -->
+    <!-- City suggestion → navigate with dest param -->
     <script>
-    (function() {
-        /* === Thai date formatting === */
-        const TH_DAYS_SHORT = ['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
-        const TH_MONTHS_SHORT = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
-        const TH_MONTHS_FULL = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
-
-        function formatDateTH(d) {
-            var dow = TH_DAYS_SHORT[d.getDay()];
-            var day = d.getDate();
-            var mon = TH_MONTHS_SHORT[d.getMonth()];
-            var year = d.getFullYear() + 543;
-            return dow + ' ' + day + ' ' + mon + ' ' + year;
-        }
-
-        function isSameDay(a, b) {
-            return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
-        }
-
-        function isInRange(d, start, end) {
-            return start && end && d > start && d < end;
-        }
-
-        /* === DATE PICKER === */
-        var dpDropdown = document.getElementById('datepickerDropdown');
-        var checkinField = document.getElementById('checkinField');
-        var checkoutField = document.getElementById('checkoutField');
-        var checkinValue = document.getElementById('checkinValue');
-        var checkoutValue = document.getElementById('checkoutValue');
-
-        var dpBaseMonth = new Date().getMonth();
-        var dpBaseYear = new Date().getFullYear();
-        var dpStartDate = null;
-        var dpEndDate = null;
-        var dpSelecting = 'start'; // 'start' or 'end'
-        var today = new Date(); today.setHours(0,0,0,0);
-
-        function openDatepicker() {
-            dpDropdown.classList.add('open');
-            checkinField.classList.add('active');
-            checkoutField.classList.add('active');
-            guestDropdown.classList.remove('open');
-            guestField.classList.remove('active');
-            renderCalendars();
-        }
-        function closeDatepicker() {
-            dpDropdown.classList.remove('open');
-            checkinField.classList.remove('active');
-            checkoutField.classList.remove('active');
-        }
-
-        checkinField.addEventListener('click', function(e) { e.stopPropagation(); dpSelecting = 'start'; openDatepicker(); });
-        checkoutField.addEventListener('click', function(e) { e.stopPropagation(); dpSelecting = 'start'; openDatepicker(); });
-
-        document.getElementById('dpPrev').addEventListener('click', function(e) {
-            e.stopPropagation();
-            var now = new Date();
-            if (dpBaseYear > now.getFullYear() || (dpBaseYear === now.getFullYear() && dpBaseMonth > now.getMonth())) {
-                dpBaseMonth--;
-                if (dpBaseMonth < 0) { dpBaseMonth = 11; dpBaseYear--; }
-                renderCalendars();
-            }
+    document.querySelectorAll('.search-suggest__city').forEach(function(el) {
+        el.addEventListener('click', function() {
+            var dest = this.dataset.value;
+            window.location.href = 'voucher-list.html?dest=' + encodeURIComponent(dest);
         });
-        document.getElementById('dpNext').addEventListener('click', function(e) {
-            e.stopPropagation();
-            dpBaseMonth++;
-            if (dpBaseMonth > 11) { dpBaseMonth = 0; dpBaseYear++; }
-            renderCalendars();
-        });
-
-        document.getElementById('dpClear').addEventListener('click', function(e) {
-            e.stopPropagation();
-            dpStartDate = null; dpEndDate = null; dpSelecting = 'start';
-            checkinValue.textContent = 'เลือกวันที่';
-            checkoutValue.textContent = 'เลือกวันที่';
-            renderCalendars();
-        });
-        document.getElementById('dpDone').addEventListener('click', function(e) {
-            e.stopPropagation();
-            closeDatepicker();
-        });
-
-        function renderCalendars() {
-            var m1 = dpBaseMonth, y1 = dpBaseYear;
-            var m2 = m1 + 1, y2 = y1;
-            if (m2 > 11) { m2 = 0; y2++; }
-
-            document.getElementById('dpMonth1').textContent = TH_MONTHS_FULL[m1] + ' ' + (y1 + 543);
-            document.getElementById('dpMonth2').textContent = TH_MONTHS_FULL[m2] + ' ' + (y2 + 543);
-
-            renderMonth(document.getElementById('dpCal1'), y1, m1);
-            renderMonth(document.getElementById('dpCal2'), y2, m2);
-        }
-
-        function renderMonth(container, year, month) {
-            var html = '<div class="dp-weekdays">';
-            TH_DAYS_SHORT.forEach(function(d) { html += '<span>' + d + '</span>'; });
-            html += '</div><div class="dp-days">';
-
-            var firstDay = new Date(year, month, 1).getDay();
-            var daysInMonth = new Date(year, month + 1, 0).getDate();
-
-            for (var i = 0; i < firstDay; i++) html += '<span class="dp-day dp-day--empty"></span>';
-
-            for (var d = 1; d <= daysInMonth; d++) {
-                var date = new Date(year, month, d);
-                var cls = 'dp-day';
-                if (date < today) cls += ' dp-day--disabled';
-                if (isSameDay(date, today)) cls += ' dp-day--today';
-                if (isSameDay(date, dpStartDate)) cls += ' dp-day--selected dp-day--range-start';
-                if (isSameDay(date, dpEndDate)) cls += ' dp-day--selected dp-day--range-end';
-                if (isInRange(date, dpStartDate, dpEndDate)) cls += ' dp-day--in-range';
-
-                html += '<span class="' + cls + '" data-date="' + year + '-' + month + '-' + d + '">' + d + '</span>';
-            }
-            html += '</div>';
-            container.innerHTML = html;
-
-            container.querySelectorAll('.dp-day:not(.dp-day--disabled):not(.dp-day--empty)').forEach(function(el) {
-                el.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    var parts = this.dataset.date.split('-');
-                    var clicked = new Date(+parts[0], +parts[1], +parts[2]);
-
-                    if (dpSelecting === 'start') {
-                        dpStartDate = clicked;
-                        dpEndDate = null;
-                        dpSelecting = 'end';
-                        checkinValue.textContent = formatDateTH(clicked);
-                        checkoutValue.textContent = 'เลือกวันที่';
-                    } else {
-                        if (clicked <= dpStartDate) {
-                            dpStartDate = clicked;
-                            dpEndDate = null;
-                            dpSelecting = 'end';
-                            checkinValue.textContent = formatDateTH(clicked);
-                            checkoutValue.textContent = 'เลือกวันที่';
-                        } else {
-                            dpEndDate = clicked;
-                            dpSelecting = 'start';
-                            checkoutValue.textContent = formatDateTH(clicked);
-                        }
-                    }
-                    renderCalendars();
-                });
-            });
-        }
-
-        /* === GUEST PICKER === */
-        var guestDropdown = document.getElementById('guestDropdown');
-        var guestField = document.getElementById('guestField');
-        var guestValue = document.getElementById('guestValue');
-        var guests = { adults: 2, children: 0, rooms: 1 };
-
-        function openGuests() {
-            guestDropdown.classList.add('open');
-            guestField.classList.add('active');
-            dpDropdown.classList.remove('open');
-            checkinField.classList.remove('active');
-            checkoutField.classList.remove('active');
-            updateGuestBtns();
-        }
-        function closeGuests() {
-            guestDropdown.classList.remove('open');
-            guestField.classList.remove('active');
-        }
-
-        guestField.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (guestDropdown.classList.contains('open')) closeGuests();
-            else openGuests();
-        });
-
-        document.getElementById('guestDone').addEventListener('click', function(e) {
-            e.stopPropagation();
-            closeGuests();
-        });
-
-        function updateGuestDisplay() {
-            var text = guests.adults + ' ผู้ใหญ่';
-            if (guests.children > 0) text += ', ' + guests.children + ' เด็ก';
-            text += ', ' + guests.rooms + ' ห้อง';
-            guestValue.textContent = text;
-            document.getElementById('adultCount').textContent = guests.adults;
-            document.getElementById('childCount').textContent = guests.children;
-            document.getElementById('roomCount').textContent = guests.rooms;
-        }
-
-        function updateGuestBtns() {
-            document.querySelectorAll('.guest-btn').forEach(function(btn) {
-                var target = btn.dataset.target;
-                var action = btn.dataset.action;
-                var min = target === 'adults' ? 1 : target === 'rooms' ? 1 : 0;
-                var max = target === 'rooms' ? 10 : 20;
-                if (action === 'minus') btn.disabled = guests[target] <= min;
-                else btn.disabled = guests[target] >= max;
-            });
-        }
-
-        document.querySelectorAll('.guest-btn').forEach(function(btn) {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                var target = this.dataset.target;
-                var action = this.dataset.action;
-                if (action === 'plus') guests[target]++;
-                else guests[target]--;
-                updateGuestDisplay();
-                updateGuestBtns();
-            });
-        });
-
-        /* === Close dropdowns on outside click === */
-        document.addEventListener('click', function() {
-            closeDatepicker();
-            closeGuests();
-        });
-
-        /* Prevent dropdown clicks from closing */
-        dpDropdown.addEventListener('click', function(e) { e.stopPropagation(); });
-        guestDropdown.addEventListener('click', function(e) { e.stopPropagation(); });
-
-        /* Init */
-        renderCalendars();
-        updateGuestBtns();
-    })();
+    });
     </script>
 </body>
 </html>

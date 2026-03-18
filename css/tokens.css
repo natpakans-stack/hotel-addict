@@ -183,3 +183,29 @@
     --max-width: 1280px;
     --nav-height: 72px;
 }
+
+/* === MOBILE TYPOGRAPHY SCALE (≤768px) ===
+ * Heading.1: 48→32px  |  Heading.2: 36→24px
+ * Heading.3: 28→22px  |  Heading.4: 24→20px
+ * Price: 32→28px      |  Price-sm: 24→20px
+ * Matches CLAUDE.md Design Token scale for mobile
+ * ============================================ */
+@media (max-width: 768px) {
+    :root {
+        --text-h1: 32px;
+        --text-h2: 24px;
+        --text-h3: 22px;
+        --text-h4: 20px;
+        --text-price: 28px;
+        --text-price-sm: 20px;
+
+        --lh-h1: 42px;
+        --lh-h2: 34px;
+        --lh-h3: 30px;
+        --lh-h4: 28px;
+        --lh-price: 36px;
+        --lh-price-sm: 28px;
+
+        --nav-height: 56px;
+    }
+}

@@ -445,11 +445,20 @@
                 line-height: 42px;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="register-page">
+    <main class="register-page">
 
         <!-- ============================
              LEFT PANEL: Hero Image
@@ -467,7 +476,7 @@
                     <span class="register-hero__logo-text">Hotel Addict</span>
                 </a>
                 <h1 class="register-hero__heading">
-                    สมัครวันนี้<br>รับ<span class="gold">ดีลโรงแรมหรู</span>ก่อนใคร
+                    สมัครวันนี้<br>รับ<span class="gold">วอชเชอร์โรงแรมหรู</span>ก่อนใคร
                 </h1>
                 <p class="register-hero__subtitle">
                     เข้าถึงราคาพิเศษเฉพาะสมาชิก ดีลตรงจากโรงแรมที่ถูกกว่า OTA ทุกแพลตฟอร์ม พร้อมสิทธิ์จอง Flash Deal ก่อนเปิดขายทั่วไป
@@ -491,7 +500,7 @@
                 <div class="register-card">
                     <div class="register-card__header">
                         <h2 class="register-card__title">เริ่มต้นกับ Hotel Addict</h2>
-                        <p class="register-card__subtitle">สมัครฟรี ไม่มีค่าธรรมเนียม เปิดประตูสู่ดีลโรงแรมที่ดีที่สุดในไทย</p>
+                        <p class="register-card__subtitle">สมัครฟรี ไม่มีค่าธรรมเนียม เปิดประตูสู่วอชเชอร์โรงแรมที่ดีที่สุดในไทย</p>
                     </div>
 
                     <form class="register-form" action="#" method="POST" novalidate>
@@ -613,7 +622,7 @@
             </div>
         </div>
 
-    </div>
+    </main>
 
     <!-- Main JS -->
     <script src="js/main.js"></script>

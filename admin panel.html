@@ -1,0 +1,1098 @@
+﻿<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Addict — Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { thai: ['Noto Sans Thai', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans Thai', sans-serif; }
+        .tab-active { border-bottom: 3px solid #2563EB; color: #2563EB; font-weight: 600; }
+        .screen { display: none; }
+        .screen.active { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+
+<!-- Layout: Sidebar + Content -->
+<div class="flex min-h-screen">
+
+
+    <!-- Sidebar -->
+    <aside class="w-60 bg-gray-900 text-white flex flex-col fixed h-full z-10">
+        <div class="p-5 border-b border-gray-700">
+            <h1 class="text-xl font-bold">Hotel Addict</h1>
+            <p class="text-xs text-gray-400 mt-1">Admin Panel</p>
+        </div>
+        <nav class="flex-1 py-4">
+            <a onclick="showScreen('dashboard')" class="nav-item flex items-center px-5 py-3 hover:bg-gray-800 cursor-pointer transition" data-screen="dashboard">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                Dashboard
+            </a>
+            <a onclick="showScreen('hotel-list')" class="nav-item flex items-center px-5 py-3 hover:bg-gray-800 cursor-pointer transition" data-screen="hotel-list">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                Hotels
+            </a>
+            <a onclick="showScreen('voucher-list')" class="nav-item flex items-center px-5 py-3 hover:bg-gray-800 cursor-pointer transition" data-screen="voucher-list">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
+                Vouchers
+            </a>
+            <a onclick="showScreen('request-monitor')" class="nav-item flex items-center px-5 py-3 hover:bg-gray-800 cursor-pointer transition" data-screen="request-monitor">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                Requests
+                <span class="ml-auto bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+            </a>
+        </nav>
+        <div class="p-5 border-t border-gray-700">
+            <div class="flex items-center">
+                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-sm font-bold">J</div>
+                <div class="ml-3">
+                    <p class="text-sm font-medium">Admin Jack</p>
+                    <p class="text-xs text-gray-400">jack@hoteladdict.com</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="flex-1 ml-60">
+
+
+        <!-- ============================================ -->
+        <!-- SCREEN 1: DASHBOARD (FR35) -->
+        <!-- ============================================ -->
+        <div id="screen-dashboard" class="screen active">
+            <div class="p-8">
+                <!-- Header -->
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h2 class="text-2xl font-bold">Dashboard</h2>
+                        <p class="text-gray-500 text-sm mt-1">สรุปภาพรวมระบบ Hotel Addict</p>
+                    </div>
+                    <p class="text-sm text-gray-400">17 มี.ค. 2026, 09:30 น.</p>
+                </div>
+
+
+                <!-- Summary Cards -->
+                <div class="grid grid-cols-4 gap-6 mb-8">
+                    <!-- Pending Requests -->
+                    <div onclick="showScreen('request-monitor')" class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 cursor-pointer hover:shadow-md transition relative">
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold">3</span>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">Request ค้าง</p>
+                                <p class="text-3xl font-bold mt-2 text-red-600">3</p>
+                                <p class="text-xs text-red-500 mt-1">1 รายการเกิน 72 ชม.</p>
+                            </div>
+                            <div class="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Expiring Vouchers -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 cursor-pointer hover:shadow-md transition relative">
+                        <span class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold">5</span>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">Voucher ใกล้หมดอายุ</p>
+                                <p class="text-3xl font-bold mt-2 text-orange-600">5</p>
+                                <p class="text-xs text-orange-500 mt-1">ภายใน 30 วัน</p>
+                            </div>
+                            <div class="w-12 h-12 bg-orange-50 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Total Sales -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">ยอดขายเดือนนี้</p>
+                                <p class="text-3xl font-bold mt-2 text-green-600">฿125,500</p>
+                                <p class="text-xs text-green-500 mt-1">+23% จากเดือนที่แล้ว</p>
+                            </div>
+                            <div class="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Registered Users -->
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500">สมาชิกลงทะเบียน</p>
+                                <p class="text-3xl font-bold mt-2 text-blue-600">847</p>
+                                <p class="text-xs text-blue-500 mt-1">+12% เดือนนี้</p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Quick Actions -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold mb-4">Quick Actions</h3>
+                    <div class="flex gap-4">
+                        <button onclick="showScreen('hotel-create')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-medium flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                            Create Hotel
+                        </button>
+                        <button onclick="showScreen('voucher-create')" class="border-2 border-blue-600 text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 transition font-medium flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                            Create Voucher
+                        </button>
+                        <button onclick="showScreen('request-monitor')" class="text-gray-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition font-medium flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                            View Requests
+                        </button>
+                    </div>
+                </div>
+
+
+                <!-- Recent Activity -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+                    <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                        <h3 class="text-lg font-semibold">Recent Activity</h3>
+                        <a href="#" class="text-blue-600 text-sm hover:underline">View All</a>
+                    </div>
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Time</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Type</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Details</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 text-sm text-gray-500">2 นาทีที่แล้ว</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Purchase</span></td>
+                                <td class="px-6 py-4 text-sm">คุณมิ้นท์ ซื้อ Voucher Avani หัวหิน ฿3,500</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Paid</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 text-sm text-gray-500">15 นาทีที่แล้ว</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Request</span></td>
+                                <td class="px-6 py-4 text-sm">คุณสมชาย ส่งคำขอเข้าพัก Centara Grand 15-17 เม.ย.</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-medium">Pending</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 text-sm text-gray-500">1 ชม.ที่แล้ว</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">Confirm</span></td>
+                                <td class="px-6 py-4 text-sm">Avani หัวหิน ยืนยันคำขอ คุณแก้ว 22-24 เม.ย.</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Confirmed</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 text-sm text-gray-500">2 ชม.ที่แล้ว</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Purchase</span></td>
+                                <td class="px-6 py-4 text-sm">คุณนิด ซื้อ Voucher Centara Grand ฿5,500</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Paid</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 text-sm text-gray-500">3 ชม.ที่แล้ว</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Register</span></td>
+                                <td class="px-6 py-4 text-sm">คุณโบว์ สมัครสมาชิกผ่าน LINE Login</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ============================================ -->
+        <!-- SCREEN 2: HOTEL LIST -->
+        <!-- ============================================ -->
+        <div id="screen-hotel-list" class="screen">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold">Hotel Management</h2>
+                        <p class="text-gray-500 text-sm mt-1">จัดการโรงแรมพันธมิตร</p>
+                    </div>
+                    <button onclick="showScreen('hotel-create')" class="bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition font-medium flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        Create Hotel
+                    </button>
+                </div>
+
+
+                <!-- Search -->
+                <div class="mb-6">
+                    <div class="relative">
+                        <svg class="absolute left-3 top-3 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        <input type="text" placeholder="ค้นหาโรงแรม..." class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                    </div>
+                </div>
+
+
+                <!-- Table -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Hotel</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Province</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Email</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Vouchers</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 font-bold text-sm">AV</div>
+                                        <span class="ml-3 font-medium">Avani Hua Hin</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-600">ประจวบคีรีขันธ์</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">reservation@avanihotels.com</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">3 vouchers</span></td>
+                                <td class="px-6 py-4">
+                                    <div class="flex gap-2">
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Edit</button>
+                                        <span class="text-gray-300">|</span>
+                                        <button onclick="showScreen('voucher-list')" class="text-blue-600 hover:text-blue-800 text-sm font-medium">Vouchers</button>
+                                        <span class="text-gray-300">|</span>
+                                        <button class="text-red-600 hover:text-red-800 text-sm font-medium">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600 font-bold text-sm">CG</div>
+                                        <span class="ml-3 font-medium">Centara Grand</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-600">กรุงเทพมหานคร</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">fo@centarahotels.com</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">5 vouchers</span></td>
+                                <td class="px-6 py-4">
+                                    <div class="flex gap-2">
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Edit</button>
+                                        <span class="text-gray-300">|</span>
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Vouchers</button>
+                                        <span class="text-gray-300">|</span>
+                                        <button class="text-red-600 hover:text-red-800 text-sm font-medium">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-600 font-bold text-sm">BT</div>
+                                        <span class="ml-3 font-medium">Banyan Tree Samui</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-600">สุราษฎร์ธานี</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">res@banyantree.com</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">2 vouchers</span></td>
+                                <td class="px-6 py-4">
+                                    <div class="flex gap-2">
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Edit</button>
+                                        <span class="text-gray-300">|</span>
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Vouchers</button>
+                                        <span class="text-gray-300">|</span>
+                                        <button class="text-red-600 hover:text-red-800 text-sm font-medium">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ============================================ -->
+        <!-- SCREEN 3: CREATE HOTEL (FR36, FR37, FR38) -->
+        <!-- ============================================ -->
+        <div id="screen-hotel-create" class="screen">
+            <div class="p-8 max-w-3xl">
+                <div class="flex items-center mb-6">
+                    <button onclick="showScreen('hotel-list')" class="text-gray-500 hover:text-gray-700 mr-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    </button>
+                    <div>
+                        <h2 class="text-2xl font-bold">Create New Hotel</h2>
+                        <p class="text-gray-500 text-sm mt-1">เพิ่มโรงแรมพันธมิตรใหม่</p>
+                    </div>
+                </div>
+
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+                    <!-- Basic Info -->
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold mr-2">1</span>
+                        Basic Info
+                    </h3>
+                    <div class="space-y-4 mb-8">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Hotel Name <span class="text-red-500">*</span></label>
+                            <input type="text" placeholder="เช่น Avani Hua Hin Resort & Villas" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Province <span class="text-red-500">*</span></label>
+                                <select class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none bg-white">
+                                    <option value="">เลือกจังหวัด</option>
+                                    <option>กรุงเทพมหานคร</option>
+                                    <option>เชียงใหม่</option>
+                                    <option>ภูเก็ต</option>
+                                    <option>ประจวบคีรีขันธ์</option>
+                                    <option>กระบี่</option>
+                                    <option>สุราษฎร์ธานี</option>
+                                    <option>พังงา</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Hotel Email <span class="text-red-500">*</span></label>
+                                <input type="email" placeholder="reservation@hotel.com" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                            <textarea rows="3" placeholder="รายละเอียดโรงแรม..." class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"></textarea>
+                            <p class="text-xs text-gray-400 mt-1">0/500 ตัวอักษร</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Cover Image</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition cursor-pointer">
+                                <svg class="w-10 h-10 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                <p class="text-sm text-gray-500">ลากรูปมาวาง หรือ <span class="text-blue-600 font-medium">Browse</span></p>
+                                <p class="text-xs text-gray-400 mt-1">JPG, PNG — Max 5MB</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Facilities (FR37) -->
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold mr-2">2</span>
+                        Facilities
+                        <span class="ml-2 text-xs text-gray-400 font-normal">(Voucher จะดึงอัตโนมัติ)</span>
+                    </h3>
+                    <div class="grid grid-cols-3 gap-3 mb-8">
+                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition">
+                            <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded border-gray-300 mr-3">
+                            <span class="text-sm">Pool (สระว่ายน้ำ)</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition">
+                            <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded border-gray-300 mr-3">
+                            <span class="text-sm">Gym (ฟิตเนส)</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition">
+                            <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded border-gray-300 mr-3">
+                            <span class="text-sm">Spa (สปา)</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition">
+                            <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded border-gray-300 mr-3">
+                            <span class="text-sm">WiFi (อินเทอร์เน็ต)</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-gray-300 mr-3">
+                            <span class="text-sm">Restaurant (ร้านอาหาร)</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-gray-300 mr-3">
+                            <span class="text-sm">Parking (ที่จอดรถ)</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-gray-300 mr-3">
+                            <span class="text-sm">Kids Club (สโมสรเด็ก)</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-gray-300 mr-3">
+                            <span class="text-sm">Beach (ชายหาด)</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 cursor-pointer transition">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-gray-300 mr-3">
+                            <span class="text-sm">Bar (บาร์)</span>
+                        </label>
+                    </div>
+
+
+                    <!-- Test Email (FR38) -->
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold mr-2">3</span>
+                        Test Email
+                    </h3>
+                    <div class="flex items-center gap-4 mb-8 p-4 bg-gray-50 rounded-lg">
+                        <button onclick="document.getElementById('test-email-success').classList.remove('hidden')" class="border border-blue-600 text-blue-600 px-5 py-2.5 rounded-lg hover:bg-blue-50 transition font-medium flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            Send Test Email
+                        </button>
+                        <span id="test-email-success" class="hidden text-green-600 text-sm font-medium flex items-center">
+                            <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Test email sent! ตรวจสอบ inbox ของโรงแรม
+                        </span>
+                    </div>
+
+
+                    <!-- Footer -->
+                    <div class="flex justify-between pt-6 border-t border-gray-200">
+                        <button onclick="showScreen('hotel-list')" class="text-gray-600 px-6 py-2.5 rounded-lg hover:bg-gray-100 transition font-medium">Cancel</button>
+                        <button onclick="showScreen('add-voucher-dialog')" class="bg-blue-600 text-white px-8 py-2.5 rounded-lg hover:bg-blue-700 transition font-medium">Save Hotel</button>
+                    </div>
+                </div>
+
+
+                <!-- Add First Voucher Dialog (FR36) -->
+                <div id="screen-add-voucher-dialog" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Hotel saved!</h3>
+                            <p class="text-gray-500 mb-6">เพิ่ม Voucher แรกเลยไหม?</p>
+                            <div class="flex gap-3">
+                                <button onclick="hideDialog();showScreen('hotel-list')" class="flex-1 border border-gray-300 text-gray-600 px-4 py-2.5 rounded-lg hover:bg-gray-50 transition font-medium">ไว้ทีหลัง</button>
+                                <button onclick="hideDialog();showScreen('voucher-create')" class="flex-1 bg-blue-600 text-white px-4 py-2.5 rounded-lg hover:bg-blue-700 transition font-medium">ใช่, เพิ่ม Voucher</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ============================================ -->
+        <!-- SCREEN 4: CREATE VOUCHER (FR39, FR40) -->
+        <!-- ============================================ -->
+        <div id="screen-voucher-create" class="screen">
+            <div class="p-8 max-w-3xl">
+                <div class="flex items-center mb-6">
+                    <button onclick="showScreen('voucher-list')" class="text-gray-500 hover:text-gray-700 mr-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    </button>
+                    <div>
+                        <h2 class="text-2xl font-bold">Create Voucher</h2>
+                        <p class="text-gray-500 text-sm mt-1">สร้าง Voucher ใหม่</p>
+                    </div>
+                </div>
+
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+                    <!-- Basic Info -->
+                    <h3 class="text-lg font-semibold mb-4">Basic Info</h3>
+                    <div class="space-y-4 mb-8">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Hotel <span class="text-red-500">*</span></label>
+                                <select class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+                                    <option>Avani Hua Hin</option>
+                                    <option>Centara Grand</option>
+                                    <option>Banyan Tree Samui</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Room Type <span class="text-red-500">*</span></label>
+                                <input type="text" value="Deluxe Room" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">HA Price (฿) <span class="text-red-500">*</span></label>
+                                <input type="text" value="3,500" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Expiry Date <span class="text-red-500">*</span></label>
+                                <input type="date" value="2026-06-30" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Conditions</label>
+                            <textarea rows="2" placeholder="เงื่อนไขการใช้ Voucher..." class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">ใช้ได้ถึง 30 มิ.ย. 2026 / ไม่สามารถใช้ในช่วงวันหยุดนักขัตฤกษ์ / ยกเลิกฟรีล่วงหน้า 7 วัน</textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Room Images (max 5)</label>
+                            <div class="flex gap-3">
+                                <div class="w-24 h-24 bg-blue-50 rounded-lg flex items-center justify-center border border-blue-200">
+                                    <span class="text-blue-400 text-xs text-center">Room<br>Photo 1</span>
+                                </div>
+                                <div class="w-24 h-24 bg-blue-50 rounded-lg flex items-center justify-center border border-blue-200">
+                                    <span class="text-blue-400 text-xs text-center">Room<br>Photo 2</span>
+                                </div>
+                                <div class="w-24 h-24 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center cursor-pointer hover:border-blue-400 transition">
+                                    <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Benefits (FR39) -->
+                    <h3 class="text-lg font-semibold mb-4">Benefits</h3>
+                    <div class="grid grid-cols-2 gap-3 mb-8">
+                        <label class="flex items-center p-3 border border-green-300 bg-green-50 rounded-lg cursor-pointer">
+                            <input type="checkbox" checked class="w-4 h-4 text-green-600 rounded border-gray-300 mr-3">
+                            <span class="text-sm font-medium">Breakfast (อาหารเช้า)</span>
+                            <input type="number" value="2" class="ml-auto w-16 px-2 py-1 border border-gray-300 rounded text-sm text-center"> <span class="text-sm text-gray-500 ml-1">ท่าน</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-green-300 bg-green-50 rounded-lg cursor-pointer">
+                            <input type="checkbox" checked class="w-4 h-4 text-green-600 rounded border-gray-300 mr-3">
+                            <span class="text-sm font-medium">Free Cancel (ยกเลิกฟรี)</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-green-300 bg-green-50 rounded-lg cursor-pointer">
+                            <input type="checkbox" checked class="w-4 h-4 text-green-600 rounded border-gray-300 mr-3">
+                            <span class="text-sm font-medium">Late Checkout (เช็คเอาท์สาย)</span>
+                            <input type="text" value="14:00" class="ml-auto w-16 px-2 py-1 border border-gray-300 rounded text-sm text-center">
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-blue-50 transition">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-gray-300 mr-3">
+                            <span class="text-sm">Airport Transfer (รถรับส่ง)</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-blue-50 transition">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-gray-300 mr-3">
+                            <span class="text-sm">Welcome Drink (เครื่องดื่มต้อนรับ)</span>
+                        </label>
+                        <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-blue-50 transition">
+                            <input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-gray-300 mr-3">
+                            <span class="text-sm">Room Upgrade (อัพเกรดห้อง)</span>
+                        </label>
+                    </div>
+
+
+                    <!-- Facilities (FR37 auto-fill) -->
+                    <h3 class="text-lg font-semibold mb-2">Facilities</h3>
+                    <p class="text-xs text-blue-500 mb-4 flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        Auto-filled from Avani Hua Hin — <a href="#" class="underline ml-1">Override for this voucher</a>
+                    </p>
+                    <div class="grid grid-cols-3 gap-2 mb-8">
+                        <span class="inline-flex items-center px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-sm border border-blue-200">Pool</span>
+                        <span class="inline-flex items-center px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-sm border border-blue-200">Gym</span>
+                        <span class="inline-flex items-center px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-sm border border-blue-200">Spa</span>
+                        <span class="inline-flex items-center px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-sm border border-blue-200">WiFi</span>
+                    </div>
+
+
+                    <!-- OTA Quick Input (FR40) -->
+                    <h3 class="text-lg font-semibold mb-4">OTA Price Comparison</h3>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden mb-4">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase w-40">OTA</th>
+                                    <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase w-32">Price (฿)</th>
+                                    <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Breakfast?</th>
+                                    <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase w-32">Savings</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr class="bg-blue-50">
+                                    <td class="px-4 py-3 font-medium text-blue-700 text-sm">Hotel Addict</td>
+                                    <td class="px-4 py-3 font-bold text-blue-700">฿3,500</td>
+                                    <td class="px-4 py-3"><span class="text-green-600 font-bold">Yes (2 pax)</span></td>
+                                    <td class="px-4 py-3"><span class="text-blue-600 font-medium">—</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm text-gray-600">Agoda</td>
+                                    <td class="px-4 py-3"><input type="text" value="4,200" class="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500 outline-none" tabindex="1"></td>
+                                    <td class="px-4 py-3"><input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-gray-300" tabindex="2"></td>
+                                    <td class="px-4 py-3"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">-฿700</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm text-gray-600">Booking.com</td>
+                                    <td class="px-4 py-3"><input type="text" value="4,500" class="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500 outline-none" tabindex="3"></td>
+                                    <td class="px-4 py-3"><input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-gray-300" tabindex="4"></td>
+                                    <td class="px-4 py-3"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">-฿1,000</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm text-gray-600">Expedia</td>
+                                    <td class="px-4 py-3"><input type="text" value="4,100" class="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500 outline-none" tabindex="5"></td>
+                                    <td class="px-4 py-3"><input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-gray-300" tabindex="6"></td>
+                                    <td class="px-4 py-3"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">-฿600</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-sm text-gray-600">Traveloka</td>
+                                    <td class="px-4 py-3"><input type="text" value="4,300" class="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500 outline-none" tabindex="7"></td>
+                                    <td class="px-4 py-3"><input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-gray-300" tabindex="8"></td>
+                                    <td class="px-4 py-3"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">-฿800</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-xs text-gray-400 mb-8">Tab key ข้ามช่องอัตโนมัติ — Save ทีเดียวพร้อม Voucher</p>
+
+
+                    <!-- Footer -->
+                    <div class="flex justify-between pt-6 border-t border-gray-200">
+                        <button onclick="showScreen('voucher-list')" class="text-gray-600 px-6 py-2.5 rounded-lg hover:bg-gray-100 transition font-medium">Cancel</button>
+                        <div class="flex gap-3">
+                            <button class="border border-gray-300 text-gray-600 px-6 py-2.5 rounded-lg hover:bg-gray-50 transition font-medium">Save Draft</button>
+                            <button onclick="showScreen('preview')" class="border border-blue-600 text-blue-600 px-6 py-2.5 rounded-lg hover:bg-blue-50 transition font-medium">Preview</button>
+                            <button class="bg-green-600 text-white px-8 py-2.5 rounded-lg hover:bg-green-700 transition font-medium">Publish</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ============================================ -->
+        <!-- SCREEN 5: PREVIEW (FR41) -->
+        <!-- ============================================ -->
+        <div id="screen-preview" class="screen">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center">
+                        <button onclick="showScreen('voucher-create')" class="text-gray-500 hover:text-gray-700 mr-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        </button>
+                        <div>
+                            <h2 class="text-2xl font-bold">Preview Mode</h2>
+                            <p class="text-gray-500 text-sm mt-1">Buyer จะเห็นแบบนี้</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="showScreen('voucher-create')" class="border border-gray-300 text-gray-600 px-5 py-2.5 rounded-lg hover:bg-gray-50 transition font-medium">Back to Edit</button>
+                        <button class="bg-green-600 text-white px-6 py-2.5 rounded-lg hover:bg-green-700 transition font-medium">Publish Now</button>
+                    </div>
+                </div>
+
+
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-6 flex items-center">
+                    <svg class="w-5 h-5 text-yellow-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                    <span class="text-yellow-800 text-sm font-medium">Preview Mode — นี่คือสิ่งที่ Buyer จะเห็นบนเว็บไซต์</span>
+                </div>
+
+
+                <div class="grid grid-cols-3 gap-8">
+                    <!-- Deal Card Preview -->
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-500 uppercase mb-3">Deal Card</h3>
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 max-w-sm">
+                            <div class="h-48 bg-gradient-to-br from-blue-200 to-blue-400 relative">
+                                <span class="absolute top-3 left-3 bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">Save ฿700</span>
+                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4">
+                                    <p class="text-white font-bold text-lg">Avani Hua Hin</p>
+                                    <p class="text-white/80 text-sm">ประจวบคีรีขันธ์</p>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex items-baseline gap-2 mb-3">
+                                    <span class="text-gray-400 line-through text-sm">฿4,200</span>
+                                    <span class="text-2xl font-bold text-blue-600">฿3,500</span>
+                                    <span class="text-gray-500 text-xs">/คืน</span>
+                                </div>
+                                <div class="flex gap-2 mb-4">
+                                    <span class="px-2 py-1 bg-green-50 text-green-700 rounded text-xs">Breakfast 2 pax</span>
+                                    <span class="px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs">Free Cancel</span>
+                                    <span class="px-2 py-1 bg-purple-50 text-purple-700 rounded text-xs">Late C/O</span>
+                                </div>
+                                <button class="w-full bg-gray-300 text-gray-500 py-2.5 rounded-lg font-medium cursor-not-allowed" disabled>Buy Voucher (Preview)</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Detail Page Preview -->
+                    <div class="col-span-2">
+                        <h3 class="text-sm font-semibold text-gray-500 uppercase mb-3">Detail Page</h3>
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+                            <!-- Tabs -->
+                            <div class="flex border-b border-gray-200 mb-6">
+                                <button class="px-4 py-3 text-sm font-medium tab-active">Detail</button>
+                                <button class="px-4 py-3 text-sm font-medium text-gray-500 hover:text-gray-700">Price</button>
+                                <button class="px-4 py-3 text-sm font-medium text-gray-500 hover:text-gray-700">Facility</button>
+                                <button class="px-4 py-3 text-sm font-medium text-gray-500 hover:text-gray-700">Benefit</button>
+                            </div>
+
+
+                            <!-- Detail Content -->
+                            <div class="mb-6">
+                                <h4 class="font-bold text-xl mb-2">Avani Hua Hin — Deluxe Room</h4>
+                                <p class="text-gray-600 text-sm mb-4">ห้อง Deluxe Room พร้อมวิวทะเล สิ่งอำนวยความสะดวกครบครัน</p>
+                                <p class="text-gray-500 text-sm">เงื่อนไข: ใช้ได้ถึง 30 มิ.ย. 2026 / ไม่สามารถใช้ในช่วงวันหยุดนักขัตฤกษ์</p>
+                            </div>
+
+
+                            <!-- Comparison Table -->
+                            <h4 class="font-semibold mb-3">Price & Benefit Comparison</h4>
+                            <div class="border border-gray-200 rounded-lg overflow-hidden">
+                                <table class="w-full">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500">Platform</th>
+                                            <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500">Price</th>
+                                            <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500">Breakfast</th>
+                                            <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500">Free Cancel</th>
+                                            <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500">Savings</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100">
+                                        <tr class="bg-blue-50">
+                                            <td class="px-4 py-3 font-bold text-blue-700 text-sm">Hotel Addict</td>
+                                            <td class="px-4 py-3 font-bold text-blue-700">฿3,500</td>
+                                            <td class="px-4 py-3 text-green-600 font-bold">2 pax</td>
+                                            <td class="px-4 py-3 text-green-600 font-bold">Yes</td>
+                                            <td class="px-4 py-3 text-blue-600 font-bold">Best Price</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 text-sm text-gray-600">Agoda</td>
+                                            <td class="px-4 py-3 text-sm line-through text-gray-400">฿4,200</td>
+                                            <td class="px-4 py-3 text-red-500">No</td>
+                                            <td class="px-4 py-3 text-red-500">No</td>
+                                            <td class="px-4 py-3"><span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Save ฿700</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 text-sm text-gray-600">Booking.com</td>
+                                            <td class="px-4 py-3 text-sm line-through text-gray-400">฿4,500</td>
+                                            <td class="px-4 py-3 text-red-500">No</td>
+                                            <td class="px-4 py-3 text-red-500">No</td>
+                                            <td class="px-4 py-3"><span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Save ฿1,000</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 text-sm text-gray-600">Expedia</td>
+                                            <td class="px-4 py-3 text-sm line-through text-gray-400">฿4,100</td>
+                                            <td class="px-4 py-3 text-red-500">No</td>
+                                            <td class="px-4 py-3 text-red-500">No</td>
+                                            <td class="px-4 py-3"><span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Save ฿600</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ============================================ -->
+        <!-- SCREEN 6: VOUCHER LIST (FR42) -->
+        <!-- ============================================ -->
+        <div id="screen-voucher-list" class="screen">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold">Voucher Management</h2>
+                        <p class="text-gray-500 text-sm mt-1">จัดการ Voucher ทั้งหมด</p>
+                    </div>
+                    <button onclick="showScreen('voucher-create')" class="bg-blue-600 text-white px-5 py-2.5 rounded-lg hover:bg-blue-700 transition font-medium flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        Create Voucher
+                    </button>
+                </div>
+
+
+                <!-- Filters -->
+                <div class="flex gap-4 mb-6">
+                    <select class="px-4 py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                        <option>All Hotels</option>
+                        <option>Avani Hua Hin</option>
+                        <option>Centara Grand</option>
+                        <option>Banyan Tree Samui</option>
+                    </select>
+                    <select class="px-4 py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                        <option>All Status</option>
+                        <option>Published</option>
+                        <option>Draft</option>
+                        <option>Expired</option>
+                    </select>
+                    <select class="px-4 py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                        <option>All Expiry</option>
+                        <option>Expiring in 7 days</option>
+                        <option>Expiring in 30 days</option>
+                    </select>
+                </div>
+
+
+                <!-- Table -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Hotel</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Room</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">HA Price</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">vs OTA</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Status</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Sold</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 text-sm font-medium">Avani Hua Hin</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">Deluxe Room</td>
+                                <td class="px-6 py-4 text-sm font-bold">฿3,500</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">-฿700</span></td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Published</span></td>
+                                <td class="px-6 py-4 text-sm font-medium">12</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex gap-1">
+                                        <button class="text-blue-600 hover:text-blue-800 text-xs font-medium px-2 py-1 rounded hover:bg-blue-50">Edit</button>
+                                        <button onclick="showScreen('preview')" class="text-blue-600 hover:text-blue-800 text-xs font-medium px-2 py-1 rounded hover:bg-blue-50">Preview</button>
+                                        <button class="text-blue-600 hover:text-blue-800 text-xs font-medium px-2 py-1 rounded hover:bg-blue-50">Duplicate</button>
+                                        <button onclick="document.getElementById('mark-used-dialog').classList.remove('hidden')" class="text-orange-600 hover:text-orange-800 text-xs font-medium px-2 py-1 rounded hover:bg-orange-50">Mark Used</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 text-sm font-medium">Avani Hua Hin</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">Superior Room</td>
+                                <td class="px-6 py-4 text-sm font-bold">฿2,800</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">-฿500</span></td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Published</span></td>
+                                <td class="px-6 py-4 text-sm font-medium">8</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex gap-1">
+                                        <button class="text-blue-600 hover:text-blue-800 text-xs font-medium px-2 py-1 rounded hover:bg-blue-50">Edit</button>
+                                        <button class="text-blue-600 hover:text-blue-800 text-xs font-medium px-2 py-1 rounded hover:bg-blue-50">Preview</button>
+                                        <button class="text-blue-600 hover:text-blue-800 text-xs font-medium px-2 py-1 rounded hover:bg-blue-50">Duplicate</button>
+                                        <button class="text-orange-600 hover:text-orange-800 text-xs font-medium px-2 py-1 rounded hover:bg-orange-50">Mark Used</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 text-sm font-medium">Centara Grand</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">Grand Suite</td>
+                                <td class="px-6 py-4 text-sm font-bold">฿5,500</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">-฿900</span></td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Published</span></td>
+                                <td class="px-6 py-4 text-sm font-medium">3</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex gap-1">
+                                        <button class="text-blue-600 hover:text-blue-800 text-xs font-medium px-2 py-1 rounded hover:bg-blue-50">Edit</button>
+                                        <button class="text-blue-600 hover:text-blue-800 text-xs font-medium px-2 py-1 rounded hover:bg-blue-50">Preview</button>
+                                        <button class="text-blue-600 hover:text-blue-800 text-xs font-medium px-2 py-1 rounded hover:bg-blue-50">Duplicate</button>
+                                        <button class="text-orange-600 hover:text-orange-800 text-xs font-medium px-2 py-1 rounded hover:bg-orange-50">Mark Used</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 bg-gray-50">
+                                <td class="px-6 py-4 text-sm font-medium text-gray-400">Centara Grand</td>
+                                <td class="px-6 py-4 text-sm text-gray-400">Deluxe Room</td>
+                                <td class="px-6 py-4 text-sm font-bold text-gray-400">฿3,200</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-gray-100 text-gray-500 rounded-full text-xs font-medium">-฿600</span></td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-gray-100 text-gray-500 rounded-full text-xs font-medium">Draft</span></td>
+                                <td class="px-6 py-4 text-sm text-gray-400">0</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex gap-1">
+                                        <button class="text-blue-600 hover:text-blue-800 text-xs font-medium px-2 py-1 rounded hover:bg-blue-50">Edit</button>
+                                        <button class="text-blue-600 hover:text-blue-800 text-xs font-medium px-2 py-1 rounded hover:bg-blue-50">Preview</button>
+                                        <button class="text-green-600 hover:text-green-800 text-xs font-medium px-2 py-1 rounded hover:bg-green-50">Publish</button>
+                                        <button class="text-red-600 hover:text-red-800 text-xs font-medium px-2 py-1 rounded hover:bg-red-50">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <!-- Mark Used Dialog (FR42) -->
+                <div id="mark-used-dialog" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+                        <h3 class="text-xl font-bold mb-6">Mark Voucher as USED</h3>
+                        <div class="space-y-4 mb-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Voucher Code</label>
+                                <input type="text" value="HA-AVANI-3847" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none font-mono text-lg">
+                            </div>
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="grid grid-cols-2 gap-3 text-sm">
+                                    <div><span class="text-gray-500">Buyer:</span> <span class="font-medium">คุณมิ้นท์</span></div>
+                                    <div><span class="text-gray-500">Hotel:</span> <span class="font-medium">Avani Hua Hin</span></div>
+                                    <div><span class="text-gray-500">Room:</span> <span class="font-medium">Deluxe Room</span></div>
+                                    <div><span class="text-gray-500">Check-in:</span> <span class="font-medium">22 เม.ย. 2026</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="document.getElementById('mark-used-dialog').classList.add('hidden')" class="flex-1 border border-gray-300 text-gray-600 px-4 py-2.5 rounded-lg hover:bg-gray-50 transition font-medium">Cancel</button>
+                            <button onclick="document.getElementById('mark-used-dialog').classList.add('hidden')" class="flex-1 bg-orange-600 text-white px-4 py-2.5 rounded-lg hover:bg-orange-700 transition font-medium">Confirm USED</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ============================================ -->
+        <!-- SCREEN 7: REQUEST MONITOR -->
+        <!-- ============================================ -->
+        <div id="screen-request-monitor" class="screen">
+            <div class="p-8">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold">Request Monitor</h2>
+                    <p class="text-gray-500 text-sm mt-1">ติดตามคำขอเข้าพักทั้งหมด</p>
+                </div>
+
+
+                <!-- Filters -->
+                <div class="flex gap-4 mb-6">
+                    <select class="px-4 py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                        <option>All Status</option>
+                        <option>Pending</option>
+                        <option>Confirmed</option>
+                        <option>Declined</option>
+                        <option>No Response (72h+)</option>
+                    </select>
+                    <select class="px-4 py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                        <option>All Hotels</option>
+                        <option>Avani Hua Hin</option>
+                        <option>Centara Grand</option>
+                    </select>
+                    <input type="date" class="px-4 py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+
+
+                <!-- Table -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Buyer</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Hotel</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Dates</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Voucher</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Status</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Hours</th>
+                                <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <!-- No Response Row (RED) -->
+                            <tr class="bg-red-50 hover:bg-red-100">
+                                <td class="px-6 py-4 text-sm font-medium">คุณแก้ว</td>
+                                <td class="px-6 py-4 text-sm">Hotel X Phuket</td>
+                                <td class="px-6 py-4 text-sm">13-15 เม.ย.</td>
+                                <td class="px-6 py-4 text-sm font-mono">HA-HTLX-2891</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-red-100 text-red-700 rounded-full text-xs font-medium">No Response</span></td>
+                                <td class="px-6 py-4 text-sm font-bold text-red-600">80h</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex gap-2">
+                                        <button class="text-blue-600 hover:text-blue-800 text-xs font-medium">Details</button>
+                                        <button class="text-orange-600 hover:text-orange-800 text-xs font-medium">Resend</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Pending Row (YELLOW) -->
+                            <tr class="bg-yellow-50 hover:bg-yellow-100">
+                                <td class="px-6 py-4 text-sm font-medium">คุณสมชาย</td>
+                                <td class="px-6 py-4 text-sm">Centara Grand</td>
+                                <td class="px-6 py-4 text-sm">15-17 เม.ย.</td>
+                                <td class="px-6 py-4 text-sm font-mono">HA-CNTR-4521</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-medium">Pending</span></td>
+                                <td class="px-6 py-4 text-sm text-yellow-600 font-medium">24h</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex gap-2">
+                                        <button class="text-blue-600 hover:text-blue-800 text-xs font-medium">Details</button>
+                                        <button class="text-orange-600 hover:text-orange-800 text-xs font-medium">Resend</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Pending Row -->
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 text-sm font-medium">คุณนิด</td>
+                                <td class="px-6 py-4 text-sm">Centara Grand</td>
+                                <td class="px-6 py-4 text-sm">20-22 เม.ย.</td>
+                                <td class="px-6 py-4 text-sm font-mono">HA-CNTR-5632</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-medium">Pending</span></td>
+                                <td class="px-6 py-4 text-sm text-gray-500">4h</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex gap-2">
+                                        <button class="text-blue-600 hover:text-blue-800 text-xs font-medium">Details</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Confirmed Row -->
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 text-sm font-medium">คุณมิ้นท์</td>
+                                <td class="px-6 py-4 text-sm">Avani Hua Hin</td>
+                                <td class="px-6 py-4 text-sm">22-24 เม.ย.</td>
+                                <td class="px-6 py-4 text-sm font-mono">HA-AVANI-3847</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Confirmed</span></td>
+                                <td class="px-6 py-4 text-sm text-gray-500">2h</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex gap-2">
+                                        <button class="text-blue-600 hover:text-blue-800 text-xs font-medium">Details</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Declined Row -->
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 text-sm font-medium">คุณมิ้นท์</td>
+                                <td class="px-6 py-4 text-sm">Avani Hua Hin</td>
+                                <td class="px-6 py-4 text-sm">13-15 เม.ย.</td>
+                                <td class="px-6 py-4 text-sm font-mono">HA-AVANI-3847</td>
+                                <td class="px-6 py-4"><span class="px-2.5 py-1 bg-gray-100 text-gray-500 rounded-full text-xs font-medium">Declined</span></td>
+                                <td class="px-6 py-4 text-sm text-gray-400">48h</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex gap-2">
+                                        <button class="text-blue-600 hover:text-blue-800 text-xs font-medium">Details</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+</div>
+
+
+<script>
+    function showScreen(screenId) {
+        // Handle dialog
+        if (screenId === 'add-voucher-dialog') {
+            document.getElementById('screen-add-voucher-dialog').classList.remove('hidden');
+            return;
+        }
+
+
+        // Hide all screens
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+
+
+        // Show target screen
+        const target = document.getElementById('screen-' + screenId);
+        if (target) target.classList.add('active');
+
+
+        // Update nav highlight
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('bg-gray-800', 'text-white'));
+        const navItem = document.querySelector(`.nav-item[data-screen="${screenId}"]`);
+        if (navItem) navItem.classList.add('bg-gray-800', 'text-white');
+    }
+
+
+    function hideDialog() {
+        document.getElementById('screen-add-voucher-dialog').classList.add('hidden');
+    }
+
+
+    // Set initial nav highlight
+    showScreen('dashboard');
+</script>
+
+
+</body>
+</html>

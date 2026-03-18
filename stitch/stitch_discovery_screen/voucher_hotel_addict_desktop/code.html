@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Vouchers - Hotel Addict</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#c5a572',
+            dark: '#121212',
+            card: '#1e1e1e',
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style data-purpose="custom-layout">
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-dark text-white font-['Inter',_sans-serif]">
+<!-- BEGIN: MainHeader -->
+<header class="sticky top-0 z-50 bg-dark/80 backdrop-blur-md border-b border-white/10">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex items-center gap-12">
+<div class="flex items-center gap-2">
+<i class="fa-solid fa-hotel text-primary text-2xl"></i>
+<span class="text-xl font-bold tracking-tighter text-white uppercase">Hotel <span class="text-primary">Addict</span></span>
+</div>
+<nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+<a class="text-gray-400 hover:text-primary transition-colors" href="#">ค้นหาดีล</a>
+<a class="text-primary border-b-2 border-primary pb-1" href="#">Voucher ของฉัน</a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#">บทความ</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-gray-400 hover:text-white">
+<i class="fa-solid fa-bell text-xl"></i>
+<span class="absolute -top-1 -right-1 bg-red-500 w-2 h-2 rounded-full"></span>
+</button>
+<div class="flex items-center gap-3 pl-6 border-l border-white/10">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold text-white">คุณ สมชาย</p>
+<p class="text-[10px] text-gray-500">สมาชิก Gold</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
+<i class="fa-solid fa-user text-primary"></i>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: Filters -->
+<section class="bg-dark/50 border-b border-white/5">
+<div class="max-w-7xl mx-auto px-6 py-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h1 class="text-3xl font-bold text-white mb-2">Voucher ของฉัน</h1>
+<p class="text-gray-400">จัดการและดูรายละเอียดการเข้าพักของคุณได้ที่นี่</p>
+</div>
+<div class="flex gap-2 bg-white/5 p-1 rounded-xl border border-white/10">
+<button class="px-6 py-2 rounded-lg bg-primary text-dark font-bold text-sm transition-all">ทั้งหมด</button>
+<button class="px-6 py-2 rounded-lg text-gray-400 hover:text-white font-medium text-sm transition-all">พร้อมใช้งาน</button>
+<button class="px-6 py-2 rounded-lg text-gray-400 hover:text-white font-medium text-sm transition-all">รอเลือกวัน</button>
+<button class="px-6 py-2 rounded-lg text-gray-400 hover:text-white font-medium text-sm transition-all">ใช้งานแล้ว</button>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Filters -->
+<!-- BEGIN: VoucherList -->
+<main class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-2 gap-8" data-purpose="voucher-container">
+<!-- BEGIN: ActiveVoucherCard -->
+<article class="bg-card rounded-2xl overflow-hidden shadow-2xl border border-white/5 hover:border-primary/30 transition-all duration-300" data-purpose="voucher-item">
+<!-- Hotel Image -->
+<div class="relative h-48 w-full">
+<img alt="Paradise Resort" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsIaHk1GHildAvkeNNUGxNmiq8oLG9y-7NluJ0gAm00-D1tSAS9l31H-gmdrOjyr6QpMGpCK5XdP7VP3xayxUz3IFnUsYyGe3sK_QCBl8ue6jSabX7bVSonEFFoiQzyzL9wiCfVkcRC0AqCntiTOv9IiNAcnkMrhyjZ2FzOP-GczrCX3Bn-cO9NoQYWZ1hiGM5B-N4uvGVoqdtW1_QUQaPL60TuJW394dGNVWFpF3qD-37K79Bil3eNQpqE1M38jtqyFZotPY6enVb"/>
+<div class="absolute top-4 right-4">
+<span class="bg-green-500/90 text-white text-xs px-3 py-1 rounded-full font-medium">พร้อมใช้งาน</span>
+</div>
+</div>
+<!-- Content -->
+<div class="p-5">
+<div class="flex flex-col mb-4">
+<h2 class="text-xl font-bold text-white mb-1">Paradise Luxury Island Resort</h2>
+<div class="flex items-center text-gray-400 text-xs">
+<i class="fa-solid fa-location-dot mr-1 text-primary"></i>
+<span>เกาะสมุย, สุราษฎร์ธานี</span>
+</div>
+</div>
+<!-- Voucher Code Box -->
+<div class="bg-white/5 rounded-xl p-4 mb-5 flex justify-between items-center border border-white/10">
+<div>
+<p class="text-[10px] uppercase tracking-wider text-gray-500 font-bold mb-1">รหัส Voucher</p>
+<p class="text-lg font-mono font-bold text-primary">HA-2948-XLP</p>
+</div>
+<button class="flex flex-col items-center gap-1 text-primary hover:opacity-80 transition-opacity">
+<i class="fa-solid fa-qrcode text-2xl"></i>
+<span class="text-[10px] font-bold">แสดง QR</span>
+</button>
+</div>
+<!-- Info Grid -->
+<div class="grid grid-cols-2 gap-y-4 gap-x-2 mb-6 text-sm">
+<div class="flex items-start gap-3">
+<i class="fa-solid fa-calendar-check text-primary mt-1"></i>
+<div>
+<p class="text-gray-500 text-[11px]">วันที่ซื้อ</p>
+<p class="text-gray-200">12 ก.ย. 2566</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<i class="fa-solid fa-hourglass-end text-primary mt-1"></i>
+<div>
+<p class="text-gray-500 text-[11px]">หมดอายุ</p>
+<p class="text-gray-200">12 ก.ย. 2567</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<i class="fa-solid fa-bed text-primary mt-1"></i>
+<div>
+<p class="text-gray-500 text-[11px]">วันที่เข้าพัก</p>
+<p class="text-gray-200">รอเลือกวัน</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<i class="fa-solid fa-tags text-primary mt-1"></i>
+<div>
+<p class="text-gray-500 text-[11px]">มูลค่ารวม</p>
+<p class="text-gray-200">฿12,500</p>
+</div>
+</div>
+</div>
+<!-- Package Details Tags -->
+<div class="mb-6">
+<p class="text-xs font-bold text-gray-400 mb-2 uppercase">รายการที่รวมในแพ็กเกจ</p>
+<div class="flex flex-wrap gap-2">
+<span class="text-[11px] bg-white/5 border border-white/10 text-gray-300 px-2 py-1 rounded">ห้องพัก Pool Villa 2 คืน</span>
+<span class="text-[11px] bg-white/5 border border-white/10 text-gray-300 px-2 py-1 rounded">อาหารเช้าสำหรับ 2 ท่าน</span>
+<span class="text-[11px] bg-white/5 border border-white/10 text-gray-300 px-2 py-1 rounded">นวดสปา 60 นาที</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col gap-2">
+<button class="w-full bg-primary text-dark font-bold py-3 rounded-xl hover:brightness-110 transition-all">เลือกวันเข้าพัก</button>
+<button class="w-full border border-primary/30 text-primary font-bold py-3 rounded-xl hover:bg-primary/5 transition-all text-sm">ติดต่อโรงแรม</button>
+</div>
+</div>
+</article>
+<!-- END: ActiveVoucherCard -->
+<!-- BEGIN: PendingVoucherCard -->
+<article class="bg-card rounded-2xl overflow-hidden shadow-2xl border border-white/5 opacity-90 hover:border-primary/30 transition-all duration-300" data-purpose="voucher-item">
+<div class="relative h-48 w-full">
+<img alt="Sunset View" class="w-full h-full object-cover grayscale-[30%]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8W_DkClXPyFOvAjYucsEnkE-mym2od14BKiUgYjN_2U6uPZZ9D6q3QzUueM3WBDSxxFOtrDP96-4C4KTDqayIMVfGn1jrH5Ks7vGsM61w3Ngg0HuXd9xGzrR9ATWKDHIOztc9OiYGJbQmFfFkjxM2Z5kBMX9dN9tB4EXk6hB1_W5m_RhQqFvx5nRoKQhhctYdKKSW9DbGHLHA7dfFgEpM7yDfJgbQsaFEzHBX09prnro_TQ99vMia7wZBX_f5TTUXzt4H89EYInxS"/>
+<div class="absolute top-4 right-4">
+<span class="bg-orange-500/90 text-white text-xs px-3 py-1 rounded-full font-medium">รอการยืนยัน</span>
+</div>
+</div>
+<div class="p-5">
+<h2 class="text-xl font-bold text-white mb-1">Mountain Peak Hideaway</h2>
+<div class="flex items-center text-gray-400 text-xs mb-4">
+<i class="fa-solid fa-location-dot mr-1 text-primary"></i>
+<span>เขาใหญ่, นครราชสีมา</span>
+</div>
+<div class="bg-white/5 rounded-xl p-4 mb-5 flex justify-between items-center border border-white/10">
+<div>
+<p class="text-[10px] uppercase tracking-wider text-gray-500 font-bold mb-1">รหัส Voucher</p>
+<p class="text-lg font-mono font-bold text-primary">HA-7721-MNT</p>
+</div>
+<i class="fa-solid fa-clock-rotate-left text-2xl text-orange-400"></i>
+</div>
+<div class="grid grid-cols-2 gap-y-4 mb-6 text-sm">
+<div class="flex items-start gap-3">
+<i class="fa-solid fa-calendar-check text-primary mt-1"></i>
+<div>
+<p class="text-gray-500 text-[11px]">วันที่ซื้อ</p>
+<p class="text-gray-200">05 ต.ค. 2566</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<i class="fa-solid fa-bed text-primary mt-1"></i>
+<div>
+<p class="text-gray-500 text-[11px]">วันที่เข้าพัก</p>
+<p class="text-gray-200 font-bold text-orange-400">20-22 ธ.ค. 2566</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<button class="w-full bg-gray-700 text-gray-300 font-bold py-3 rounded-xl cursor-not-allowed">กำลังตรวจสอบวันเข้าพัก</button>
+<button class="w-full border border-white/10 text-gray-400 font-bold py-3 rounded-xl text-sm">เปลี่ยนวันเข้าพัก</button>
+</div>
+</div>
+</article>
+<!-- END: PendingVoucherCard -->
+<!-- BEGIN: EmptyState (Hidden by Default) -->
+<div class="hidden flex flex-col items-center justify-center py-20 px-10 text-center" data-purpose="empty-vouchers" id="empty-state">
+<div class="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mb-6">
+<i class="fa-solid fa-ticket-simple text-5xl text-gray-600 rotate-12"></i>
+</div>
+<h3 class="text-xl font-bold mb-2">ยังไม่มี Voucher ของคุณ</h3>
+<p class="text-gray-500 text-sm mb-8">เริ่มค้นหาดีลโรงแรมสุดพิเศษที่ 'Hotel Addict' คัดสรรมาเพื่อคุณ</p>
+<button class="bg-primary text-dark font-bold px-8 py-3 rounded-xl shadow-lg shadow-primary/20">ไปหน้าค้นหา</button>
+</div>
+<!-- END: EmptyState -->
+</main>
+<!-- END: VoucherList -->
+<!-- BEGIN: BottomNav -->
+<!-- END: BottomNav -->
+<script data-purpose="toggle-logic">
+    // Logic to simulate empty state if needed
+    function checkVouchers() {
+      const main = document.querySelector('main');
+      const articles = main.querySelectorAll('article');
+      const emptyState = document.getElementById('empty-state');
+      
+      if (articles.length === 0) {
+        emptyState.classList.remove('hidden');
+      }
+    }
+    // checkVouchers(); // Uncomment to test empty state
+  </script>
+</body></html>

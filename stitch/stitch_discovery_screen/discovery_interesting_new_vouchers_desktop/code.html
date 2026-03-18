@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#c5a572",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#0a0f12",
+                        "surface-dark": "#161d21",
+                        "accent-gold": "#c5a572",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', 'Noto Sans Thai', sans-serif;
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #c5a572 0%, #a68a5a 100%);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-white/10 bg-background-dark/80 backdrop-blur-md px-6 md:px-20 py-4">
+<div class="max-w-[1440px] mx-auto flex items-center justify-between">
+<div class="flex items-center gap-12">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-xl gold-gradient text-white">
+<span class="material-symbols-outlined">hotel_class</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-white">Hotel <span class="text-accent-gold">Addict</span></h1>
+</div>
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-sm font-medium text-accent-gold border-b-2 border-accent-gold pb-1" href="#">หน้าแรก</a>
+<a class="text-sm font-medium text-slate-300 hover:text-accent-gold transition-colors" href="#">วอชเชอร์</a>
+<a class="text-sm font-medium text-slate-300 hover:text-accent-gold transition-colors" href="#">โปรโมชั่น</a>
+<a class="text-sm font-medium text-slate-300 hover:text-accent-gold transition-colors" href="#">จองของฉัน</a>
+<a class="text-sm font-medium text-slate-300 hover:text-accent-gold transition-colors" href="#">ติดต่อเรา</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="h-10 w-64 rounded-xl border-none bg-surface-dark pl-10 pr-4 text-sm text-white focus:ring-1 focus:ring-accent-gold" placeholder="Search" type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex h-10 w-10 items-center justify-center rounded-full bg-surface-dark text-slate-300 hover:text-white">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full border-2 border-accent-gold/30 bg-cover bg-center" data-alt="User profile avatar circle" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDbphuBKkxZ8H-VGoRoZ-ZKNc3106MaoBzxApNBG2Qqy-p8T8HM_5191oEyYGhiQqlgFxOcO1QvyczRiX81YxJL789BvZ7222RzSwAkuFWL4WBI3Pby19FJgFFRr2O8vOf1I_24oO0lRBNDfx4H-r7RSKftd4Anh9w35x-ab7TdHB_DTvBmFxIRAP5TsIsGkNZWao5AB5JfSdaRQm-Bdqiw4YWJ8pdqK--XUx4BtGDBg0Ea33byG75zlJGRHmptzZYEUzsfhSt3Ng6t')"></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1">
+<!-- Hero Section -->
+<section class="relative h-[500px] w-full overflow-hidden px-6 py-12 md:px-20">
+<div class="absolute inset-0 z-0">
+<div class="absolute inset-0 bg-gradient-to-b from-background-dark/60 via-background-dark/40 to-background-dark z-10"></div>
+<div class="h-full w-full bg-cover bg-center" data-alt="Luxury hotel infinity pool overlooking the ocean at sunset" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAogU9v-gkXPXiRTXBamD7-ZlU5sX72IUd6W4yitVOwMWk7gqvi7qdf0VzsHRnl11plaP_b4SMnEcCERZ1R0UmkZtVVaB3WJu-aGgmZVjmtMrU_rQTLkv38uTXjAumdon79FCLtzrBn2mExW9JcZgpEbapWUng9w7SNw7xfMgRVpKMF3o0mWER8MCSkvREtAebs-RPLPpJw21h8X7qLr2ElqvCg88wTmuKnJuMU-l-xrKZ1Tvur7BbLGsyBzi-mUkXiemEME3ANYUbI')"></div>
+</div>
+<div class="relative z-20 mx-auto flex h-full max-w-[1440px] flex-col items-center justify-center text-center">
+<h1 class="mb-4 text-4xl font-extrabold tracking-tight text-white md:text-6xl lg:text-7xl">
+                        ค้นพบประสบการณ์<span class="text-accent-gold italic">พักผ่อน</span>ระดับพรีเมียม
+                    </h1>
+<p class="mb-10 max-w-2xl text-lg text-slate-200">
+                        ดีลโรงแรมและรีสอร์ทสุดพิเศษที่คัดสรรมาเพื่อสมาชิก Hotel Addict เท่านั้น พร้อมสิทธิประโยชน์เหนือระดับ
+                    </p>
+<!-- Search Box -->
+<div class="w-full max-w-4xl rounded-2xl bg-white/10 p-2 backdrop-blur-xl border border-white/10">
+<div class="flex flex-col md:flex-row items-center gap-2">
+<div class="flex flex-1 items-center gap-3 rounded-xl bg-background-dark/80 px-4 py-3 border border-white/5">
+<span class="material-symbols-outlined text-accent-gold">search</span>
+<input class="w-full border-none bg-transparent p-0 text-white placeholder:text-slate-400 focus:ring-0" placeholder="ค้นหาโรงแรมที่ชอบ หรือจุดหมายปลายทาง" type="text"/>
+</div>
+<div class="flex flex-1 items-center gap-3 rounded-xl bg-background-dark/80 px-4 py-3 border border-white/5">
+<span class="material-symbols-outlined text-accent-gold">calendar_month</span>
+<span class="text-sm text-slate-300">เลือกวันที่เดินทาง</span>
+</div>
+<button class="gold-gradient h-12 w-full md:w-40 rounded-xl font-bold text-white shadow-lg shadow-primary/20 hover:opacity-90 transition-opacity">
+                                ค้นหา
+                            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Interesting Vouchers Section -->
+<section class="mx-auto max-w-[1440px] px-6 py-16 md:px-20">
+<div class="mb-10 flex items-end justify-between">
+<div>
+<div class="mb-2 flex items-center gap-2">
+<div class="h-1 w-8 rounded-full gold-gradient"></div>
+<span class="text-xs font-bold uppercase tracking-widest text-accent-gold">Exclusive Offers</span>
+</div>
+<h2 class="text-3xl font-bold text-white">วอชเชอร์ที่น่าสนใจ</h2>
+</div>
+<a class="group flex items-center gap-2 text-sm font-semibold text-accent-gold" href="#">
+                        ดูทั้งหมด <span class="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+<!-- Voucher Card 1 -->
+<div class="group flex flex-col overflow-hidden rounded-2xl bg-surface-dark border border-white/5 hover:border-accent-gold/30 transition-all duration-300 hover:-translate-y-2">
+<div class="relative aspect-[4/3] w-full overflow-hidden">
+<div class="absolute left-3 top-3 z-10 rounded-lg bg-red-600 px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider">Hot Deal</div>
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Luxury resort bedroom with private pool access" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAauqS79FoNgWMZUOORI9IkB4y2qJvJ0w9GxhzR7C0VvvjfYcNHPau0z1WuzxSEa0vuFHgzN_RTXOewG8gxrqas2Qa3TZlDkDqSiHZiuYxNVVQCPLlVyvyMncI8IigUkBe3o34VCC1q4bL8OnlSsth0a9qKoYR8vMR9__c74TvSabxfGINyVFvxFI1ZLKO_hmjczS_XsPyHdVAojXUsR1smrK5hbxW3lv937-vNzPpEq5jaFahrEToPklD8CUf39EszYog7irWeiNO6')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+<div class="absolute bottom-3 right-3 text-white">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</div>
+</div>
+<div class="flex flex-col p-5">
+<p class="mb-1 text-xs font-medium text-accent-gold uppercase tracking-tighter">Luxury Collection</p>
+<h3 class="mb-2 line-clamp-1 text-lg font-bold text-white">The Ritz-Carlton Bangkok</h3>
+<div class="mb-4 flex items-center gap-1 text-xs text-slate-400">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                                กรุงเทพมหานคร
+                            </div>
+<div class="flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 line-through">฿18,500</span>
+<span class="text-xl font-extrabold text-white">฿12,500</span>
+</div>
+<button class="rounded-lg bg-white/5 px-4 py-2 text-xs font-bold text-white hover:bg-accent-gold hover:text-white transition-colors">จองเลย</button>
+</div>
+</div>
+</div>
+<!-- Voucher Card 2 -->
+<div class="group flex flex-col overflow-hidden rounded-2xl bg-surface-dark border border-white/5 hover:border-accent-gold/30 transition-all duration-300 hover:-translate-y-2">
+<div class="relative aspect-[4/3] w-full overflow-hidden">
+<div class="absolute left-3 top-3 z-10 rounded-lg bg-red-600 px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider">Hot Deal</div>
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Grand hotel entrance with palm trees and classic architecture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCCYxPh6pqwpIJ1ZEiFkWwL1bS5b5SABs6Gkc_BNm3GSN1C9aPhU2Q5ekxRxd1BQ7V0H3A5_PpD5Gn_jaouIlLTSVHEcekV4LHKX-kWLSu0joE8bk7jyqCdY3SEdcEJJYDuYAPUmKulieJREKNjqjH-MeK5_cZUsd-l2b0uLkMmKtMV7YAHKXdn5ZAYIKfbugjUFkcIKpo0G0SWcjruw_vDdEMWjyejUKiD06OAfeSYNnibTtuHn8UhvJdHrD9mPaxzB9sTir3ds2ZA')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+</div>
+<div class="flex flex-col p-5">
+<p class="mb-1 text-xs font-medium text-accent-gold uppercase tracking-tighter">Premium Stay</p>
+<h3 class="mb-2 line-clamp-1 text-lg font-bold text-white">Waldorf Astoria Bangkok</h3>
+<div class="mb-4 flex items-center gap-1 text-xs text-slate-400">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                                กรุงเทพมหานคร
+                            </div>
+<div class="flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 line-through">฿21,000</span>
+<span class="text-xl font-extrabold text-white">฿15,000</span>
+</div>
+<button class="rounded-lg bg-white/5 px-4 py-2 text-xs font-bold text-white hover:bg-accent-gold hover:text-white transition-colors">จองเลย</button>
+</div>
+</div>
+</div>
+<!-- Voucher Card 3 -->
+<div class="group flex flex-col overflow-hidden rounded-2xl bg-surface-dark border border-white/5 hover:border-accent-gold/30 transition-all duration-300 hover:-translate-y-2">
+<div class="relative aspect-[4/3] w-full overflow-hidden">
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Luxurious hotel suite with large window and city view" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBYRGNj7kjBUbBTRt3dMMk6Cs_SaN6YV4Hbi8_rP0KG1DA4orjb30sg_gR9AlAAxlKCgqaP3r8TovzcxDP_3mJrbp_JSNNk95ciYptJySSWF-aCuFwJfIRzMLyqQuJ3hzYpCXdnfBTHKHwB4KQ57ql7wcn_TuLeTJkvrlgY5nxpEv9oILeVJnTNCE8WtPUZWqHVytoMgbe0nw5m94VkqvCBSJTf9_szdsxI-EyCS8nlqaCmgOfdRfvfFRWCS-yS-OfncvoiGLFW_R2U')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+</div>
+<div class="flex flex-col p-5">
+<p class="mb-1 text-xs font-medium text-accent-gold uppercase tracking-tighter">Riverside Bliss</p>
+<h3 class="mb-2 line-clamp-1 text-lg font-bold text-white">Four Seasons Hotel</h3>
+<div class="mb-4 flex items-center gap-1 text-xs text-slate-400">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                                ริมแม่น้ำเจ้าพระยา
+                            </div>
+<div class="flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 line-through">฿25,900</span>
+<span class="text-xl font-extrabold text-white">฿18,900</span>
+</div>
+<button class="rounded-lg bg-white/5 px-4 py-2 text-xs font-bold text-white hover:bg-accent-gold hover:text-white transition-colors">จองเลย</button>
+</div>
+</div>
+</div>
+<!-- Voucher Card 4 -->
+<div class="group flex flex-col overflow-hidden rounded-2xl bg-surface-dark border border-white/5 hover:border-accent-gold/30 transition-all duration-300 hover:-translate-y-2">
+<div class="relative aspect-[4/3] w-full overflow-hidden">
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Modern hotel lobby with designer furniture and warm lighting" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA-crI5kiZ2X9v1_NiPG6C0zcbt5zP-66Cramp27w1VSUgneeM1shdXgkPxwESD62c_eDFNENa5K2qLLQ4aIK9ZUhA16oJqC3QbRS_tLbOfg4EWT798g-aQX89NomqaH6e7rG7JiaoIKZPhqhnMjs0isKKXOuavhgEnMDJv4tRuJU61DjTVkze_3h6nQxGZT_hzVO-Qk0SN9WFx20Jf7XT_76Lg3iXe6m4YL6iaeBJwegRF4O8TziiC88eZVo9DGOyqsI1ydwP6kbBX')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+</div>
+<div class="flex flex-col p-5">
+<p class="mb-1 text-xs font-medium text-accent-gold uppercase tracking-tighter">Modern Elegant</p>
+<h3 class="mb-2 line-clamp-1 text-lg font-bold text-white">Rosewood Bangkok</h3>
+<div class="mb-4 flex items-center gap-1 text-xs text-slate-400">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                                เพลินจิต
+                            </div>
+<div class="flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 line-through">฿19,200</span>
+<span class="text-xl font-extrabold text-white">฿14,200</span>
+</div>
+<button class="rounded-lg bg-white/5 px-4 py-2 text-xs font-bold text-white hover:bg-accent-gold hover:text-white transition-colors">จองเลย</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- New Arrival Vouchers Section -->
+<section class="bg-surface-dark/40 py-16">
+<div class="mx-auto max-w-[1440px] px-6 md:px-20">
+<div class="mb-10 flex items-end justify-between">
+<div>
+<div class="mb-2 flex items-center gap-2">
+<div class="h-1 w-8 rounded-full gold-gradient"></div>
+<span class="text-xs font-bold uppercase tracking-widest text-accent-gold">Latest Releases</span>
+</div>
+<h2 class="text-3xl font-bold text-white">วอชเชอร์มาใหม่</h2>
+</div>
+<a class="group flex items-center gap-2 text-sm font-semibold text-slate-400 hover:text-accent-gold" href="#">
+                            ทั้งหมด <span class="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+<!-- New Voucher 1 -->
+<div class="group flex items-center gap-4 rounded-2xl bg-surface-dark p-4 border border-white/5 hover:border-accent-gold/20 transition-all">
+<div class="relative h-24 w-32 shrink-0 overflow-hidden rounded-xl">
+<div class="absolute left-2 top-2 z-10 rounded-md bg-accent-gold px-2 py-0.5 text-[9px] font-black text-background-dark uppercase">New</div>
+<div class="h-full w-full bg-cover bg-center" data-alt="Resort pool deck with white umbrellas and blue water" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDvl1gRr1BowxNaZXEbj-01AL_LG3Ud5FSzf4_Oja_4_nT07UicJC5ODP7H7rv8ZT29q-qeiXSmky7iC7Feb7pmxTM1mbIHbhl70bIfZyLfl-3oHuEUoR6MACiWSBLxsjyIDIXRXjUvRkmwHN8N-D7jEqb7-nNClLFnt3DV-aKple90yXol4Ot_snnDYVlKETQB6wgXiy6lICGM-EHpXW9jLOWBEnnHuxdNbqdJnmOkUSiYiOLQ8xi1nkbu-g7oThj58bjofrk3DAq-')"></div>
+</div>
+<div class="flex flex-col">
+<h4 class="font-bold text-white group-hover:text-accent-gold transition-colors">Amanpuri Phuket</h4>
+<p class="text-xs text-slate-400">ภูเก็ต • วิลล่าส่วนตัว</p>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-lg font-bold text-white">฿45,000</span>
+<span class="text-[10px] text-slate-500 uppercase">/ คืน</span>
+</div>
+</div>
+</div>
+<!-- New Voucher 2 -->
+<div class="group flex items-center gap-4 rounded-2xl bg-surface-dark p-4 border border-white/5 hover:border-accent-gold/20 transition-all">
+<div class="relative h-24 w-32 shrink-0 overflow-hidden rounded-xl">
+<div class="absolute left-2 top-2 z-10 rounded-md bg-accent-gold px-2 py-0.5 text-[9px] font-black text-background-dark uppercase">New</div>
+<div class="h-full w-full bg-cover bg-center" data-alt="Luxury bathroom with marble floor and standalone tub" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCdR-0xPGm9BJdzctDrnMxrDfruPq9NI87uZJ7X1dmf3ozMgLGlaeFfpbxJDedNup0w_EcGSQxwj6z4gBJC5tWgqcmKy9wvPV91sxKSr3uoXmjb8AVLWRqvPIrQiW-yss7fYkNrW8GXdUKvZYCIxI35O32YskDQa8_j9CHdrDvrMclA-007u72953p1Qnkn6ic0cYVLEshzhPzMltXivae2GCFqjmMJbSTNz933d2UVb-zHkNlfNFv3Mt-_645xxuqAYuqamLeGARVs')"></div>
+</div>
+<div class="flex flex-col">
+<h4 class="font-bold text-white group-hover:text-accent-gold transition-colors">The Standard Bangkok</h4>
+<p class="text-xs text-slate-400">กรุงเทพมหานคร • มหานคร</p>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-lg font-bold text-white">฿8,900</span>
+<span class="text-[10px] text-slate-500 uppercase">/ คืน</span>
+</div>
+</div>
+</div>
+<!-- New Voucher 3 -->
+<div class="group flex items-center gap-4 rounded-2xl bg-surface-dark p-4 border border-white/5 hover:border-accent-gold/20 transition-all">
+<div class="relative h-24 w-32 shrink-0 overflow-hidden rounded-xl">
+<div class="absolute left-2 top-2 z-10 rounded-md bg-accent-gold px-2 py-0.5 text-[9px] font-black text-background-dark uppercase">New</div>
+<div class="h-full w-full bg-cover bg-center" data-alt="Beachfront resort with palm trees and ocean view" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD0lQDfmV1W9tvasmvFWWHAo_AxwqQd78NtbV8QpUyZnfozprojetD0vQFxpY651TprPkdtD0A02D6a2B3Aj6NPf0F-KOoQxk845hzXjy3I_UnAdGRzX8nRkgcmg3InQWP1q5TUEYQGX89zykL-9j5ZNd6iFYrelEnneGmBDH7EJ-gK_i4KXBId62cunM6GPJoy2sdGkExrujQCUK8GcBaOfUfsB4wVYJdWGaa8g4qPS1aT7Z7aUIs-X7mj8VOsu3BqD9eiYAo4ybUn')"></div>
+</div>
+<div class="flex flex-col">
+<h4 class="font-bold text-white group-hover:text-accent-gold transition-colors">Six Senses Samui</h4>
+<p class="text-xs text-slate-400">เกาะสมุย • วิวทะเล</p>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-lg font-bold text-white">฿22,500</span>
+<span class="text-[10px] text-slate-500 uppercase">/ คืน</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-background-dark border-t border-white/5 pt-16 pb-8">
+<div class="mx-auto max-w-[1440px] px-6 md:px-20">
+<div class="grid grid-cols-1 gap-12 md:grid-cols-4 lg:grid-cols-5">
+<div class="lg:col-span-2">
+<div class="mb-6 flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-xl gold-gradient text-white">
+<span class="material-symbols-outlined">hotel_class</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-white">Hotel <span class="text-accent-gold">Addict</span></h1>
+</div>
+<p class="mb-8 max-w-sm text-sm leading-relaxed text-slate-400">
+                            แหล่งรวมวอชเชอร์โรงแรมและที่พักสุดหรูทั่วไทย ในราคาสุดพิเศษสำหรับคนรักการพักผ่อนตัวจริง ร่วมเป็นสมาชิกเพื่อรับสิทธิประโยชน์ก่อนใคร
+                        </p>
+<div class="flex gap-4">
+<a class="flex h-10 w-10 items-center justify-center rounded-full bg-surface-dark text-slate-400 hover:text-accent-gold transition-colors" href="#"><span class="material-symbols-outlined text-lg">public</span></a>
+<a class="flex h-10 w-10 items-center justify-center rounded-full bg-surface-dark text-slate-400 hover:text-accent-gold transition-colors" href="#"><span class="material-symbols-outlined text-lg">movie</span></a>
+<a class="flex h-10 w-10 items-center justify-center rounded-full bg-surface-dark text-slate-400 hover:text-accent-gold transition-colors" href="#"><span class="material-symbols-outlined text-lg">chat</span></a>
+</div>
+</div>
+<div>
+<h4 class="mb-6 text-sm font-bold uppercase tracking-widest text-white">เมนูหลัก</h4>
+<ul class="space-y-4 text-sm text-slate-400">
+<li><a class="hover:text-accent-gold transition-colors" href="#">หน้าแรก</a></li>
+<li><a class="hover:text-accent-gold transition-colors" href="#">ค้นหาวอชเชอร์</a></li>
+<li><a class="hover:text-accent-gold transition-colors" href="#">โปรโมชั่นพิเศษ</a></li>
+<li><a class="hover:text-accent-gold transition-colors" href="#">โรงแรมพรีเมียม</a></li>
+</ul>
+</div>
+<div>
+<h4 class="mb-6 text-sm font-bold uppercase tracking-widest text-white">ช่วยเหลือ</h4>
+<ul class="space-y-4 text-sm text-slate-400">
+<li><a class="hover:text-accent-gold transition-colors" href="#">ศูนย์ช่วยเหลือ</a></li>
+<li><a class="hover:text-accent-gold transition-colors" href="#">วิธีจองวอชเชอร์</a></li>
+<li><a class="hover:text-accent-gold transition-colors" href="#">นโยบายการยกเลิก</a></li>
+<li><a class="hover:text-accent-gold transition-colors" href="#">ติดต่อเรา</a></li>
+</ul>
+</div>
+<div>
+<h4 class="mb-6 text-sm font-bold uppercase tracking-widest text-white">ติดต่อเรา</h4>
+<ul class="space-y-4 text-sm text-slate-400">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-accent-gold text-lg">mail</span>
+                                contact@hoteladdict.com
+                            </li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-accent-gold text-lg">phone</span>
+                                02-123-4567
+                            </li>
+</ul>
+</div>
+</div>
+<div class="mt-16 border-t border-white/5 pt-8 text-center text-xs text-slate-500">
+<p>© 2024 Hotel Addict. All rights reserved. ดีไซน์เพื่อสมาชิกผู้รักการเดินทาง</p>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

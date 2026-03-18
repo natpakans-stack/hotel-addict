@@ -372,7 +372,7 @@
         /* === RESPONSIVE === */
         @media (max-width: 768px) {
             .success-content {
-                padding: var(--space-lg) var(--space-md) var(--space-2xl);
+                padding: calc(var(--nav-height) + var(--space-lg)) var(--space-md) var(--space-2xl);
             }
 
             .success-hero h1 {
@@ -393,6 +393,15 @@
                 width: 100%;
                 height: 180px;
                 border-radius: var(--radius-lg);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
@@ -476,8 +485,8 @@
                 <div class="success-icon">
                     <span class="material-symbols-outlined">check_circle</span>
                 </div>
-                <h1>ส่งคำขอเรียบร้อยแล้ว!</h1>
-                <p>เราส่งคำขอไปยังโรงแรมให้คุณแล้ว โรงแรมจะยืนยันภายใน 24 ชม.</p>
+                <h1>ส่งคำขอใช้วอชเชอร์เรียบร้อย!</h1>
+                <p>เราส่งคำขอใช้วอชเชอร์ไปยังโรงแรมให้คุณแล้ว โรงแรมจะยืนยันห้องว่างภายใน 24 ชม.</p>
             </section>
 
             <!-- Order Summary -->
@@ -549,7 +558,7 @@
                     <span class="material-symbols-outlined">confirmation_number</span>
                     ดูบัตรกำนัลของฉัน
                 </a>
-                <a href="index.html" class="btn-outline">ดูดีลอื่นเพิ่มเติม</a>
+                <a href="index.html" class="btn-outline">ดูวอชเชอร์อื่นเพิ่มเติม</a>
             </div>
 
             <!-- Footer Contact -->
@@ -575,7 +584,7 @@
                 <div class="footer__grid">
                     <div class="footer__col">
                         <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
-                        <p class="footer__desc">ดีลตรงจากโรงแรม ราคาดีกว่าจองเอง</p>
+                        <p class="footer__desc">วอชเชอร์โรงแรมหรู ซื้อก่อน เลือกวันทีหลัง</p>
                         <div class="footer__social">
                             <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
                             <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
@@ -584,7 +593,7 @@
                     </div>
                     <div class="footer__col">
                         <h4 class="footer__heading">บริการลูกค้า</h4>
-                        <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีจองวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
+                        <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีซื้อวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
                     </div>
                     <div class="footer__col">
                         <h4 class="footer__heading">เกี่ยวกับเรา</h4>
@@ -592,7 +601,7 @@
                     </div>
                     <div class="footer__col">
                         <h4 class="footer__heading">ค้นพบ</h4>
-                        <ul class="footer__list"><li><a href="index.html">ดีลโรงแรม</a></li><li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li><li><a href="wishlist.html">รายการโปรด</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
+                        <ul class="footer__list"><li><a href="index.html">วอชเชอร์โรงแรม</a></li><li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li><li><a href="wishlist.html">รายการโปรด</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
                     </div>
                 </div>
                 <div class="footer__bottom">
