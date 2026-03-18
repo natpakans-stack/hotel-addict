@@ -418,33 +418,27 @@
                     <li><a href="about.html" class="navbar__link">เกี่ยวกับเรา</a></li>
                 </ul>
                 <div class="navbar__actions">
-                    <button class="navbar__icon-btn" aria-label="การแจ้งเตือน">
-                        <span class="material-symbols-outlined">notifications</span>
+                <div class="navbar__account">
+                    <button class="navbar__account-btn" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="material-symbols-outlined">person_outline</span>
+                        เข้าสู่ระบบ/สมัครสมาชิก
                     </button>
-                    <button class="navbar__profile" aria-label="โปรไฟล์">
-                        <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
-                        <span class="navbar__profile-name">คุณสมชาย</span>
-                        <div class="navbar__dropdown">
-                            <a href="my-voucher.html" class="navbar__dropdown-item">
-                                <span class="material-symbols-outlined">confirmation_number</span>
-                                วอชเชอร์ของฉัน
-                            </a>
-                            <a href="wishlist.html" class="navbar__dropdown-item">
-                                <span class="material-symbols-outlined">favorite</span>
-                                รายการโปรด
-                            </a>
-                            <div class="navbar__dropdown-divider"></div>
-                            <a href="#" class="navbar__dropdown-item">
-                                <span class="material-symbols-outlined">settings</span>
-                                ตั้งค่า
-                            </a>
-                            <a href="login.html" class="navbar__dropdown-item navbar__dropdown-item--danger">
-                                <span class="material-symbols-outlined">logout</span>
-                                ออกจากระบบ
-                            </a>
-                        </div>
-                    </button>
+                    <div class="navbar__account-dropdown">
+                        <div class="navbar__account-section-label">บัญชีผู้ใช้งาน</div>
+                        <a href="login.html" class="navbar__account-cta">เข้าสู่ระบบ/สมัครสมาชิก</a>
+                        <ul class="navbar__account-list">
+                            <li><a href="login.html"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>
+                            <li><a href="login.html"><span class="material-symbols-outlined">confirmation_number</span>การจองของฉัน</a></li>
+                            <li><a href="login.html"><span class="material-symbols-outlined">favorite_border</span>รายการที่ถูกใจ</a></li>
+                        </ul>
+                        <div class="navbar__account-section-label" style="margin-top:4px;">การตั้งค่า</div>
+                        <ul class="navbar__account-list">
+                            <li><span><span class="material-symbols-outlined">translate</span>ภาษา<span class="navbar__account-value">🇹🇭 ไทย</span></span></li>
+                            <li><span><span class="material-symbols-outlined">payments</span>การแสดงราคา<span class="navbar__account-value">THB</span></span></li>
+                        </ul>
+                    </div>
                 </div>
+            </div>
                 <button class="navbar__hamburger" aria-label="เปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.add('active')">
                     <span class="material-symbols-outlined" aria-hidden="true">menu</span>
                 </button>
@@ -452,31 +446,30 @@
         </nav>
 
         <div class="mobile-nav">
-            <div class="mobile-nav__header">
-                <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
-                <button class="mobile-nav__close" aria-label="ปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.remove('active')">
-                    <span class="material-symbols-outlined" aria-hidden="true">close</span>
-                </button>
-            </div>
-            <ul class="mobile-nav__list">
-                <li><a href="index.html" class="mobile-nav__link">หน้าแรก</a></li>
-                <li><a href="voucher-list.html" class="mobile-nav__link">ค้นหาวอชเชอร์</a></li>
-                <li><a href="about.html" class="mobile-nav__link">เกี่ยวกับเรา</a></li>
-            </ul>
-            <div class="mobile-nav__divider"></div>
-            <div class="mobile-nav__profile">
-                <div class="mobile-nav__profile-header">
-                    <img src="assets/images/avatars/avatar-man-1.jpg" alt="โปรไฟล์คุณสมชาย" class="navbar__avatar">
-                    <span class="mobile-nav__profile-name">คุณสมชาย</span>
-                </div>
-                <ul class="mobile-nav__list">
-                    <li><a href="my-voucher.html" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>
-                    <li><a href="wishlist.html" class="mobile-nav__link"><span class="material-symbols-outlined">favorite</span>รายการโปรด</a></li>
-                    <li><a href="#" class="mobile-nav__link"><span class="material-symbols-outlined">settings</span>ตั้งค่า</a></li>
-                    <li><a href="login.html" class="mobile-nav__link mobile-nav__link--danger"><span class="material-symbols-outlined">logout</span>ออกจากระบบ</a></li>
-                </ul>
-            </div>
+        <div class="mobile-nav__header">
+            <button class="mobile-nav__close" aria-label="ปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.remove('active')">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            </button>
+            <a href="login.html" class="mobile-nav__login-link">เข้าสู่ระบบ/สมัครสมาชิก</a>
+            <button class="navbar__hamburger" style="visibility:hidden;" aria-hidden="true">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
         </div>
+
+        <div class="mobile-nav__section-label">บัญชีผู้ใช้งาน</div>
+        <div style="padding:0 var(--space-lg);">
+            <a href="login.html" class="mobile-nav__cta">เข้าสู่ระบบ/สมัครสมาชิก</a>
+        </div>
+        <ul class="mobile-nav__list">
+            <li><a href="login.html" class="mobile-nav__link"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>
+            <li><a href="login.html" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>การจองของฉัน</a></li>
+            <li><a href="login.html" class="mobile-nav__link"><span class="material-symbols-outlined">favorite_border</span>รายการที่ถูกใจ</a></li>
+        </ul>
+
+        <div class="mobile-nav__divider"></div>
+
+        <div class="mobile-nav__section-label">เมนู</div>
+    </div>
 
         <!-- Main Content -->
         <main class="success-content">
@@ -592,7 +585,7 @@
                     </div>
                     <div class="footer__col">
                         <h4 class="footer__heading">ค้นพบ</h4>
-                        <ul class="footer__list"><li><a href="index.html">วอชเชอร์โรงแรม</a></li><li><a href="my-voucher.html">วอชเชอร์ของฉัน</a></li><li><a href="wishlist.html">รายการโปรด</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
+                        <ul class="footer__list"><li><a href="index.html">วอชเชอร์โรงแรม</a></li><li><a href="login.html">เข้าสู่ระบบ</a></li><li><a href="register.html">สมัครสมาชิก</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
                     </div>
                 </div>
                 <div class="footer__bottom">

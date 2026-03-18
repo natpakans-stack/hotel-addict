@@ -21,21 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
         handleScroll();
     }
 
-    /* === PROFILE DROPDOWN — toggle on click, close on click outside === */
-    const profileBtn = document.querySelector('.navbar__profile');
-    if (profileBtn) {
-        const dropdown = profileBtn.querySelector('.navbar__dropdown');
-        profileBtn.addEventListener('click', (e) => {
-            /* ถ้าคลิกใน dropdown (link items) ให้ปิดแล้วปล่อย navigate ตามปกติ */
-            if (dropdown && dropdown.contains(e.target)) {
-                profileBtn.classList.remove('active');
-                return;
+    /* === ACCOUNT DROPDOWN — toggle on click, close on click outside === */
+    const accountWrap = document.querySelector('.navbar__account');
+    if (accountWrap) {
+        document.addEventListener('click', (e) => {
+            if (!accountWrap.contains(e.target)) {
+                accountWrap.classList.remove('open');
             }
-            e.stopPropagation();
-            profileBtn.classList.toggle('active');
-        });
-        document.addEventListener('click', () => {
-            profileBtn.classList.remove('active');
         });
     }
 
