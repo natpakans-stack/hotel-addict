@@ -162,6 +162,15 @@ h4 { font-size: var(--text-h4); line-height: var(--lh-h4); font-weight: var(--fw
     color: var(--color-gold-light);
 }
 
+.navbar--transparent .navbar__account-btn {
+    color: #FFFFFF;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.navbar--transparent .navbar__account-btn:hover {
+    color: var(--color-gold-light);
+}
+
 .navbar--transparent .navbar__link--active {
     color: #FFFFFF !important;
 }
@@ -269,14 +278,14 @@ h4 { font-size: var(--text-h4); line-height: var(--lh-h4); font-weight: var(--fw
     background: none;
     cursor: pointer;
     font-family: var(--font-body);
-    font-size: var(--text-body-sm);
+    font-size: 16px;
     font-weight: var(--fw-bold);
     color: var(--color-gold-dark);
     white-space: nowrap;
 }
 
 .navbar__account-btn .material-symbols-outlined {
-    font-size: 20px;
+    font-size: 22px;
 }
 
 .navbar__account-btn:hover {
