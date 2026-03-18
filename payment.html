@@ -30,6 +30,216 @@
     <style>
         /* === PAGE-SPECIFIC STYLES === */
 
+        /* Navbar menu icon (burger) */
+        .navbar__menu-icon {
+            font-size: 20px;
+            color: var(--color-gold-dark);
+        }
+
+        /* Logged-in Navbar Avatar */
+        .navbar__avatar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: var(--radius-full);
+            background: var(--color-gold, #2D8B65);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .navbar__avatar--lg {
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+        }
+        .navbar__account-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border, #EBECEF);
+        }
+        .navbar__account-profile-name {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-primary, #1B1D22);
+        }
+        .navbar__account-profile-email {
+            font-size: 13px;
+            color: var(--text-muted, #6A6E83);
+            margin-top: 2px;
+        }
+        .navbar__account-divider {
+            height: 1px;
+            background: var(--border, #EBECEF);
+            margin: 4px 0;
+        }
+        .navbar__account-logout {
+            color: var(--color-error, #EA244F) !important;
+        }
+        .navbar__account-logout .material-symbols-outlined {
+            color: var(--color-error, #EA244F) !important;
+        }
+
+        /* Gift Toggle Section */
+        .gift-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .gift-toggle__label {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary, #1B1D22);
+        }
+
+        /* Toggle Switch */
+        .toggle {
+            position: relative;
+            display: inline-flex;
+            cursor: pointer;
+        }
+        .toggle input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle__track {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            background: var(--border, #EBECEF);
+            border-radius: var(--radius-full, 9999px);
+            transition: background 0.2s ease;
+        }
+        .toggle__thumb {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 22px;
+            height: 22px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+            transition: transform 0.2s ease;
+        }
+        .toggle input:checked + .toggle__track {
+            background: var(--color-gold, #2D8B65);
+        }
+        .toggle input:checked + .toggle__track .toggle__thumb {
+            transform: translateX(24px);
+        }
+        .toggle input:focus-visible + .toggle__track {
+            outline: 2px solid var(--color-gold, #2D8B65);
+            outline-offset: 2px;
+        }
+
+        /* Gift Form */
+        .gift-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg, 24px);
+            margin-top: var(--space-lg, 24px);
+            padding-top: var(--space-lg, 24px);
+            border-top: 1px solid var(--border, #EBECEF);
+        }
+
+        /* Radio Group */
+        .radio-group {
+            display: flex;
+            gap: 24px;
+            margin-top: 4px;
+        }
+        .radio {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            color: var(--text-primary, #1B1D22);
+        }
+        .radio input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .radio__circle {
+            position: relative;
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--border, #EBECEF);
+            border-radius: 50%;
+            flex-shrink: 0;
+            transition: border-color 0.15s ease;
+        }
+        .radio__circle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 12px;
+            height: 12px;
+            background: var(--color-gold, #2D8B65);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.15s ease;
+        }
+        .radio input:checked + .radio__circle {
+            border-color: var(--color-gold, #2D8B65);
+        }
+        .radio input:checked + .radio__circle::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .radio input:focus-visible + .radio__circle {
+            outline: 2px solid var(--color-gold, #2D8B65);
+            outline-offset: 2px;
+        }
+        .radio__label {
+            font-weight: 400;
+        }
+
+        /* Required asterisk */
+        .required {
+            color: var(--color-error, #EA244F);
+        }
+
+        /* Select wrapper */
+        .select-wrapper {
+            position: relative;
+        }
+        .input--select {
+            appearance: none;
+            -webkit-appearance: none;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+        .select-wrapper__icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 22px;
+            color: var(--text-muted, #6A6E83);
+            pointer-events: none;
+        }
+
+        /* Textarea */
+        .input--textarea {
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+            line-height: 1.5;
+        }
+        .input-hint {
+            font-size: 13px;
+            color: var(--text-muted, #6A6E83);
+        }
+
         /* Breadcrumb */
         .breadcrumb {
             display: flex;
@@ -114,50 +324,52 @@
         .payment-methods {
             display: flex;
             flex-direction: column;
-            gap: var(--space-md);
+            gap: var(--space-sm);
         }
 
         .payment-option {
             border: 1.5px solid var(--border);
             border-radius: var(--radius-lg);
-            padding: var(--space-lg);
+            padding: var(--space-md) var(--space-lg);
             cursor: pointer;
-            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+            background: var(--bg-white);
+            transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
         }
 
         .payment-option:hover {
-            border-color: var(--color-gold);
+            border-color: var(--color-gold-light);
+            background: var(--color-gold-subtle);
         }
 
         .payment-option--active {
             border-color: var(--color-gold);
             background: var(--color-gold-subtle);
-            box-shadow: var(--shadow-gold-active);
         }
 
         .payment-option__header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: var(--space-sm);
         }
-
         .payment-option__left {
             display: flex;
             align-items: center;
             gap: var(--space-sm);
+            flex: 1;
         }
 
         /* Custom radio */
         .radio-circle {
-            width: 22px;
-            height: 22px;
-            min-width: 22px;
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
             border-radius: var(--radius-full);
             border: 2px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: border-color var(--transition-fast);
+            flex-shrink: 0;
         }
 
         .radio-circle__dot {
@@ -176,60 +388,86 @@
             background: var(--color-gold-dark);
         }
 
+        /* Payment icon box */
+        .payment-option__icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: var(--color-gold-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .payment-option__icon .material-symbols-outlined {
+            font-size: 22px;
+            color: var(--color-gold-dark);
+        }
+        .payment-option--active .payment-option__icon {
+            background: var(--bg-white);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
         .payment-option__label {
             font-size: var(--text-body-md);
             font-weight: var(--fw-semibold);
             color: var(--text-primary);
         }
 
-        .payment-option__icons {
-            display: flex;
-            gap: var(--space-sm);
+        .payment-option--active .payment-option__label {
+            font-weight: var(--fw-bold);
         }
 
-        .payment-option__icons .material-symbols-outlined {
-            font-size: 28px;
+        /* Expanded content when active */
+        .payment-option__body {
+            display: none;
+            margin-top: var(--space-sm);
+        }
+        .payment-option--active .payment-option__body {
+            display: block;
+        }
+        .payment-option__desc {
+            font-size: var(--text-body-sm);
             color: var(--text-muted);
+            margin-bottom: var(--space-sm);
+        }
+        .payment-option__list {
+            margin: 0;
+            padding-left: 20px;
+            font-size: var(--text-body-sm);
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xs);
         }
 
         /* Card brand icons */
+        .card-brands {
+            display: flex;
+            gap: var(--space-sm);
+        }
         .card-brand {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 42px;
-            height: 28px;
-            background: var(--bg-cream);
+            width: 36px;
+            height: 36px;
+            overflow: hidden;
+        }
+        .card-brand img,
+        .card-brand svg {
+            width: 36px;
+            height: 36px;
+            display: block;
+        }
+        .payment-option--active .card-brand {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             border-radius: var(--radius-sm);
-            font-size: var(--text-micro);
-            font-weight: var(--fw-bold);
-            color: var(--text-secondary);
-            letter-spacing: 0.02em;
         }
-
-        /* Card form */
-        .card-form {
-            margin-top: var(--space-lg);
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-md);
-        }
-
-        .card-form .form-grid--2col {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .card-number-wrapper {
-            position: relative;
-        }
-
-        .card-number-wrapper .card-brands {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            gap: var(--space-xs);
+        .card-brand--bank {
+            border: none;
+            padding: 0;
+            overflow: hidden;
         }
 
         /* Sidebar */
@@ -253,84 +491,66 @@
             box-shadow: var(--shadow-card);
         }
 
-        .summary-card__image {
-            position: relative;
-            height: 200px;
-            overflow: hidden;
+        /* Compact hotel header: image + info side by side */
+        .summary-card__hotel {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--border);
         }
-
-        .summary-card__image img {
-            width: 100%;
-            height: 100%;
+        .summary-card__thumb {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .summary-card__thumb img {
+            display: block;
+            width: 100% !important;
+            height: 100% !important;
             object-fit: cover;
         }
-
-        .summary-card__image-overlay {
-            position: absolute;
-            inset: 0;
-            background: var(--overlay-gradient-strong);
+        .summary-card__hotel-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2px;
+            min-width: 0;
         }
-
-        .summary-card__image-info {
-            position: absolute;
-            bottom: var(--space-md);
-            left: var(--space-md);
-            right: var(--space-md);
-        }
-
         .summary-card__hotel-name {
-            font-family: var(--font-heading);
-            font-size: 20px;
             font-weight: var(--fw-bold);
-            color: var(--bg-white);
-            margin-bottom: 2px;
+            font-size: var(--text-body-md);
+            color: var(--text-primary);
+            margin: 0;
         }
-
         .summary-card__location {
             font-size: var(--text-body-sm);
-            color: var(--bg-white-80);
+            color: var(--text-muted);
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 2px;
         }
-
         .summary-card__location .material-symbols-outlined {
             font-size: 14px;
             color: var(--color-gold);
         }
+        .summary-card__room {
+            font-size: var(--text-body-sm);
+            color: var(--color-gold-dark);
+            font-weight: var(--fw-semibold);
+            margin-top: 4px;
+        }
+        .summary-card__room-detail {
+            font-size: var(--text-micro);
+            color: var(--text-muted);
+        }
 
         .summary-card__body {
-            padding: var(--space-lg);
+            padding: var(--space-md);
             display: flex;
             flex-direction: column;
-            gap: var(--space-lg);
-        }
-
-        /* Room info row */
-        .room-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .room-info__type-label {
-            font-size: var(--text-micro);
-            font-weight: var(--fw-bold);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--color-teal);
-            margin-bottom: 4px;
-        }
-
-        .room-info__type-name {
-            font-weight: var(--fw-bold);
-            font-size: var(--text-body-lg);
-            color: var(--text-primary);
-        }
-
-        .room-info__detail {
-            font-size: var(--text-body-sm);
-            color: var(--text-muted);
+            gap: var(--space-md);
         }
 
         /* Night counter */
@@ -507,6 +727,32 @@
         .btn-cta .material-symbols-outlined {
             font-size: 20px;
         }
+        .btn-cta--loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        .btn-cta__spinner {
+            width: 20px;
+            height: 20px;
+            border: 2.5px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Disabled form state */
+        .form-disabled .input,
+        .form-disabled .input--select,
+        .form-disabled .input--textarea,
+        .form-disabled .toggle,
+        .form-disabled .radio,
+        .form-disabled .payment-option {
+            pointer-events: none;
+            opacity: 0.5;
+        }
 
         /* Terms */
         .terms-text {
@@ -551,7 +797,7 @@
 
         /* Sections spacing */
         .checkout-section {
-            margin-bottom: var(--space-xl);
+            margin-bottom: var(--space-2xl);
         }
 
         /* Main content push for fixed nav */
@@ -583,22 +829,32 @@
             </ul>
             <div class="navbar__actions">
                 <div class="navbar__account">
-                    <button class="navbar__account-btn" onclick="this.parentElement.classList.toggle('open')">
-                        <span class="material-symbols-outlined">person_outline</span>
-                        เข้าสู่ระบบ/สมัครสมาชิก
+                    <button class="navbar__account-btn" onclick="this.parentElement.classList.toggle('open')" aria-label="เมนูบัญชี">
+                        <span class="navbar__avatar">ณ</span>
+                        <span class="material-symbols-outlined navbar__menu-icon">menu</span>
                     </button>
                     <div class="navbar__account-dropdown">
+                        <div class="navbar__account-profile">
+                            <span class="navbar__avatar navbar__avatar--lg">ณ</span>
+                            <div>
+                                <div class="navbar__account-profile-name">ณัฐพัชร์ สิริรัตน์</div>
+                                <div class="navbar__account-profile-email">natpakansirirat@gmail.com</div>
+                            </div>
+                        </div>
                         <div class="navbar__account-section-label">บัญชีผู้ใช้งาน</div>
-                        <a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="navbar__account-cta">เข้าสู่ระบบ/สมัครสมาชิก</a>
                         <ul class="navbar__account-list">
-                            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>
-                            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')"><span class="material-symbols-outlined">confirmation_number</span>การจองของฉัน</a></li>
-                            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')"><span class="material-symbols-outlined">favorite_border</span>รายการที่ถูกใจ</a></li>
+                            <li><a href="#"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>
+                            <li><a href="my-voucher.html"><span class="material-symbols-outlined">confirmation_number</span>การจองของฉัน</a></li>
+                            <li><a href="wishlist.html"><span class="material-symbols-outlined">favorite_border</span>รายการที่ถูกใจ</a></li>
                         </ul>
                         <div class="navbar__account-section-label" style="margin-top:4px;">การตั้งค่า</div>
                         <ul class="navbar__account-list">
                             <li><span><span class="material-symbols-outlined">translate</span>ภาษา<span class="navbar__account-value">🇹🇭 ไทย</span></span></li>
                             <li><span><span class="material-symbols-outlined">payments</span>การแสดงราคา<span class="navbar__account-value">THB</span></span></li>
+                        </ul>
+                        <div class="navbar__account-divider"></div>
+                        <ul class="navbar__account-list">
+                            <li><a href="index.html" class="navbar__account-logout"><span class="material-symbols-outlined">logout</span>ออกจากระบบ</a></li>
                         </ul>
                     </div>
                 </div>
@@ -614,20 +870,24 @@
             <button class="mobile-nav__close" aria-label="ปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.remove('active')">
                 <span class="material-symbols-outlined" aria-hidden="true">close</span>
             </button>
-            <a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__login-link">เข้าสู่ระบบ/สมัครสมาชิก</a>
+            <span class="mobile-nav__login-link" style="pointer-events:none;">ณัฐพัชร์ สิริรัตน์</span>
             <button class="navbar__hamburger" style="visibility:hidden;" aria-hidden="true">
                 <span class="material-symbols-outlined">menu</span>
             </button>
         </div>
 
         <div class="mobile-nav__section-label">บัญชีผู้ใช้งาน</div>
-        <div style="padding:0 var(--space-lg);">
-            <a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__cta">เข้าสู่ระบบ/สมัครสมาชิก</a>
+        <div class="mobile-nav__profile" style="display:flex;align-items:center;gap:12px;padding:4px var(--space-lg) 12px;">
+            <span class="navbar__avatar navbar__avatar--lg">ณ</span>
+            <div>
+                <div style="font-weight:700;font-size:16px;color:var(--text-primary);">ณัฐพัชร์ สิริรัตน์</div>
+                <div style="font-size:13px;color:var(--text-muted);">natpakansirirat@gmail.com</div>
+            </div>
         </div>
         <ul class="mobile-nav__list">
-            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__link"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>
-            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>การจองของฉัน</a></li>
-            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__link"><span class="material-symbols-outlined">favorite_border</span>รายการที่ถูกใจ</a></li>
+            <li><a href="#" class="mobile-nav__link"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>
+            <li><a href="my-voucher.html" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>การจองของฉัน</a></li>
+            <li><a href="wishlist.html" class="mobile-nav__link"><span class="material-symbols-outlined">favorite_border</span>รายการที่ถูกใจ</a></li>
         </ul>
 
         <div class="mobile-nav__divider"></div>
@@ -658,6 +918,11 @@
                 </span>
             </li>
         </ul>
+
+        <div class="mobile-nav__divider"></div>
+        <ul class="mobile-nav__list">
+            <li><a href="index.html" class="mobile-nav__link" style="color:var(--color-error);"><span class="material-symbols-outlined" style="color:var(--color-error);">logout</span>ออกจากระบบ</a></li>
+        </ul>
     </div>
 
 <!-- ==================== SKELETON + CONTENT ==================== -->
@@ -687,20 +952,54 @@
                     </div>
                     <div class="form-grid form-grid--2col">
                         <div class="form-group">
-                            <label class="input-label" for="firstname">ชื่อจริง</label>
-                            <input class="input" type="text" id="firstname" placeholder="ชื่อจริง (ภาษาไทยหรืออังกฤษ)" autocomplete="given-name">
+                            <label class="input-label" for="firstname">ชื่อจริง <span class="required">*</span></label>
+                            <input class="input" type="text" id="firstname" placeholder="ชื่อจริง (ภาษาไทยหรืออังกฤษ)" autocomplete="given-name" value="ณัฐพัชร์">
                         </div>
                         <div class="form-group">
-                            <label class="input-label" for="lastname">นามสกุล</label>
-                            <input class="input" type="text" id="lastname" placeholder="นามสกุล" autocomplete="family-name">
+                            <label class="input-label" for="lastname">นามสกุล <span class="required">*</span></label>
+                            <input class="input" type="text" id="lastname" placeholder="นามสกุล" autocomplete="family-name" value="สิริรัตน์">
                         </div>
                         <div class="form-group">
-                            <label class="input-label" for="email">อีเมล</label>
-                            <input class="input" type="email" id="email" placeholder="อีเมลสำหรับรับ E-Voucher" autocomplete="email">
+                            <label class="input-label" for="email">อีเมล <span class="required">*</span></label>
+                            <input class="input" type="email" id="email" placeholder="อีเมลสำหรับรับ E-Voucher" autocomplete="email" value="natpakansirirat@gmail.com">
                         </div>
                         <div class="form-group">
-                            <label class="input-label" for="phone">เบอร์โทรศัพท์</label>
-                            <input class="input" type="tel" id="phone" placeholder="08X-XXX-XXXX" autocomplete="tel">
+                            <label class="input-label" for="phone">เบอร์โทรศัพท์ <span class="required">*</span></label>
+                            <input class="input" type="tel" id="phone" placeholder="08X-XXX-XXXX" autocomplete="tel" value="091-234-5678">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ซื้อให้คนอื่น -->
+                <section class="checkout-section">
+                    <div class="gift-toggle">
+                        <label class="toggle" for="giftToggle">
+                            <input type="checkbox" id="giftToggle" onchange="toggleGiftSection(this.checked)">
+                            <span class="toggle__track">
+                                <span class="toggle__thumb"></span>
+                            </span>
+                        </label>
+                        <span class="gift-toggle__label">ซื้อเป็นของขวัญ/จองให้คนอื่น</span>
+                    </div>
+                    <div class="gift-form" id="giftForm" style="display:none;">
+                        <div class="form-grid form-grid--2col">
+                            <div class="form-group">
+                                <label class="input-label" for="giftFirstname">ชื่อผู้รับ <span class="required">*</span></label>
+                                <input class="input" type="text" id="giftFirstname" placeholder="ชื่อผู้รับวอชเชอร์" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label class="input-label" for="giftLastname">นามสกุล <span class="required">*</span></label>
+                                <input class="input" type="text" id="giftLastname" placeholder="นามสกุลผู้รับ" autocomplete="off">
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label class="input-label" for="giftEmail">อีเมลผู้รับ <span class="required">*</span></label>
+                                <input class="input" type="email" id="giftEmail" placeholder="อีเมลสำหรับส่ง E-Voucher ให้ผู้รับ" autocomplete="off">
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label class="input-label" for="giftMessage">ข้อความถึงผู้รับ</label>
+                                <textarea class="input input--textarea" id="giftMessage" rows="3" placeholder="เขียนข้อความถึงผู้รับ (จะปรากฏในอีเมล)" maxlength="200"></textarea>
+                                <span class="input-hint">ข้อความนี้จะแสดงในอีเมลที่ส่งให้ผู้รับ</span>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -721,69 +1020,65 @@
                                     <div class="radio-circle">
                                         <div class="radio-circle__dot"></div>
                                     </div>
-                                    <span class="payment-option__label">บัตรเครดิต / บัตรเดบิต</span>
+                                    <span class="payment-option__label">บัตรเครดิต/เดบิต</span>
                                 </div>
-                                <div class="payment-option__icons">
-                                    <span class="card-brand">VISA</span>
-                                    <span class="card-brand">MC</span>
+                                <div class="payment-option__icon">
+                                    <span class="material-symbols-outlined">credit_card</span>
                                 </div>
                             </div>
-
-                            <!-- Card form (visible when active) -->
-                            <div class="card-form" id="card-form">
-                                <div class="form-group">
-                                    <label class="input-label" for="card-number">หมายเลขบัตร</label>
-                                    <div class="card-number-wrapper">
-                                        <input class="input" type="text" id="card-number" placeholder="0000 0000 0000 0000" autocomplete="cc-number" inputmode="numeric" style="letter-spacing:0.15em; padding-right:110px;">
-                                        <div class="card-brands">
-                                            <span class="card-brand">VISA</span>
-                                            <span class="card-brand">MC</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-grid form-grid--2col">
-                                    <div class="form-group">
-                                        <label class="input-label" for="card-expiry">วันหมดอายุ</label>
-                                        <input class="input" type="text" id="card-expiry" placeholder="MM / YY" autocomplete="cc-exp" inputmode="numeric">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="input-label" for="card-cvc">CVC / CVV</label>
-                                        <input class="input" type="text" id="card-cvc" placeholder="123" autocomplete="cc-csc" inputmode="numeric" maxlength="4">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="input-label" for="card-name">ชื่อบนบัตร</label>
-                                    <input class="input" type="text" id="card-name" placeholder="NAME SURNAME" autocomplete="cc-name" style="text-transform:uppercase;">
+                            <div class="payment-option__body">
+                                <p class="payment-option__desc">สามารถชำระด้วยบัตรที่มีสัญลักษณ์เหล่านี้</p>
+                                <div class="card-brands">
+                                    <span class="card-brand"><img src="assets/images/cards/card-1.svg" alt="Visa" width="28" height="28"></span>
+                                    <span class="card-brand"><img src="assets/images/cards/card-2.svg" alt="Mastercard" width="28" height="28"></span>
+                                    <span class="card-brand"><img src="assets/images/cards/card-3.svg" alt="UnionPay" width="28" height="28"></span>
+                                    <span class="card-brand"><img src="assets/images/cards/card-4.svg" alt="JCB" width="28" height="28"></span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- PromptPay -->
+                        <!-- QR พร้อมเพย์ -->
                         <div class="payment-option" id="payment-promptpay" role="radio" tabindex="0" aria-checked="false" onclick="selectPayment('promptpay')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPayment('promptpay');}">
                             <div class="payment-option__header">
                                 <div class="payment-option__left">
                                     <div class="radio-circle">
                                         <div class="radio-circle__dot"></div>
                                     </div>
-                                    <span class="payment-option__label">PromptPay (พร้อมเพย์)</span>
+                                    <span class="payment-option__label">QR พร้อมเพย์</span>
                                 </div>
-                                <div class="payment-option__icons">
+                                <div class="payment-option__icon">
                                     <span class="material-symbols-outlined">qr_code_2</span>
                                 </div>
                             </div>
+                            <div class="payment-option__body">
+                                <ul class="payment-option__list">
+                                    <li>ชำระเงินภายใน 30 นาที เพื่อไม่ให้คำสั่งซื้อถูกยกเลิก</li>
+                                    <li>ระบบจะอัปเดตข้อมูลภายใน 2 ชั่วโมง นับจากชำระเงิน</li>
+                                </ul>
+                            </div>
                         </div>
 
-                        <!-- โอนเงินผ่านบัญชีธนาคาร -->
+                        <!-- แอปธนาคาร -->
                         <div class="payment-option" id="payment-bank" role="radio" tabindex="0" aria-checked="false" onclick="selectPayment('bank')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPayment('bank');}">
                             <div class="payment-option__header">
                                 <div class="payment-option__left">
                                     <div class="radio-circle">
                                         <div class="radio-circle__dot"></div>
                                     </div>
-                                    <span class="payment-option__label">โอนเงินผ่านบัญชีธนาคาร</span>
+                                    <span class="payment-option__label">แอปธนาคาร</span>
                                 </div>
-                                <div class="payment-option__icons">
+                                <div class="payment-option__icon">
                                     <span class="material-symbols-outlined">account_balance</span>
+                                </div>
+                            </div>
+                            <div class="payment-option__body">
+                                <p class="payment-option__desc">สามารถชำระเงินด้วยแอปธนาคารเหล่านี้</p>
+                                <div class="card-brands">
+                                    <span class="card-brand card-brand--bank"><img src="assets/images/banks/bank-1.svg" alt="SCB" width="28" height="28"></span>
+                                    <span class="card-brand card-brand--bank"><img src="assets/images/banks/bank-2.svg" alt="KBank" width="28" height="28"></span>
+                                    <span class="card-brand card-brand--bank"><img src="assets/images/banks/bank-3.svg" alt="Krungsri" width="28" height="28"></span>
+                                    <span class="card-brand card-brand--bank"><img src="assets/images/banks/bank-4.svg" alt="KTB" width="28" height="28"></span>
+                                    <span class="card-brand card-brand--bank"><img src="assets/images/banks/bank-5.svg" alt="BBL" width="28" height="28"></span>
                                 </div>
                             </div>
                         </div>
@@ -799,32 +1094,17 @@
                     <div class="skeleton-wrapper" id="skelPaymentSummary">
                         <div class="skel-screen" aria-hidden="true">
                             <div class="skel-card" style="border-radius:var(--radius-xl);overflow:hidden;">
-                                <!-- Image (200px) with hotel name overlay -->
-                                <div class="skel skel-image" style="height:200px;border-radius:0;"></div>
-
-                                <div class="skel-stack" style="padding:var(--space-lg);gap:var(--space-lg);">
-
-                                    <!-- Room info row: room type (left) + night counter (right) -->
-                                    <div class="skel-row" style="justify-content:space-between;align-items:flex-start;">
-                                        <div class="skel-stack" style="gap:var(--space-xs);flex:1;">
-                                            <div class="skel skel-text--caption" style="width:70px;"></div>
-                                            <div class="skel skel-text--heading" style="width:140px;"></div>
-                                            <div class="skel skel-text--caption" style="width:110px;"></div>
-                                        </div>
-                                        <div class="skel" style="width:80px;height:44px;border-radius:var(--radius-full);flex-shrink:0;"></div>
+                                <!-- Compact hotel header: thumb + info -->
+                                <div class="skel-row" style="gap:var(--space-md);padding:var(--space-md);border-bottom:1px solid rgba(0,0,0,0.06);">
+                                    <div class="skel" style="width:80px;height:80px;border-radius:var(--radius-md);flex-shrink:0;"></div>
+                                    <div class="skel-stack" style="gap:var(--space-xs);flex:1;">
+                                        <div class="skel skel-text--heading" style="width:160px;"></div>
+                                        <div class="skel skel-text--caption" style="width:120px;"></div>
+                                        <div class="skel skel-text--caption" style="width:140px;"></div>
                                     </div>
+                                </div>
 
-                                    <!-- Date row: check-in / check-out side by side -->
-                                    <div class="skel-grid-2" style="gap:var(--space-md);padding:var(--space-md) 0;border-top:1px solid rgba(0,0,0,0.06);border-bottom:1px solid rgba(0,0,0,0.06);">
-                                        <div class="skel-stack" style="gap:var(--space-xs);">
-                                            <div class="skel skel-text--caption" style="width:50px;"></div>
-                                            <div class="skel skel-text skel-text--short" style="width:90px;"></div>
-                                        </div>
-                                        <div class="skel-stack" style="gap:var(--space-xs);">
-                                            <div class="skel skel-text--caption" style="width:60px;"></div>
-                                            <div class="skel skel-text skel-text--short" style="width:90px;"></div>
-                                        </div>
-                                    </div>
+                                <div class="skel-stack" style="padding:var(--space-md);gap:var(--space-md);">
 
                                     <!-- Price breakdown: 3 rows of label + value -->
                                     <div class="skel-stack" style="gap:var(--space-sm);">
@@ -866,53 +1146,23 @@
                     <!-- Booking Summary Card -->
                     <div class="summary-card">
 
-                        <!-- Hotel image -->
-                        <div class="summary-card__image">
-                            <img src="assets/images/hotels/hotel-royal-grand-azure.jpg" alt="The Royal Grand Azure - สระน้ำวิวพระอาทิตย์ตก">
-                            <div class="summary-card__image-overlay"></div>
-                            <div class="summary-card__image-info">
+                        <!-- Hotel header: compact -->
+                        <div class="summary-card__hotel">
+                            <div class="summary-card__thumb">
+                                <img src="assets/images/hotels/hotel-pool-villa.jpg" alt="The Royal Grand Azure">
+                            </div>
+                            <div class="summary-card__hotel-info">
                                 <h3 class="summary-card__hotel-name">The Royal Grand Azure</h3>
                                 <p class="summary-card__location">
                                     <span class="material-symbols-outlined">location_on</span>
                                     เกาะสมุย, สุราษฎร์ธานี
                                 </p>
+                                <p class="summary-card__room">Deluxe Ocean Suite</p>
+                                <p class="summary-card__room-detail">รวมอาหารเช้า 2 ท่าน + สปาเครดิต</p>
                             </div>
                         </div>
 
                         <div class="summary-card__body">
-
-                            <!-- Room type + night counter -->
-                            <div class="room-info">
-                                <div>
-                                    <p class="room-info__type-label">ห้องพักที่เลือก</p>
-                                    <h4 class="room-info__type-name">Deluxe Ocean Suite</h4>
-                                    <p class="room-info__detail">รวมอาหารเช้า 2 ท่าน + สปาเครดิต</p>
-                                </div>
-                                <div class="night-counter">
-                                    <span class="night-counter__label">จำนวนคืน</span>
-                                    <div class="night-counter__controls">
-                                        <button class="night-counter__btn" aria-label="ลดจำนวนคืน">
-                                            <span class="material-symbols-outlined">remove</span>
-                                        </button>
-                                        <span class="night-counter__value">2</span>
-                                        <button class="night-counter__btn" aria-label="เพิ่มจำนวนคืน">
-                                            <span class="material-symbols-outlined">add</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Check-in / Check-out dates -->
-                            <div class="date-row">
-                                <div class="date-row__item">
-                                    <span class="date-row__label">เช็คอิน</span>
-                                    <span class="date-row__value">24 พ.ย. 2024</span>
-                                </div>
-                                <div class="date-row__item">
-                                    <span class="date-row__label">เช็คเอาท์</span>
-                                    <span class="date-row__value">26 พ.ย. 2024</span>
-                                </div>
-                            </div>
 
                             <!-- Price breakdown -->
                             <div class="price-breakdown">
@@ -940,10 +1190,11 @@
                             </div>
 
                             <!-- CTA -->
-                            <a href="success-payment.html" class="btn-cta" style="text-decoration:none;">
-                                <span class="material-symbols-outlined">lock</span>
-                                ยืนยันซื้อวอชเชอร์
-                            </a>
+                            <button type="button" class="btn-cta" id="btnSubmitPayment" onclick="handleSubmitPayment()">
+                                <span class="material-symbols-outlined btn-cta__icon">lock</span>
+                                <span class="btn-cta__text">ยืนยันซื้อวอชเชอร์</span>
+                                <span class="btn-cta__spinner" style="display:none;"></span>
+                            </button>
 
                             <!-- Terms -->
                             <p class="terms-text">
@@ -1024,19 +1275,42 @@
 <script src="js/main.js"></script>
 <script>
     // Payment method selection
+    function toggleGiftSection(isChecked) {
+        const form = document.getElementById('giftForm');
+        if (isChecked) {
+            form.style.display = 'block';
+        } else {
+            form.style.display = 'none';
+        }
+    }
+
     function selectPayment(method) {
-        // Remove active from all and update aria-checked
         document.querySelectorAll('.payment-option').forEach(el => {
             el.classList.remove('payment-option--active');
             el.setAttribute('aria-checked', 'false');
         });
-        // Add active to selected
         const selected = document.getElementById('payment-' + method);
         selected.classList.add('payment-option--active');
         selected.setAttribute('aria-checked', 'true');
-        // Toggle card form visibility
-        const cardForm = document.getElementById('card-form');
-        cardForm.style.display = method === 'card' ? 'flex' : 'none';
+    }
+
+    function handleSubmitPayment() {
+        const btn = document.getElementById('btnSubmitPayment');
+        const form = document.querySelector('form');
+
+        // Disable all form inputs
+        form.classList.add('form-disabled');
+
+        // Switch button to loading state
+        btn.classList.add('btn-cta--loading');
+        btn.querySelector('.btn-cta__icon').style.display = 'none';
+        btn.querySelector('.btn-cta__text').textContent = 'กำลังดำเนินการ...';
+        btn.querySelector('.btn-cta__spinner').style.display = 'inline-block';
+
+        // Redirect to 2C2P payment gateway (3 seconds)
+        setTimeout(function() {
+            window.location.href = '2c2p-payment.html';
+        }, 3000);
     }
 
     // Back to top
@@ -1054,57 +1328,8 @@
 </script>
 
 
-    <!-- Login Overlay -->
-    <div class="login-overlay" id="loginOverlay">
-        <div class="login-overlay__card">
-            <button class="login-overlay__close" aria-label="ปิด" onclick="document.getElementById('loginOverlay').classList.remove('active')"><span class="material-symbols-outlined">close</span></button>
+    <!-- Login overlay removed — user is logged in on this page -->
 
-            <!-- Banner -->
-            <div class="login-overlay__banner">
-                <div class="login-overlay__banner-icon"><span class="material-symbols-outlined">lock_open</span></div>
-                <div class="login-overlay__banner-title">เข้าสู่ระบบ / ลงทะเบียน</div>
-                <div class="login-overlay__banner-sub">เข้าสู่ระบบเพื่อซื้อวอชเชอร์ในราคาพิเศษ</div>
-            </div>
-
-            <div class="login-overlay__body">
-                <!-- Social Login -->
-                <div class="login-overlay__social">
-                    <button class="login-overlay__social-btn login-overlay__social-btn--line" onclick="window.location.href='payment.html'">
-                        <img src="assets/images/social/line-logo.svg" alt="LINE" style="width:22px;height:22px;border-radius:4px;">
-                        เข้าสู่ระบบด้วย LINE
-                    </button>
-                    <button class="login-overlay__social-btn login-overlay__social-btn--google">
-                        <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-                        เข้าสู่ระบบด้วย Google
-                    </button>
-                    <button class="login-overlay__social-btn login-overlay__social-btn--facebook">
-                        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#fff"/></svg>
-                        เข้าสู่ระบบด้วย Facebook
-                    </button>
-                    <button class="login-overlay__social-btn login-overlay__social-btn--apple">
-                        <svg viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.32 2.32-2.14 4.27-3.74 4.25z" fill="#fff"/></svg>
-                        เข้าสู่ระบบด้วย Apple
-                    </button>
-                </div>
-
-                <div class="login-overlay__divider">หรือ</div>
-
-                <!-- Email/Phone OTP -->
-                <label class="login-overlay__form-label">อีเมลหรือเบอร์โทร</label>
-                <input type="text" class="login-overlay__input" id="otpInput" placeholder="อีเมล หรือ เบอร์โทรศัพท์" oninput="toggleOtpBtn()">
-                <button class="login-overlay__submit" id="otpBtn" disabled>ส่ง OTP</button>
-
-                <!-- PDPA -->
-                <label class="login-overlay__pdpa">
-                    <input type="checkbox" checked id="pdpaCheck" onchange="toggleOtpBtn()">
-                    <span>ยอมรับ <a href="#">นโยบายความเป็นส่วนตัว (PDPA)</a> และ <a href="#">เงื่อนไขการใช้งาน</a></span>
-                </label>
-            </div>
-        </div>
-    </div>
-    <script>
-    function toggleOtpBtn(){var i=document.getElementById('otpInput'),c=document.getElementById('pdpaCheck'),b=document.getElementById('otpBtn');if(i&&c&&b){b.disabled=!(i.value.trim().length>0&&c.checked);}}
-    </script>
-
+<script src="js/auth.js"></script>
 </body>
 </html>

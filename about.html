@@ -983,6 +983,7 @@
                     <button class="navbar__account-btn" onclick="this.parentElement.classList.toggle('open')">
                         <span class="material-symbols-outlined">person_outline</span>
                         เข้าสู่ระบบ/สมัครสมาชิก
+                        <span class="material-symbols-outlined navbar__menu-icon">menu</span>
                     </button>
                     <div class="navbar__account-dropdown">
                         <div class="navbar__account-section-label">บัญชีผู้ใช้งาน</div>
@@ -1020,10 +1021,10 @@
 
         <!-- บัญชีผู้ใช้งาน -->
         <div class="mobile-nav__section-label">บัญชีผู้ใช้งาน</div>
-        <div style="padding:0 var(--space-lg);">
+        <div class="mobile-nav__cta-wrap" style="padding:0 var(--space-lg);">
             <a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__cta">เข้าสู่ระบบ/สมัครสมาชิก</a>
         </div>
-        <ul class="mobile-nav__list">
+        <ul class="mobile-nav__list mobile-nav__account-list">
             <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__link"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>
             <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>การจองของฉัน</a></li>
             <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__link"><span class="material-symbols-outlined">favorite_border</span>รายการที่ถูกใจ</a></li>
@@ -1566,7 +1567,7 @@
             <div class="login-overlay__body">
                 <!-- Social Login -->
                 <div class="login-overlay__social">
-                    <button class="login-overlay__social-btn login-overlay__social-btn--line" onclick="window.location.href='payment.html'">
+                    <button class="login-overlay__social-btn login-overlay__social-btn--line" onclick="doLogin()">
                         <img src="assets/images/social/line-logo.svg" alt="LINE" style="width:22px;height:22px;border-radius:4px;">
                         เข้าสู่ระบบด้วย LINE
                     </button>
@@ -1603,5 +1604,6 @@
     function toggleOtpBtn(){var i=document.getElementById('otpInput'),c=document.getElementById('pdpaCheck'),b=document.getElementById('otpBtn');if(i&&c&&b){b.disabled=!(i.value.trim().length>0&&c.checked);}}
     </script>
 
+<script src="js/auth.js"></script>
 </body>
 </html>

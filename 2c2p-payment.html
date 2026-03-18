@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2C2P Payment Gateway</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <style>
+        /* === RESET & BASE === */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #F5F5F5;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+
+        /* === MAIN CONTAINER === */
+        .gateway {
+            width: 100%;
+            max-width: 700px;
+            margin: 32px auto;
+            background: #FFFFFF;
+            border-radius: 4px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+            flex: 1;
+        }
+
+        @media (max-width: 740px) {
+            .gateway {
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+                min-height: 100vh;
+            }
+        }
+
+        /* === MERCHANT HEADER === */
+        .merchant-header {
+            padding: 24px 32px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            position: relative;
+        }
+
+        @media (max-width: 480px) {
+            .merchant-header {
+                padding: 20px 20px 16px;
+                gap: 12px;
+            }
+        }
+
+        .merchant-logo {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #1A6B4A;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .merchant-logo__text {
+            color: #FFFFFF;
+            font-size: 8px;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.2;
+            letter-spacing: 0.3px;
+        }
+
+        .merchant-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .merchant-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.4;
+            word-break: break-all;
+        }
+
+        .merchant-ref {
+            font-size: 12px;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        .merchant-amount {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-top: 4px;
+        }
+
+        .lang-select {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            color: #666;
+            cursor: pointer;
+            background: none;
+            border: 1px solid #DDD;
+            border-radius: 4px;
+            padding: 4px 10px 4px 12px;
+        }
+
+        .lang-select .material-symbols-outlined {
+            font-size: 16px;
+        }
+
+        @media (max-width: 480px) {
+            .lang-select {
+                top: 20px;
+                right: 20px;
+                font-size: 12px;
+                padding: 3px 8px 3px 10px;
+            }
+        }
+
+        .merchant-collapse {
+            display: flex;
+            justify-content: center;
+            padding: 0 32px 16px;
+        }
+
+        .merchant-collapse .material-symbols-outlined {
+            font-size: 20px;
+            color: #BBB;
+            cursor: pointer;
+        }
+
+        .merchant-divider {
+            height: 1px;
+            background: #EEEEEE;
+            margin: 0 32px;
+        }
+
+        @media (max-width: 480px) {
+            .merchant-divider {
+                margin: 0 20px;
+            }
+        }
+
+        /* === PAYMENT METHOD HEADER === */
+        .method-header {
+            padding: 20px 32px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 480px) {
+            .method-header {
+                padding: 16px 20px 0;
+            }
+        }
+
+        .method-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #333;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .method-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .method-right .material-symbols-outlined {
+            font-size: 20px;
+            color: #999;
+            cursor: pointer;
+        }
+
+        .card-logos {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-logo {
+            height: 22px;
+            width: auto;
+            display: block;
+        }
+
+        /* Inline SVG card brand logos */
+        .card-logo--mc {
+            width: 32px;
+            height: 20px;
+        }
+
+        .card-logo--visa {
+            width: 36px;
+            height: 12px;
+        }
+
+        .card-logo--jcb {
+            width: 22px;
+            height: 18px;
+        }
+
+        .method-separator {
+            height: 2px;
+            background: #1A6B4A;
+            margin: 12px 32px 0;
+        }
+
+        @media (max-width: 480px) {
+            .method-separator {
+                margin: 12px 20px 0;
+            }
+        }
+
+        /* === CARD FORM === */
+        .card-form {
+            padding: 28px 32px 32px;
+        }
+
+        @media (max-width: 480px) {
+            .card-form {
+                padding: 24px 20px 28px;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 24px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        @media (max-width: 400px) {
+            .form-row {
+                gap: 16px;
+            }
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: #888;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #CCC;
+            background: transparent;
+            padding: 8px 0;
+            font-size: 15px;
+            color: #333;
+            outline: none;
+            transition: border-color 0.2s ease;
+            font-family: inherit;
+            border-radius: 0;
+            -webkit-appearance: none;
+        }
+
+        .form-input::placeholder {
+            color: #CCC;
+        }
+
+        .form-input:focus {
+            border-bottom-color: #1A6B4A;
+        }
+
+        /* === SAVE CARD CHECKBOX === */
+        .save-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 36px;
+            cursor: pointer;
+        }
+
+        .save-card__checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #CCC;
+            border-radius: 3px;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            flex-shrink: 0;
+            position: relative;
+            transition: all 0.15s ease;
+        }
+
+        .save-card__checkbox:checked {
+            background: #1A6B4A;
+            border-color: #1A6B4A;
+        }
+
+        .save-card__checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1px;
+            width: 5px;
+            height: 9px;
+            border: solid #FFF;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .save-card__checkbox:focus-visible {
+            outline: 2px solid #1A6B4A;
+            outline-offset: 2px;
+        }
+
+        .save-card__label {
+            font-size: 13px;
+            color: #666;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        /* === BUTTONS === */
+        .form-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        @media (max-width: 400px) {
+            .form-actions {
+                flex-direction: column-reverse;
+                gap: 10px;
+            }
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 24px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 48px;
+        }
+
+        .btn--cancel {
+            background: transparent;
+            color: #888;
+            border: 1px solid #DDD;
+        }
+
+        .btn--cancel:hover {
+            background: #F5F5F5;
+            border-color: #CCC;
+        }
+
+        .btn--cancel:active {
+            background: #EEEEEE;
+        }
+
+        .btn--cancel:focus-visible {
+            outline: 2px solid #1A6B4A;
+            outline-offset: 2px;
+        }
+
+        .btn--pay {
+            background: #1A6B4A;
+            color: #FFFFFF;
+            border: 1px solid #1A6B4A;
+        }
+
+        .btn--pay:hover {
+            background: #15583D;
+            border-color: #15583D;
+        }
+
+        .btn--pay:active {
+            background: #104A33;
+        }
+
+        .btn--pay:focus-visible {
+            outline: 2px solid #1A6B4A;
+            outline-offset: 2px;
+        }
+
+        .btn--pay:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* === LOADING SPINNER === */
+        .btn__spinner {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #FFFFFF;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        .btn--loading .btn__spinner {
+            display: block;
+        }
+
+        .btn--loading .btn__text {
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* === FOOTER === */
+        .gateway-footer {
+            padding: 20px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid #EEEEEE;
+        }
+
+        @media (max-width: 480px) {
+            .gateway-footer {
+                padding: 16px 20px;
+            }
+        }
+
+        .footer-copy {
+            font-size: 11px;
+            color: #AAA;
+        }
+
+        .footer-logos {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-logo {
+            height: 20px;
+            opacity: 0.5;
+        }
+
+        /* === OVERLAY === */
+        .processing-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .processing-overlay.active {
+            display: flex;
+        }
+
+        .processing-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #E0E0E0;
+            border-top-color: #1A6B4A;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .processing-text {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<div class="gateway">
+    <!-- Merchant Header -->
+    <div class="merchant-header">
+        <div class="merchant-logo">
+            <span class="merchant-logo__text">Hotel<br>Addict</span>
+        </div>
+        <div class="merchant-info">
+            <div class="merchant-name">Hotel Addict 01000000004444626</div>
+            <div class="merchant-ref">TH26031831980</div>
+            <div class="merchant-amount">18,000.00 THB</div>
+        </div>
+        <button class="lang-select" type="button" aria-label="Language selector">
+            English
+            <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
+        </button>
+    </div>
+
+    <div class="merchant-collapse">
+        <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
+    </div>
+
+    <div class="merchant-divider"></div>
+
+    <!-- Payment Method Header -->
+    <div class="method-header">
+        <span class="method-title">Global Card</span>
+        <div class="method-right">
+            <div class="card-logos">
+                <!-- Mastercard logo -->
+                <svg class="card-logo card-logo--mc" viewBox="0 0 48 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="18" cy="15" r="11" fill="#EB001B"/>
+                    <circle cx="30" cy="15" r="11" fill="#F79E1B"/>
+                    <path d="M24 6.8a11 11 0 0 1 0 16.4 11 11 0 0 1 0-16.4z" fill="#FF5F00"/>
+                </svg>
+                <!-- Visa logo -->
+                <svg class="card-logo card-logo--visa" viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg">
+                    <text x="0" y="16" font-family="Arial, sans-serif" font-weight="bold" font-size="18" fill="#1A1F71" font-style="italic">VISA</text>
+                </svg>
+                <!-- JCB logo -->
+                <svg class="card-logo card-logo--jcb" viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="1" width="10" height="26" rx="3" fill="#0E4C96"/>
+                    <rect x="13" y="1" width="10" height="26" rx="3" fill="#E0001A"/>
+                    <rect x="25" y="1" width="10" height="26" rx="3" fill="#00A650"/>
+                    <text x="3" y="18" font-family="Arial" font-size="7" font-weight="bold" fill="#FFF">J</text>
+                    <text x="15" y="18" font-family="Arial" font-size="7" font-weight="bold" fill="#FFF">C</text>
+                    <text x="27" y="18" font-family="Arial" font-size="7" font-weight="bold" fill="#FFF">B</text>
+                </svg>
+            </div>
+            <span class="material-symbols-outlined" aria-hidden="true">expand_less</span>
+        </div>
+    </div>
+
+    <div class="method-separator"></div>
+
+    <!-- Card Form -->
+    <form class="card-form" id="paymentForm" novalidate>
+        <div class="form-group">
+            <label class="form-label" for="cardNumber">Card Number</label>
+            <input
+                class="form-input"
+                type="text"
+                id="cardNumber"
+                placeholder="0000-0000-0000-0000"
+                maxlength="19"
+                inputmode="numeric"
+                autocomplete="cc-number"
+                aria-required="true"
+            >
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input
+                class="form-input"
+                type="email"
+                id="email"
+                placeholder="your@email.com"
+                autocomplete="email"
+                aria-required="true"
+            >
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label" for="expiry">Expiry Date</label>
+                <input
+                    class="form-input"
+                    type="text"
+                    id="expiry"
+                    placeholder="MM/YY"
+                    maxlength="5"
+                    inputmode="numeric"
+                    autocomplete="cc-exp"
+                    aria-required="true"
+                >
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="cvv">CVV</label>
+                <input
+                    class="form-input"
+                    type="text"
+                    id="cvv"
+                    placeholder="000"
+                    maxlength="4"
+                    inputmode="numeric"
+                    autocomplete="cc-csc"
+                    aria-required="true"
+                >
+            </div>
+        </div>
+
+        <label class="save-card">
+            <input class="save-card__checkbox" type="checkbox" id="saveCard">
+            <span class="save-card__label">Save card for future payment</span>
+        </label>
+
+        <div class="form-actions">
+            <button class="btn btn--cancel" type="button" id="cancelBtn">Cancel</button>
+            <button class="btn btn--pay" type="submit" id="payBtn">
+                <span class="btn__text">Continue Payment</span>
+                <span class="btn__spinner" aria-hidden="true"></span>
+            </button>
+        </div>
+    </form>
+
+    <!-- Footer -->
+    <div class="gateway-footer">
+        <span class="footer-copy">&copy; 2026 2C2P</span>
+        <div class="footer-logos">
+            <!-- JCB footer -->
+            <svg class="footer-logo" viewBox="0 0 36 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:18px;">
+                <rect x="1" y="1" width="10" height="26" rx="3" fill="#0E4C96"/>
+                <rect x="13" y="1" width="10" height="26" rx="3" fill="#E0001A"/>
+                <rect x="25" y="1" width="10" height="26" rx="3" fill="#00A650"/>
+                <text x="3" y="18" font-family="Arial" font-size="7" font-weight="bold" fill="#FFF">J</text>
+                <text x="15" y="18" font-family="Arial" font-size="7" font-weight="bold" fill="#FFF">C</text>
+                <text x="27" y="18" font-family="Arial" font-size="7" font-weight="bold" fill="#FFF">B</text>
+            </svg>
+            <!-- Visa Secure footer -->
+            <svg class="footer-logo" viewBox="0 0 70 28" xmlns="http://www.w3.org/2000/svg" style="height:18px;">
+                <text x="0" y="14" font-family="Arial, sans-serif" font-weight="bold" font-size="13" fill="#1A1F71" font-style="italic">VISA</text>
+                <text x="0" y="25" font-family="Arial, sans-serif" font-size="8" fill="#1A1F71">Secure</text>
+            </svg>
+            <!-- Mastercard ID Check footer -->
+            <svg class="footer-logo" viewBox="0 0 48 30" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:18px;">
+                <circle cx="18" cy="15" r="11" fill="#EB001B"/>
+                <circle cx="30" cy="15" r="11" fill="#F79E1B"/>
+                <path d="M24 6.8a11 11 0 0 1 0 16.4 11 11 0 0 1 0-16.4z" fill="#FF5F00"/>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<!-- Processing Overlay -->
+<div class="processing-overlay" id="processingOverlay" role="alert" aria-live="polite">
+    <div class="processing-spinner"></div>
+    <span class="processing-text">Processing payment...</span>
+</div>
+
+<script>
+    // Card number formatting: auto-insert dashes
+    const cardInput = document.getElementById('cardNumber');
+    cardInput.addEventListener('input', function (e) {
+        let val = this.value.replace(/\D/g, '').substring(0, 16);
+        let formatted = val.replace(/(\d{4})(?=\d)/g, '$1-');
+        this.value = formatted;
+    });
+
+    // Expiry date formatting: auto-insert slash
+    const expiryInput = document.getElementById('expiry');
+    expiryInput.addEventListener('input', function (e) {
+        let val = this.value.replace(/\D/g, '').substring(0, 4);
+        if (val.length >= 3) {
+            val = val.substring(0, 2) + '/' + val.substring(2);
+        }
+        this.value = val;
+    });
+
+    // CVV: numbers only
+    const cvvInput = document.getElementById('cvv');
+    cvvInput.addEventListener('input', function () {
+        this.value = this.value.replace(/\D/g, '').substring(0, 4);
+    });
+
+    // Cancel button
+    document.getElementById('cancelBtn').addEventListener('click', function () {
+        window.location.href = 'payment.html';
+    });
+
+    // Form submit
+    document.getElementById('paymentForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const payBtn = document.getElementById('payBtn');
+        const overlay = document.getElementById('processingOverlay');
+
+        // Show loading state on button
+        payBtn.classList.add('btn--loading');
+        payBtn.disabled = true;
+
+        // Show overlay
+        overlay.classList.add('active');
+
+        // Redirect after 2 seconds
+        setTimeout(function () {
+            window.location.href = 'success-payment.html';
+        }, 2000);
+    });
+</script>
+
+</body>
+</html>

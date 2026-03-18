@@ -288,6 +288,58 @@ h4 { font-size: var(--text-h4); line-height: var(--lh-h4); font-weight: var(--fw
     font-size: 22px;
 }
 
+.navbar__menu-icon {
+    font-size: 20px !important;
+    margin-left: 2px;
+}
+
+.navbar__avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 9999px;
+    background: var(--color-gold-dark);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.navbar__avatar--lg {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+}
+.navbar__account-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+}
+.navbar__account-profile-name {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text-primary);
+}
+.navbar__account-profile-email {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+.navbar__account-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 4px 0;
+}
+.navbar__account-logout {
+    color: var(--color-error) !important;
+}
+.navbar__account-logout .material-symbols-outlined {
+    color: var(--color-error) !important;
+}
+
 .navbar__account-btn:hover {
     opacity: 0.8;
 }
