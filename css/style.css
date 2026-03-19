@@ -297,19 +297,21 @@ h4 { font-size: var(--text-h4); line-height: var(--lh-h4); font-weight: var(--fw
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 9999px;
-    background: var(--color-gold-dark);
-    color: #fff;
-    font-size: 14px;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    border: 2px solid var(--color-gold);
+    background: var(--color-gold-subtle);
+    color: var(--color-gold-dark);
+    font-size: 16px;
     font-weight: 700;
     flex-shrink: 0;
+    line-height: 1;
 }
 .navbar__avatar--lg {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
 }
 .navbar__account-profile {
     display: flex;
@@ -471,57 +473,7 @@ h4 { font-size: var(--text-h4); line-height: var(--lh-h4); font-weight: var(--fw
     color: var(--color-gold);
 }
 
-/* Profile trigger */
-.navbar__profile {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    cursor: pointer;
-    padding: 4px 12px 4px 4px;
-    border-radius: var(--radius-full);
-    border: none;
-    background: transparent;
-    transition: background var(--transition-fast);
-}
-
-.navbar__profile:hover {
-    background: var(--bg-gold-12);
-}
-
-.navbar__avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: var(--radius-full);
-    object-fit: cover;
-    border: 2px solid var(--color-gold);
-    background: var(--color-gold-subtle);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.navbar__avatar .material-symbols-outlined {
-    font-size: 20px;
-    color: var(--color-gold);
-}
-
-.navbar__profile-name {
-    font-family: var(--font-body);
-    font-size: var(--text-body-sm);
-    font-weight: var(--fw-semibold);
-    color: var(--text-primary);
-    white-space: nowrap;
-}
-
-.navbar--transparent .navbar__profile:hover {
-    background: rgba(255, 255, 255, 0.15);
-}
-
-.navbar--transparent .navbar__profile-name {
-    color: #FFFFFF;
-}
+/* (navbar__profile removed — unused, consolidated into navbar__account) */
 
 /* Profile dropdown */
 .navbar__dropdown {
