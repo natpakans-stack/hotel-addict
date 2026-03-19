@@ -123,7 +123,8 @@
             border-bottom: 1px solid var(--border);
         }
 
-        .order-card__row:last-child {
+        .order-card__row:last-child,
+        .order-card__row:has(+ .order-card__total) {
             border-bottom: none;
         }
 
