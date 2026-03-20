@@ -34,50 +34,70 @@
     <!-- Design Tokens & Global Styles -->
     <link rel="stylesheet" href="css/tokens.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/account-layout.css">
 
     <style>
         /* === WISHLIST PAGE === */
 
         .page-body {
-            padding-top: var(--nav-height);
+            padding-top: calc(var(--nav-height) + var(--space-xl));
+            padding-bottom: var(--space-3xl);
             min-height: 100vh;
+            background: var(--bg-white);
         }
 
-        /* --- Page Header --- */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: var(--text-body-sm);
+            color: var(--text-muted);
+            margin-bottom: var(--space-xl);
+        }
+        .breadcrumb a { color: var(--text-muted); }
+        .breadcrumb a:hover { color: var(--color-gold-dark); }
+        .breadcrumb__current { color: var(--text-primary); font-weight: var(--fw-semibold); }
+        .breadcrumb .material-symbols-outlined { font-size: 14px; }
+
+        /* --- Page Header (Green Gradient) --- */
         .page-header {
-            text-align: center;
-            padding: var(--space-2xl) 0 var(--space-xl);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            margin-bottom: var(--space-lg);
         }
-
-        .page-header h1 {
-            margin-bottom: var(--space-sm);
+        .page-header__gradient {
+            background: linear-gradient(135deg, #2D8B65, #1A6B4A);
+            padding: 24px 24px 20px;
+            border-radius: 16px;
         }
-
-        .page-header p {
-            color: var(--text-secondary);
-            font-size: var(--text-body-md);
-            line-height: var(--lh-body-md);
+        .page-header__gradient h1 {
+            font-size: var(--text-h3, 24px);
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 4px;
         }
-
-        .page-header__count {
+        .page-header__gradient p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+        }
+        .wishlist-count {
             display: inline-flex;
             align-items: center;
-            gap: var(--space-xs);
-            margin-top: var(--space-md);
-            padding: 6px 16px;
-            background: var(--color-gold-subtle);
-            border: 1px solid var(--border-gold-25);
-            border-radius: var(--radius-full);
-            font-size: var(--text-body-sm);
-            font-weight: var(--fw-semibold);
-            color: var(--color-gold-dark);
+            gap: 4px;
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
         }
 
         /* --- Voucher Grid --- */
         .voucher-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: var(--space-lg);
+            gap: var(--space-md);
             padding-bottom: var(--space-3xl);
         }
 
@@ -94,14 +114,14 @@
         }
 
         .voucher-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-2px);
             box-shadow: var(--shadow-hover);
-            border-color: var(--color-gold);
+            border-color: var(--color-gold-light);
         }
 
         .voucher-card__image {
             position: relative;
-            aspect-ratio: 4/3;
+            aspect-ratio: 16/10;
             overflow: hidden;
         }
 
@@ -131,11 +151,11 @@
 
         .voucher-card__heart {
             position: absolute;
-            top: 12px;
-            right: 12px;
+            top: 10px;
+            right: 10px;
             z-index: 2;
-            width: 44px;
-            height: 44px;
+            width: 36px;
+            height: 36px;
             border-radius: var(--radius-full);
             background: var(--bg-white-90);
             backdrop-filter: blur(4px);
@@ -152,7 +172,7 @@
         .voucher-card__heart .material-symbols-outlined {
             color: var(--color-error);
             font-variation-settings: 'FILL' 1;
-            font-size: 22px;
+            font-size: 20px;
         }
 
         .voucher-card__heart:hover {
@@ -188,7 +208,7 @@
         }
 
         .voucher-card__body {
-            padding: var(--space-md);
+            padding: 12px 14px 14px;
             display: flex;
             flex-direction: column;
             flex: 1;
@@ -205,18 +225,18 @@
 
         .voucher-card__name {
             font-family: var(--font-heading);
-            font-size: var(--text-body-lg);
+            font-size: var(--text-body-md);
             font-weight: var(--fw-bold);
             color: var(--text-primary);
-            margin-bottom: var(--space-xs);
-            line-height: var(--lh-body-lg);
+            margin-bottom: 4px;
+            line-height: 1.35;
         }
 
         .voucher-card__desc {
-            font-size: var(--text-body-sm);
+            font-size: var(--text-micro);
             color: var(--text-secondary);
-            line-height: var(--lh-body-sm);
-            margin-bottom: var(--space-md);
+            line-height: 1.5;
+            margin-bottom: var(--space-sm);
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -227,7 +247,7 @@
             display: flex;
             align-items: flex-end;
             justify-content: space-between;
-            padding-top: var(--space-md);
+            padding-top: var(--space-sm);
             border-top: 1px solid var(--border);
             margin-top: auto;
         }
@@ -235,21 +255,21 @@
         .voucher-card__price-block {}
 
         .voucher-card__price-original {
-            font-size: var(--text-body-sm);
+            font-size: var(--text-micro);
             color: var(--text-muted);
             text-decoration: line-through;
         }
 
         .voucher-card__price {
             font-family: var(--font-heading);
-            font-size: var(--text-price-sm);
+            font-size: var(--text-body-lg);
             font-weight: var(--fw-bold);
             color: var(--text-primary);
-            line-height: var(--lh-price-sm);
+            line-height: 1.2;
         }
 
         .voucher-card__price-unit {
-            font-size: var(--text-body-sm);
+            font-size: var(--text-micro);
             font-weight: var(--fw-regular);
             color: var(--text-secondary);
         }
@@ -258,17 +278,18 @@
             display: inline-flex;
             align-items: center;
             gap: var(--space-xs);
-            padding: 10px 20px;
+            padding: 8px 16px;
             background: var(--color-gold-dark);
             color: var(--bg-white);
             border: none;
             border-radius: var(--radius-md);
             font-family: var(--font-body);
-            font-size: var(--text-body-sm);
+            font-size: var(--text-micro);
             font-weight: var(--fw-semibold);
             cursor: pointer;
             transition: all var(--transition-fast);
             text-decoration: none;
+            white-space: nowrap;
         }
 
         .voucher-card__cta:hover {
@@ -346,12 +367,7 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-
-        @media (min-width: 768px) {
-            /* navbar handled by style.css */
-        }
-
-        @media (min-width: 1024px) {
+        @media (min-width: 1280px) {
             .voucher-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
@@ -368,371 +384,229 @@
     </style>
 </head>
 <body>
-    <!-- ===== NAVBAR ===== -->
-    <nav class="navbar" aria-label="เมนูหลัก">
-        <div class="navbar__inner">
-            <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
-            <ul class="navbar__menu">
-                <li><a href="index.html" class="navbar__link">หน้าแรก</a></li>
-                <li><a href="voucher-list.html" class="navbar__link">ค้นหาวอชเชอร์</a></li>
-                <li><a href="about.html" class="navbar__link">เกี่ยวกับเรา</a></li>
-            </ul>
-            <div class="navbar__actions">
-                <div class="navbar__account">
-                    <button class="navbar__account-btn" onclick="this.parentElement.classList.toggle('open')">
-                        <span class="material-symbols-outlined">person_outline</span>
-                        เข้าสู่ระบบ/สมัครสมาชิก
-                        <span class="material-symbols-outlined navbar__menu-icon">menu</span>
-                    </button>
-                    <div class="navbar__account-dropdown">
-                        <div class="navbar__account-section-label">บัญชีผู้ใช้งาน</div>
-                        <a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="navbar__account-cta">เข้าสู่ระบบ/สมัครสมาชิก</a>
-                        <ul class="navbar__account-list">
-                            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>
-                            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>
-                            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')"><span class="material-symbols-outlined">favorite_border</span>รายการที่ถูกใจ</a></li>
-                        </ul>
-                        <div class="navbar__account-section-label" style="margin-top:4px;">การตั้งค่า</div>
-                        <ul class="navbar__account-list">
-                            <li><span><span class="material-symbols-outlined">translate</span>ภาษา<span class="navbar__account-value">🇹🇭 ไทย</span></span></li>
-                            <li><span><span class="material-symbols-outlined">payments</span>การแสดงราคา<span class="navbar__account-value">THB</span></span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <button class="navbar__hamburger" aria-label="เปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.add('active')">
-                <span class="material-symbols-outlined" aria-hidden="true">menu</span>
-            </button>
-        </div>
-    </nav>
+    <div id="navbar-root"></div>
 
-    <div class="mobile-nav">
-        <div class="mobile-nav__header">
-            <button class="mobile-nav__close" aria-label="ปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.remove('active')">
-                <span class="material-symbols-outlined" aria-hidden="true">close</span>
-            </button>
-            <a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__login-link">เข้าสู่ระบบ/สมัครสมาชิก</a>
-            <button class="navbar__hamburger" style="visibility:hidden;" aria-hidden="true">
-                <span class="material-symbols-outlined">menu</span>
-            </button>
-        </div>
-
-        <div class="mobile-nav__section-label">บัญชีผู้ใช้งาน</div>
-        <div class="mobile-nav__cta-wrap" style="padding:0 var(--space-lg);">
-            <a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__cta">เข้าสู่ระบบ/สมัครสมาชิก</a>
-        </div>
-        <ul class="mobile-nav__list mobile-nav__account-list">
-            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__link"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>
-            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>
-            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__link"><span class="material-symbols-outlined">favorite_border</span>รายการที่ถูกใจ</a></li>
-        </ul>
-
-        <div class="mobile-nav__divider"></div>
-
-        <div class="mobile-nav__section-label">เมนู</div>
-        <ul class="mobile-nav__list">
-            <li><a href="index.html" class="mobile-nav__link"><span class="material-symbols-outlined">home</span>หน้าแรก</a></li>
-            <li><a href="voucher-list.html" class="mobile-nav__link"><span class="material-symbols-outlined">search</span>ค้นหาวอชเชอร์</a></li>
-            <li><a href="about.html" class="mobile-nav__link"><span class="material-symbols-outlined">info</span>เกี่ยวกับเรา</a></li>
-        </ul>
-
-        <div class="mobile-nav__divider"></div>
-
-        <div class="mobile-nav__section-label">การตั้งค่า</div>
-        <ul class="mobile-nav__list">
-            <li>
-                <span class="mobile-nav__link">
-                    <span class="material-symbols-outlined">translate</span>
-                    ภาษา
-                    <span class="mobile-nav__link-value">🇹🇭 ไทย</span>
-                </span>
-            </li>
-            <li>
-                <span class="mobile-nav__link">
-                    <span class="material-symbols-outlined">payments</span>
-                    การแสดงราคา
-                    <span class="mobile-nav__link-value">THB</span>
-                </span>
-            </li>
-        </ul>
-    </div>
-    </div>
-
-    <!-- ==================== SKELETON + CONTENT ==================== -->
+    <div id="mobile-nav-root"></div>
 
     <main class="page-body">
         <div class="container">
+            <nav class="breadcrumb" aria-label="breadcrumb">
+                <a href="index.html">หน้าแรก</a>
+                <span class="material-symbols-outlined">chevron_right</span>
+                <span class="breadcrumb__current">รายการที่ถูกใจ</span>
+            </nav>
+            <div class="account-layout">
 
-            <!-- Page Header -->
-            <div class="page-header">
-                <h1>ดีลที่บันทึกไว้</h1>
-                <p>โรงแรมที่ถูกใจ เก็บไว้ดูทีหลังได้เลย</p>
-                <div class="page-header__count">
-                    <span class="material-symbols-outlined" style="font-size:16px;">favorite</span>
-                    4 รายการ
-                </div>
-            </div>
+                <!-- Account Sidebar -->
+                <aside class="account-sidebar" aria-label="เมนูบัญชี">
+                    <div class="account-sidebar__card">
+                        <div class="sidebar-profile">
+                            <div class="sidebar-profile__avatar" aria-hidden="true">ณ</div>
+                            <div>
+                                <div class="sidebar-profile__name">ณัฐพัชร์ สิริรัตน์</div>
+                                <div class="sidebar-profile__email">natpakansirirat@gmail.com</div>
+                            </div>
+                        </div>
+                        <nav class="sidebar-nav" aria-label="เมนูบัญชีผู้ใช้">
+                            <ul class="sidebar-nav__list">
+                                <li class="sidebar-nav__item">
+                                    <a href="my-account.html">
+                                        <span class="material-symbols-outlined">person_outline</span>
+                                        บัญชีของฉัน
+                                    </a>
+                                </li>
+                                <li class="sidebar-nav__item">
+                                    <a href="my-voucher.html">
+                                        <span class="material-symbols-outlined">confirmation_number</span>
+                                        วอชเชอร์ของฉัน
+                                    </a>
+                                </li>
+                                <li class="sidebar-nav__item sidebar-nav__item--active">
+                                    <a href="wishlist.html">
+                                        <span class="material-symbols-outlined">favorite_border</span>
+                                        รายการที่ถูกใจ
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="sidebar-nav__divider"></div>
+                            <ul class="sidebar-nav__list">
+                                <li class="sidebar-nav__item sidebar-nav__item--logout">
+                                    <a href="index.html" onclick="doLogout()">
+                                        <span class="material-symbols-outlined">logout</span>
+                                        ออกจากระบบ
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </aside>
 
-            <!-- Voucher Grid -->
-            <div class="skeleton-wrapper" id="skelWishlist">
-                <div class="skel-screen" aria-hidden="true">
-                    <div class="skel-grid-3">
+                <!-- Content -->
+                <div>
+                    <!-- Page Header -->
+                    <section class="page-header">
+                        <div class="page-header__gradient">
+                            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                                <div>
+                                    <h1>รายการที่ถูกใจ</h1>
+                                    <p>โรงแรมที่ถูกใจ เก็บไว้ดูทีหลังได้เลย</p>
+                                </div>
+                                <span class="wishlist-count" id="wishlistCount">
+                                    <span class="material-symbols-outlined" style="font-size:16px;">favorite</span>
+                                    4 รายการ
+                                </span>
+                            </div>
+                        </div>
+                    </section>
 
-                        <!-- Skeleton Card (×4) -->
-                        <div class="skel-card">
-                            <div class="skel skel-image skel-image--portrait"></div>
-                            <div class="skel-card__body">
-                                <div class="skel skel-chip" style="width:96px;"></div>
-                                <div class="skel skel-text skel-text--heading"></div>
-                                <div class="skel skel-text skel-text--caption"></div>
-                                <div class="skel skel-text skel-text--caption skel-text--short"></div>
-                                <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
-                                    <div class="skel-stack" style="gap:8px;">
-                                        <div class="skel skel-text skel-text--caption" style="width:72px;"></div>
-                                        <div class="skel skel-text" style="width:110px;height:22px;"></div>
+                    <!-- Voucher Grid -->
+                    <div class="voucher-grid" id="voucherGrid">
+
+                        <!-- Card 1 -->
+                        <div class="voucher-card">
+                            <div class="voucher-card__image">
+                                <img src="assets/images/hotels/hotel-pool-villa.jpg" alt="Paradise Pool Villa Resort">
+                                <div class="voucher-card__image-overlay"></div>
+                                <div class="voucher-card__badge">
+                                    <span class="badge badge-hot">HOT DEAL</span>
+                                </div>
+                                <button class="voucher-card__heart" aria-label="ลบออกจากรายการโปรด" onclick="removeCard(this)">
+                                    <span class="material-symbols-outlined">favorite</span>
+                                </button>
+                                <div class="voucher-card__location-tag">
+                                    <span class="material-symbols-outlined">location_on</span>
+                                    ภูเก็ต
+                                </div>
+                            </div>
+                            <div class="voucher-card__body">
+                                <div class="voucher-card__category">Pool Villa</div>
+                                <div class="voucher-card__name">Paradise Pool Villa Resort</div>
+                                <p class="voucher-card__desc">พูลวิลล่าส่วนตัวริมหาดภูเก็ต รวมอาหารเช้า 2 ท่าน + เครดิตสปา</p>
+                                <div class="voucher-card__footer">
+                                    <div class="voucher-card__price-block">
+                                        <div class="voucher-card__price-original">฿12,500</div>
+                                        <div class="voucher-card__price">฿7,990 <span class="voucher-card__price-unit">/ คืน</span></div>
                                     </div>
-                                    <div class="skel skel-button skel-button--sm"></div>
+                                    <a href="voucher-detail.html" class="voucher-card__cta">ดูดีลนี้</a>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="skel-card">
-                            <div class="skel skel-image skel-image--portrait"></div>
-                            <div class="skel-card__body">
-                                <div class="skel skel-chip" style="width:96px;"></div>
-                                <div class="skel skel-text skel-text--heading"></div>
-                                <div class="skel skel-text skel-text--caption"></div>
-                                <div class="skel skel-text skel-text--caption skel-text--short"></div>
-                                <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
-                                    <div class="skel-stack" style="gap:8px;">
-                                        <div class="skel skel-text skel-text--caption" style="width:72px;"></div>
-                                        <div class="skel skel-text" style="width:110px;height:22px;"></div>
+                        <!-- Card 2 -->
+                        <div class="voucher-card">
+                            <div class="voucher-card__image">
+                                <img src="assets/images/hotels/hotel-siam-heritage.jpg" alt="The Siam Heritage">
+                                <div class="voucher-card__image-overlay"></div>
+                                <div class="voucher-card__badge">
+                                    <span class="badge" style="background:var(--color-gold-dark);color:#FFF;border:none;border-radius:0 0 0 12px;padding:8px 20px;position:absolute;top:0;right:0;z-index:3;">คุ้มที่สุด</span>
+                                </div>
+                                <button class="voucher-card__heart" aria-label="ลบออกจากรายการโปรด" onclick="removeCard(this)">
+                                    <span class="material-symbols-outlined">favorite</span>
+                                </button>
+                                <div class="voucher-card__location-tag">
+                                    <span class="material-symbols-outlined">location_on</span>
+                                    กรุงเทพฯ
+                                </div>
+                            </div>
+                            <div class="voucher-card__body">
+                                <div class="voucher-card__category">Boutique Hotel</div>
+                                <div class="voucher-card__name">The Siam Heritage</div>
+                                <p class="voucher-card__desc">บูทีคโฮเทลย่านเจริญกรุง ดีไซน์ไทยร่วมสมัย รูฟท็อปบาร์วิวแม่น้ำเจ้าพระยา</p>
+                                <div class="voucher-card__footer">
+                                    <div class="voucher-card__price-block">
+                                        <div class="voucher-card__price-original">฿6,800</div>
+                                        <div class="voucher-card__price">฿3,990 <span class="voucher-card__price-unit">/ คืน</span></div>
                                     </div>
-                                    <div class="skel skel-button skel-button--sm"></div>
+                                    <a href="voucher-detail.html" class="voucher-card__cta">ดูดีลนี้</a>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="skel-card">
-                            <div class="skel skel-image skel-image--portrait"></div>
-                            <div class="skel-card__body">
-                                <div class="skel skel-chip" style="width:96px;"></div>
-                                <div class="skel skel-text skel-text--heading"></div>
-                                <div class="skel skel-text skel-text--caption"></div>
-                                <div class="skel skel-text skel-text--caption skel-text--short"></div>
-                                <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
-                                    <div class="skel-stack" style="gap:8px;">
-                                        <div class="skel skel-text skel-text--caption" style="width:72px;"></div>
-                                        <div class="skel skel-text" style="width:110px;height:22px;"></div>
+                        <!-- Card 3 -->
+                        <div class="voucher-card">
+                            <div class="voucher-card__image">
+                                <img src="assets/images/hotels/hotel-anantara-chiangmai.jpg" alt="Anantara Chiang Mai">
+                                <div class="voucher-card__image-overlay"></div>
+                                <button class="voucher-card__heart" aria-label="ลบออกจากรายการโปรด" onclick="removeCard(this)">
+                                    <span class="material-symbols-outlined">favorite</span>
+                                </button>
+                                <div class="voucher-card__location-tag">
+                                    <span class="material-symbols-outlined">location_on</span>
+                                    เชียงใหม่
+                                </div>
+                            </div>
+                            <div class="voucher-card__body">
+                                <div class="voucher-card__category">Luxury Resort</div>
+                                <div class="voucher-card__name">Anantara Chiang Mai Resort</div>
+                                <p class="voucher-card__desc">รีสอร์ทริมแม่น้ำปิง สไตล์ล้านนาร่วมสมัย รวมสปาและอาหารเช้าทุกวัน</p>
+                                <div class="voucher-card__footer">
+                                    <div class="voucher-card__price-block">
+                                        <div class="voucher-card__price-original">฿9,200</div>
+                                        <div class="voucher-card__price">฿5,490 <span class="voucher-card__price-unit">/ คืน</span></div>
                                     </div>
-                                    <div class="skel skel-button skel-button--sm"></div>
+                                    <a href="voucher-detail.html" class="voucher-card__cta">ดูดีลนี้</a>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="skel-card">
-                            <div class="skel skel-image skel-image--portrait"></div>
-                            <div class="skel-card__body">
-                                <div class="skel skel-chip" style="width:96px;"></div>
-                                <div class="skel skel-text skel-text--heading"></div>
-                                <div class="skel skel-text skel-text--caption"></div>
-                                <div class="skel skel-text skel-text--caption skel-text--short"></div>
-                                <div class="skel-row" style="justify-content:space-between;align-items:flex-end;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);">
-                                    <div class="skel-stack" style="gap:8px;">
-                                        <div class="skel skel-text skel-text--caption" style="width:72px;"></div>
-                                        <div class="skel skel-text" style="width:110px;height:22px;"></div>
+                        <!-- Card 4 -->
+                        <div class="voucher-card">
+                            <div class="voucher-card__image">
+                                <img src="assets/images/hotels/hotel-rayavadee-krabi.jpg" alt="Rayavadee Krabi">
+                                <div class="voucher-card__image-overlay"></div>
+                                <div class="voucher-card__badge">
+                                    <span class="badge badge-hot">HOT DEAL</span>
+                                </div>
+                                <button class="voucher-card__heart" aria-label="ลบออกจากรายการโปรด" onclick="removeCard(this)">
+                                    <span class="material-symbols-outlined">favorite</span>
+                                </button>
+                                <div class="voucher-card__location-tag">
+                                    <span class="material-symbols-outlined">location_on</span>
+                                    กระบี่
+                                </div>
+                            </div>
+                            <div class="voucher-card__body">
+                                <div class="voucher-card__category">Beachfront</div>
+                                <div class="voucher-card__name">Rayavadee Krabi</div>
+                                <p class="voucher-card__desc">พาวิลเลียนส่วนตัวกลางอุทยานแห่งชาติ หาดไร่เลย์ รวมอาหาร 3 มื้อ + สปา</p>
+                                <div class="voucher-card__footer">
+                                    <div class="voucher-card__price-block">
+                                        <div class="voucher-card__price-original">฿18,000</div>
+                                        <div class="voucher-card__price">฿11,900 <span class="voucher-card__price-unit">/ คืน</span></div>
                                     </div>
-                                    <div class="skel skel-button skel-button--sm"></div>
+                                    <a href="voucher-detail.html" class="voucher-card__cta">ดูดีลนี้</a>
                                 </div>
                             </div>
                         </div>
 
                     </div>
-                </div>
-                <div class="real-content">
-            <div class="voucher-grid" id="voucherGrid">
 
-                <!-- Card 1 -->
-                <div class="voucher-card">
-                    <div class="voucher-card__image">
-                        <img src="assets/images/hotels/hotel-pool-villa.jpg" alt="Paradise Pool Villa Resort">
-                        <div class="voucher-card__image-overlay"></div>
-                        <div class="voucher-card__badge">
-                            <span class="badge badge-hot">HOT DEAL</span>
+                    <!-- Empty State (hidden by default) -->
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-state__icon">
+                            <span class="material-symbols-outlined">favorite_border</span>
                         </div>
-                        <button class="voucher-card__heart" aria-label="ลบออกจากรายการโปรด" onclick="removeCard(this)">
-                            <span class="material-symbols-outlined">favorite</span>
-                        </button>
-                        <div class="voucher-card__location-tag">
-                            <span class="material-symbols-outlined">location_on</span>
-                            ภูเก็ต
-                        </div>
-                    </div>
-                    <div class="voucher-card__body">
-                        <div class="voucher-card__category">Pool Villa</div>
-                        <div class="voucher-card__name">Paradise Pool Villa Resort</div>
-                        <p class="voucher-card__desc">พูลวิลล่าส่วนตัวริมหาดภูเก็ต รวมอาหารเช้า 2 ท่าน + เครดิตสปา</p>
-                        <div class="voucher-card__footer">
-                            <div class="voucher-card__price-block">
-                                <div class="voucher-card__price-original">฿12,500</div>
-                                <div class="voucher-card__price">฿7,990 <span class="voucher-card__price-unit">/ คืน</span></div>
-                            </div>
-                            <a href="voucher-detail.html" class="voucher-card__cta">ดูดีลนี้</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="voucher-card">
-                    <div class="voucher-card__image">
-                        <img src="assets/images/hotels/hotel-siam-heritage.jpg" alt="The Siam Heritage">
-                        <div class="voucher-card__image-overlay"></div>
-                        <div class="voucher-card__badge">
-                            <span class="badge" style="background:var(--color-gold-dark);color:#FFF;border:none;border-radius:0 0 0 12px;padding:8px 20px;position:absolute;top:0;right:0;z-index:3;">คุ้มที่สุด</span>
-                        </div>
-                        <button class="voucher-card__heart" aria-label="ลบออกจากรายการโปรด" onclick="removeCard(this)">
-                            <span class="material-symbols-outlined">favorite</span>
-                        </button>
-                        <div class="voucher-card__location-tag">
-                            <span class="material-symbols-outlined">location_on</span>
-                            กรุงเทพฯ
-                        </div>
-                    </div>
-                    <div class="voucher-card__body">
-                        <div class="voucher-card__category">Boutique Hotel</div>
-                        <div class="voucher-card__name">The Siam Heritage</div>
-                        <p class="voucher-card__desc">บูทีคโฮเทลย่านเจริญกรุง ดีไซน์ไทยร่วมสมัย รูฟท็อปบาร์วิวแม่น้ำเจ้าพระยา</p>
-                        <div class="voucher-card__footer">
-                            <div class="voucher-card__price-block">
-                                <div class="voucher-card__price-original">฿6,800</div>
-                                <div class="voucher-card__price">฿3,990 <span class="voucher-card__price-unit">/ คืน</span></div>
-                            </div>
-                            <a href="voucher-detail.html" class="voucher-card__cta">ดูดีลนี้</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="voucher-card">
-                    <div class="voucher-card__image">
-                        <img src="assets/images/hotels/hotel-anantara-chiangmai.jpg" alt="Anantara Chiang Mai">
-                        <div class="voucher-card__image-overlay"></div>
-                        <button class="voucher-card__heart" aria-label="ลบออกจากรายการโปรด" onclick="removeCard(this)">
-                            <span class="material-symbols-outlined">favorite</span>
-                        </button>
-                        <div class="voucher-card__location-tag">
-                            <span class="material-symbols-outlined">location_on</span>
-                            เชียงใหม่
-                        </div>
-                    </div>
-                    <div class="voucher-card__body">
-                        <div class="voucher-card__category">Luxury Resort</div>
-                        <div class="voucher-card__name">Anantara Chiang Mai Resort</div>
-                        <p class="voucher-card__desc">รีสอร์ทริมแม่น้ำปิง สไตล์ล้านนาร่วมสมัย รวมสปาและอาหารเช้าทุกวัน</p>
-                        <div class="voucher-card__footer">
-                            <div class="voucher-card__price-block">
-                                <div class="voucher-card__price-original">฿9,200</div>
-                                <div class="voucher-card__price">฿5,490 <span class="voucher-card__price-unit">/ คืน</span></div>
-                            </div>
-                            <a href="voucher-detail.html" class="voucher-card__cta">ดูดีลนี้</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="voucher-card">
-                    <div class="voucher-card__image">
-                        <img src="assets/images/hotels/hotel-rayavadee-krabi.jpg" alt="Rayavadee Krabi">
-                        <div class="voucher-card__image-overlay"></div>
-                        <div class="voucher-card__badge">
-                            <span class="badge badge-hot">HOT DEAL</span>
-                        </div>
-                        <button class="voucher-card__heart" aria-label="ลบออกจากรายการโปรด" onclick="removeCard(this)">
-                            <span class="material-symbols-outlined">favorite</span>
-                        </button>
-                        <div class="voucher-card__location-tag">
-                            <span class="material-symbols-outlined">location_on</span>
-                            กระบี่
-                        </div>
-                    </div>
-                    <div class="voucher-card__body">
-                        <div class="voucher-card__category">Beachfront</div>
-                        <div class="voucher-card__name">Rayavadee Krabi</div>
-                        <p class="voucher-card__desc">พาวิลเลียนส่วนตัวกลางอุทยานแห่งชาติ หาดไร่เลย์ รวมอาหาร 3 มื้อ + สปา</p>
-                        <div class="voucher-card__footer">
-                            <div class="voucher-card__price-block">
-                                <div class="voucher-card__price-original">฿18,000</div>
-                                <div class="voucher-card__price">฿11,900 <span class="voucher-card__price-unit">/ คืน</span></div>
-                            </div>
-                            <a href="voucher-detail.html" class="voucher-card__cta">ดูดีลนี้</a>
-                        </div>
+                        <div class="empty-state__title">ยังไม่มีดีลที่บันทึกไว้</div>
+                        <p class="empty-state__desc">เจอโรงแรมที่ถูกใจ? กดหัวใจเพื่อเก็บไว้ดูทีหลัง</p>
+                        <a href="index.html" class="empty-state__link">
+                            <span class="material-symbols-outlined" style="font-size:20px;">search</span>
+                            ไปดูวอชเชอร์โรงแรม
+                        </a>
                     </div>
                 </div>
 
             </div>
-
-                </div><!-- /real-content -->
-            </div><!-- /skeleton-wrapper #skelWishlist -->
-
-            <!-- Empty State (hidden by default) -->
-            <div class="empty-state" id="emptyState">
-                <div class="empty-state__icon">
-                    <span class="material-symbols-outlined">favorite_border</span>
-                </div>
-                <div class="empty-state__title">ยังไม่มีดีลที่บันทึกไว้</div>
-                <p class="empty-state__desc">เจอโรงแรมที่ถูกใจ? กดหัวใจเพื่อเก็บไว้ดูทีหลัง</p>
-                <a href="index.html" class="empty-state__link">
-                    <span class="material-symbols-outlined" style="font-size:20px;">search</span>
-                    ไปดูวอชเชอร์โรงแรม
-                </a>
-            </div>
-
         </div>
     </main>
 
 
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer__grid">
-                <div class="footer__col">
-                    <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
-                    <p class="footer__desc">วอชเชอร์โรงแรมหรู ซื้อก่อน เลือกวันทีหลัง</p>
-                    <div class="footer__social">
-                        <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
-                        <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
-                        <a href="#" class="footer__social-btn" aria-label="LINE"><span class="material-symbols-outlined" aria-hidden="true">chat</span></a>
-                    </div>
-                </div>
-                <div class="footer__col">
-                    <h4 class="footer__heading">บริการลูกค้า</h4>
-                    <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีซื้อวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
-                </div>
-                <div class="footer__col">
-                    <h4 class="footer__heading">เกี่ยวกับเรา</h4>
-                    <ul class="footer__list"><li><a href="#">เกี่ยวกับ Hotel Addict</a></li><li><a href="#">ร่วมงานกับเรา</a></li><li><a href="#">พาร์ทเนอร์โรงแรม</a></li><li><a href="#">บล็อก</a></li></ul>
-                </div>
-                <div class="footer__col">
-                    <h4 class="footer__heading">ค้นพบ</h4>
-                    <ul class="footer__list"><li><a href="index.html">วอชเชอร์โรงแรม</a></li><li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')">เข้าสู่ระบบ</a></li><li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')">สมัครสมาชิก</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
-                </div>
-            </div>
-            <div class="footer__bottom">
-                <p>&copy; 2026 Hotel Addict. สงวนลิขสิทธิ์ทุกประการ</p>
-                <div class="footer__bottom-links">
-                    <a href="#">ข้อกำหนดการใช้งาน</a>
-                    <a href="#">นโยบายความเป็นส่วนตัว</a>
-                    <a href="#">Cookie Policy</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <div id="footer-root"></div>
 
-    <!-- Back to Top -->
-    <button class="back-to-top" id="backToTop" aria-label="กลับไปด้านบน">
-        <span class="material-symbols-outlined">keyboard_arrow_up</span>
-    </button>
+    <div id="back-to-top-root"></div>
 
+    <!-- Login Overlay -->
+    <div id="login-overlay-root"></div>
+    <script src="js/components.js"></script>
     <script src="js/main.js"></script>
     <script>
         // Back to top
@@ -760,7 +634,7 @@
         function updateCount() {
             const grid = document.getElementById('voucherGrid');
             const cards = grid.querySelectorAll('.voucher-card');
-            const countEl = document.querySelector('.page-header__count');
+            const countEl = document.getElementById('wishlistCount');
             const emptyState = document.getElementById('emptyState');
 
             if (cards.length === 0) {
@@ -771,58 +645,6 @@
                 countEl.innerHTML = '<span class="material-symbols-outlined" style="font-size:16px;">favorite</span> ' + cards.length + ' รายการ';
             }
         }
-    </script>
-
-    <!-- Login Overlay -->
-    <div class="login-overlay" id="loginOverlay">
-        <div class="login-overlay__card">
-            <button class="login-overlay__close" aria-label="ปิด" onclick="document.getElementById('loginOverlay').classList.remove('active')"><span class="material-symbols-outlined">close</span></button>
-
-            <!-- Banner -->
-            <div class="login-overlay__banner">
-                <div class="login-overlay__banner-icon"><span class="material-symbols-outlined">lock_open</span></div>
-                <div class="login-overlay__banner-title">เข้าสู่ระบบ / ลงทะเบียน</div>
-                <div class="login-overlay__banner-sub">เข้าสู่ระบบเพื่อซื้อวอชเชอร์ในราคาพิเศษ</div>
-            </div>
-
-            <div class="login-overlay__body">
-                <!-- Social Login -->
-                <div class="login-overlay__social">
-                    <button class="login-overlay__social-btn login-overlay__social-btn--line" onclick="doLogin()">
-                        <img src="assets/images/social/line-logo.svg" alt="LINE" style="width:22px;height:22px;border-radius:4px;">
-                        เข้าสู่ระบบด้วย LINE
-                    </button>
-                    <button class="login-overlay__social-btn login-overlay__social-btn--google">
-                        <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-                        เข้าสู่ระบบด้วย Google
-                    </button>
-                    <button class="login-overlay__social-btn login-overlay__social-btn--facebook">
-                        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#fff"/></svg>
-                        เข้าสู่ระบบด้วย Facebook
-                    </button>
-                    <button class="login-overlay__social-btn login-overlay__social-btn--apple">
-                        <svg viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.32 2.32-2.14 4.27-3.74 4.25z" fill="#fff"/></svg>
-                        เข้าสู่ระบบด้วย Apple
-                    </button>
-                </div>
-
-                <div class="login-overlay__divider">หรือ</div>
-
-                <!-- Email/Phone OTP -->
-                <label class="login-overlay__form-label">อีเมลหรือเบอร์โทร</label>
-                <input type="text" class="login-overlay__input" id="otpInput" placeholder="อีเมล หรือ เบอร์โทรศัพท์" oninput="toggleOtpBtn()">
-                <button class="login-overlay__submit" id="otpBtn" disabled>ส่ง OTP</button>
-
-                <!-- PDPA -->
-                <label class="login-overlay__pdpa">
-                    <input type="checkbox" checked id="pdpaCheck" onchange="toggleOtpBtn()">
-                    <span>ยอมรับ <a href="#">นโยบายความเป็นส่วนตัว (PDPA)</a> และ <a href="#">เงื่อนไขการใช้งาน</a></span>
-                </label>
-            </div>
-        </div>
-    </div>
-    <script>
-    function toggleOtpBtn(){var i=document.getElementById('otpInput'),c=document.getElementById('pdpaCheck'),b=document.getElementById('otpBtn');if(i&&c&&b){b.disabled=!(i.value.trim().length>0&&c.checked);}}
     </script>
 
 <script src="js/auth.js"></script>

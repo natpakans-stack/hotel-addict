@@ -34,47 +34,64 @@
     <!-- Design Tokens & Global Styles -->
     <link rel="stylesheet" href="css/tokens.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/account-layout.css">
 
     <style>
-        /* === PAGE HEADER === */
-        .page-header {
-            background: var(--bg-white);
-            border-bottom: 1px solid var(--border);
-            padding: calc(var(--nav-height) + var(--space-xl)) var(--space-lg) 0;
-        }
-
-        .page-header__inner {
-            max-width: var(--max-width);
-            margin: 0 auto;
-        }
-
-        .page-header__top {
+        /* === BREADCRUMB === */
+        .breadcrumb {
             display: flex;
-            flex-direction: column;
-            gap: var(--space-lg);
-            margin-bottom: var(--space-lg);
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: var(--text-body-sm);
+            color: var(--text-muted);
+            margin-bottom: var(--space-xl);
+        }
+        .breadcrumb a { color: var(--text-muted); }
+        .breadcrumb a:hover { color: var(--color-gold-dark); }
+        .breadcrumb__current { color: var(--text-primary); font-weight: var(--fw-semibold); }
+        .breadcrumb .material-symbols-outlined { font-size: 14px; }
+
+        /* === PAGE HEADER (Green Gradient) === */
+        .content-card {
+            border: 1px solid #ddd;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            background: var(--bg-white);
         }
 
-        .page-header h1 {
-            font-size: var(--text-h2);
-            line-height: var(--lh-h2);
-            color: var(--text-primary);
+        .page-header {
+            overflow: hidden;
         }
 
-        .page-header__sub {
-            font-size: var(--text-body-md);
-            color: var(--text-secondary);
-            margin-top: var(--space-xs);
+        .page-header__gradient {
+            background: linear-gradient(135deg, #2D8B65, #1A6B4A);
+            padding: 24px 24px 16px;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .page-header__gradient h1 {
+            font-size: var(--text-h3);
+            line-height: var(--lh-h3);
+            color: #fff;
+            margin: 0;
+        }
+
+        .page-header__gradient .page-header__sub {
+            font-size: var(--text-body-sm);
+            color: rgba(255,255,255,0.8);
+            margin-top: 4px;
         }
 
         /* === TAB FILTER === */
         .tab-filter {
             display: flex;
-            gap: var(--space-xs);
+            gap: 0;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
-            padding-bottom: 0;
+            padding: 0 24px;
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
         }
 
         .tab-filter::-webkit-scrollbar {
@@ -82,7 +99,7 @@
         }
 
         .tab-filter__btn {
-            padding: 12px 24px;
+            padding: 14px 20px;
             border: none;
             background: transparent;
             font-family: var(--font-body);
@@ -96,12 +113,53 @@
         }
 
         .tab-filter__btn:hover {
-            color: var(--color-gold-dark);
+            color: #2D8B65;
         }
 
         .tab-filter__btn--active {
-            color: var(--color-gold-dark);
-            border-bottom-color: var(--color-gold-dark);
+            color: #2D8B65;
+            border-bottom-color: #2D8B65;
+        }
+
+        /* === SUB-FILTER PILLS === */
+        .sub-filter {
+            display: flex;
+            gap: var(--space-sm);
+            padding: 16px 24px 0;
+            background: var(--bg-white);
+        }
+
+        .sub-filter__pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border);
+            background: var(--bg-white);
+            font-family: var(--font-body);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-semibold);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .sub-filter__pill:hover {
+            border-color: #2D8B65;
+            color: #2D8B65;
+        }
+
+        .sub-filter__pill--active {
+            background: #2D8B65;
+            border-color: #2D8B65;
+            color: #fff;
+        }
+
+        .sub-filter__pill--active:hover {
+            background: #1A6B4A;
+            border-color: #1A6B4A;
+            color: #fff;
         }
 
         .tab-filter__count {
@@ -112,23 +170,20 @@
             height: 20px;
             padding: 0 6px;
             border-radius: var(--radius-full);
-            background: var(--color-gold-subtle);
-            color: var(--color-gold-dark);
+            background: rgba(45, 139, 101, 0.1);
+            color: #2D8B65;
             font-size: var(--text-micro);
             font-weight: var(--fw-bold);
             margin-left: 6px;
         }
 
-        /* === VOUCHER GRID === */
-        .voucher-page {
-            min-height: 100vh;
-            background: var(--bg-cream);
+        .tab-filter__btn--active .tab-filter__count {
+            background: #2D8B65;
+            color: #fff;
         }
 
+        /* === VOUCHER GRID === */
         .voucher-grid {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: var(--space-xl) var(--space-lg) var(--space-3xl);
             display: grid;
             grid-template-columns: 1fr;
             gap: var(--space-lg);
@@ -519,29 +574,261 @@
             backdrop-filter: blur(2px);
         }
 
+        /* === VOUCHER DETAIL VIEW === */
+        .detail-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-semibold);
+            color: #2D8B65;
+            cursor: pointer;
+            padding: 0;
+            margin-bottom: 16px;
+            transition: opacity var(--transition-fast);
+        }
+
+        .detail-back:hover {
+            opacity: 0.7;
+        }
+
+        .detail-back .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .detail-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 12px;
+        }
+
+        .detail-card__header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .detail-card__header > .material-symbols-outlined {
+            font-size: 28px;
+            color: #2D8B65;
+        }
+
+        .detail-card__header > div {
+            flex: 1;
+        }
+
+        .detail-card__label {
+            font-size: var(--text-micro);
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+
+        .detail-card__value {
+            font-family: 'IBM Plex Mono', var(--font-body);
+            font-size: var(--text-body-lg);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            letter-spacing: 0.03em;
+        }
+
+        .detail-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-size: var(--text-micro);
+            font-weight: var(--fw-bold);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .detail-status--ready {
+            background: rgba(45, 139, 101, 0.1);
+            color: #2D8B65;
+        }
+
+        .detail-status--completed {
+            background: var(--bg-cream);
+            color: var(--text-muted);
+        }
+
+        .detail-status--cancelled {
+            background: rgba(234, 36, 79, 0.08);
+            color: #EA244F;
+        }
+
+        .detail-card__title {
+            font-size: 16px;
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            padding-left: 12px;
+            border-left: 3px solid #2D8B65;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .detail-hotel-img {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-lg);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .detail-hotel-name {
+            font-size: var(--text-body-lg);
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .detail-hotel-location {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+        }
+
+        .detail-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .detail-info-item {
+            padding: 12px;
+            background: var(--bg-cream, #FAFAFA);
+            border-radius: var(--radius-md);
+        }
+
+        .detail-info-label {
+            font-size: var(--text-micro);
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .detail-info-value {
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-semibold);
+            color: var(--text-primary);
+        }
+
+        .detail-row-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: var(--text-body-sm);
+            color: var(--text-secondary);
+        }
+
+        .detail-row-between:last-child {
+            border-bottom: none;
+        }
+
+        .detail-row-between span:last-child {
+            color: var(--text-primary);
+            font-weight: var(--fw-semibold);
+        }
+
+        .detail-row-total {
+            border-bottom: none;
+            padding-top: 16px;
+        }
+
+        .detail-row-total span:first-child {
+            font-weight: var(--fw-bold);
+            color: var(--text-primary);
+        }
+
+        .detail-total {
+            color: #2D8B65 !important;
+            font-size: 20px !important;
+            font-weight: var(--fw-bold) !important;
+        }
+
+        .detail-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 8px 0;
+        }
+
+        .detail-actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            margin-top: 20px;
+        }
+
+        .detail-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            width: 100%;
+            padding: 14px 24px;
+            border-radius: var(--radius-lg);
+            font-family: var(--font-body);
+            font-size: var(--text-body-sm);
+            font-weight: var(--fw-bold);
+            cursor: pointer;
+            border: none;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast), opacity var(--transition-fast);
+        }
+
+        .detail-btn .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .detail-btn--primary {
+            background: #2D8B65;
+            color: #fff;
+        }
+
+        .detail-btn--primary:hover {
+            background: #1A6B4A;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(45, 139, 101, 0.3);
+        }
+
+        .detail-btn--outline {
+            background: var(--bg-white);
+            color: #2D8B65;
+            border: 1.5px solid #2D8B65;
+        }
+
+        .detail-btn--outline:hover {
+            background: rgba(45, 139, 101, 0.05);
+        }
+
         /* === RESPONSIVE === */
         @media (min-width: 768px) {
-            .page-header__top {
-                flex-direction: row;
-                align-items: flex-end;
-                justify-content: space-between;
-            }
-
             .voucher-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-        }
 
-        @media (min-width: 1024px) {
-            .voucher-grid {
-                grid-template-columns: repeat(3, 1fr);
+            .detail-actions {
+                flex-direction: row;
             }
         }
 
         @media (max-width: 767px) {
-            .page-header h1 {
-                font-size: var(--text-h3);
-                line-height: var(--lh-h3);
+            .page-header__gradient h1 {
+                font-size: var(--text-h4);
             }
 
             .voucher-card__name {
@@ -551,206 +838,117 @@
             .voucher-card__image {
                 height: 180px;
             }
+
+            .detail-info-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .detail-card {
+                padding: 16px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="voucher-page">
-        <!-- Navbar -->
-        <nav class="navbar" aria-label="เมนูหลัก">
-            <div class="navbar__inner">
-                <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
-                <ul class="navbar__menu">
-                    <li><a href="index.html" class="navbar__link">หน้าแรก</a></li>
-                    <li><a href="voucher-list.html" class="navbar__link">ค้นหาวอชเชอร์</a></li>
-                    <li><a href="about.html" class="navbar__link">เกี่ยวกับเรา</a></li>
-                </ul>
-                <div class="navbar__actions">
-                <div class="navbar__account">
-                    <button class="navbar__account-btn" onclick="this.parentElement.classList.toggle('open')">
-                        <span class="material-symbols-outlined">person_outline</span>
-                        เข้าสู่ระบบ/สมัครสมาชิก
-                        <span class="material-symbols-outlined navbar__menu-icon">menu</span>
-                    </button>
-                    <div class="navbar__account-dropdown">
-                        <div class="navbar__account-section-label">บัญชีผู้ใช้งาน</div>
-                        <a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="navbar__account-cta">เข้าสู่ระบบ/สมัครสมาชิก</a>
-                        <ul class="navbar__account-list">
-                            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>
-                            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>
-                            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')"><span class="material-symbols-outlined">favorite_border</span>รายการที่ถูกใจ</a></li>
-                        </ul>
-                        <div class="navbar__account-section-label" style="margin-top:4px;">การตั้งค่า</div>
-                        <ul class="navbar__account-list">
-                            <li><span><span class="material-symbols-outlined">translate</span>ภาษา<span class="navbar__account-value">🇹🇭 ไทย</span></span></li>
-                            <li><span><span class="material-symbols-outlined">payments</span>การแสดงราคา<span class="navbar__account-value">THB</span></span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-                <button class="navbar__hamburger" aria-label="เปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.add('active')">
-                    <span class="material-symbols-outlined" aria-hidden="true">menu</span>
-                </button>
-            </div>
-        </nav>
+        <div id="navbar-root"></div>
 
-        <div class="mobile-nav">
-        <div class="mobile-nav__header">
-            <button class="mobile-nav__close" aria-label="ปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.remove('active')">
-                <span class="material-symbols-outlined" aria-hidden="true">close</span>
-            </button>
-            <a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__login-link">เข้าสู่ระบบ/สมัครสมาชิก</a>
-            <button class="navbar__hamburger" style="visibility:hidden;" aria-hidden="true">
-                <span class="material-symbols-outlined">menu</span>
-            </button>
-        </div>
+        <div id="mobile-nav-root"></div>
 
-        <div class="mobile-nav__section-label">บัญชีผู้ใช้งาน</div>
-        <div class="mobile-nav__cta-wrap" style="padding:0 var(--space-lg);">
-            <a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__cta">เข้าสู่ระบบ/สมัครสมาชิก</a>
-        </div>
-        <ul class="mobile-nav__list mobile-nav__account-list">
-            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__link"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>
-            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>
-            <li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')" class="mobile-nav__link"><span class="material-symbols-outlined">favorite_border</span>รายการที่ถูกใจ</a></li>
-        </ul>
-
-        <div class="mobile-nav__divider"></div>
-
-        <div class="mobile-nav__section-label">เมนู</div>
-    </div>
-
-        <!-- ==================== SKELETON + CONTENT ==================== -->
-
-        <section class="page-header">
-            <div class="page-header__inner">
-                <div class="page-header__top">
-                    <div>
-                        <h1>วอชเชอร์ของฉัน</h1>
-                        <p class="page-header__sub">วอชเชอร์โรงแรมหรูที่คุณซื้อไว้ พร้อมใช้เมื่อไหร่ก็ได้</p>
-                    </div>
-                </div>
-                <div class="tab-filter" role="tablist" aria-label="Filter vouchers">
-                    <button class="tab-filter__btn tab-filter__btn--active" role="tab" aria-selected="true" data-filter="all">
-                        ทั้งหมด<span class="tab-filter__count">3</span>
-                    </button>
-                    <button class="tab-filter__btn" role="tab" aria-selected="false" data-filter="ready">
-                        พร้อมใช้งาน<span class="tab-filter__count">1</span>
-                    </button>
-                    <button class="tab-filter__btn" role="tab" aria-selected="false" data-filter="pending">
-                        รอเลือกวัน<span class="tab-filter__count">1</span>
-                    </button>
-                    <button class="tab-filter__btn" role="tab" aria-selected="false" data-filter="used">
-                        ใช้งานแล้ว<span class="tab-filter__count">1</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Voucher Grid -->
-        <div class="skeleton-wrapper" id="skelMyVoucher">
-            <div class="skel-screen" aria-hidden="true">
-                <div class="skel-container" style="padding:var(--space-xl) var(--space-lg);">
-                    <div class="skel-grid-3">
-
-                        <!-- Skeleton card 1 -->
-                        <div class="skel-card" style="border-radius:var(--radius-xl);overflow:hidden;">
-                            <!-- Image with status badge overlay -->
-                            <div class="skel skel-image" style="height:180px;border-radius:0;position:relative;">
-                                <div class="skel" style="position:absolute;top:12px;right:12px;width:80px;height:24px;border-radius:var(--radius-full);"></div>
+        <main style="padding-top: calc(var(--nav-height) + var(--space-xl)); padding-bottom: var(--space-3xl); min-height: 100vh; background: var(--bg-white);">
+            <div class="container">
+                <nav class="breadcrumb" aria-label="breadcrumb">
+                    <a href="index.html">หน้าแรก</a>
+                    <span class="material-symbols-outlined">chevron_right</span>
+                    <span class="breadcrumb__current">วอชเชอร์ของฉัน</span>
+                </nav>
+                <div class="account-layout">
+                    <!-- Sidebar -->
+                    <aside class="account-sidebar" aria-label="เมนูบัญชี">
+                        <div class="account-sidebar__card">
+                            <div class="sidebar-profile">
+                                <div class="sidebar-profile__avatar" aria-hidden="true">ณ</div>
+                                <div>
+                                    <div class="sidebar-profile__name">ณัฐพัชร์ สิริรัตน์</div>
+                                    <div class="sidebar-profile__email">natpakansirirat@gmail.com</div>
+                                </div>
                             </div>
-                            <!-- Card body -->
-                            <div class="skel-stack" style="padding:var(--space-lg);gap:var(--space-md);">
-                                <!-- Hotel name -->
-                                <div class="skel skel-text--heading" style="width:80%;"></div>
-                                <!-- Location -->
-                                <div class="skel skel-text--caption" style="width:55%;"></div>
-                                <!-- Voucher code row -->
-                                <div class="skel-row" style="gap:var(--space-md);align-items:center;">
-                                    <div class="skel skel-text" style="flex:1;"></div>
-                                    <div class="skel skel-icon" style="width:36px;height:36px;border-radius:var(--radius-md);flex-shrink:0;"></div>
-                                </div>
-                                <!-- Info grid 2x2 -->
-                                <div class="skel-grid-2" style="gap:var(--space-sm);">
-                                    <div class="skel skel-text--caption" style="height:36px;"></div>
-                                    <div class="skel skel-text--caption" style="height:36px;"></div>
-                                    <div class="skel skel-text--caption" style="height:36px;"></div>
-                                    <div class="skel skel-text--caption" style="height:36px;"></div>
-                                </div>
-                                <!-- Package perks -->
-                                <div class="skel-row" style="gap:var(--space-sm);flex-wrap:wrap;">
-                                    <div class="skel skel-chip" style="width:100px;"></div>
-                                    <div class="skel skel-chip" style="width:110px;"></div>
-                                    <div class="skel skel-chip" style="width:90px;"></div>
-                                </div>
-                                <!-- Action buttons -->
-                                <div class="skel skel-button skel-button--full"></div>
-                                <div class="skel skel-button skel-button--full" style="opacity:0.6;"></div>
-                            </div>
+                            <nav class="sidebar-nav" aria-label="เมนูบัญชีผู้ใช้">
+                                <ul class="sidebar-nav__list">
+                                    <li class="sidebar-nav__item">
+                                        <a href="my-account.html">
+                                            <span class="material-symbols-outlined">person_outline</span>
+                                            บัญชีของฉัน
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-nav__item sidebar-nav__item--active">
+                                        <a href="my-voucher.html">
+                                            <span class="material-symbols-outlined">confirmation_number</span>
+                                            วอชเชอร์ของฉัน
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-nav__item">
+                                        <a href="wishlist.html">
+                                            <span class="material-symbols-outlined">favorite_border</span>
+                                            รายการที่ถูกใจ
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="sidebar-nav__divider"></div>
+                                <ul class="sidebar-nav__list">
+                                    <li class="sidebar-nav__item sidebar-nav__item--logout">
+                                        <a href="index.html" onclick="doLogout()">
+                                            <span class="material-symbols-outlined">logout</span>
+                                            ออกจากระบบ
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
+                    </aside>
 
-                        <!-- Skeleton card 2 -->
-                        <div class="skel-card" style="border-radius:var(--radius-xl);overflow:hidden;">
-                            <div class="skel skel-image" style="height:180px;border-radius:0;position:relative;">
-                                <div class="skel" style="position:absolute;top:12px;right:12px;width:100px;height:24px;border-radius:var(--radius-full);"></div>
+                    <!-- Content -->
+                    <div class="content-card">
+                        <section class="page-header" id="page-header">
+                            <div class="page-header__gradient">
+                                <h1>วอชเชอร์ของฉัน</h1>
+                                <p class="page-header__sub">วอชเชอร์โรงแรมหรูที่คุณซื้อไว้ พร้อมใช้เมื่อไหร่ก็ได้</p>
                             </div>
-                            <div class="skel-stack" style="padding:var(--space-lg);gap:var(--space-md);">
-                                <div class="skel skel-text--heading" style="width:75%;"></div>
-                                <div class="skel skel-text--caption" style="width:50%;"></div>
-                                <div class="skel-row" style="gap:var(--space-md);align-items:center;">
-                                    <div class="skel skel-text" style="flex:1;"></div>
-                                    <div class="skel skel-icon" style="width:36px;height:36px;border-radius:var(--radius-md);flex-shrink:0;"></div>
-                                </div>
-                                <div class="skel-grid-2" style="gap:var(--space-sm);">
-                                    <div class="skel skel-text--caption" style="height:36px;"></div>
-                                    <div class="skel skel-text--caption" style="height:36px;"></div>
-                                    <div class="skel skel-text--caption" style="height:36px;"></div>
-                                    <div class="skel skel-text--caption" style="height:36px;"></div>
-                                </div>
-                                <div class="skel-row" style="gap:var(--space-sm);flex-wrap:wrap;">
-                                    <div class="skel skel-chip" style="width:110px;"></div>
-                                    <div class="skel skel-chip" style="width:100px;"></div>
-                                </div>
-                                <div class="skel skel-button skel-button--full"></div>
-                                <div class="skel skel-button skel-button--full" style="opacity:0.6;"></div>
+                            <div class="tab-filter" role="tablist" aria-label="Filter vouchers">
+                                <button class="tab-filter__btn tab-filter__btn--active" role="tab" aria-selected="true" data-filter="upcoming">
+                                    กำลังจะมาถึง<span class="tab-filter__count">2</span>
+                                </button>
+                                <button class="tab-filter__btn" role="tab" aria-selected="false" data-filter="completed">
+                                    เสร็จสิ้น<span class="tab-filter__count">1</span>
+                                </button>
+                                <button class="tab-filter__btn" role="tab" aria-selected="false" data-filter="cancelled">
+                                    ยกเลิก<span class="tab-filter__count">0</span>
+                                </button>
                             </div>
-                        </div>
+                        </section>
 
-                        <!-- Skeleton card 3 -->
-                        <div class="skel-card" style="border-radius:var(--radius-xl);overflow:hidden;">
-                            <div class="skel skel-image" style="height:180px;border-radius:0;position:relative;">
-                                <div class="skel" style="position:absolute;top:12px;right:12px;width:88px;height:24px;border-radius:var(--radius-full);"></div>
-                            </div>
-                            <div class="skel-stack" style="padding:var(--space-lg);gap:var(--space-md);">
-                                <div class="skel skel-text--heading" style="width:85%;"></div>
-                                <div class="skel skel-text--caption" style="width:60%;"></div>
-                                <div class="skel-row" style="gap:var(--space-md);align-items:center;">
-                                    <div class="skel skel-text" style="flex:1;"></div>
-                                    <div class="skel skel-icon" style="width:36px;height:36px;border-radius:var(--radius-md);flex-shrink:0;"></div>
-                                </div>
-                                <div class="skel-grid-2" style="gap:var(--space-sm);">
-                                    <div class="skel skel-text--caption" style="height:36px;"></div>
-                                    <div class="skel skel-text--caption" style="height:36px;"></div>
-                                    <div class="skel skel-text--caption" style="height:36px;"></div>
-                                    <div class="skel skel-text--caption" style="height:36px;"></div>
-                                </div>
-                                <div class="skel-row" style="gap:var(--space-sm);flex-wrap:wrap;">
-                                    <div class="skel skel-chip" style="width:95px;"></div>
-                                    <div class="skel skel-chip" style="width:105px;"></div>
-                                    <div class="skel skel-chip" style="width:85px;"></div>
-                                </div>
-                                <div class="skel skel-button skel-button--full"></div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="real-content">
-        <main class="voucher-grid" id="voucher-grid">
+                        <div class="voucher-grid" id="voucher-grid" style="padding: var(--space-xl) var(--space-lg) 0;">
 
             <!-- Card 1: Ready -->
-            <article class="voucher-card" data-status="ready">
+            <article class="voucher-card" data-status="upcoming"
+                data-booking-id="HA-2948-XLP"
+                data-hotel-name="Paradise Luxury Island Resort"
+                data-hotel-location="เกาะสมุย, สุราษฎร์ธานี"
+                data-hotel-img="assets/images/hotels/hotel-anantara-chiangmai.jpg"
+                data-checkin="—"
+                data-checkout="—"
+                data-room="Pool Villa"
+                data-nights="2 คืน"
+                data-guest="NATPAKAN SIRIRAT"
+                data-email="natpakansirirat@gmail.com"
+                data-phone="+66 91-234-5678"
+                data-pay-date="12 ก.ย. 2569"
+                data-price="฿12,500"
+                data-total="฿12,500"
+                data-status-label="พร้อมใช้งาน"
+                data-status-type="ready"
+                onclick="showVoucherDetail(this)" style="cursor:pointer;"
+            >
                 <div class="voucher-card__image">
                     <img
                         src="assets/images/hotels/hotel-anantara-chiangmai.jpg"
@@ -841,7 +1039,25 @@
             </article>
 
             <!-- Card 2: Pending -->
-            <article class="voucher-card" data-status="pending">
+            <article class="voucher-card" data-status="upcoming"
+                data-booking-id="HA-7721-MNT"
+                data-hotel-name="Mountain Peak Hideaway"
+                data-hotel-location="เขาใหญ่, นครราชสีมา"
+                data-hotel-img="assets/images/hotels/hotel-mountain-resort.jpg"
+                data-checkin="20 ธ.ค. 2569"
+                data-checkout="22 ธ.ค. 2569"
+                data-room="Mountain Suite"
+                data-nights="2 คืน"
+                data-guest="NATPAKAN SIRIRAT"
+                data-email="natpakansirirat@gmail.com"
+                data-phone="+66 91-234-5678"
+                data-pay-date="5 ต.ค. 2569"
+                data-price="฿8,900"
+                data-total="฿8,900"
+                data-status-label="รอการยืนยัน"
+                data-status-type="pending"
+                onclick="showVoucherDetail(this)" style="cursor:pointer;"
+            >
                 <div class="voucher-card__image">
                     <img
                         src="assets/images/hotels/hotel-mountain-resort.jpg"
@@ -928,7 +1144,25 @@
             </article>
 
             <!-- Card 3: Used -->
-            <article class="voucher-card voucher-card--used" data-status="used">
+            <article class="voucher-card voucher-card--used" data-status="completed"
+                data-booking-id="HA-1155-PLR"
+                data-hotel-name="Paradise Luxury Island Resort"
+                data-hotel-location="เกาะสมุย, สุราษฎร์ธานี"
+                data-hotel-img="assets/images/hotels/hotel-siam-heritage.jpg"
+                data-checkin="10 พ.ค. 2569"
+                data-checkout="12 พ.ค. 2569"
+                data-room="Deluxe Room"
+                data-nights="2 คืน"
+                data-guest="NATPAKAN SIRIRAT"
+                data-email="natpakansirirat@gmail.com"
+                data-phone="+66 91-234-5678"
+                data-pay-date="15 มี.ค. 2569"
+                data-price="฿11,900"
+                data-total="฿11,900"
+                data-status-label="ใช้งานแล้ว"
+                data-status-type="used"
+                onclick="showVoucherDetail(this)" style="cursor:pointer;"
+            >
                 <div class="voucher-card__image">
                     <img
                         src="assets/images/hotels/hotel-siam-heritage.jpg"
@@ -979,55 +1213,140 @@
                 </div>
             </article>
 
+                        </div><!-- /voucher-grid -->
+
+                        <!-- Voucher Detail View -->
+                        <div id="voucher-detail" style="display:none; padding: var(--space-xl) var(--space-lg) 0;">
+                            <!-- Back button -->
+                            <button onclick="hideVoucherDetail()" class="detail-back">
+                                <span class="material-symbols-outlined">arrow_back</span>
+                                กลับไปรายการวอชเชอร์
+                            </button>
+
+                            <!-- Booking info card -->
+                            <div class="detail-card">
+                                <div class="detail-card__header">
+                                    <span class="material-symbols-outlined">confirmation_number</span>
+                                    <div>
+                                        <div class="detail-card__label">เลขที่การจอง</div>
+                                        <div class="detail-card__value" id="detail-booking-id">HA-2948-XLP</div>
+                                    </div>
+                                    <span class="detail-status detail-status--ready" id="detail-status">พร้อมใช้งาน</span>
+                                </div>
+                            </div>
+
+                            <!-- Hotel info -->
+                            <div class="detail-card">
+                                <div class="detail-card__title">ข้อมูลวอชเชอร์</div>
+                                <div class="detail-row">
+                                    <img src="" id="detail-hotel-img" class="detail-hotel-img" alt="Hotel">
+                                    <div>
+                                        <div class="detail-hotel-name" id="detail-hotel-name">Paradise Luxury Island Resort</div>
+                                        <div class="detail-hotel-location" id="detail-hotel-location">ภูเก็ต, ประเทศไทย</div>
+                                    </div>
+                                </div>
+                                <div class="detail-info-grid">
+                                    <div class="detail-info-item">
+                                        <div class="detail-info-label">เช็คอิน</div>
+                                        <div class="detail-info-value" id="detail-checkin">12 ก.พ. 2569</div>
+                                    </div>
+                                    <div class="detail-info-item">
+                                        <div class="detail-info-label">เช็คเอาท์</div>
+                                        <div class="detail-info-value" id="detail-checkout">14 ก.พ. 2569</div>
+                                    </div>
+                                    <div class="detail-info-item">
+                                        <div class="detail-info-label">ประเภทห้อง</div>
+                                        <div class="detail-info-value" id="detail-room">Pool Villa</div>
+                                    </div>
+                                    <div class="detail-info-item">
+                                        <div class="detail-info-label">จำนวนคืน</div>
+                                        <div class="detail-info-value" id="detail-nights">2 คืน</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Guest info -->
+                            <div class="detail-card">
+                                <div class="detail-card__title">ข้อมูลผู้เข้าพัก</div>
+                                <div class="detail-row-between">
+                                    <span>ชื่อ-นามสกุล</span>
+                                    <span id="detail-guest">NATPAKAN SIRIRAT</span>
+                                </div>
+                                <div class="detail-row-between">
+                                    <span>อีเมล</span>
+                                    <span id="detail-email">natpakansirirat@gmail.com</span>
+                                </div>
+                                <div class="detail-row-between">
+                                    <span>เบอร์มือถือ</span>
+                                    <span id="detail-phone">+66 91-234-5678</span>
+                                </div>
+                            </div>
+
+                            <!-- Payment info -->
+                            <div class="detail-card">
+                                <div class="detail-card__title">ข้อมูลการชำระเงิน</div>
+                                <div class="detail-row-between">
+                                    <span>ช่องทางชำระเงิน</span>
+                                    <span>บัตรเครดิต / บัตรเดบิต</span>
+                                </div>
+                                <div class="detail-row-between">
+                                    <span>วันที่ชำระเงิน</span>
+                                    <span id="detail-pay-date">12 ก.พ. 2569</span>
+                                </div>
+                                <div class="detail-divider"></div>
+                                <div class="detail-row-between">
+                                    <span>ราคาวอชเชอร์</span>
+                                    <span id="detail-price">฿11,900</span>
+                                </div>
+                                <div class="detail-row-between detail-row-total">
+                                    <span>ราคารวม</span>
+                                    <span class="detail-total" id="detail-total">฿11,900</span>
+                                </div>
+                            </div>
+
+                            <!-- Action buttons -->
+                            <div class="detail-actions" id="detail-actions">
+                                <button class="detail-btn detail-btn--primary">
+                                    <span class="material-symbols-outlined">calendar_month</span>
+                                    เลือกวันเข้าพัก
+                                </button>
+                                <button class="detail-btn detail-btn--outline">
+                                    <span class="material-symbols-outlined">qr_code_2</span>
+                                    แสดง QR Code
+                                </button>
+                            </div>
+                        </div><!-- /voucher-detail -->
+
+                    </div><!-- /content -->
+                </div><!-- /account-layout -->
+            </div><!-- /container -->
         </main>
-            </div><!-- /real-content -->
-        </div><!-- /skeleton-wrapper #skelMyVoucher -->
 
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <div class="footer__grid">
-                    <div class="footer__col">
-                        <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
-                        <p class="footer__desc">วอชเชอร์โรงแรมหรู ซื้อก่อน เลือกวันทีหลัง</p>
-                        <div class="footer__social">
-                            <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
-                            <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
-                            <a href="#" class="footer__social-btn" aria-label="LINE"><span class="material-symbols-outlined" aria-hidden="true">chat</span></a>
-                        </div>
-                    </div>
-                    <div class="footer__col">
-                        <h4 class="footer__heading">บริการลูกค้า</h4>
-                        <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีซื้อวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
-                    </div>
-                    <div class="footer__col">
-                        <h4 class="footer__heading">เกี่ยวกับเรา</h4>
-                        <ul class="footer__list"><li><a href="#">เกี่ยวกับ Hotel Addict</a></li><li><a href="#">ร่วมงานกับเรา</a></li><li><a href="#">พาร์ทเนอร์โรงแรม</a></li><li><a href="#">บล็อก</a></li></ul>
-                    </div>
-                    <div class="footer__col">
-                        <h4 class="footer__heading">ค้นพบ</h4>
-                        <ul class="footer__list"><li><a href="index.html">วอชเชอร์โรงแรม</a></li><li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')">เข้าสู่ระบบ</a></li><li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')">สมัครสมาชิก</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
-                    </div>
-                </div>
-                <div class="footer__bottom">
-                    <p>&copy; 2026 Hotel Addict. สงวนลิขสิทธิ์ทุกประการ</p>
-                    <div class="footer__bottom-links">
-                        <a href="#">ข้อกำหนดการใช้งาน</a>
-                        <a href="#">นโยบายความเป็นส่วนตัว</a>
-                        <a href="#">Cookie Policy</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
+        <div id="footer-root"></div>
 
+    <div id="back-to-top-root"></div>
+
+    <!-- Login Overlay -->
+    <div id="login-overlay-root"></div>
+    <script src="js/components.js"></script>
     <script src="js/main.js"></script>
-    <!-- Tab Filter JavaScript -->
+    <!-- Tab Filter & Detail View JavaScript -->
     <script>
         (function () {
             const tabs = document.querySelectorAll('.tab-filter__btn');
             const cards = document.querySelectorAll('.voucher-card');
+            const subFilterContainer = document.getElementById('sub-filter');
+
+            // Update sub-filter count based on active tab
+            function updateSubFilter(filter) {
+                let count = 0;
+                cards.forEach(card => {
+                    if (filter === 'all' || card.dataset.status === filter) count++;
+                });
+                const pill = subFilterContainer.querySelector('.sub-filter__pill');
+                if (pill) pill.textContent = 'ทั้งหมด (' + count + ')';
+            }
 
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
@@ -1051,9 +1370,86 @@
                             card.style.display = 'none';
                         }
                     });
+
+                    updateSubFilter(filter);
                 });
             });
+
+            // Initialize: filter to show only upcoming on load
+            cards.forEach(card => {
+                if (card.dataset.status === 'upcoming') {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            updateSubFilter('upcoming');
         })();
+
+        // Voucher Detail View
+        function showVoucherDetail(card) {
+            var grid = document.getElementById('voucher-grid');
+            var header = document.getElementById('page-header');
+            var detail = document.getElementById('voucher-detail');
+
+            grid.style.display = 'none';
+            header.style.display = 'none';
+            detail.style.display = 'block';
+
+            // Populate from data attributes
+            document.getElementById('detail-booking-id').textContent = card.dataset.bookingId || '';
+            document.getElementById('detail-hotel-name').textContent = card.dataset.hotelName || '';
+            document.getElementById('detail-hotel-location').textContent = card.dataset.hotelLocation || '';
+            document.getElementById('detail-hotel-img').src = card.dataset.hotelImg || '';
+            document.getElementById('detail-checkin').textContent = card.dataset.checkin || '';
+            document.getElementById('detail-checkout').textContent = card.dataset.checkout || '';
+            document.getElementById('detail-room').textContent = card.dataset.room || '';
+            document.getElementById('detail-nights').textContent = card.dataset.nights || '';
+            document.getElementById('detail-guest').textContent = card.dataset.guest || '';
+            document.getElementById('detail-email').textContent = card.dataset.email || '';
+            document.getElementById('detail-phone').textContent = card.dataset.phone || '';
+            document.getElementById('detail-pay-date').textContent = card.dataset.payDate || '';
+            document.getElementById('detail-price').textContent = card.dataset.price || '';
+            document.getElementById('detail-total').textContent = card.dataset.total || '';
+
+            // Status badge
+            var statusEl = document.getElementById('detail-status');
+            var statusType = card.dataset.statusType || 'ready';
+            var statusLabel = card.dataset.statusLabel || '';
+            statusEl.textContent = statusLabel;
+            statusEl.className = 'detail-status';
+            if (statusType === 'ready' || statusType === 'pending') {
+                statusEl.classList.add('detail-status--ready');
+            } else if (statusType === 'used') {
+                statusEl.classList.add('detail-status--completed');
+            }
+
+            // Update action buttons based on status
+            var actionsEl = document.getElementById('detail-actions');
+            if (statusType === 'used') {
+                actionsEl.innerHTML = '<button class="detail-btn detail-btn--outline" disabled style="opacity:0.5;cursor:not-allowed;">' +
+                    '<span class="material-symbols-outlined">check</span> ใช้งานแล้ว</button>';
+            } else if (statusType === 'pending') {
+                actionsEl.innerHTML = '<button class="detail-btn detail-btn--primary" disabled style="opacity:0.6;cursor:not-allowed;">' +
+                    '<span class="material-symbols-outlined">hourglass_top</span> รอโรงแรมยืนยัน</button>' +
+                    '<button class="detail-btn detail-btn--outline">' +
+                    '<span class="material-symbols-outlined">qr_code_2</span> แสดง QR Code</button>';
+            } else {
+                actionsEl.innerHTML = '<button class="detail-btn detail-btn--primary">' +
+                    '<span class="material-symbols-outlined">calendar_month</span> เลือกวันเข้าพัก</button>' +
+                    '<button class="detail-btn detail-btn--outline">' +
+                    '<span class="material-symbols-outlined">qr_code_2</span> แสดง QR Code</button>';
+            }
+
+            // Scroll to top of content
+            detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function hideVoucherDetail() {
+            document.getElementById('voucher-grid').style.display = '';
+            document.getElementById('page-header').style.display = '';
+            document.getElementById('voucher-detail').style.display = 'none';
+        }
     </script>
 
     <style>
@@ -1071,58 +1467,6 @@
             }
         }
     </style>
-
-    <!-- Login Overlay -->
-    <div class="login-overlay" id="loginOverlay">
-        <div class="login-overlay__card">
-            <button class="login-overlay__close" aria-label="ปิด" onclick="document.getElementById('loginOverlay').classList.remove('active')"><span class="material-symbols-outlined">close</span></button>
-
-            <!-- Banner -->
-            <div class="login-overlay__banner">
-                <div class="login-overlay__banner-icon"><span class="material-symbols-outlined">lock_open</span></div>
-                <div class="login-overlay__banner-title">เข้าสู่ระบบ / ลงทะเบียน</div>
-                <div class="login-overlay__banner-sub">เข้าสู่ระบบเพื่อซื้อวอชเชอร์ในราคาพิเศษ</div>
-            </div>
-
-            <div class="login-overlay__body">
-                <!-- Social Login -->
-                <div class="login-overlay__social">
-                    <button class="login-overlay__social-btn login-overlay__social-btn--line" onclick="doLogin()">
-                        <img src="assets/images/social/line-logo.svg" alt="LINE" style="width:22px;height:22px;border-radius:4px;">
-                        เข้าสู่ระบบด้วย LINE
-                    </button>
-                    <button class="login-overlay__social-btn login-overlay__social-btn--google">
-                        <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-                        เข้าสู่ระบบด้วย Google
-                    </button>
-                    <button class="login-overlay__social-btn login-overlay__social-btn--facebook">
-                        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#fff"/></svg>
-                        เข้าสู่ระบบด้วย Facebook
-                    </button>
-                    <button class="login-overlay__social-btn login-overlay__social-btn--apple">
-                        <svg viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.32 2.32-2.14 4.27-3.74 4.25z" fill="#fff"/></svg>
-                        เข้าสู่ระบบด้วย Apple
-                    </button>
-                </div>
-
-                <div class="login-overlay__divider">หรือ</div>
-
-                <!-- Email/Phone OTP -->
-                <label class="login-overlay__form-label">อีเมลหรือเบอร์โทร</label>
-                <input type="text" class="login-overlay__input" id="otpInput" placeholder="อีเมล หรือ เบอร์โทรศัพท์" oninput="toggleOtpBtn()">
-                <button class="login-overlay__submit" id="otpBtn" disabled>ส่ง OTP</button>
-
-                <!-- PDPA -->
-                <label class="login-overlay__pdpa">
-                    <input type="checkbox" checked id="pdpaCheck" onchange="toggleOtpBtn()">
-                    <span>ยอมรับ <a href="#">นโยบายความเป็นส่วนตัว (PDPA)</a> และ <a href="#">เงื่อนไขการใช้งาน</a></span>
-                </label>
-            </div>
-        </div>
-    </div>
-    <script>
-    function toggleOtpBtn(){var i=document.getElementById('otpInput'),c=document.getElementById('pdpaCheck'),b=document.getElementById('otpBtn');if(i&&c&&b){b.disabled=!(i.value.trim().length>0&&c.checked);}}
-    </script>
 
 <script src="js/auth.js"></script>
 </body>

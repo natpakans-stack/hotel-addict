@@ -41,7 +41,7 @@ function updateNavbarState() {
                 '</div>' +
                 '<div class="navbar__account-section-label">บัญชีผู้ใช้งาน</div>' +
                 '<ul class="navbar__account-list">' +
-                    '<li><a href="#"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>' +
+                    '<li><a href="my-account.html"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>' +
                     '<li><a href="my-voucher.html"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>' +
                     '<li><a href="wishlist.html"><span class="material-symbols-outlined">favorite_border</span>รายการที่ถูกใจ</a></li>' +
                 '</ul>' +
@@ -74,7 +74,7 @@ function updateNavbarState() {
         }
         if (mobileAccountList) {
             mobileAccountList.innerHTML =
-                '<li><a href="#" class="mobile-nav__link"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>' +
+                '<li><a href="my-account.html" class="mobile-nav__link"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>' +
                 '<li><a href="my-voucher.html" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>' +
                 '<li><a href="wishlist.html" class="mobile-nav__link"><span class="material-symbols-outlined">favorite_border</span>รายการที่ถูกใจ</a></li>';
         }

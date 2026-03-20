@@ -819,112 +819,9 @@
 </head>
 <body>
 
-<!-- === NAVBAR === -->
-<nav class="navbar" aria-label="เมนูหลัก">
-    <div class="navbar__inner">
-        <a href="index.html" class="navbar__logo">Hotel <span class="gold">Addict</span></a>
-        <ul class="navbar__menu">
-                <li><a href="index.html" class="navbar__link">หน้าแรก</a></li>
-                <li><a href="voucher-list.html" class="navbar__link">ค้นหาวอชเชอร์</a></li>
-                <li><a href="about.html" class="navbar__link">เกี่ยวกับเรา</a></li>
-            </ul>
-            <div class="navbar__actions">
-                <div class="navbar__account">
-                    <button class="navbar__account-btn" onclick="this.parentElement.classList.toggle('open')" aria-label="เมนูบัญชี">
-                        <span class="navbar__avatar">ณ</span>
-                        <span class="material-symbols-outlined navbar__menu-icon">menu</span>
-                    </button>
-                    <div class="navbar__account-dropdown">
-                        <div class="navbar__account-profile">
-                            <span class="navbar__avatar navbar__avatar--lg">ณ</span>
-                            <div>
-                                <div class="navbar__account-profile-name">ณัฐพัชร์ สิริรัตน์</div>
-                                <div class="navbar__account-profile-email">natpakansirirat@gmail.com</div>
-                            </div>
-                        </div>
-                        <div class="navbar__account-section-label">บัญชีผู้ใช้งาน</div>
-                        <ul class="navbar__account-list">
-                            <li><a href="#"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>
-                            <li><a href="my-voucher.html"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>
-                            <li><a href="wishlist.html"><span class="material-symbols-outlined">favorite_border</span>รายการที่ถูกใจ</a></li>
-                        </ul>
-                        <div class="navbar__account-section-label" style="margin-top:4px;">การตั้งค่า</div>
-                        <ul class="navbar__account-list">
-                            <li><span><span class="material-symbols-outlined">translate</span>ภาษา<span class="navbar__account-value">🇹🇭 ไทย</span></span></li>
-                            <li><span><span class="material-symbols-outlined">payments</span>การแสดงราคา<span class="navbar__account-value">THB</span></span></li>
-                        </ul>
-                        <div class="navbar__account-divider"></div>
-                        <ul class="navbar__account-list">
-                            <li><a href="index.html" class="navbar__account-logout"><span class="material-symbols-outlined">logout</span>ออกจากระบบ</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        <button class="navbar__hamburger" aria-label="เปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.add('active')">
-            <span class="material-symbols-outlined" aria-hidden="true">menu</span>
-        </button>
-    </div>
-</nav>
-
-    <div class="mobile-nav">
-        <div class="mobile-nav__header">
-            <button class="mobile-nav__close" aria-label="ปิดเมนู" onclick="document.querySelector('.mobile-nav').classList.remove('active')">
-                <span class="material-symbols-outlined" aria-hidden="true">close</span>
-            </button>
-            <span class="mobile-nav__login-link" style="pointer-events:none;">ณัฐพัชร์ สิริรัตน์</span>
-            <button class="navbar__hamburger" style="visibility:hidden;" aria-hidden="true">
-                <span class="material-symbols-outlined">menu</span>
-            </button>
-        </div>
-
-        <div class="mobile-nav__section-label">บัญชีผู้ใช้งาน</div>
-        <div class="mobile-nav__profile" style="display:flex;align-items:center;gap:12px;padding:4px var(--space-lg) 12px;">
-            <span class="navbar__avatar navbar__avatar--lg">ณ</span>
-            <div>
-                <div style="font-weight:700;font-size:16px;color:var(--text-primary);">ณัฐพัชร์ สิริรัตน์</div>
-                <div style="font-size:13px;color:var(--text-muted);">natpakansirirat@gmail.com</div>
-            </div>
-        </div>
-        <ul class="mobile-nav__list">
-            <li><a href="#" class="mobile-nav__link"><span class="material-symbols-outlined">person_outline</span>บัญชีของฉัน</a></li>
-            <li><a href="my-voucher.html" class="mobile-nav__link"><span class="material-symbols-outlined">confirmation_number</span>วอชเชอร์ของฉัน</a></li>
-            <li><a href="wishlist.html" class="mobile-nav__link"><span class="material-symbols-outlined">favorite_border</span>รายการที่ถูกใจ</a></li>
-        </ul>
-
-        <div class="mobile-nav__divider"></div>
-
-        <div class="mobile-nav__section-label">เมนู</div>
-        <ul class="mobile-nav__list">
-            <li><a href="index.html" class="mobile-nav__link"><span class="material-symbols-outlined">home</span>หน้าแรก</a></li>
-            <li><a href="voucher-list.html" class="mobile-nav__link"><span class="material-symbols-outlined">search</span>ค้นหาวอชเชอร์</a></li>
-            <li><a href="about.html" class="mobile-nav__link"><span class="material-symbols-outlined">info</span>เกี่ยวกับเรา</a></li>
-        </ul>
-
-        <div class="mobile-nav__divider"></div>
-
-        <div class="mobile-nav__section-label">การตั้งค่า</div>
-        <ul class="mobile-nav__list">
-            <li>
-                <span class="mobile-nav__link">
-                    <span class="material-symbols-outlined">translate</span>
-                    ภาษา
-                    <span class="mobile-nav__link-value">🇹🇭 ไทย</span>
-                </span>
-            </li>
-            <li>
-                <span class="mobile-nav__link">
-                    <span class="material-symbols-outlined">payments</span>
-                    การแสดงราคา
-                    <span class="mobile-nav__link-value">THB</span>
-                </span>
-            </li>
-        </ul>
-
-        <div class="mobile-nav__divider"></div>
-        <ul class="mobile-nav__list">
-            <li><a href="index.html" class="mobile-nav__link" style="color:var(--color-error);"><span class="material-symbols-outlined" style="color:var(--color-error);">logout</span>ออกจากระบบ</a></li>
-        </ul>
-    </div>
+<!-- Shared Components (injected by js/components.js) -->
+<div id="navbar-root"></div>
+<div id="mobile-nav-root"></div>
 
 <!-- ==================== SKELETON + CONTENT ==================== -->
 
@@ -1231,48 +1128,10 @@
 </main>
 
 
-<!-- === FOOTER === -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer__grid">
-            <div class="footer__col">
-                <a href="index.html" class="navbar__logo" style="color:var(--footer-text)">Hotel <span class="footer__gold">Addict</span></a>
-                <p class="footer__desc">วอชเชอร์โรงแรมหรู ซื้อก่อน เลือกวันทีหลัง</p>
-                <div class="footer__social">
-                    <a href="#" class="footer__social-btn" aria-label="Facebook"><span class="material-symbols-outlined" aria-hidden="true">public</span></a>
-                    <a href="#" class="footer__social-btn" aria-label="Instagram"><span class="material-symbols-outlined" aria-hidden="true">photo_camera</span></a>
-                    <a href="#" class="footer__social-btn" aria-label="LINE"><span class="material-symbols-outlined" aria-hidden="true">chat</span></a>
-                </div>
-            </div>
-            <div class="footer__col">
-                <h4 class="footer__heading">บริการลูกค้า</h4>
-                <ul class="footer__list"><li><a href="#">ศูนย์ช่วยเหลือ</a></li><li><a href="#">วิธีซื้อวอชเชอร์</a></li><li><a href="#">นโยบายการยกเลิก</a></li><li><a href="#">ติดต่อเรา</a></li></ul>
-            </div>
-            <div class="footer__col">
-                <h4 class="footer__heading">เกี่ยวกับเรา</h4>
-                <ul class="footer__list"><li><a href="#">เกี่ยวกับ Hotel Addict</a></li><li><a href="#">ร่วมงานกับเรา</a></li><li><a href="#">พาร์ทเนอร์โรงแรม</a></li><li><a href="#">บล็อก</a></li></ul>
-            </div>
-            <div class="footer__col">
-                <h4 class="footer__heading">ค้นพบ</h4>
-                <ul class="footer__list"><li><a href="index.html">วอชเชอร์โรงแรม</a></li><li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')">เข้าสู่ระบบ</a></li><li><a href="#" onclick="event.preventDefault();document.getElementById('loginOverlay').classList.add('active')">สมัครสมาชิก</a></li><li><a href="voucher-list.html">เปรียบเทียบราคา</a></li></ul>
-            </div>
-        </div>
-        <div class="footer__bottom">
-            <p>&copy; 2026 Hotel Addict. สงวนลิขสิทธิ์ทุกประการ</p>
-            <div class="footer__bottom-links">
-                <a href="#">ข้อกำหนดการใช้งาน</a>
-                <a href="#">นโยบายความเป็นส่วนตัว</a>
-                <a href="#">Cookie Policy</a>
-            </div>
-        </div>
-    </div>
-</footer>
+<div id="footer-root"></div>
+<div id="back-to-top-root"></div>
 
-<!-- === BACK TO TOP === -->
-<button class="back-to-top" id="backToTop" aria-label="กลับขึ้นด้านบน">
-    <span class="material-symbols-outlined">keyboard_arrow_up</span>
-</button>
-
+<script src="js/components.js"></script>
 <script src="js/main.js"></script>
 <script>
     // Payment method selection
@@ -1329,7 +1188,7 @@
 </script>
 
 
-    <!-- Login overlay removed — user is logged in on this page -->
+    <div id="login-overlay-root"></div>
 
 <!-- Welcome Toast -->
 <div class="toast" id="welcomeToast">

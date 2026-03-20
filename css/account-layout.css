@@ -1,0 +1,212 @@
+/* ============================================
+   Account Layout — Shared Sidebar & Grid
+   Used by: my-account.html, my-voucher.html, wishlist.html
+   ============================================ */
+
+/* === ACCOUNT LAYOUT: 2-column === */
+.account-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+}
+
+@media (min-width: 1024px) {
+    .account-layout {
+        grid-template-columns: 280px 1fr;
+        gap: 48px;
+    }
+}
+
+/* === LEFT SIDEBAR === */
+.account-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+@media (min-width: 1024px) {
+    .account-sidebar {
+        position: sticky;
+        top: calc(var(--nav-height) + var(--space-xl));
+        align-self: start;
+    }
+}
+
+.account-sidebar__card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+}
+
+/* Profile header */
+.sidebar-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-xl) var(--space-lg);
+    border-bottom: 1px solid var(--border);
+}
+
+.sidebar-profile__avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-full);
+    border: 3px solid var(--color-gold);
+    background: var(--color-gold-subtle);
+    color: var(--color-gold-dark);
+    font-size: 32px;
+    font-weight: var(--fw-bold);
+    line-height: 1;
+    margin-bottom: var(--space-md);
+}
+
+.sidebar-profile__name {
+    font-family: var(--font-heading);
+    font-size: var(--text-body-lg);
+    font-weight: var(--fw-bold);
+    color: var(--text-primary);
+    margin-bottom: var(--space-xs);
+}
+
+.sidebar-profile__email {
+    font-size: var(--text-body-sm);
+    color: var(--text-muted);
+}
+
+/* Sidebar navigation */
+.sidebar-nav {
+    padding: var(--space-sm) 0;
+}
+
+.sidebar-nav__label {
+    padding: var(--space-md) var(--space-lg) var(--space-sm);
+    font-size: var(--text-micro);
+    font-weight: var(--fw-bold);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.sidebar-nav__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav__item a,
+.sidebar-nav__item > span {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px var(--space-lg);
+    font-size: 15px;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: background var(--transition-fast), color var(--transition-fast);
+    cursor: pointer;
+}
+
+.sidebar-nav__item a:hover,
+.sidebar-nav__item > span:hover {
+    background: var(--bg-cream);
+}
+
+.sidebar-nav__item .material-symbols-outlined {
+    font-size: 22px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.sidebar-nav__item--active a {
+    background: var(--color-gold-subtle);
+    color: var(--color-gold-dark);
+    font-weight: var(--fw-semibold);
+}
+
+.sidebar-nav__item--active .material-symbols-outlined {
+    color: var(--color-gold-dark);
+}
+
+.sidebar-nav__value {
+    margin-left: auto;
+    font-size: var(--text-body-sm);
+    font-weight: var(--fw-medium);
+    color: var(--text-secondary);
+}
+
+.sidebar-nav__divider {
+    height: 1px;
+    background: var(--border);
+    margin: var(--space-sm) 0;
+}
+
+.sidebar-nav__item--logout a {
+    color: var(--color-error);
+}
+
+.sidebar-nav__item--logout .material-symbols-outlined {
+    color: var(--color-error);
+}
+
+/* === RESPONSIVE: Sidebar mobile === */
+@media (max-width: 1023px) {
+    .account-sidebar__card {
+        border-radius: var(--radius-lg);
+    }
+
+    .sidebar-profile {
+        flex-direction: row;
+        text-align: left;
+        gap: var(--space-md);
+        padding: var(--space-lg);
+    }
+
+    .sidebar-profile__avatar {
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+        margin-bottom: 0;
+    }
+
+    .sidebar-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-xs);
+        padding: var(--space-md);
+    }
+
+    .sidebar-nav__label {
+        width: 100%;
+        padding: var(--space-sm) 0 0;
+    }
+
+    .sidebar-nav__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-xs);
+        width: 100%;
+    }
+
+    .sidebar-nav__item a,
+    .sidebar-nav__item > span {
+        padding: 8px 14px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border);
+        font-size: var(--text-body-sm);
+        gap: 6px;
+    }
+
+    .sidebar-nav__item--active a {
+        border-color: var(--color-gold);
+    }
+
+    .sidebar-nav__divider {
+        display: none;
+    }
+}
